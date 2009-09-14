@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.Core.2005", "EvolutionNet.MVP.Core\EvolutionNet.MVP.Core.2005.csproj", "{196DCEDC-302B-4B3B-B9E0-9BFE3AA268AD}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.Business.2005", "EvolutionNet.MVP.Business\EvolutionNet.MVP.Business.2005.csproj", "{03600E0E-22DB-4F0B-95FF-6BD9083E3F28}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.Data.Access.2005", "EvolutionNet.MVP.Data.Access\EvolutionNet.MVP.Data.Access.2005.csproj", "{2BA8ECA5-40EF-46D3-8C34-CC6FC7C4CF98}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.Data.Definition.2005", "EvolutionNet.MVP.Data.Definition\EvolutionNet.MVP.Data.Definition.2005.csproj", "{AE0C73CA-A1B6-407B-BC26-EA5AA43BA8B7}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.Presenter.2005", "EvolutionNet.MVP.Presenter\EvolutionNet.MVP.Presenter.2005.csproj", "{66A228D7-A2A5-4B3F-9DED-88CA1CC5A088}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Windows.2005", "EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.2005.csproj", "{52879479-7FAF-4694-B6BF-1354A12FBA42}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.View.2005", "EvolutionNet.MVP.View\EvolutionNet.MVP.View.2005.csproj", "{E2005EC9-84E2-4EE7-94C1-57199FD6479B}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{196DCEDC-302B-4B3B-B9E0-9BFE3AA268AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196DCEDC-302B-4B3B-B9E0-9BFE3AA268AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196DCEDC-302B-4B3B-B9E0-9BFE3AA268AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196DCEDC-302B-4B3B-B9E0-9BFE3AA268AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03600E0E-22DB-4F0B-95FF-6BD9083E3F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03600E0E-22DB-4F0B-95FF-6BD9083E3F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03600E0E-22DB-4F0B-95FF-6BD9083E3F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03600E0E-22DB-4F0B-95FF-6BD9083E3F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BA8ECA5-40EF-46D3-8C34-CC6FC7C4CF98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BA8ECA5-40EF-46D3-8C34-CC6FC7C4CF98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BA8ECA5-40EF-46D3-8C34-CC6FC7C4CF98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BA8ECA5-40EF-46D3-8C34-CC6FC7C4CF98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE0C73CA-A1B6-407B-BC26-EA5AA43BA8B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE0C73CA-A1B6-407B-BC26-EA5AA43BA8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE0C73CA-A1B6-407B-BC26-EA5AA43BA8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE0C73CA-A1B6-407B-BC26-EA5AA43BA8B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A228D7-A2A5-4B3F-9DED-88CA1CC5A088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A228D7-A2A5-4B3F-9DED-88CA1CC5A088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A228D7-A2A5-4B3F-9DED-88CA1CC5A088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A228D7-A2A5-4B3F-9DED-88CA1CC5A088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52879479-7FAF-4694-B6BF-1354A12FBA42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52879479-7FAF-4694-B6BF-1354A12FBA42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52879479-7FAF-4694-B6BF-1354A12FBA42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52879479-7FAF-4694-B6BF-1354A12FBA42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2005EC9-84E2-4EE7-94C1-57199FD6479B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2005EC9-84E2-4EE7-94C1-57199FD6479B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2005EC9-84E2-4EE7-94C1-57199FD6479B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2005EC9-84E2-4EE7-94C1-57199FD6479B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
