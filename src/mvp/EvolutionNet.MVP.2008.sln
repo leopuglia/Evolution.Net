@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Windows
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.View.2008", "EvolutionNet.MVP.View\EvolutionNet.MVP.View.2008.csproj", "{DC2677C8-D967-4BFB-8082-805F19C9DA4E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B3E6E996-7228-4EDA-B31C-36F289894CEB}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\EvolutionNet.build = ..\..\EvolutionNet.build
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
