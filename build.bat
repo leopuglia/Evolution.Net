@@ -64,7 +64,6 @@ if "%1%"=="3.5" (
 )
 
 :start
-
 if "%env%"=="both" (
 ECHO ---------------
 ECHO BOTH BUILD
