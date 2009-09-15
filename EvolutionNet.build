@@ -34,11 +34,40 @@
 
 
 
+  <!-- ****** Target: CLEAN-LOCAL ****** -->
+  <target name="clean-local" description="remove all build products">
+    <delete>
+      <fileset basedir="${deploy}\${envdir}\${target}\EvolutionNet">
+        <include name="EvolutionNet*.dll" />
+        <include name="EvolutionNet*.pdb" if="${debug}" />
+      </fileset>
+    </delete>
+  </target>
+
+
+
   <!-- ****** Target: INIT ****** -->
   <target name="init">
     <mkdir dir="build\${envdir}\${target}" />
     <mkdir dir="bin\${envdir}\${target}" />
     <mkdir dir="bin\${envdir}\zip" unless="${debug}" />
+  </target>
+
+
+
+  <!-- ****** Target: DEPLOY-LOCAL ****** -->
+  <target name="deploy-local" depends="all">
+
+    <mkdir dir="${deploy}" />
+    
+    <!-- ****** *.* TO C:\Sistemas\Vip ****** -->
+    <copy todir="${deploy}\${envdir}\${target}\EvolutionNet" flatten="true">
+      <fileset basedir="bin\${envdir}\${target}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+
   </target>
 
 

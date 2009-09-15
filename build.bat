@@ -74,7 +74,7 @@ if "%env%"=="release" goto release
 ECHO ---------------
 echo DEBUG BUILD
 ECHO ---------------
-tools\nant\nant.exe -t:net-%target% -l:log.txt -D:debug=true -D:target=%target% -buildfile:evolutionnet.build %params%
+tools\nant\nant.exe -t:net-%target% -l:log.txt -D:debug=true -D:target=%target% -D:deploy=%deploy% -buildfile:evolutionnet.build %params%
 
 if "%env%"=="debug" goto end
 
@@ -82,7 +82,7 @@ if "%env%"=="debug" goto end
 ECHO ---------------
 ECHO RELEASE BUILD
 ECHO ---------------
-tools\nant\nant.exe -t:net-%target% -l:log.txt -D:target=%target% -buildfile:evolutionnet.build %params%
+tools\nant\nant.exe -t:net-%target% -l:log.txt -D:target=%target% -D:deploy=%deploy% -buildfile:evolutionnet.build %params%
 
 if "%full%"=="2.0" goto 3.5
 
