@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--****************************
+    * Build File: EvolutionNet
+    **************************** -->
+<project name="EvolutionNet" default="all">
+
+  <!-- Variáveis locais -->
+  <property name="debug" value="false" overwrite="false" />
+  <property name="envdir" value="release" />
+  <property name="envdir" value="debug" if ="${debug}"/>
+
+
+
+  <!-- ****** Target: DELETE ****** -->
+  <target name="delete" description="remove all build products">
+    <delete dir="build" if="${directory::exists('build')}" />
+  </target>
+  
+  
+  
+  <!-- ****** Target: CLEAN ****** -->
+  <target name="clean" description="remove all build products">
+    <delete if="${directory::exists('build')}">
+      <fileset basedir="build">
+        <include name="**/*.*" />
+      </fileset>
+    </delete>
+    <delete if="${directory::exists('bin\2.0\'+envdir+'\x86')}">
+      <fileset basedir="bin">
+        <include name="**/*.*" />
+      </fileset>
+    </delete>
+  </target>
+
+
+
+  <!-- ****** Target: INIT ****** -->
+  <target name="init">
+    <mkdir dir="build\2.0\${envdir}" />
+    <mkdir dir="bin\2.0\${envdir}\x86" />
+    <mkdir dir="bin\2.0\${envdir}\x86\zip" />
+  </target>
+
+
+
+  <!-- ****** Target: REBUILD ****** -->
+  <target name="rebuild" depends="clean, all"/>
+
+  
+  
+  <!-- ****** Target: BUILD ****** -->
+  <target name="build"
+          depends="init"
+          description="Compiles the libraries">
+
+    <!-- ****** EvolutionNet.MVP.Core ****** -->
+    <csc target="library" output="build\2.0\${envdir}\EvolutionNet.MVP.Core.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Core\EvolutionNet.MVP.Core.snk">
+      <sources>
+        <include name="src\mvp\EvolutionNet.MVP.Core\**\*.cs" />
+      </sources>
+      <references>
+        <include name="lib\2.0\${envdir}\castle\Castle.Core.dll" />
+        <include name="lib\2.0\${envdir}\castle\Castle.MicroKernel.dll" />
+        <include name="lib\2.0\${envdir}\castle\Castle.Windsor.dll" />
+        <include name="lib\2.0\${envdir}\log4net\log4net.dll" />
+      </references>
+    </csc>
+
+    <!-- ****** EvolutionNet.MVP.Data.Definition ****** -->
+    <csc target="library" output="build\2.0\${envdir}\EvolutionNet.MVP.Data.Definition.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Definition\EvolutionNet.MVP.Data.Definition.snk">
+      <sources>
+        <include name="src\mvp\EvolutionNet.MVP.Data.Definition\**\*.cs" />
+        <exclude name="src\mvp\EvolutionNet.MVP.Data.Definition\**\AssemblyInfo.cs" />
+        <include name="src\mvp\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Core.dll" />
+      </references>
+    </csc>
+
+    <!-- ****** EvolutionNet.MVP.Data.Access ****** -->
+    <csc target="library" output="build\2.0\${envdir}\EvolutionNet.MVP.Data.Access.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Access\EvolutionNet.MVP.Data.Access.snk">
+      <sources>
+        <include name="src\mvp\EvolutionNet.MVP.Data.Access\**\*.cs" />
+        <exclude name="src\mvp\EvolutionNet.MVP.Data.Access\**\AssemblyInfo.cs" />
+        <include name="src\mvp\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="lib\2.0\${envdir}\castle\Castle.ActiveRecord.dll" />
+        <include name="lib\2.0\${envdir}\log4net\log4net.dll" />
+
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Data.Definition.dll" />
+      </references>
+    </csc>
+
+    <!-- ****** EvolutionNet.MVP.Business ****** -->
+    <csc target="library" output="build\2.0\${envdir}\EvolutionNet.MVP.Business.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Business\EvolutionNet.MVP.Business.snk">
+      <sources>
+        <include name="src\mvp\EvolutionNet.MVP.Business\**\*.cs" />
+        <exclude name="src\mvp\EvolutionNet.MVP.Business\**\AssemblyInfo.cs" />
+        <include name="src\mvp\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="lib\2.0\${envdir}\castle\Castle.ActiveRecord.dll" />
+        <include name="lib\2.0\${envdir}\log4net\log4net.dll" />
+        <include name="lib\2.0\${envdir}\nhibernate\NHibernate.dll" />
+
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Data.Definition.dll" />
+      </references>
+    </csc>
+
+    <!-- ****** EvolutionNet.MVP.View ****** -->
+    <csc target="library" output="build\2.0\${envdir}\EvolutionNet.MVP.View.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.View\EvolutionNet.MVP.View.snk">
+      <sources>
+        <include name="src\mvp\EvolutionNet.MVP.View\**\*.cs" />
+        <exclude name="src\mvp\EvolutionNet.MVP.View\**\AssemblyInfo.cs" />
+        <include name="src\mvp\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="lib\2.0\${envdir}\log4net\log4net.dll" />
+
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Core.dll" />
+      </references>
+    </csc>
+
+    <!-- ****** EvolutionNet.MVP.Presenter ****** -->
+    <csc target="library" output="build\2.0\${envdir}\EvolutionNet.MVP.Presenter.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Presenter\EvolutionNet.MVP.Presenter.snk">
+      <sources>
+        <include name="src\mvp\EvolutionNet.MVP.Presenter\**\*.cs" />
+        <exclude name="src\mvp\EvolutionNet.MVP.Presenter\**\AssemblyInfo.cs" />
+        <include name="src\mvp\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="lib\2.0\${envdir}\log4net\log4net.dll" />
+
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.View.dll" />
+      </references>
+    </csc>
+
+    <!-- ****** EvolutionNet.MVP.UI.Windows ****** -->
+    <csc target="library" output="build\2.0\${envdir}\EvolutionNet.MVP.UI.Windows.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.snk">
+      <sources>
+        <include name="src\mvp\EvolutionNet.MVP.UI.Windows\**\*.cs" />
+        <exclude name="src\mvp\EvolutionNet.MVP.UI.Windows\**\AssemblyInfo.cs" />
+        <include name="src\mvp\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="src\mvp">
+        <include name="EvolutionNet.MVP.UI.Windows\**\*.resx" />
+      </resources>
+      <references>
+        <include name="lib\2.0\${envdir}\log4net\log4net.dll" />
+
+        <include name="build\2.0\${envdir}\EvolutionNet.MVP.Core.dll" />
+      </references>
+    </csc>
+
+  </target>
+
+
+
+  <!-- ****** Target: ALL ****** -->
+  <target name="all" depends="build">
+
+    <!-- ****** COPY LIB DLL's TO BIN ****** -->
+    <copy file="lib\2.0\${envdir}\castle\Castle.ActiveRecord.dll" todir="build\2.0\${envdir}" />
+    <copy file="lib\2.0\${envdir}\castle\Castle.Core.dll" todir="build\2.0\${envdir}" />
+    <copy file="lib\2.0\${envdir}\castle\Castle.MicroKernel.dll" todir="build\2.0\${envdir}" />
+    <copy file="lib\2.0\${envdir}\castle\Castle.Windsor.dll" todir="build\2.0\${envdir}" />
+    <copy file="lib\2.0\${envdir}\log4net\log4net.dll" todir="build\2.0\${envdir}" />
+
+    <!-- ****** COPY DLL's TO BIN ****** -->
+    <copy todir="bin\2.0\${envdir}\x86" flatten="true">
+      <fileset basedir="build\2.0\${envdir}">
+        <include name="EvolutionNet.MVP.*.dll" />
+        <include name="EvolutionNet.MVP.*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+
+  </target>
+
+
+
+  <!-- ****** Target: ZIP ****** -->
+  <target name="zip" depends="all" unless="${debug}">
+    <delete if="${directory::exists('bin\2.0\'+envdir+'\x86\zip')}">
+      <fileset basedir="bin\2.0\${envdir}\x86\zip">
+        <include name="*.zip" />
+      </fileset>
+    </delete>
+    <zip zipfile="bin\2.0\${envdir}\x86\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\2.0\'+envdir+'\x86\EvolutionNet.MVP.Core.dll'))}-bin.zip">
+      <fileset basedir="bin\2.0\${envdir}\x86" prefix="">
+        <include name="*.dll" />
+        <exclude name="*.pdb"/>
+      </fileset>
+    </zip>
+    <zip zipfile="bin\2.0\${envdir}\x86\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\2.0\'+envdir+'\x86\EvolutionNet.MVP.Core.dll'))}-src.zip">
+      <fileset basedir="." prefix="">
+        <include name="*.*" />
+        <exclude name="*.txt" />
+      </fileset>
+      <fileset basedir="src" prefix="src">
+        <!--
+        <include name="**/*.sln" />
+        <include name="**/*.csproj" />
+        <include name="**/*.sln" />
+        -->
+        <include name="**/*" />
+
+        <include name="log.txt" />
+        <exclude name="**/bin/**/*" />
+        <exclude name="**/obj/**/*" />
+        <exclude name="**/*.suo" />
+        <!--
+        <exclude name="**/_ReSharper.EvolutionNet.MVP.2005/**/*" />
+        -->
+        <exclude name="**/*resharper*/**/*" />
+        <exclude name="**/*resharper*" />
+      </fileset>
+    </zip>
+  </target>
+
+
+
+</project>
