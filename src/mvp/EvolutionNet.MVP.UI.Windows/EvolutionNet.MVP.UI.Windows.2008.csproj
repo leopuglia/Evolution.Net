@@ -39,6 +39,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -49,7 +52,70 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseFrm.Designer.cs">
+      <DependentUpon>BaseFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseUC.Designer.cs">
+      <DependentUpon>BaseUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ProgressDlgFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ProgressDlgFrm.Designer.cs">
+      <DependentUpon>ProgressDlgFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\WorkerCanceledException.cs" />
+    <Compile Include="ModalDialogFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModalDialogFrm.Designer.cs">
+      <DependentUpon>ModalDialogFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModalDialogUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModalDialogUC.Designer.cs">
+      <DependentUpon>ModalDialogUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleInstance\Global Delegates.cs" />
+    <Compile Include="SingleInstance\ISingleInstanceEnforcer.cs" />
+    <Compile Include="SingleInstance\MessageEventArgs.cs" />
+    <Compile Include="SingleInstance\SingleInstanceException.cs" />
+    <Compile Include="SingleInstance\SingleInstanceProxy.cs" />
+    <Compile Include="SingleInstance\SingleInstanceTracker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EvolutionNet.MVP.Core\EvolutionNet.MVP.Core.2008.csproj">
+      <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
+      <Name>EvolutionNet.MVP.Core.2008</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BaseFrm.resx">
+      <DependentUpon>BaseFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseUC.resx">
+      <DependentUpon>BaseUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ProgressDlgFrm.resx">
+      <DependentUpon>ProgressDlgFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModalDialogFrm.resx">
+      <DependentUpon>ModalDialogFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModalDialogUC.resx">
+      <DependentUpon>ModalDialogUC.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EvolutionNet.MVP.UI.Windows.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

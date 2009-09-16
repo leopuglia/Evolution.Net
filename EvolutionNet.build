@@ -30,6 +30,11 @@
         <include name="**/*.*" />
       </fileset>
     </delete>
+    <delete if="${directory::exists('bin\zip')}">
+      <fileset basedir="bin\zip">
+        <include name="**/*.*" />
+      </fileset>
+    </delete>
   </target>
 
 
@@ -50,7 +55,7 @@
   <target name="init">
     <mkdir dir="build\${envdir}\${target}" />
     <mkdir dir="bin\${envdir}\${target}" />
-    <mkdir dir="bin\${envdir}\zip" unless="${debug}" />
+    <mkdir dir="bin\zip" unless="${debug}" />
   </target>
 
 
@@ -83,7 +88,7 @@
           description="Compiles the libraries">
 
     <!-- ****** EvolutionNet.MVP.Core ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Core\EvolutionNet.MVP.Core.snk">
+    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Core\EvolutionNet.MVP.Core.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Core\**\*.cs" />
       </sources>
@@ -96,7 +101,7 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Data.Definition ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Definition\EvolutionNet.MVP.Data.Definition.snk">
+    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Definition\EvolutionNet.MVP.Data.Definition.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Data.Definition\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Data.Definition\**\AssemblyInfo.cs" />
@@ -108,7 +113,7 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Data.Access ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Data.Access.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Access\EvolutionNet.MVP.Data.Access.snk">
+    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Data.Access.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Access\EvolutionNet.MVP.Data.Access.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Data.Access\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Data.Access\**\AssemblyInfo.cs" />
@@ -124,7 +129,7 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Business ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Business.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Business\EvolutionNet.MVP.Business.snk">
+    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Business.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Business\EvolutionNet.MVP.Business.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Business\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Business\**\AssemblyInfo.cs" />
@@ -141,7 +146,7 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.View ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.View.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.View\EvolutionNet.MVP.View.snk">
+    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.View.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.View\EvolutionNet.MVP.View.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.View\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.View\**\AssemblyInfo.cs" />
@@ -155,7 +160,7 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Presenter ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Presenter.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Presenter\EvolutionNet.MVP.Presenter.snk">
+    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Presenter.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Presenter\EvolutionNet.MVP.Presenter.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Presenter\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Presenter\**\AssemblyInfo.cs" />
@@ -214,18 +219,18 @@
 
   <!-- ****** Target: ZIP ****** -->
   <target name="zip" depends="all" unless="${debug or target=='2.0'}">
-    <delete if="${directory::exists('bin\'+envdir+'\zip')}">
-      <fileset basedir="bin\${envdir}\zip">
+    <delete if="${directory::exists('bin\zip')}">
+      <fileset basedir="bin\zip">
         <include name="*.zip" />
       </fileset>
     </delete>
-    <zip zipfile="bin\${envdir}\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-bin.zip">
-      <fileset basedir="bin\${envdir}" prefix="">
+    <zip zipfile="bin\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-bin.zip">
+      <fileset basedir="bin" prefix="">
         <include name="**/*.dll" />
         <exclude name="**/*.pdb"/>
       </fileset>
     </zip>
-    <zip zipfile="bin\${envdir}\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-src.zip">
+    <zip zipfile="bin\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-src.zip">
       <fileset basedir="." prefix="">
         <include name="*.*" />
         <exclude name="*.txt" />
@@ -238,7 +243,7 @@
         -->
         <include name="**/*" />
 
-        <include name="log.txt" />
+        <exclude name="log.txt" />
         <exclude name="**/bin/**/*" />
         <exclude name="**/obj/**/*" />
         <exclude name="**/*.suo" />

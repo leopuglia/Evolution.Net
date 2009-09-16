@@ -58,6 +58,7 @@ if "%2%"=="debug" (
 
 if "%1%"=="full" goto full
 if "%1%"=="3.5" (
+  set params=%2 %3 %4 %5 %6 
   goto 3.5 
 ) else (
   goto 2.0

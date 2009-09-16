@@ -4,7 +4,11 @@ using EvolutionNet.MVP.Core.Contract;
 using EvolutionNet.MVP.Core.Data.Definition;
 using EvolutionNet.MVP.Core.TO;
 using EvolutionNet.MVP.Core.Util;
+#if FRAMEWORK_2
 using NHibernate.Expression;
+#else
+using NHibernate.Criterion;
+#endif
 
 namespace EvolutionNet.MVP.Business
 {
@@ -14,7 +18,11 @@ namespace EvolutionNet.MVP.Business
 	{
 		protected override void DoFindAll()
 		{
+#if FRAMEWORK_2
 			ICriterion criterion = new EqExpression("Visivel", true);
+#else
+			ICriterion criterion = Restrictions.Eq("Visivel", true);
+#endif
 			Order order = new Order("Nome", true);
 
 			Type type = Dao.GetType();
