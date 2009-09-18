@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EvolutionNet.Calendar.Holiday
+namespace EvolutionNet.Calendar
 {
 	public struct Period
 	{

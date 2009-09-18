@@ -60,7 +60,7 @@
     <Compile Include="Holiday\Country\Language\PtBr.cs" />
     <Compile Include="Holiday\NationalHoliday.cs" />
     <Compile Include="Holiday\OptionalWorkDay.cs" />
-    <Compile Include="Holiday\Period.cs" />
+    <Compile Include="Period.cs" />
     <Compile Include="Month.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Holiday\Common.cs" />
