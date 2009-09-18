@@ -82,7 +82,7 @@
     
     <!-- ****** *.* TO C:\Sistemas\Vip ****** -->
     <copy todir="${deploy}\${envdir}\${target}\EvolutionNet" flatten="true">
-      <fileset basedir="bin\${envdir}\${target}">
+      <fileset basedir="bin">
         <include name="**/*.dll" />
         <include name="**/*.pdb" if="${debug}" />
       </fileset>
