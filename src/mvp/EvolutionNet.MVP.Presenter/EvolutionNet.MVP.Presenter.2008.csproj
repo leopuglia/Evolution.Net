@@ -16,6 +16,9 @@
     <SccLocalPath>Svn</SccLocalPath>
     <SccAuxPath>Svn</SccAuxPath>
     <SccProvider>SubversionScc</SccProvider>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,9 +66,6 @@
       <Project>{DC2677C8-D967-4BFB-8082-805F19C9DA4E}</Project>
       <Name>EvolutionNet.MVP.View.2008</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="EvolutionNet.MVP.Presenter.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
