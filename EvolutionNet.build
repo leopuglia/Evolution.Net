@@ -2,12 +2,15 @@
 <!--****************************
     * Build File: EvolutionNet
     **************************** -->
-<project name="EvolutionNet" default="all">
-
+<project name="EvolutionNet" default="build">
   <!-- Variáveis locais -->
   <property name="debug" value="false" overwrite="false" />
   <property name="envdir" value="release" />
   <property name="envdir" value="debug" if ="${debug}"/>
+  <!--
+  <property name="target" value="${target}"/>
+  <property name="deploy" value="${deploy}"/>
+  -->
 
 
 
@@ -20,13 +23,23 @@
   
   <!-- ****** Target: CLEAN ****** -->
   <target name="clean" description="remove all build products and binaries">
-    <delete if="${directory::exists('build\'+envdir+'\'+target)}">
-      <fileset basedir="build\${envdir}\${target}">
+    <delete if="${directory::exists('build\mvp\'+envdir+'\'+target)}">
+      <fileset basedir="build\mvp\${envdir}\${target}">
         <include name="**/*.*" />
       </fileset>
     </delete>
-    <delete if="${directory::exists('bin\'+envdir+'\'+target)}">
-      <fileset basedir="bin\${envdir}\${target}">
+    <delete if="${directory::exists('build\calendar\'+envdir+'\'+target)}">
+      <fileset basedir="build\calendar\${envdir}\${target}">
+        <include name="**/*.*" />
+      </fileset>
+    </delete>
+    <delete if="${directory::exists('bin\mvp\'+envdir+'\'+target)}">
+      <fileset basedir="bin\mvp\${envdir}\${target}">
+        <include name="**/*.*" />
+      </fileset>
+    </delete>
+    <delete if="${directory::exists('bin\calendar\'+envdir+'\'+target)}">
+      <fileset basedir="bin\calendar\${envdir}\${target}">
         <include name="**/*.*" />
       </fileset>
     </delete>
@@ -53,23 +66,25 @@
 
   <!-- ****** Target: INIT ****** -->
   <target name="init">
-    <mkdir dir="build\${envdir}\${target}" />
-    <mkdir dir="bin\${envdir}\${target}" />
+    <mkdir dir="build\mvp\${envdir}\${target}" />
+    <mkdir dir="build\calendar\${envdir}\${target}" />
+    <mkdir dir="bin\mvp\${envdir}\${target}" />
+    <mkdir dir="bin\calendar\${envdir}\${target}" />
     <mkdir dir="bin\zip" unless="${debug}" />
   </target>
 
 
 
   <!-- ****** Target: DEPLOY-LOCAL ****** -->
-  <target name="deploy-local" depends="all">
+  <target name="deploy-local" depends="bin">
 
-    <mkdir dir="${deploy}" />
+    <mkdir dir="${deploy}\${envdir}\${target}\EvolutionNet" />
     
     <!-- ****** *.* TO C:\Sistemas\Vip ****** -->
     <copy todir="${deploy}\${envdir}\${target}\EvolutionNet" flatten="true">
       <fileset basedir="bin\${envdir}\${target}">
-        <include name="*.dll" />
-        <include name="*.pdb" if="${debug}" />
+        <include name="**/*.dll" />
+        <include name="**/*.pdb" if="${debug}" />
       </fileset>
     </copy>
 
@@ -78,7 +93,7 @@
 
 
   <!-- ****** Target: REBUILD ****** -->
-  <target name="rebuild" depends="clean, all"/>
+  <target name="rebuild" depends="clean, build"/>
 
   
   
@@ -88,7 +103,7 @@
           description="Compiles the libraries">
 
     <!-- ****** EvolutionNet.MVP.Core ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Core\EvolutionNet.MVP.Core.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <csc target="library" output="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Core.dll" debug="${debug}" keyfile="src\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Core\**\*.cs" />
       </sources>
@@ -101,19 +116,19 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Data.Definition ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Definition\EvolutionNet.MVP.Data.Definition.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <csc target="library" output="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" debug="${debug}" keyfile="src\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Data.Definition\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Data.Definition\**\AssemblyInfo.cs" />
         <include name="src\mvp\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
       </sources>
       <references>
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
       </references>
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Data.Access ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Data.Access.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Data.Access\EvolutionNet.MVP.Data.Access.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <csc target="library" output="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Data.Access.dll" debug="${debug}" keyfile="src\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Data.Access\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Data.Access\**\AssemblyInfo.cs" />
@@ -123,13 +138,13 @@
         <include name="lib\${envdir}\${target}\castle\Castle.ActiveRecord.dll" />
         <include name="lib\${envdir}\${target}\log4net\log4net.dll" />
 
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" />
       </references>
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Business ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Business.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Business\EvolutionNet.MVP.Business.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <csc target="library" output="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Business.dll" debug="${debug}" keyfile="src\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Business\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Business\**\AssemblyInfo.cs" />
@@ -140,13 +155,13 @@
         <include name="lib\${envdir}\${target}\log4net\log4net.dll" />
         <include name="lib\${envdir}\${target}\nhibernate\NHibernate.dll" />
 
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Data.Definition.dll" />
       </references>
     </csc>
 
     <!-- ****** EvolutionNet.MVP.View ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.View.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.View\EvolutionNet.MVP.View.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <csc target="library" output="build\mvp\${envdir}\${target}\EvolutionNet.MVP.View.dll" debug="${debug}" keyfile="src\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.View\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.View\**\AssemblyInfo.cs" />
@@ -155,12 +170,12 @@
       <references>
         <include name="lib\${envdir}\${target}\log4net\log4net.dll" />
 
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
       </references>
     </csc>
 
     <!-- ****** EvolutionNet.MVP.Presenter ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.Presenter.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.Presenter\EvolutionNet.MVP.Presenter.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <csc target="library" output="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Presenter.dll" debug="${debug}" keyfile="src\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.Presenter\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.Presenter\**\AssemblyInfo.cs" />
@@ -169,13 +184,13 @@
       <references>
         <include name="lib\${envdir}\${target}\log4net\log4net.dll" />
 
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.View.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.View.dll" />
       </references>
     </csc>
 
     <!-- ****** EvolutionNet.MVP.UI.Windows ****** -->
-    <csc target="library" output="build\${envdir}\${target}\EvolutionNet.MVP.UI.Windows.dll" debug="${debug}" keyfile="src\mvp\EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.snk">
+    <csc target="library" output="build\mvp\${envdir}\${target}\EvolutionNet.MVP.UI.Windows.dll" debug="${debug}" keyfile="src\EvolutionNet.snk">
       <sources>
         <include name="src\mvp\EvolutionNet.MVP.UI.Windows\**\*.cs" />
         <exclude name="src\mvp\EvolutionNet.MVP.UI.Windows\**\AssemblyInfo.cs" />
@@ -187,29 +202,46 @@
       <references>
         <include name="lib\${envdir}\${target}\log4net\log4net.dll" />
 
-        <include name="build\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
+        <include name="build\mvp\${envdir}\${target}\EvolutionNet.MVP.Core.dll" />
       </references>
     </csc>
+
+    <!-- ****** EvolutionNet.Calendar ****** -->
+    <csc target="library" output="build\calendar\${envdir}\${target}\EvolutionNet.Calendar.dll" debug="${debug}" keyfile="src\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+      <sources>
+        <include name="src\calendar\EvolutionNet.Calendar\**\*.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+
+    <!-- ****** COPY LIB DLL's TO BUILD ****** -->
+    <copy file="lib\${envdir}\${target}\castle\Castle.ActiveRecord.dll" todir="build\mvp\${envdir}\${target}" />
+    <copy file="lib\${envdir}\${target}\castle\Castle.Core.dll" todir="build\mvp\${envdir}\${target}" />
+    <copy file="lib\${envdir}\${target}\castle\Castle.MicroKernel.dll" todir="build\mvp\${envdir}\${target}" />
+    <copy file="lib\${envdir}\${target}\castle\Castle.Windsor.dll" todir="build\mvp\${envdir}\${target}" />
+    <copy file="lib\${envdir}\${target}\log4net\log4net.dll" todir="build\mvp\${envdir}\${target}" />
 
   </target>
 
 
 
-  <!-- ****** Target: ALL ****** -->
-  <target name="all" depends="build">
-
-    <!-- ****** COPY LIB DLL's TO BIN ****** -->
-    <copy file="lib\${envdir}\${target}\castle\Castle.ActiveRecord.dll" todir="build\${envdir}\${target}" />
-    <copy file="lib\${envdir}\${target}\castle\Castle.Core.dll" todir="build\${envdir}\${target}" />
-    <copy file="lib\${envdir}\${target}\castle\Castle.MicroKernel.dll" todir="build\${envdir}\${target}" />
-    <copy file="lib\${envdir}\${target}\castle\Castle.Windsor.dll" todir="build\${envdir}\${target}" />
-    <copy file="lib\${envdir}\${target}\log4net\log4net.dll" todir="build\${envdir}\${target}" />
+  <!-- ****** Target: BIN ****** -->
+  <target name="bin" depends="build">
 
     <!-- ****** COPY DLL's TO BIN ****** -->
-    <copy todir="bin\${envdir}\${target}" flatten="true">
-      <fileset basedir="build\${envdir}\${target}">
+    <copy todir="bin\mvp\${envdir}\${target}" flatten="true">
+      <fileset basedir="build\mvp\${envdir}\${target}">
         <include name="EvolutionNet.MVP.*.dll" />
         <include name="EvolutionNet.MVP.*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+
+    <!-- ****** COPY DLL's TO BIN ****** -->
+    <copy todir="bin\calendar\${envdir}\${target}" flatten="true">
+      <fileset basedir="build\calendar\${envdir}\${target}">
+        <include name="EvolutionNet.*.dll" />
+        <include name="EvolutionNet.*.pdb" if="${debug}" />
       </fileset>
     </copy>
 
@@ -218,38 +250,52 @@
 
 
   <!-- ****** Target: ZIP ****** -->
-  <target name="zip" depends="all" unless="${debug or target=='2.0'}">
+  <target name="zip" depends="bin" unless="${debug or target=='2.0'}">
     <delete if="${directory::exists('bin\zip')}">
       <fileset basedir="bin\zip">
         <include name="*.zip" />
       </fileset>
     </delete>
-    <zip zipfile="bin\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-bin.zip">
+    <zip zipfile="bin\zip\evolution-net-mvp-${assemblyname::get-version(assemblyname::get-assembly-name('bin\mvp\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-bin.zip">
       <fileset basedir="bin" prefix="">
         <include name="**/*.dll" />
         <exclude name="**/*.pdb"/>
       </fileset>
     </zip>
-    <zip zipfile="bin\zip\evolution-net-${assemblyname::get-version(assemblyname::get-assembly-name('bin\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-src.zip">
+    <zip zipfile="bin\zip\evolution-net-calendar-${assemblyname::get-version(assemblyname::get-assembly-name('bin\calendar\'+envdir+'\'+target+'\EvolutionNet.Calendar.dll'))}-bin.zip">
+      <fileset basedir="bin\calendar" prefix="">
+        <include name="**/*.dll" />
+        <exclude name="**/*.pdb"/>
+      </fileset>
+    </zip>
+    <zip zipfile="bin\zip\evolution-net-mvp-${assemblyname::get-version(assemblyname::get-assembly-name('bin\mvp\'+envdir+'\'+target+'\EvolutionNet.MVP.Core.dll'))}-src.zip">
       <fileset basedir="." prefix="">
         <include name="*.*" />
         <exclude name="*.txt" />
       </fileset>
-      <fileset basedir="src" prefix="src">
-        <!--
-        <include name="**/*.sln" />
-        <include name="**/*.csproj" />
-        <include name="**/*.sln" />
-        -->
+      <fileset basedir="src\mvp" prefix="src\mvp">
         <include name="**/*" />
 
         <exclude name="log.txt" />
         <exclude name="**/bin/**/*" />
         <exclude name="**/obj/**/*" />
         <exclude name="**/*.suo" />
-        <!--
-        <exclude name="**/_ReSharper.EvolutionNet.MVP.2005/**/*" />
-        -->
+        <exclude name="**/*resharper*/**/*" />
+        <exclude name="**/*resharper*" />
+      </fileset>
+    </zip>
+    <zip zipfile="bin\zip\evolution-net-calendar-${assemblyname::get-version(assemblyname::get-assembly-name('bin\calendar\'+envdir+'\'+target+'\EvolutionNet.Calendar.dll'))}-src.zip">
+      <fileset basedir="." prefix="">
+        <include name="*.*" />
+        <exclude name="*.txt" />
+      </fileset>
+      <fileset basedir="src\calendar" prefix="src\calendar">
+        <include name="**/*" />
+
+        <exclude name="log.txt" />
+        <exclude name="**/bin/**/*" />
+        <exclude name="**/obj/**/*" />
+        <exclude name="**/*.suo" />
         <exclude name="**/*resharper*/**/*" />
         <exclude name="**/*resharper*" />
       </fileset>
