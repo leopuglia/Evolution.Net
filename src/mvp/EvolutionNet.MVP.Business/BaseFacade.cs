@@ -31,9 +31,9 @@ namespace EvolutionNet.MVP.Business
 
 		#region Variáveis Protegidas
 
-		protected double progress = 0;
-		protected bool isInitialized = false;
-		protected bool isDisposed = false;
+		protected double progress;
+		protected bool isInitialized;
+		protected bool isDisposed;
 
 		#endregion
 
@@ -75,7 +75,7 @@ namespace EvolutionNet.MVP.Business
 
 		#region Constructor
 
-		public BaseFacade()
+		protected BaseFacade()
 		{
 			DoInitialize();
 		}

@@ -23,27 +23,9 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region Variáveis Protegidas
 
-		protected double progress = 0;
-		protected bool isInitialized = false;
-		protected bool isDisposed = false;
-
-		#endregion
-
-		#region Propriedades Protegidas
-
-		protected IFacade<TO, T, IdT> Facade
-		{
-			get { return facade; }
-		}
-
-		#endregion
-
-		#region Propriedades Públicas
-
-		public IView<TO, T, IdT> View
-		{
-			get { return view; }
-		}
+		protected double progress;
+		protected bool isInitialized;
+		protected bool isDisposed;
 
 		#endregion
 
@@ -53,10 +35,37 @@ namespace EvolutionNet.MVP.Presenter
 //		{
 ////			Initialize((IView<TO, T, IdT>) IoCHelper.InstantiateObj("{0}Presenter", GetType(), "{0}View", typeof (BaseView<TO, T, IdT>)));
 //		}
-		
-		public BasePresenter(IView<TO, T, IdT> view)
+
+		protected BasePresenter(IView<TO, T, IdT> view)
 		{
 			InitializeView(view);
+		}
+
+		#endregion
+
+		#region Propriedades Protegidas
+
+		protected IFacade<TO, T, IdT> Facade
+ 		{
+			get { return facade; }
+		}
+
+		#endregion
+
+		#region Métodos Protegidos
+
+		protected FacadeT GetFacade<FacadeT>() where FacadeT : IFacade<TO, T, IdT>
+		{
+			return (FacadeT)facade;
+		}
+
+		#endregion
+
+		#region IPresenter Members
+
+		public ViewT GetView<ViewT>() where ViewT : IView<TO, T, IdT>
+		{
+			return (ViewT)view;
 		}
 
 		#endregion
@@ -75,25 +84,25 @@ namespace EvolutionNet.MVP.Presenter
 
 		public virtual void Find()
 		{
-			Facade.Find();
+			facade.Find();
 		}
 
 		public virtual void Save()
 		{
-			Facade.Save();
+			facade.Save();
 		}
 
 		public virtual void Delete()
 		{
-			Facade.Delete();
+			facade.Delete();
 		}
 
-	    public void FindAll()
-	    {
-	        Facade.FindAll();
-	    }
+		public void FindAll()
+		{
+			facade.FindAll();
+		}
 
-	    #endregion
+		#endregion
 
 		#region Initialize
 
@@ -199,7 +208,7 @@ namespace EvolutionNet.MVP.Presenter
 
 			//TODO: VERIFICAR, EXCLUIR A REFERÊNCIA A BASEVIEW
 			//Associando o TO, que é criado por IoC no Facade
-			((BaseView<TO, T, IdT>)view).To = Facade.To;
+			((BaseView<TO, T, IdT>)view).To = facade.To;
 
 			//Associando a view
 			this.view = view;

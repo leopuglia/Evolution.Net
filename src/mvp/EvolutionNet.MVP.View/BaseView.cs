@@ -19,8 +19,8 @@ namespace EvolutionNet.MVP.View
 
 		#region Variáveis Protegidas
 
-		protected bool isInitialized = false;
-		protected bool isDisposed = false;
+		protected bool isInitialized;
+		protected bool isDisposed;
 
 		#endregion
 
@@ -44,15 +44,9 @@ namespace EvolutionNet.MVP.View
 		/// <summary>
 		/// Presenter, contém a referência ao presenter da funcionalidade atual.
 		/// </summary>
-		public IPresenter<TO, T, IdT> Presenter
+		public PresenterT GetPresenter<PresenterT>() where PresenterT : IPresenter<TO, T, IdT>
 		{
-			get
-			{
-//				if (presenter == null)
-//					presenter = PresenterAbstractFactory.Instance.GetPresenter<TO, T, IdT>(this);
-
-				return presenter;
-			}
+			return (PresenterT) presenter;
 		}
 
 		#endregion
@@ -62,7 +56,7 @@ namespace EvolutionNet.MVP.View
 		/// <summary>
 		/// Construtor da classe, chama a inicialização.
 		/// </summary>
-		public BaseView()
+		protected BaseView()
 		{
 			DoInitialize();
 		}

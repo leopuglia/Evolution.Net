@@ -27,7 +27,8 @@ namespace EvolutionNet.MVP.Core.View
 		/// <summary>
 		/// Presenter, contém a referência ao presenter da funcionalidade atual.
 		/// </summary>
-		IPresenter<TO, T, IdT> Presenter { get; }
+//		IPresenter<TO, T, IdT> Presenter { get; }
+		PresenterT GetPresenter<PresenterT>() where PresenterT : IPresenter<TO, T, IdT>;
 
 		/// <summary>
 		/// Realiza todas as inicializações necessárias.

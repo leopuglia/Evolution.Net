@@ -14,7 +14,7 @@ namespace EvolutionNet.MVP.Core.Presenter
 		where TO : ITo<T, IdT>
 		where T : IModel<IdT>
 	{
-		IView<TO, T, IdT> View { get; }
+		ViewT GetView<ViewT>() where ViewT : IView<TO, T, IdT>;
 
 //		void InitializeView(IView<TO, T, IdT> view);
 	}

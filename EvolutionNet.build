@@ -26,6 +26,9 @@
   <property name="bin_path_calendar" value="${bin_path}\calendar\${envdir}\${target}"/>
   <property name="bin_path_zip" value="${bin_path}\zip"/>
 
+  <property name="version_mvp" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.Core.dll'))}" if="${file::exists(bin_path_mvp+'\EvolutionNet.MVP.Core.dll')}" />
+  <property name="version_calendar" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_calendar+'\EvolutionNet.Calendar.dll'))}" if="${file::exists(bin_path_calendar+'\EvolutionNet.Calendar.dll')}" />
+
   <property name="deploy_path" value="${deploy}\${envdir}\${target}\EvolutionNet"/>
 
 
@@ -61,11 +64,11 @@
 
 
 
-  <!-- ****** Target: clean-local ****** -->
-  <target name="clean-local" description="remove all build products">
+  <!-- ****** Target: clean-deploy ****** -->
+  <target name="clean-deploy" description="remove all build products">
     
     <delete>
-      <fileset basedir="${deploy}\${envdir}\${target}\EvolutionNet">
+      <fileset basedir="${deploy_path}">
         <include name="EvolutionNet*.dll" />
         <include name="EvolutionNet*.pdb" if="${debug}" />
       </fileset>
@@ -198,7 +201,7 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.UI.Windows ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.UI.Windows.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk">
+    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.UI.Windows.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="${src_path_mvp}\EvolutionNet.MVP.UI.Windows\**\*.cs" />
         <exclude name="${src_path_mvp}\EvolutionNet.MVP.UI.Windows\**\AssemblyInfo.cs" />
@@ -215,7 +218,7 @@
     </csc>
 
     <!-- ****** EvolutionNet.MVP.UI.Web ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.UI.Web.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk">
+    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.UI.Web.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
         <include name="${src_path_mvp}\EvolutionNet.MVP.UI.Web\**\*.cs" />
         <exclude name="${src_path_mvp}\EvolutionNet.MVP.UI.Web\**\AssemblyInfo.cs" />
@@ -303,14 +306,14 @@
       </fileset>
     </delete>
 
-    <zip zipfile="${bin_path_zip}\evolution-net-mvp-${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.Core.dll'))}-bin.zip">
+    <zip zipfile="${bin_path_zip}\evolution-net-mvp-${version_mvp}-bin.zip">
       <fileset basedir="bin\mvp" prefix="">
         <include name="**/*.dll" />
         <exclude name="**/*.pdb"/>
       </fileset>
     </zip>
 
-    <zip zipfile="${bin_path_zip}\evolution-net-mvp-${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.Core.dll'))}-src.zip">
+    <zip zipfile="${bin_path_zip}\evolution-net-mvp-${version_mvp}-src.zip">
       <fileset basedir="." prefix="">
         <include name="*.*" />
         <exclude name="*.txt" />
@@ -341,14 +344,14 @@
       </fileset>
     </delete>
 
-    <zip zipfile="${bin_path_zip}\evolution-net-calendar-${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_calendar+'\EvolutionNet.Calendar.dll'))}-bin.zip">
+    <zip zipfile="${bin_path_zip}\evolution-net-calendar-${version_calendar}-bin.zip">
       <fileset basedir="bin\calendar" prefix="">
         <include name="**/*.dll" />
         <exclude name="**/*.pdb"/>
       </fileset>
     </zip>
 
-    <zip zipfile="${bin_path_zip}\evolution-net-calendar-${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_calendar+'\EvolutionNet.Calendar.dll'))}-src.zip">
+    <zip zipfile="${bin_path_zip}\evolution-net-calendar-${version_calendar}-src.zip">
       <fileset basedir="." prefix="">
         <include name="*.*" />
         <exclude name="*.txt" />
@@ -422,7 +425,7 @@
 
 
 
-  <!-- ****** Target: deploy-bin ****** -->
+  <!-- ****** Target: deploy-zip ****** -->
   <target name="deploy-zip" depends="zip">
 
     <mkdir dir="${deploy_path}" />
