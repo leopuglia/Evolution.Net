@@ -274,7 +274,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		protected static T GetNewDao<T, IdT>() where T : IModel<IdT>
 		{
-			return (T) DaoAbstractFactory.Instance.GetDao<IdT>(typeof(T));
+			return DaoAbstractFactory.Instance.GetDao<T, IdT>();
 		}
 
 		protected void RunWorker()

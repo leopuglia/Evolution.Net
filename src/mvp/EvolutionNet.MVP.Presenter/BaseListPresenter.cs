@@ -9,15 +9,14 @@ using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.Presenter
 {
-	public abstract class BasePresenter<TO, T, IdT> : IPresenter<TO, T, IdT>
-		where TO : ITo<T, IdT>
+	public class BaseListPresenter<TO, T, IdT> : IListPresenter<TO, T, IdT>
+		where TO : IListTo<T, IdT>
 		where T : IModel<IdT>
-
 	{
 		#region Variáveis Privadas
 
-		private IView<TO, T, IdT> view;
-		private IFacade<TO, T, IdT> facade;
+		private IListView<TO, T, IdT> view;
+		private IListFacade<TO, T, IdT> facade;
 
 		#endregion
 
@@ -31,7 +30,7 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region Construtores
 
-		protected BasePresenter(IView<TO, T, IdT> view)
+		protected BaseListPresenter(IListView<TO, T, IdT> view)
 		{
 			InitializeView(view);
 		}
@@ -40,7 +39,7 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region Propriedades Protegidas
 
-		protected IFacade<TO, T, IdT> Facade
+		protected IListFacade<TO, T, IdT> Facade
  		{
 			get { return facade; }
 		}
@@ -58,7 +57,7 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region IPresenter Members
 
-		public ViewT GetView<ViewT>() where ViewT : IView<TO, T, IdT>
+		public ViewT GetView<ViewT>() where ViewT : IListView<TO, T, IdT>
 		{
 			return (ViewT)view;
 		}
@@ -77,19 +76,9 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region Métodos de Dados
 
-		public virtual void Find()
+		public virtual void FindAll()
 		{
-			facade.Find();
-		}
-
-		public virtual void Save()
-		{
-			facade.Save();
-		}
-
-		public virtual void Delete()
-		{
-			facade.Delete();
+			facade.FindAll();
 		}
 
 		#endregion
@@ -105,7 +94,7 @@ namespace EvolutionNet.MVP.Presenter
 					FacadeAbstractFactory.Instance.Initialize();
 
 					//Criando o facade por IoC
-					facade = FacadeAbstractFactory.Instance.GetFacade(this);
+					facade = FacadeAbstractFactory.Instance.GetListFacade(this);
 //					facade.Initialize();
 
 					facade.ProgressReported += facade_ProgressReported;
@@ -187,13 +176,13 @@ namespace EvolutionNet.MVP.Presenter
 		#region Métodos Auxiliares
 
 		//TODO: Eu vivo mudando essa propriedade entre pública ou não. Decidir se devo inicializar o presenter direto no construtor ou nesse método
-		private void InitializeView(IView<TO, T, IdT> view)
+		private void InitializeView(IListView<TO, T, IdT> view)
 		{
 			Initialize();
 
 			//TODO: VERIFICAR, EXCLUIR A REFERÊNCIA A BASEVIEW
 			//Associando o TO, que é criado por IoC no Facade
-			((BaseView<TO, T, IdT>)view).To = facade.To;
+			((BaseListView<TO, T, IdT>)view).To = facade.To;
 
 			//Associando a view
 			this.view = view;

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseListTo.cs" />
     <Compile Include="BaseModel.cs" />
     <Compile Include="BaseTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

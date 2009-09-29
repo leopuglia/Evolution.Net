@@ -15,6 +15,5 @@ namespace EvolutionNet.MVP.Core.Data.Access
 	{
 		void Save();
 		void Delete();
-//	    IDao<IdT> [] FindAll();
 	}
 }

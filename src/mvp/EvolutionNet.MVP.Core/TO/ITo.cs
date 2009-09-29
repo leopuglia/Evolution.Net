@@ -3,7 +3,6 @@
  * Created: terça-feira, 18 de dezembro de 2007
  */
 
-using System.Collections.Generic;
 using EvolutionNet.MVP.Core.Data.Definition;
 
 namespace EvolutionNet.MVP.Core.TO
@@ -19,6 +18,5 @@ namespace EvolutionNet.MVP.Core.TO
 		/// Modelo principal da funcionalidade sendo desenvolvida.
 		/// </summary>
 		T MainModel { get; set; }
-        IList<T> List { get; set; }
 	}
 }

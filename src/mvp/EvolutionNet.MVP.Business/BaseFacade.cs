@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using Castle.ActiveRecord;
-using EvolutionNet.MVP.Core.Util;
 using log4net;
 using EvolutionNet.MVP.Core.Business;
 using EvolutionNet.MVP.Core.Contract;
@@ -106,14 +105,6 @@ namespace EvolutionNet.MVP.Business
 		}
 
 		/// <summary>
-		/// Lista todos os elementos do model
-		/// </summary>
-		public void FindAll()
-		{
-			DoFindAll();
-		}
-
-		/// <summary>
 		/// Salva o MainModel atual
 		/// </summary>
 		public void Save()
@@ -214,37 +205,9 @@ namespace EvolutionNet.MVP.Business
 		/// <summary>
 		/// Realiza toda a inicialização necessária.
 		/// </summary>
-		public virtual void Initialize()
+		public void Initialize()
 		{
-			if (!isInitialized)
-			{
-				try
-				{
-					DaoAbstractFactory.Instance.Initialize();
-				}
-				catch (Exception ex)
-				{
-                    if (log.IsErrorEnabled)
-                        log.Error("Não foi possível inicializar a DaoAbstractFactory.", ex);
-
-					throw new ApplicationException("Não foi possível inicializar a DaoAbstractFactory.", ex);
-				}
-
-				try
-				{
-					// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
-					to = (TO)Activator.CreateInstance(typeof(TO));
-				}
-				catch (Exception ex)
-				{
-                    if (log.IsErrorEnabled)
-                        log.Error("Não foi possível instanciar o TO no Facade.", ex);
-
-                    throw new ApplicationException("Não foi possível instanciar o TO no Facade.", ex);
-				}
-
-				isInitialized = true;
-			}
+			DoInitialize();
 		}
 
 		#endregion
@@ -301,9 +264,7 @@ namespace EvolutionNet.MVP.Business
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		/// <param name="progress">O progresso total realizado (porcentagem).</param>
-//#pragma warning disable ParameterHidesMember
 		protected virtual void ReportProgressSet(double progress)
-//#pragma warning restore ParameterHidesMember
 		{
 			double step = progress - this.progress;
 			this.progress = progress;
@@ -333,20 +294,6 @@ namespace EvolutionNet.MVP.Business
 								new object[] { Dao.ID });
 		}
 
-		protected virtual void DoFindAll()
-		{
-			Type type = Dao.GetType();
-
-			to.List = new SortableBindingList<T>(
-				(T[])type.InvokeMember(
-					"FindAll",
-					BindingFlags.InvokeMethod | BindingFlags.Public |
-					BindingFlags.Static | BindingFlags.FlattenHierarchy,
-					null,
-					null,
-					null));
-		}
-
 		/// <summary>
 		/// Realmente salva o MainModel. Pode ser sobrescrito.
 		/// </summary>
@@ -364,9 +311,37 @@ namespace EvolutionNet.MVP.Business
 
 		#region Métodos Auxiliares
 
-		private void DoInitialize()
+		protected virtual void DoInitialize()
 		{
-			Initialize();
+			if (!isInitialized)
+			{
+				try
+				{
+					DaoAbstractFactory.Instance.Initialize();
+				}
+				catch (Exception ex)
+				{
+					if (log.IsErrorEnabled)
+						log.Error("Não foi possível inicializar a DaoAbstractFactory.", ex);
+
+					throw new ApplicationException("Não foi possível inicializar a DaoAbstractFactory.", ex);
+				}
+
+				try
+				{
+					// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
+					to = (TO)Activator.CreateInstance(typeof(TO));
+				}
+				catch (Exception ex)
+				{
+					if (log.IsErrorEnabled)
+						log.Error("Não foi possível instanciar o TO no Facade.", ex);
+
+					throw new ApplicationException("Não foi possível instanciar o TO no Facade.", ex);
+				}
+
+				isInitialized = true;
+			}
 		}
 
 		#endregion

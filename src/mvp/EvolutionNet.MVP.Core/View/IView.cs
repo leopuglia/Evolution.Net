@@ -5,7 +5,6 @@
 
 using System;
 using EvolutionNet.MVP.Core.Data.Definition;
-using EvolutionNet.MVP.Core.Presenter;
 using EvolutionNet.MVP.Core.TO;
 
 namespace EvolutionNet.MVP.Core.View
@@ -25,21 +24,9 @@ namespace EvolutionNet.MVP.Core.View
 		TO To { get; /*set;*/ }
 
 		/// <summary>
-		/// Presenter, contém a referência ao presenter da funcionalidade atual.
-		/// </summary>
-//		IPresenter<TO, T, IdT> Presenter { get; }
-		PresenterT GetPresenter<PresenterT>() where PresenterT : IPresenter<TO, T, IdT>;
-
-		/// <summary>
 		/// Realiza todas as inicializações necessárias.
 		/// </summary>
 		void Initialize();
 		
-//		IdT PersistentModelID { get; set; }
-//		T TO { get; set; }
-//		IdT GetParameterID();
-//		void UpdateModel(T to);
-//		void UpdateView(T to);
-//		void ShowError(string message);
 	}
 }

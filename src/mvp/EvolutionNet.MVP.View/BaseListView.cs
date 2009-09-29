@@ -7,14 +7,14 @@ using EvolutionNet.MVP.Core.View;
 
 namespace EvolutionNet.MVP.View
 {
-	public abstract class BaseView<TO, T, IdT> : IView<TO, T, IdT> 
-		where TO : ITo<T, IdT>
+	public class BaseListView<TO, T, IdT> : IListView<TO, T, IdT> 
+		where TO : IListTo<T, IdT>
 		where T: IModel<IdT>
 	{
 		#region Variáveis Privadas
 
 		private TO to;
-		private IPresenter<TO, T, IdT> presenter;
+		private IListPresenter<TO, T, IdT> presenter;
 
 		#endregion
 
@@ -45,7 +45,7 @@ namespace EvolutionNet.MVP.View
 		/// <summary>
 		/// Presenter, contém a referência ao presenter da funcionalidade atual.
 		/// </summary>
-		public PresenterT GetPresenter<PresenterT>() where PresenterT : IContract
+		public PresenterT GetPresenter<PresenterT>() where PresenterT : IListContract
 		{
 			return (PresenterT) presenter;
 		}
@@ -57,7 +57,7 @@ namespace EvolutionNet.MVP.View
 		/// <summary>
 		/// Construtor da classe, chama a inicialização.
 		/// </summary>
-		protected BaseView()
+		protected BaseListView()
 		{
 			DoInitialize();
 		}
@@ -69,7 +69,7 @@ namespace EvolutionNet.MVP.View
 		/// <summary>
 		/// Destrutor da classe, chama o dispose.
 		/// </summary>
-		~BaseView()
+		~BaseListView()
 		{
 			Dispose(false);
 		}
@@ -97,7 +97,7 @@ namespace EvolutionNet.MVP.View
 				try
 				{
 					//Criando o facade por IoC
-					presenter = PresenterAbstractFactory.Instance.GetPresenter(this);
+					presenter = PresenterAbstractFactory.Instance.GetListPresenter(this);
 //					presenter.Initialize();
 				}
 				catch (Exception ex)

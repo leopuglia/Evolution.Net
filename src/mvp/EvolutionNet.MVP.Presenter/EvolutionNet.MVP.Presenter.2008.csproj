@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDominioPresenter.cs" />
+    <Compile Include="BaseListPresenter.cs" />
     <Compile Include="BasePresenter.cs" />
     <Compile Include="BasePresenterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

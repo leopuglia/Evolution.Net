@@ -33,6 +33,14 @@ namespace EvolutionNet.MVP.Business
 																 TYPE_NAME_DEST, GetType());
 		}
 
+		public IListFacade<TO, T, IdT> GetListFacade<TO, T, IdT>(IListPresenter<TO, T, IdT> presenter) 
+			where TO : IListTo<T, IdT> 
+			where T : IModel<IdT>
+		{
+			return IoCHelper.InstantiateObj<IListFacade<TO, T, IdT>>(TYPE_NAME_SOURCE, presenter.GetType(),
+																	 TYPE_NAME_DEST, GetType());
+		}
+
 		/// <summary>
 		/// Realiza a inicialização básica de um módulo, na implementação da Factory.
 		/// </summary>

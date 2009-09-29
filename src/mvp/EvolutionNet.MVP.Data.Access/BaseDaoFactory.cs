@@ -6,6 +6,7 @@
 using System;
 using EvolutionNet.MVP.Core;
 using EvolutionNet.MVP.Core.Data.Access;
+using EvolutionNet.MVP.Core.Data.Definition;
 using EvolutionNet.MVP.Core.IoC;
 
 namespace EvolutionNet.MVP.Data.Access
@@ -16,11 +17,20 @@ namespace EvolutionNet.MVP.Data.Access
 		private const string SOURCE_FORMAT = "I{0}";
 		private const string DEST_FORMAT = "{0}Dao";
 
+/*
 		public IDao<IdT> GetDao<IdT>(Type modelInterfaceType)
 		{
 			return IoCHelper.InstantiateObj<IDao<IdT>>(SOURCE_FORMAT, modelInterfaceType, 
 			                                           DEST_FORMAT, GetType());
 			
+		}
+*/
+
+		public T GetDao<T, IdT>() where T : IModel<IdT>
+		{
+			return IoCHelper.InstantiateObj<T>(SOURCE_FORMAT, typeof(T),
+											   DEST_FORMAT, GetType());
+
 		}
 	}
 }
