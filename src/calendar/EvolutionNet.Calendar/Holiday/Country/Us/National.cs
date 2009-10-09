@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EvolutionNet.Calendar.Holiday.Country
+namespace EvolutionNet.Calendar.Holiday.Country.Us
 {
-	public class Us : BaseCountry
+	public class National : BaseCountry
 	{
-		public Us(int year) : base(year)
+		public National(int year) : base(year)
 		{
 		}
 
@@ -37,7 +37,7 @@ namespace EvolutionNet.Calendar.Holiday.Country
 
 		public static DateTime GetMartinLutherKingBirthdayDate(int year)
 		{
-			return Month.DateFromWeekday(year, 1, DayOfWeek.Monday, 3);
+			return MonthHelper.DateFromWeekday(year, 1, DayOfWeek.Monday, 3);
 		}
 
 		public static NationalHoliday GetMartinLutherKingBirthday(int year)
@@ -87,7 +87,7 @@ namespace EvolutionNet.Calendar.Holiday.Country
 
 		public static DateTime GetWashingtonBirthdayDate(int year)
 		{
-			return Month.DateFromWeekday(year, 2, DayOfWeek.Monday, 3);
+			return MonthHelper.DateFromWeekday(year, 2, DayOfWeek.Monday, 3);
 		}
 
 		public static NationalHoliday GetWashingtonBirthday(int year)
@@ -107,7 +107,7 @@ namespace EvolutionNet.Calendar.Holiday.Country
 
 		public static DateTime GetMemorialDayDate(int year)
 		{
-			return Month.DateFromWeekdayByEnd(year, 5, DayOfWeek.Monday, 1);
+			return MonthHelper.DateFromWeekdayByEnd(year, 5, DayOfWeek.Monday, 1);
 		}
 
 		public static NationalHoliday GetMemorialDay(int year)
@@ -145,7 +145,7 @@ namespace EvolutionNet.Calendar.Holiday.Country
 
 		public static DateTime GetLaborDayDate(int year)
 		{
-			return Month.DateFromWeekday(year, 9, DayOfWeek.Monday, 1);
+			return MonthHelper.DateFromWeekday(year, 9, DayOfWeek.Monday, 1);
 		}
 
 		public static NationalHoliday GetLaborDay(int year)
@@ -164,7 +164,7 @@ namespace EvolutionNet.Calendar.Holiday.Country
 
 		public static DateTime GetColumbusDayDate(int year)
 		{
-			return Month.DateFromWeekday(year, 10, DayOfWeek.Monday, 2);
+			return MonthHelper.DateFromWeekday(year, 10, DayOfWeek.Monday, 2);
 		}
 
 		public static NationalHoliday GetColumbusDay(int year)
@@ -202,7 +202,7 @@ namespace EvolutionNet.Calendar.Holiday.Country
 
 		public static DateTime GetThanksGivingDayDate(int year)
 		{
-			return Month.DateFromWeekday(year, 11, DayOfWeek.Thursday, 4);
+			return MonthHelper.DateFromWeekday(year, 11, DayOfWeek.Thursday, 4);
 		}
 
 		public static NationalHoliday GetThanksGivingDay(int year)
@@ -240,21 +240,25 @@ namespace EvolutionNet.Calendar.Holiday.Country
 				IList<NationalHoliday> list = new List<NationalHoliday>();
 
 				list.Add(NewYearDay);
-      			list.Add(MartinLutherKingBirthday);
+				list.Add(MartinLutherKingBirthday);
 				if (InaugurationDay != null)
-      				list.Add(InaugurationDay);
-      			list.Add(WashingtonBirthday);
-      			list.Add(MemorialDay);
-      			list.Add(IndependenceDay);
-      			list.Add(LaborDay);
-      			list.Add(ColumbusDay);
-      			list.Add(VeteransDay);
+					list.Add(InaugurationDay);
+				list.Add(WashingtonBirthday);
+				list.Add(MemorialDay);
+				list.Add(IndependenceDay);
+				list.Add(LaborDay);
+				list.Add(ColumbusDay);
+				list.Add(VeteransDay);
 				list.Add(ThanksGivingDay);
-      			list.Add(ChristmasDay);
+				list.Add(ChristmasDay);
 
 				return list;
 			}
 		}
 
+		public override IList<BaseHoliday> Holidays
+		{
+			get { return ConvertListTo<BaseHoliday>(NationalHolidays); }
+		}
 	}
 }

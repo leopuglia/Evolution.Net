@@ -4,6 +4,7 @@
 	{
 		NationalHoliday,
 		NationalHolidayAlias,
+		StateHoliday,
 		CommemorativeDay,
 		OptionalLaborDay
 	}

@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace EvolutionNet.Calendar
 {
-	public class Month
+	public class MonthHelper
 	{
 		public static DateTime DateFromWeekday(int year, int month, DayOfWeek dayOfWeek, int position)
 		{

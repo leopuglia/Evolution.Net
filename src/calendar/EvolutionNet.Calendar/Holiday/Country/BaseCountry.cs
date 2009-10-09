@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace EvolutionNet.Calendar.Holiday.Country
@@ -18,10 +18,30 @@ namespace EvolutionNet.Calendar.Holiday.Country
 		}
 
 		public abstract IList<NationalHoliday> NationalHolidays { get; }
+		public abstract IList<BaseHoliday> Holidays { get; }
 
-		public static IList<NationalHoliday> ListNacionalHolidays(BaseCountry country)
+/*
+		public static IList<NationalHoliday> ListNationalHolidays(BaseCountry country)
 		{
 			return country.NationalHolidays;
+		}
+
+		public static IList<NationalHoliday> ListHolidays(BaseCountry country)
+		{
+			return country.Holidays;
+		}
+*/
+
+		//TODO: Move this method from here o a util class
+		public static IList<T> ConvertListTo<T>(IEnumerable list)
+		{
+			IList<T> listNew = new List<T>();
+			foreach (var e in list)
+			{
+				listNew.Add((T)e);
+			}
+
+			return listNew;
 		}
 
 	}

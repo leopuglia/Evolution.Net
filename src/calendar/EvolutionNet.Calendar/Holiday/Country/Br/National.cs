@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EvolutionNet.Calendar.Holiday.Country
+namespace EvolutionNet.Calendar.Holiday.Country.Br
 {
-	//TODO: Posso fazer com que esse tipo não seja estático, sendo inicializado como new Br(int year). Assim, eu posso utilizar propriedades pra calcular cada um dos feriados.
-	//TODO: Eu posso melhorar essas definições. Talvez eu tenha realmente que criar uma classe/struct para cada feriado, de forma a poder passar mais dados relativos àquele feriado específico. Senão, quando eu listar, vou ter um monte de datas que não servem pra gerar um relatório.
-	public class Br : BaseCountry
+	public class National : BaseCountry
 	{
-		public Br(int year) : base(year)
+		public National(int year) : base(year)
 		{
 		}
 
@@ -232,21 +230,26 @@ namespace EvolutionNet.Calendar.Holiday.Country
 				//TODO: Posso fazer um Helper para isso, tipo akele helper pra instanciar objetos.
 				IList<NationalHoliday> list = new List<NationalHoliday>(
 					new NationalHoliday[]
-          			{
-          				NewYearDay,
-          				CarnivalTuesday,
-          				CorpusChristiFriday,
-          				Tiradentes,
-          				LaborDay,
-          				IndependenceDay,
-          				NossaSenhoraAparecida,
-          				DayOfTheDead,
-          				RepublicProclamation,
-          				ChristmasDay
-          			});
+						{
+							NewYearDay,
+							CarnivalTuesday,
+							CorpusChristiFriday,
+							Tiradentes,
+							LaborDay,
+							IndependenceDay,
+							NossaSenhoraAparecida,
+							DayOfTheDead,
+							RepublicProclamation,
+							ChristmasDay
+						});
 
 				return list;
 			}
+		}
+
+		public override IList<BaseHoliday> Holidays
+		{
+			get { return ConvertListTo<BaseHoliday>(NationalHolidays); }
 		}
 
 	}

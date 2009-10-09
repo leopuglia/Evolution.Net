@@ -31,7 +31,7 @@ namespace EvolutionNet.Calendar.Holiday
 			return new Period(GetEasterSundayDate(year).AddDays(-8), GetEasterSundayDate(year).AddDays(-1));
 		}
 
-		// Calcula o domingo de páscoa segundo a fórmula de gauss
+		// Calcula o domingo de páscoa segundo a fórmula de gauss (deprecated)
 		public static DateTime GetEasterSundayByGaussDate(int year)
 		{
 			int day, month;
@@ -108,22 +108,6 @@ namespace EvolutionNet.Calendar.Holiday
 			return new DateTime(year, month, day);
 		}
 
-		/*
-		a = MOD(ANO;19)
-		b = ANO \ 100
-		c = MOD(ANO;100)
-		d = b \ 4
-		e = MOD(b;4)
-		f = (b + 8) \ 25
-		g = (b - f + 1) \ 3
-		h = MOD((19 × a + b - d - g + 15);30)
-		i = c \ 4
-		k = MOD(c;4)
-		L = MOD((32 + 2 × e + 2 × i - h - k);7)
-		m = (a + 11 × h + 22 × L) \ 451
-		MÊS = (h + L - 7 × m + 114) \ 31
-		DIA = MOD((h + L - 7 × m + 114);31) + 1
-		*/
 		// Algoritmo de Meeus/Jones/Butcher
 		public static DateTime GetEasterSundayDate(int year)
 		{

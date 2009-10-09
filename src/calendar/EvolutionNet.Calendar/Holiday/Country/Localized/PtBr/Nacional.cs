@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using EvolutionNet.Calendar.Holiday.Country;
 
-namespace EvolutionNet.Calendar.Holiday.Country.Language
+namespace EvolutionNet.Calendar.Holiday.Country.Localized.PtBr
 {
-	public class PtBr : BaseCountry
+	public class Nacional : BaseCountry
 	{
-		public PtBr(int year) : base(year)
+		public Nacional(int year) : base(year)
 		{
 		}
 
@@ -19,7 +19,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetAnoNovoDate(int year)
 		{
-			return Br.GetNewYearDayDate(year);
+			return Br.National.GetNewYearDayDate(year);
 		}
 
 		public static NationalHoliday GetAnoNovo(int year)
@@ -38,7 +38,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetReveillonDate(int year)
 		{
-			return Br.GetNewYearDayDate(year);
+			return Br.National.GetNewYearDayDate(year);
 		}
 
 		public static NationalHolidayAlias GetReveillon(int year)
@@ -57,7 +57,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetCarnavalTercaDate(int year)
 		{
-			return Br.GetCarnivalTuesdayDate(year);
+			return Br.National.GetCarnivalTuesdayDate(year);
 		}
 
 		public static NationalHoliday GetCarnavalTerca(int year)
@@ -76,7 +76,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetCorpusChristiSextaDate(int year)
 		{
-			return Br.GetCorpusChristiFridayDate(year);
+			return Br.National.GetCorpusChristiFridayDate(year);
 		}
 
 		public static NationalHoliday GetCorpusChristiSexta(int year)
@@ -95,7 +95,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetTiradentesDate(int year)
 		{
-			return Br.GetTiradentesDate(year);
+			return Br.National.GetTiradentesDate(year);
 		}
 
 		public static NationalHoliday GetTiradentes(int year)
@@ -114,7 +114,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetDiaDoTrabalhoDate(int year)
 		{
-			return Br.GetLaborDayDate(year);
+			return Br.National.GetLaborDayDate(year);
 		}
 
 		public static NationalHoliday GetDiaDoTrabalho(int year)
@@ -133,7 +133,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetIndependenciaDate(int year)
 		{
-			return Br.GetIndependenceDayDate(year);
+			return Br.National.GetIndependenceDayDate(year);
 		}
 
 		public static NationalHoliday GetIndependencia(int year)
@@ -152,7 +152,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetNossaSenhoraAparecidaDate(int year)
 		{
-			return Br.GetNossaSenhoraAparecidaDate(year);
+			return Br.National.GetNossaSenhoraAparecidaDate(year);
 		}
 
 		public static NationalHoliday GetNossaSenhoraAparecida(int year)
@@ -171,7 +171,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetDiaDasCriancasDate(int year)
 		{
-			return Br.GetChildrensDayDate(year);
+			return Br.National.GetChildrensDayDate(year);
 		}
 
 		public static CommemorativeDay GetDiaDasCriancas(int year)
@@ -190,7 +190,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetFinadosDate(int year)
 		{
-			return Br.GetDayOfTheDeadDate(year);
+			return Br.National.GetDayOfTheDeadDate(year);
 		}
 
 		public static NationalHoliday GetFinados(int year)
@@ -209,7 +209,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetProclamacaoDaRepublicaDate(int year)
 		{
-			return Br.GetRepublicProclamationDate(year);
+			return Br.National.GetRepublicProclamationDate(year);
 		}
 
 		public static NationalHoliday GetProclamacaoDaRepublica(int year)
@@ -228,7 +228,7 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 
 		public static DateTime GetNatalDate(int year)
 		{
-			return Br.GetChristmasDayDate(year);
+			return Br.National.GetChristmasDayDate(year);
 		}
 
 		public static NationalHoliday GetNatal(int year)
@@ -244,21 +244,26 @@ namespace EvolutionNet.Calendar.Holiday.Country.Language
 			{
 				IList<NationalHoliday> list = new List<NationalHoliday>(
 					new NationalHoliday[]
-          			{
-						AnoNovo,
-						CarnavalTerca,
-						CorpusChristiSexta,
-						Tiradentes,
-						DiaDoTrabalho,
-						Independencia,
-						NossaSenhoraAparecida,
-						Finados,
-						ProclamacaoDaRepublica,
-						Natal
-          			});
+						{
+							AnoNovo,
+							CarnavalTerca,
+							CorpusChristiSexta,
+							Tiradentes,
+							DiaDoTrabalho,
+							Independencia,
+							NossaSenhoraAparecida,
+							Finados,
+							ProclamacaoDaRepublica,
+							Natal
+						});
 
 				return list;
 			}
+		}
+
+		public override IList<BaseHoliday> Holidays
+		{
+			get { return ConvertListTo<BaseHoliday>(NationalHolidays); }
 		}
 	}
 }
