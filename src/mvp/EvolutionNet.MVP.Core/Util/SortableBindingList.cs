@@ -116,17 +116,17 @@ namespace EvolutionNet.MVP.Core.Util
 		/// <param name="propertyName">Nome da propriedade de um elemento</param>
 		public void Sort(string propertyName)
 		{
-			Sort(propertyName, ListSortDirection.Ascending);
+			Sort(propertyName, true);
 		}
 
 		/// <summary>
 		/// Realiza a ordenação por uma propriedade em uma direção (ascendente ou decrescente).
 		/// </summary>
 		/// <param name="propertyName">Nome da propriedade de um elemento</param>
-		/// <param name="direction">Direção do ordenamento (ascendente ou decrescente)</param>
-		public void Sort(string propertyName, ListSortDirection direction)
+		/// <param name="ascending">Direção do ordenamento (ascendente ou decrescente)</param>
+		public void Sort(string propertyName, bool ascending)
 		{
-			Sort(new PropertySortDirection(propertyName, direction));
+			Sort(new PropertySortDirection(propertyName, ascending));
 		}
 
 		/// <summary>
@@ -141,7 +141,7 @@ namespace EvolutionNet.MVP.Core.Util
 			// Sets an PropertyDescriptor to the specific property.
 			PropertyDescriptor myProperty = properties.Find(propertyDirection.PropertyName, false);
 			
-			ApplySortCore(myProperty, propertyDirection.SortDirection);
+			ApplySortCore(myProperty, propertyDirection.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
 		}
 
 		#endregion
