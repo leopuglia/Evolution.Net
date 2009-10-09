@@ -13,7 +13,7 @@ namespace EvolutionNet.MVP.Core.Data.Access
 	/// <typeparam name="IdT"></typeparam>
 	public interface IDao<IdT> : IModel<IdT>
 	{
-		void Save();
-		void Delete();
+		void SaveAndFlush();
+		void DeleteAndFlush();
 	}
 }
