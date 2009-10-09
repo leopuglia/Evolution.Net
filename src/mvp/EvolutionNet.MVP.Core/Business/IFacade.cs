@@ -9,6 +9,8 @@ using EvolutionNet.MVP.Core.TO;
 
 namespace EvolutionNet.MVP.Core.Business
 {
+	public delegate void ActionDelegate();
+
 	/// <summary>
 	/// Essa interface representa a Facade básica, os métodos e propriedades que devem ser implementados.
 	/// </summary>
@@ -23,6 +25,8 @@ namespace EvolutionNet.MVP.Core.Business
 		/// Transfer Object, contém a referência ao To, definido na View.
 		/// </summary>
 		TO To { get; }
+
+		void Execute(ActionDelegate doAction);
 
 	}
 }

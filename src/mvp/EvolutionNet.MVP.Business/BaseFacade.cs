@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Reflection;
 using Castle.ActiveRecord;
 using log4net;
@@ -96,91 +97,17 @@ namespace EvolutionNet.MVP.Business
 
 		#region Métodos de Dados
 
-		/// <summary>
-		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
-		/// </summary>
-		public void Find()
-		{
-			DoFind();
-		}
-
-		/// <summary>
-		/// Salva o MainModel atual
-		/// </summary>
-		public void Save()
-		{
-			//TODO: Suponho que eu deveria iniciar/terminar a transação aki, ou então implementar o facade como
-			//um objeto transacional, q inicia a transação qdo é criado e termina qdo é destruído
-			//Um facade, para mim, é como uma "Unidade de Trabalho", então se a transação por alguma razão não 
-			//for finalizada durante a execução do objeto, deveria ser executada na sua finalização.
-			//Talvez eu tenha q criar métodos pra iniciar/terminar a transação, e um método Dispose,
-			//de forma q eu possa usar o facade (ou até o ActiveRecord???) como um objeto disposable.
-			//O problema é o tempo de vida do objeto, eu não sei qdo o facade vai ser destruído, nem qdo
-			//o TO vai ser destruído, seria ao fechar um determinado form, mas eu devo ter q terminar a transação
-			//ao realizar o commit
-			
-			//TODO: Talvez aki, eu possa verificar se já não existe a transação, se não existir crio, executo e termino.
-			//O problema é q o idiota q for implementar, vai ter q ficar lembrando de abrir e fechar transação,
-			//oq pode levar a problemas de esquecimento...
-			//Uma possível solução é criar um método com um Hook q, este sim, pode ser sobrescrito!
-			/* Seria algo do tipo:
-			 * public sealed void Save()
-			 * {
-			 *   StartTransaction();
-			 *   DoWork(); // ou Save(), qq coisa assim.
-			 *   CommitTransaction();
-			 * }
-			 * 
-			 * protected virtual void DoWork()
-			 * {
-			 *   Save();
-			 * }
-			 */
-			//Outra coisa a lembrar é q provavelmente eu preciso fazer um tratamento de erros aki, mesmo q eu
-			//jogue a excessão novamente, apenas pra garantir q chego no finally e, nele, finalizo a transação
-
-			// Start Transaction
-			TransactionScope transaction = new TransactionScope();
-			
-			try
-			{
-				DoSave();
-
-				// Save Transaction
-				transaction.VoteCommit();
-				transaction.Flush();
-			}
-			catch
-			{
-				// RollBack Transaction
-				transaction.VoteRollBack();
-
-                if (log.IsErrorEnabled)
-                    log.Error("A transação foi cancelada por um erro.");
-				
-				throw;
-			}
-			finally
-			{
-				transaction.Dispose();
-			}
-		}
-
-		/// <summary>
-		/// Deleta o MainModel atual, mesmo a partir de um ID
-		/// </summary>
-		public void Delete()
+		public void Execute(ActionDelegate doAction)
 		{
 			// Start Transaction
-			TransactionScope transaction = new TransactionScope();
+			TransactionScope transaction = new TransactionScope(TransactionMode.Inherits, IsolationLevel.ReadCommitted, OnDispose.Rollback);
 
 			try
 			{
-				DoDelete();
+				doAction();
 
 				// Save Transaction
 				transaction.VoteCommit();
-				transaction.Flush();
 			}
 			catch
 			{
@@ -194,8 +121,33 @@ namespace EvolutionNet.MVP.Business
 			}
 			finally
 			{
+				transaction.Flush();
 				transaction.Dispose();
 			}
+		}
+
+		/// <summary>
+		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
+		/// </summary>
+		public void Find()
+		{
+			DoFind();
+		}
+
+		/// <summary>
+		/// Salva o MainModel atual
+		/// </summary>
+		public void Save()
+		{
+			Execute(DoSave);
+		}
+
+		/// <summary>
+		/// Deleta o MainModel atual, mesmo a partir de um ID
+		/// </summary>
+		public void Delete()
+		{
+			Execute(DoDelete);
 		}
 
 	    #endregion
@@ -217,24 +169,9 @@ namespace EvolutionNet.MVP.Business
 		///<summary>
 		/// Realiza a liberação de recursos alocados pelo objeto.
 		///</summary>
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			if (! isDisposed)
-			{
-				try
-				{
-					DaoAbstractFactory.Instance.Dispose();
-				}
-				catch (Exception ex)
-				{
-                    if (log.IsErrorEnabled)
-                        log.Error("Não foi possível destruir a DaoAbstractFactory.", ex);
-
-                    throw new ApplicationException("Não foi possível destruir a DaoAbstractFactory.", ex);
-				}
-
-				isDisposed = true;
-			}
+			DoDispose();
 		}
 
 		#endregion
@@ -299,17 +236,13 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoSave()
 		{
-			Dao.Save();
+			Dao.SaveAndFlush();
 		}
 
 		protected virtual void DoDelete()
 		{
-			Dao.Delete();
+			Dao.DeleteAndFlush();
 		}
-
-		#endregion
-
-		#region Métodos Auxiliares
 
 		protected virtual void DoInitialize()
 		{
@@ -341,6 +274,26 @@ namespace EvolutionNet.MVP.Business
 				}
 
 				isInitialized = true;
+			}
+		}
+
+		protected virtual void DoDispose()
+		{
+			if (!isDisposed)
+			{
+				try
+				{
+					DaoAbstractFactory.Instance.Dispose();
+				}
+				catch (Exception ex)
+				{
+					if (log.IsErrorEnabled)
+						log.Error("Não foi possível destruir a DaoAbstractFactory.", ex);
+
+					throw new ApplicationException("Não foi possível destruir a DaoAbstractFactory.", ex);
+				}
+
+				isDisposed = true;
 			}
 		}
 
