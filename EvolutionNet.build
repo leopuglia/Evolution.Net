@@ -14,20 +14,20 @@
 
   <property name="src_path" value="src"/>
   <property name="src_path_mvp" value="src\mvp"/>
-  <property name="src_path_calendar" value="src\calendar"/>
+  <property name="src_path_util" value="src\util"/>
   <property name="lib_path" value="lib\${envdir}\${target}"/>
 
   <property name="build_path" value="build"/>
   <property name="build_path_mvp" value="${build_path}\mvp\${envdir}\${target}"/>
-  <property name="build_path_calendar" value="${build_path}\calendar\${envdir}\${target}"/>
+  <property name="build_path_util" value="${build_path}\util\${envdir}\${target}"/>
 
   <property name="bin_path" value="bin"/>
   <property name="bin_path_mvp" value="${bin_path}\mvp\${envdir}\${target}"/>
-  <property name="bin_path_calendar" value="${bin_path}\calendar\${envdir}\${target}"/>
+  <property name="bin_path_util" value="${bin_path}\util\${envdir}\${target}"/>
   <property name="bin_path_zip" value="${bin_path}\zip"/>
 
   <property name="version_mvp" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.Core.dll'))}" if="${file::exists(bin_path_mvp+'\EvolutionNet.MVP.Core.dll')}" />
-  <property name="version_calendar" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_calendar+'\EvolutionNet.Calendar.dll'))}" if="${file::exists(bin_path_calendar+'\EvolutionNet.Calendar.dll')}" />
+  <property name="version_util" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_util+'\EvolutionNet.Util.dll'))}" if="${file::exists(bin_path_util+'\EvolutionNet.Util.dll')}" />
 
   <property name="deploy_path" value="${deploy}\${envdir}\${target}\EvolutionNet"/>
 
@@ -49,8 +49,8 @@
         <include name="**/*.*" />
       </fileset>
     </delete>
-    <delete if="${directory::exists(bin_path_calendar)}">
-      <fileset basedir="${bin_path_calendar}">
+    <delete if="${directory::exists(bin_path_util)}">
+      <fileset basedir="${bin_path_util}">
         <include name="**/*.*" />
       </fileset>
     </delete>
@@ -82,9 +82,9 @@
   <target name="init">
     
     <mkdir dir="${build_path_mvp}" />
-    <mkdir dir="${build_path_calendar}" />
+    <mkdir dir="${build_path_util}" />
     <mkdir dir="${bin_path_mvp}" />
-    <mkdir dir="${bin_path_calendar}" />
+    <mkdir dir="${bin_path_util}" />
     <mkdir dir="${bin_path_zip}" unless="${debug}" />
     
   </target>
@@ -105,8 +105,16 @@
 
 
 
-  <!-- ****** Target: copy-libs-calendar ****** -->
-  <target name="copy-libs-calendar" depends="init" />
+  <!-- ****** Target: copy-libs-util ****** -->
+  <target name="copy-libs-util" depends="init" >
+    <copy todir="${build_path_util}" flatten="true">
+      <fileset basedir="${lib_path}">
+        <include name="Aforge\Aforge.Imaging.dll" />
+      </fileset>
+    </copy>
+        <copy file="${lib_path}\castle\Castle.ActiveRecord.dll" todir="${build_path_mvp}" />
+
+  </target>
 
 
 
@@ -236,15 +244,16 @@
 
 
 
-  <!-- ****** Target: build-calendar ****** -->
-  <target name="build-calendar" depends="copy-libs-calendar" description="Compiles the calendar libraries">
+  <!-- ****** Target: build-util ****** -->
+  <target name="build-util" depends="copy-libs-util" description="Compiles the util libraries">
 
-    <!-- ****** EvolutionNet.Calendar ****** -->
-    <csc target="library" output="${build_path_calendar}\EvolutionNet.Calendar.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <!-- ****** EvolutionNet.Util ****** -->
+    <csc target="library" output="${build_path_util}\EvolutionNet.Util.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
-        <include name="${src_path_calendar}\EvolutionNet.Calendar\**\*.cs" />
+        <include name="${src_path_util}\EvolutionNet.Util\**\*.cs" />
       </sources>
       <references>
+        <include name="${lib_path}\Aforge\Aforge.Imaging.dll" />
       </references>
     </csc>
 
@@ -253,7 +262,7 @@
 
 
   <!-- ****** Target: build ****** -->
-  <target name="build" depends="build-mvp, build-calendar" />
+  <target name="build" depends="build-mvp, build-util" />
 
 
 
@@ -272,12 +281,12 @@
 
   
   
-  <!-- ****** Target: bin-calendar ****** -->
-  <target name="bin-calendar" depends="build-calendar">
+  <!-- ****** Target: bin-util ****** -->
+  <target name="bin-util" depends="build-util">
 
     <!-- ****** COPY DLL's TO BIN ****** -->
-    <copy todir="${bin_path_calendar}" flatten="true">
-      <fileset basedir="${build_path_calendar}">
+    <copy todir="${bin_path_util}" flatten="true">
+      <fileset basedir="${build_path_util}">
         <include name="EvolutionNet.*.dll" />
         <include name="EvolutionNet.*.pdb" if="${debug}" />
       </fileset>
@@ -288,7 +297,7 @@
   
   
   <!-- ****** Target: bin ****** -->
-  <target name="bin" depends="bin-mvp, bin-calendar" />
+  <target name="bin" depends="bin-mvp, bin-util" />
 
 
 
@@ -335,29 +344,29 @@
 
   
   
-  <!-- ****** Target: zip-calendar ****** -->
-  <target name="zip-calendar" depends="bin-calendar" unless="${debug or target=='2.0'}">
+  <!-- ****** Target: zip-util ****** -->
+  <target name="zip-util" depends="bin-util" unless="${debug or target=='2.0'}">
 
     <delete if="${directory::exists('${bin_path_zip}')}">
       <fileset basedir="${bin_path_zip}">
-        <include name="evolution-net-calendar*.zip" />
+        <include name="evolution-net-util*.zip" />
       </fileset>
     </delete>
 
-    <zip zipfile="${bin_path_zip}\evolution-net-calendar-${version_calendar}-bin.zip">
-      <fileset basedir="bin\calendar" prefix="">
+    <zip zipfile="${bin_path_zip}\evolution-net-util-${version_util}-bin.zip">
+      <fileset basedir="bin\util" prefix="">
         <include name="**/*.dll" />
         <exclude name="**/*.pdb"/>
       </fileset>
     </zip>
 
-    <zip zipfile="${bin_path_zip}\evolution-net-calendar-${version_calendar}-src.zip">
+    <zip zipfile="${bin_path_zip}\evolution-net-util-${version_util}-src.zip">
       <fileset basedir="." prefix="">
         <include name="*.*" />
         <exclude name="*.txt" />
       </fileset>
 
-      <fileset basedir="${src_path_calendar}" prefix="${src_path_calendar}">
+      <fileset basedir="${src_path_util}" prefix="${src_path_util}">
         <include name="**/*" />
 
         <exclude name="log.txt" />
@@ -378,7 +387,7 @@
 
     <delete if="${directory::exists('${bin_path_zip}')}">
       <fileset basedir="${bin_path_zip}">
-        <include name="evolution-net-calendar*.zip" />
+        <include name="evolution-net-util*.zip" />
       </fileset>
     </delete>
 
@@ -405,7 +414,7 @@
 
 
   <!-- ****** Target: ZIP ****** -->
-  <target name="zip" depends="zip-mvp, zip-calendar, zip-full" unless="${debug or target=='2.0'}" />
+  <target name="zip" depends="zip-mvp, zip-util, zip-full" unless="${debug or target=='2.0'}" />
     
   
   
