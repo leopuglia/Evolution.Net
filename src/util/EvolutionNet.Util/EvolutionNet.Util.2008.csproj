@@ -51,6 +51,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendar\Holiday\BaseHoliday.cs" />
+    <Compile Include="Calendar\Holiday\Christian.cs" />
+    <Compile Include="Calendar\Holiday\CommemorativeDay.cs" />
+    <Compile Include="Calendar\Holiday\Common.cs" />
+    <Compile Include="Calendar\Holiday\Base.cs" />
+    <Compile Include="Calendar\Holiday\Country\Br\Df.cs" />
+    <Compile Include="Calendar\Holiday\Country\Br\National.cs" />
+    <Compile Include="Calendar\Holiday\Country\Localized\EnUs\National.cs" />
+    <Compile Include="Calendar\Holiday\Country\Localized\PtBr\Nacional.cs" />
+    <Compile Include="Calendar\Holiday\Country\Us\National.cs" />
+    <Compile Include="Calendar\Holiday\HolidayType.cs" />
+    <Compile Include="Calendar\Holiday\NationalHoliday.cs" />
+    <Compile Include="Calendar\Holiday\NationalHolidayAlias.cs" />
+    <Compile Include="Calendar\Holiday\OptionalWorkDay.cs" />
+    <Compile Include="Calendar\Holiday\StateHoliday.cs" />
+    <Compile Include="Calendar\MonthHelper.cs" />
+    <Compile Include="Calendar\Period.cs" />
     <Compile Include="Imaging\BitmapEx.cs" />
     <Compile Include="Imaging\ConvertHelper.cs" />
     <Compile Include="Imaging\ExifTag.cs" />
@@ -62,9 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Web\FlashFileUpload.swf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Calendar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

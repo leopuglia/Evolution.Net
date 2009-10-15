@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EvolutionNet.Calendar.Holiday.Country.Us
+namespace EvolutionNet.Util.Calendar.Holiday.Country.Us
 {
-	public class National : BaseCountry
+	public class National : Base
 	{
 		public National(int year) : base(year)
 		{

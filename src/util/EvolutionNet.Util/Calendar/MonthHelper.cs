@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace EvolutionNet.Calendar
+namespace EvolutionNet.Util.Calendar
 {
 	public class MonthHelper
 	{

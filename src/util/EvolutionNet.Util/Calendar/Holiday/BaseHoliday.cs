@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EvolutionNet.Calendar.Holiday
+namespace EvolutionNet.Util.Calendar.Holiday
 {
 	public abstract class BaseHoliday
 	{

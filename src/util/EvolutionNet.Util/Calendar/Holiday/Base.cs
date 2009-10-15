@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace EvolutionNet.Calendar.Holiday.Country
+namespace EvolutionNet.Util.Calendar.Holiday
 {
-	public abstract class BaseCountry
+	public abstract class Base
 	{
-		protected BaseCountry(int year)
+		protected Base(int year)
 		{
 			Year = year;
 		}

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using EvolutionNet.Calendar.Holiday.Country;
+using EvolutionNet.Util.Calendar.Holiday.Country;
 
-namespace EvolutionNet.Calendar.Holiday.Country.Localized.PtBr
+namespace EvolutionNet.Util.Calendar.Holiday.Country.Localized.PtBr
 {
-	public class Nacional : BaseCountry
+	public class Nacional : Base
 	{
 		public Nacional(int year) : base(year)
 		{
