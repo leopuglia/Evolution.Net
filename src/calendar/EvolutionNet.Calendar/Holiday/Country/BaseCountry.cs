@@ -36,7 +36,7 @@ namespace EvolutionNet.Calendar.Holiday.Country
 		public static IList<T> ConvertListTo<T>(IEnumerable list)
 		{
 			IList<T> listNew = new List<T>();
-			foreach (var e in list)
+			foreach (object e in list)
 			{
 				listNew.Add((T)e);
 			}
