@@ -109,7 +109,7 @@
   <target name="copy-libs-util" depends="init" >
     <copy todir="${build_path_util}" flatten="true">
       <fileset basedir="${lib_path}">
-        <include name="Aforge\Aforge.Imaging.dll" />
+<!--        <include name="Aforge\Aforge.Imaging.dll" />-->
       </fileset>
     </copy>
         <copy file="${lib_path}\castle\Castle.ActiveRecord.dll" todir="${build_path_mvp}" />
@@ -252,8 +252,11 @@
       <sources>
         <include name="${src_path_util}\EvolutionNet.Util\**\*.cs" />
       </sources>
+      <resources dynamicprefix="true" basedir="${src_path_util}">
+        <include name="EvolutionNet.Util\**\*.swf" />
+      </resources>
       <references>
-        <include name="${lib_path}\Aforge\Aforge.Imaging.dll" />
+        <include name="${lib_path}\log4net\log4net.dll" />
       </references>
     </csc>
 
