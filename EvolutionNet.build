@@ -305,7 +305,7 @@
 
 
   <!-- ****** Target: REBUILD ****** -->
-  <target name="rebuild" depends="clean, build"/>
+  <target name="rebuild" depends="delete, build"/>
 
 
 

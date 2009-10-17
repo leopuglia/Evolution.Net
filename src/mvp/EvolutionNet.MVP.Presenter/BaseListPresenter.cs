@@ -48,7 +48,7 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region Métodos Protegidos
 
-		protected FacadeT GetFacade<FacadeT>() where FacadeT : IContract
+		protected FacadeT GetFacade<FacadeT>() where FacadeT : IListContract
 		{
 			return (FacadeT)facade;
 		}

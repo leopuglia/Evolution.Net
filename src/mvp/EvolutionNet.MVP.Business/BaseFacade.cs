@@ -97,6 +97,18 @@ namespace EvolutionNet.MVP.Business
 
 		#region Métodos de Dados
 
+		/// <summary>
+		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
+		/// </summary>
+		public void Find()
+		{
+			DoFind();
+		}
+
+		/// <summary>
+		/// Executa o delegate em um ambiente transacional
+		/// </summary>
+		/// <param name="doAction">Delegate para uma função implementada pelo usuário</param>
 		public void Execute(ActionDelegate doAction)
 		{
 			// Start Transaction
@@ -124,14 +136,6 @@ namespace EvolutionNet.MVP.Business
 				transaction.Flush();
 				transaction.Dispose();
 			}
-		}
-
-		/// <summary>
-		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
-		/// </summary>
-		public void Find()
-		{
-			DoFind();
 		}
 
 		/// <summary>
