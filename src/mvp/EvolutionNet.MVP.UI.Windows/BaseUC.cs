@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using EvolutionNet.MVP.Core.Data.Access;
-using EvolutionNet.MVP.Core.Data.Definition;
+using EvolutionNet.MVP.Data.Definition;
+using EvolutionNet.MVP.Presenter;
+using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.UI.Windows.Common;
 
 namespace EvolutionNet.MVP.UI.Windows
@@ -14,7 +15,7 @@ namespace EvolutionNet.MVP.UI.Windows
 		#region Variáveis Protegidas
 
 		protected BackgroundWorker backgroundWorker1;
-		protected bool workerEnabledOnLoad = false;
+		protected bool workerEnabledOnLoad;
 		protected bool showProgressDlgFrm = true;
 		protected ProgressDlgFrm frm;
 		protected double progress;
@@ -28,8 +29,8 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		private DoWorkDelegate doWork;
 		private WorkerCompletedDelegate workerCompleted;
-		private bool doWorkAdded = false;
-		private bool workerCompletedAdded = false;
+		private bool doWorkAdded;
+		private bool workerCompletedAdded;
 
 		#endregion
 
@@ -57,119 +58,90 @@ namespace EvolutionNet.MVP.UI.Windows
 		{
 		}
 
-		public BaseUC(Form parent)
+		public BaseUC(Control parent)
 		{
 			InitializeComponent();
 			Parent = parent;
 			backgroundWorker1 = new BackgroundWorker();
 			backgroundWorker1.WorkerReportsProgress = true;
 			backgroundWorker1.WorkerSupportsCancellation = true;
-			backgroundWorker1.DoWork += this.backgroundWorker1_DoWork;
-			backgroundWorker1.RunWorkerCompleted += this.backgroundWorker1_RunWorkerCompleted;
-			backgroundWorker1.ProgressChanged += this.backgroundWorker1_ProgressChanged;
+			backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+			backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
+			backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
 		}
 
 		#endregion
 
-		#region Métodos Públicos
+		#region Métodos Protegidos
 
-		public void DoAfterLoad(EventArgs e)
+		/// <summary>
+		/// Presenter, contém a referência ao presenter da funcionalidade atual.
+		/// </summary>
+		protected PresenterT GetPresenter<PresenterT, TO, T, IdT>()
+			where PresenterT : BasePresenter<TO, T, IdT>
+			where TO : TO<T, IdT>
+			where T : Model<IdT>
 		{
-			if (workerEnabledOnLoad)
-			{
-				RunWorker();
-			}
-
-			if (AfterLoad != null)
-				AfterLoad(this, e);
-		}
-
-		#endregion
-
-		#region Métodos de Eventos
-
-		#region BackGroundWorker
-
-		private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-		{
-			// Do not access the form's BackgroundWorker reference directly.
-			// Instead, use the reference provided by the sender parameter.
-			BackgroundWorker bw = (BackgroundWorker)sender;
-
 			try
 			{
-				if (!doWorkAdded)
-				{
-					doWork += DoWork;
-					doWorkAdded = true;
-				}
-				doWork(bw, e);
+				return (PresenterT)PresenterAbstractFactory.Instance.GetPresenter<TO, T, IdT>((IView)this);
 			}
-			catch (WorkerCanceledException)
+			catch (Exception ex)
 			{
-			}
-			finally
-			{
-				// If the operation was canceled by the user, 
-				// set the DoWorkEventArgs.Cancel property to true.
-				if (bw.CancellationPending)
-				{
-					e.Cancel = true;
-				}
+				throw new ApplicationException("Não foi possível instanciar o Presenter.", ex);
 			}
 		}
 
-		private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		protected void RunWorker()
 		{
-			// Do not access the form's BackgroundWorker reference directly.
-			// Instead, use the reference provided by the sender parameter.
-			BackgroundWorker bw = (BackgroundWorker)sender;
-
-			if (e.Cancelled && workerEnabledOnLoad)
-				ParentForm.Close();
-
-			else if (e.Error != null)
+			if (BeforeRunWorker())
 			{
-				MessageBox.Show(this, e.Error.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error,
-				                MessageBoxDefaultButton.Button1);
-				if (workerEnabledOnLoad)
-					ParentForm.Close();
-			}
-			else
-			{
-				if (!workerCompletedAdded)
+				backgroundWorker1.RunWorkerAsync();
+
+				if (showProgressDlgFrm)
 				{
-					workerCompleted += WorkerCompleted;
-					workerCompletedAdded = true;
+					frm = ProgressDlgFrm.Show(ParentForm);
+					frm.btnCancelar.Click += frmProgresso_BtnCancelar_OnClick;
 				}
-				workerCompleted(bw, e);
-				progress = 0;
-			}
-
-			if (frm != null && frm.Visible)
-			{
-				frm.Close();
 			}
 		}
 
-		private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+		protected void AddDoWork(DoWorkDelegate worker)
 		{
-			ProgressChanged((BackgroundWorker) sender, e);
+			doWork += worker;
 		}
 
-		#endregion
-
-		#region Botões
-
-		private void frmProgresso_BtnCancelar_OnClick(object sender, EventArgs e)
+		protected void RemoveDoWork(DoWorkDelegate worker)
 		{
-			backgroundWorker1.CancelAsync();
-
-			if (showProgressDlgFrm)
-				frm.btnCancelar.Enabled = false;
+			doWork -= worker;
 		}
 
-		#endregion
+		protected void AddWorkerCompleted(WorkerCompletedDelegate completed)
+		{
+			workerCompleted += completed;
+		}
+
+		protected void RemoveWorkerCompleted(WorkerCompletedDelegate completed)
+		{
+			workerCompleted -= completed;
+		}
+
+		protected void StepProgress(BackgroundWorker bw, double step)
+		{
+			progress += step;
+
+			SetProgress(bw, progress);
+		}
+
+		protected void SetProgress(BackgroundWorker bw, double value)
+		{
+			progress = value;
+
+			if (bw.CancellationPending)
+				throw new WorkerCanceledException();
+
+			bw.ReportProgress((int)progress);
+		}
 
 		#endregion
 
@@ -270,69 +242,108 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#endregion
 
-		#region Métodos Protegidos
+		#region Métodos Públicos
 
-		protected static T GetNewDao<T, IdT>() where T : IModel<IdT>
+		public void DoAfterLoad(EventArgs e)
 		{
-			return DaoAbstractFactory.Instance.GetDao<T, IdT>();
+			if (workerEnabledOnLoad)
+			{
+				RunWorker();
+			}
+
+			if (AfterLoad != null)
+				AfterLoad(this, e);
 		}
 
-		protected void RunWorker()
-		{
-			if (BeforeRunWorker())
-			{
-				backgroundWorker1.RunWorkerAsync();
+		#endregion
 
-				if (showProgressDlgFrm)
+		#region Métodos de Eventos
+
+		#region BackGroundWorker
+
+		private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+		{
+			// Do not access the form's BackgroundWorker reference directly.
+			// Instead, use the reference provided by the sender parameter.
+			BackgroundWorker bw = (BackgroundWorker)sender;
+
+			try
+			{
+				if (!doWorkAdded)
 				{
-					frm = ProgressDlgFrm.Show(ParentForm);
-					frm.btnCancelar.Click += frmProgresso_BtnCancelar_OnClick;
+					doWork += DoWork;
+					doWorkAdded = true;
+				}
+				doWork(bw, e);
+			}
+			catch (WorkerCanceledException)
+			{
+			}
+			finally
+			{
+				// If the operation was canceled by the user, 
+				// set the DoWorkEventArgs.Cancel property to true.
+				if (bw.CancellationPending)
+				{
+					e.Cancel = true;
 				}
 			}
 		}
 
-/*
-		protected void DoBasicWorkCompleted(BackgroundWorker bw, RunWorkerCompletedEventArgs e)
+		private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
+			// Do not access the form's BackgroundWorker reference directly.
+			// Instead, use the reference provided by the sender parameter.
+			BackgroundWorker bw = (BackgroundWorker)sender;
+
+			if (e.Cancelled && workerEnabledOnLoad)
+			{
+				if (ParentForm != null) 
+					ParentForm.Close();
+			}
+
+			else if (e.Error != null)
+			{
+				MessageBox.Show(this, e.Error.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error,
+				                MessageBoxDefaultButton.Button1);
+				if (workerEnabledOnLoad)
+					if (ParentForm != null) ParentForm.Close();
+			}
+			else
+			{
+				if (!workerCompletedAdded)
+				{
+					workerCompleted += WorkerCompleted;
+					workerCompletedAdded = true;
+				}
+				workerCompleted(bw, e);
+				progress = 0;
+			}
+
+			if (frm != null && frm.Visible)
+			{
+				frm.Close();
+			}
 		}
 
-*/
-		protected void AddDoWork(DoWorkDelegate worker)
+		private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			doWork += worker;
+			ProgressChanged((BackgroundWorker) sender, e);
 		}
 
-		protected void RemoveDoWork(DoWorkDelegate worker)
+		#endregion
+
+		#region Botões
+
+		private void frmProgresso_BtnCancelar_OnClick(object sender, EventArgs e)
 		{
-			doWork -= worker;
+			backgroundWorker1.CancelAsync();
+
+			if (showProgressDlgFrm)
+				frm.btnCancelar.Enabled = false;
 		}
 
-		protected void AddWorkerCompleted(WorkerCompletedDelegate completed)
-		{
-			workerCompleted += completed;
-		}
-
-		protected void RemoveWorkerCompleted(WorkerCompletedDelegate completed)
-		{
-			workerCompleted -= completed;
-		}
-
-		protected void StepProgress(BackgroundWorker bw, double step)
-		{
-			progress += step;
-
-			SetProgress(bw, progress);
-		}
-
-		protected void SetProgress(BackgroundWorker bw, double value)
-		{
-			progress = value;
-
-			if (bw.CancellationPending)
-				throw new WorkerCanceledException();
-
-			bw.ReportProgress((int)progress);
-		}
+		#endregion
 
 		#endregion
 

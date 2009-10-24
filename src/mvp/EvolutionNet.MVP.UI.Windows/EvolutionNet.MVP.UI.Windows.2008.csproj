@@ -95,12 +95,6 @@
     <Compile Include="SingleInstance\SingleInstanceTracker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EvolutionNet.MVP.Core\EvolutionNet.MVP.Core.2008.csproj">
-      <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
-      <Name>EvolutionNet.MVP.Core.2008</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="BaseFrm.resx">
       <DependentUpon>BaseFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +110,12 @@
     <EmbeddedResource Include="ModalDialogUC.resx">
       <DependentUpon>ModalDialogUC.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj">
+      <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
+      <Name>EvolutionNet.MVP.2008</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

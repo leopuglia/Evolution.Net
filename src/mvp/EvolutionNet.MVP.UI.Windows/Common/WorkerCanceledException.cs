@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.Serialization;
-using EvolutionNet.MVP.Core;
+using EvolutionNet.MVP;
 
 namespace EvolutionNet.MVP.UI.Windows.Common
 {

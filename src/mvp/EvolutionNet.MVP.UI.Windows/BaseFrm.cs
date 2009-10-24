@@ -7,8 +7,8 @@ namespace EvolutionNet.MVP.UI.Windows
 
 	public partial class BaseFrm : Form
 	{
-		private bool IsInitialized = false;
-		protected BaseUC baseUC = null;
+		private bool IsInitialized;
+		protected BaseUC baseUC;
 		
 		public event AfterLoadDelegate AfterLoad;
 		
