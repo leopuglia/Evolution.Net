@@ -5,9 +5,7 @@ namespace EvolutionNet.MVP
 {
 	public abstract class BaseFactory : IFactory
 	{
-//		protected bool isInitialized = false;
-//		protected bool isDisposed = false;
-
+/*
 		/// <summary>
 		/// Instancia um objeto a partir de tipo e descrição do formato do tipo, tanto de origem como de destino.
 		/// </summary>
@@ -23,18 +21,17 @@ namespace EvolutionNet.MVP
 			return IoCHelper.InstantiateObj(sourceFormat, sourceType,
 											destFormat, destType, args);
 		}
-
-/*
-		/// <summary>
-		/// Realiza a inicialização básica de um módulo, na implementação da Factory.
-		/// </summary>
-		public abstract void Initialize();
-
-		///<summary>
-		/// Realiza a liberação de recursos alocados pelo objeto.
-		///</summary>
-		public abstract void Dispose();
 */
+
+		public T CreateInstanceFromInterface<T>(string sourceFormat, string destFormat, Type destType, params object[] args)
+		{
+			return IoCHelper.InstantiateObj<T>(sourceFormat, destFormat, destType, args);
+		}
+
+		public T CreateInstance<T>(params object[] args)
+		{
+			return (T) Activator.CreateInstance(typeof (T), args);
+		}
 
 	}
 }

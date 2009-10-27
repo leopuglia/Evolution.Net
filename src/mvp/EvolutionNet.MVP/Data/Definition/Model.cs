@@ -1,26 +1,27 @@
+/*
 using System;
 using System.ComponentModel;
 
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class Model<IdT> : INotifyPropertyChanged
+	public abstract class IModel<IdT> : INotifyPropertyChanged
 	{
-		private IdT id;
+//		private IdT id;
 		
 		/// <summary>
 		/// ID may be of type string, int, custom type, etc.
 		/// </summary>
-		public virtual IdT ID
-		{
-			get { return id; }
-			set
-			{
-				if (! (id.Equals(value)))
-					NotifyPropertyChanged("Nome");
-				id = value;
-			}
-		}
+		public abstract IdT ID { get; set; }
+//		{
+//			get { return id; }
+//			set
+//			{
+//				if (! (id.Equals(value)))
+//					NotifyPropertyChanged("Nome");
+//				id = value;
+//			}
+//		}
 
 		/// <summary>
 		/// Transient objects are not associated with an item already in storage.  For instance,
@@ -49,3 +50,4 @@ namespace EvolutionNet.MVP.Data.Definition
 	}
 }
 
+*/

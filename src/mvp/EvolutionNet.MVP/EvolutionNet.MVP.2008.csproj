@@ -58,6 +58,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\debug\3.5\log4net\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\debug\3.5\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -73,20 +77,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseAbstractFactory.cs" />
+    <Compile Include="IoC\AbstractIoCFactory.cs" />
     <Compile Include="BaseFactory.cs" />
     <Compile Include="Business\ActionDelegate.cs" />
     <Compile Include="Business\BaseFacade.cs" />
     <Compile Include="Business\BaseFacadeFactory.cs" />
     <Compile Include="Business\BaseListFacade.cs" />
-    <Compile Include="Business\FacadeAbstractFactory.cs" />
-    <Compile Include="Business\IFacadeFactory.cs" />
+    <Compile Include="Business\IBaseFacadeFactory.cs" />
     <Compile Include="Configuration\BaseConfiguration.cs" />
     <Compile Include="Contract\IBaseContract.cs" />
     <Compile Include="Contract\IContract.cs" />
     <Compile Include="Contract\IListContract.cs" />
+    <Compile Include="Contract\INullContract.cs" />
     <Compile Include="Contract\ProgressEventArgs.cs" />
     <Compile Include="Data\Access\Dao.cs" />
+    <Compile Include="Data\Access\DaoInitializer.cs" />
+    <Compile Include="Data\Definition\IModel.cs" />
+    <Compile Include="Data\Definition\INullModel.cs" />
     <Compile Include="Data\Definition\ListTO.cs" />
     <Compile Include="Data\Definition\Model.cs" />
     <Compile Include="Data\Definition\TO.cs" />
@@ -97,17 +104,15 @@
     <Compile Include="IoC\IoCManager.cs" />
     <Compile Include="Presenter\BaseListPresenter.cs" />
     <Compile Include="Presenter\BasePresenter.cs" />
-    <Compile Include="Presenter\BasePresenterFactory.cs" />
-    <Compile Include="Presenter\IPresenterFactory.cs" />
-    <Compile Include="Presenter\PresenterAbstractFactory.cs" />
+    <Compile Include="Presenter\IPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ProcessManager.cs" />
     <Compile Include="Util\ProgressReportUtil.cs" />
     <Compile Include="Util\PropertySortDirection.cs" />
     <Compile Include="Util\SortableBindingList.cs" />
     <Compile Include="Util\TypePropertiesUtil.cs" />
-    <Compile Include="View\IListView.cs" />
     <Compile Include="View\IView.cs" />
+    <Compile Include="View\IUCView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

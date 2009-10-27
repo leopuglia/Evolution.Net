@@ -1,22 +1,31 @@
+using System;
 using Castle.ActiveRecord;
 using EvolutionNet.MVP.Data.Definition;
 
 namespace EvolutionNet.MVP.Data.Access
 {
-	public class Dao<T, IdT> : ActiveRecordMediator<T> where T : Model<IdT>
+	public abstract class Dao<T, IdT> : ActiveRecordMediator<T>, IDisposable where T : class, IModel<IdT>
 	{
-		/*
-		public T MainModel { get; set; }
-
-		public void SaveAndFlush()
+		protected Dao()
 		{
-			SaveAndFlush(MainModel);
+			Initialize();
 		}
 
-		public void DeleteAndFlush()
+/*
+		~Dao()
 		{
-			SaveAndFlush(MainModel);
+			Dispose();
 		}
-		*/
+*/
+
+		public void Initialize()
+		{
+			DaoInitializer.Initialize();
+		}
+
+		public void Dispose()
+		{
+			DaoInitializer.Dispose();
+		}
 	}
 }

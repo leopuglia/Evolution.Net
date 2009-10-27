@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using Castle.ActiveRecord;
+using EvolutionNet.MVP.IoC;
 using log4net;
 using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Contract;
@@ -15,9 +16,9 @@ namespace EvolutionNet.MVP.Business
 	/// <typeparam name="TO">Tranfer Object, tipo do objeto de transferência de dados</typeparam>
 	/// <typeparam name="T">MainModel, tipo da principal entidade (model) do módulo</typeparam>
 	/// <typeparam name="IdT">Identity, tipo do ID do MainModel</typeparam>
-	public abstract class BaseFacade<TO, T, IdT> : IContract 
+	public abstract class BaseFacade<TO, T, IdT> : IContract<TO, T, IdT>
 		where TO : TO<T, IdT> 
-		where T : Model<IdT>
+		where T : class, IModel<IdT>
 	{
         private static readonly ILog log = LogManager.GetLogger(typeof(BaseFacade<TO, T, IdT>));
 
@@ -66,11 +67,11 @@ namespace EvolutionNet.MVP.Business
 
 		protected BaseFacade()
 		{
-//			DoInitialize();
+//			Initialize();
 			try
 			{
 				// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
-				to = (TO)Activator.CreateInstance(typeof(TO));
+				to = Activator.CreateInstance<TO>();
 			}
 			catch (Exception ex)
 			{
@@ -230,7 +231,7 @@ namespace EvolutionNet.MVP.Business
 
 		protected virtual void DoFind()
 		{
-			Dao<T, IdT>.FindByPrimaryKey(to.ID);
+			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(to.ID);
 		}
 
 		/// <summary>
@@ -249,42 +250,12 @@ namespace EvolutionNet.MVP.Business
 /*
 		protected virtual void DoInitialize()
 		{
-			if (!isInitialized)
-			{
-				try
-				{
-					ModelAbstractFactory.Instance.Initialize();
-				}
-				catch (Exception ex)
-				{
-					if (log.IsErrorEnabled)
-						log.Error("Não foi possível inicializar a ModelAbstractFactory.", ex);
-
-					throw new ApplicationException("Não foi possível inicializar a ModelAbstractFactory.", ex);
-				}
-
-				isInitialized = true;
-			}
+			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Initialize();
 		}
 
 		protected virtual void DoDispose()
 		{
-			if (!isDisposed)
-			{
-				try
-				{
-					ModelAbstractFactory.Instance.Dispose();
-				}
-				catch (Exception ex)
-				{
-					if (log.IsErrorEnabled)
-						log.Error("Não foi possível destruir a ModelAbstractFactory.", ex);
-
-					throw new ApplicationException("Não foi possível destruir a ModelAbstractFactory.", ex);
-				}
-
-				isDisposed = true;
-			}
+			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Dispose();
 		}
 */
 

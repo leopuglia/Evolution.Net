@@ -1,37 +1,45 @@
 using System;
+using Castle.ActiveRecord;
 using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Contract;
-using EvolutionNet.MVP.Data.Definition;
+using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.Presenter
 {
-	public abstract class BasePresenter<TO, T, IdT> : IContract
-		where TO : TO<T, IdT>
-		where T : Model<IdT>
-
+	public abstract class BasePresenter<ViewT, ContractT> : IPresenter
+		where ViewT : IView
+		where ContractT : IBaseContract
 	{
 		#region Variáveis Privadas
 
-		private readonly IView view;
-		private readonly IContract facade;
+		private readonly ViewT view;
+		private readonly ContractT facade;
 
 		#endregion
 
-		#region Variáveis Protegidas
+		#region Propriedades Públicas
 
-//		protected double progress;
-		protected bool isInitialized;
-		protected bool isDisposed;
+		protected ViewT View
+		{
+			get { return view; }
+		}
+
+		protected ContractT Facade
+		{
+			get { return facade; }
+		}
 
 		#endregion
 
 		#region Construtores
 
-		protected BasePresenter(IView view)
+		protected BasePresenter(ViewT view)
 		{
-			facade = FacadeAbstractFactory.Instance.GetFacade(this);
-			facade.ProgressReported += facade_ProgressReported;
+			if (SessionScope.Current == null)
+				new SessionScope(FlushAction.Never);
+
+			facade = GetFacade();
 
 			this.view = view;
 			view.Initialize();
@@ -39,155 +47,18 @@ namespace EvolutionNet.MVP.Presenter
 
 		#endregion
 
-		#region Propriedades Protegidas
+		#region Métodos Privados
 
-//		protected BaseFacade<TO, T, IdT> Facade
-// 		{
-//			get { return (BaseFacade<TO, T, IdT>) facade; }
-//		}
-
-		protected TO To
+		private ContractT GetFacade()
 		{
-			get { return ((BaseFacade<TO, T, IdT>)facade).To; }
-		}
-
-		#endregion
-
-		#region Métodos Protegidos
-
-		protected FacadeT GetFacade<FacadeT>() where FacadeT : IContract
-		{
-			return (FacadeT) facade;
-		}
-
-		#endregion
-
-		#region IPresenter Members
-
-		public ViewT GetView<ViewT>() where ViewT : IView
-		{
-			return (ViewT)view;
-		}
-
-		#endregion
-
-		#region IContract Members
-
-		#region Eventos Públicos
-
-		public event EventHandler<ProgressEventArgs> ProgressReported;
-
-		#endregion
-
-		#region Métodos Públicos
-
-		#region Métodos de Dados
-
-		public virtual void Find()
-		{
-			facade.Find();
-		}
-
-		public virtual void Save()
-		{
-			facade.Save();
-		}
-
-		public virtual void Delete()
-		{
-			facade.Delete();
-		}
-
-		#endregion
-
-		#region Initialize
-
-/*
-		public virtual void Initialize()
-		{
-			if (!isInitialized)
+			try
 			{
-				try
-				{
-//					FacadeAbstractFactory.Instance.Initialize();
-
-					//Criando o facade por IoC
-					facade = FacadeAbstractFactory.Instance.GetFacade(this);
-//					facade.Initialize();
-
-					isInitialized = true;
-				}
-				catch (Exception ex)
-				{
-					throw new ApplicationException("Não foi possível instanciar o Facade no Presenter.", ex);
-				}
+				return AbstractIoCFactory<IBaseFacadeFactory>.Instance.GetFromContract<ContractT>();
 			}
-		}
-*/
-
-		#endregion
-
-		#region Dispose
-
-/*
-		///<summary>
-		/// Realiza a liberação de recursos alocados pelo objeto.
-		///</summary>
-		public virtual void Dispose()
-		{
-			if (! isDisposed)
+			catch (Exception ex)
 			{
-				try
-				{
-					facade.Dispose();
-
-					FacadeAbstractFactory.Instance.Dispose();
-
-					isDisposed = true;
-				}
-				catch (Exception ex)
-				{
-					throw new ApplicationException("Não foi possível destruir o Facade no Presenter.", ex);
-				}
+				throw new ApplicationException("Não foi possível instanciar o Facade no Presenter.", ex);
 			}
-		}
-*/
-
-		#endregion
-
-		#endregion
-
-		#endregion
-
-		#region Métodos de Eventos
-
-/*
-		protected virtual void ReportProgressStep(double step)
-		{
-			progress += step;
-
-			if (ProgressReported != null)
-				ProgressReported(this, new ProgressEventArgs(step, progress));
-		}
-
-		protected virtual void ReportProgressSet(double progress)
-		{
-			double step = progress - this.progress;
-			this.progress = progress;
-
-			if (ProgressReported != null)
-				ProgressReported(this, new ProgressEventArgs(step, progress));
-		}
-*/
-
-		#endregion
-
-		#region Métodos de Chamada de Eventos
-
-		private void facade_ProgressReported(object sender, ProgressEventArgs e)
-		{
-			if (ProgressReported != null)
-				ProgressReported(this, new ProgressEventArgs(e.Step, e.Progress));
 		}
 
 		#endregion

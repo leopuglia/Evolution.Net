@@ -3,14 +3,12 @@
  * Created: quinta-feira, 29 de novembro de 2007
  */
 
-using System;
-
 namespace EvolutionNet.MVP.View
 {
 	/// <summary>
 	/// Interface que define uma visão (view) básica a ser implementada por cada funcionalidade.
 	/// </summary>
-	public interface IView : IDisposable 
+	public interface IView
 	{
 		/// <summary>
 		/// Transfer Object, contém a referência ao To, que é criado automaticamente pelo framework.
@@ -21,6 +19,7 @@ namespace EvolutionNet.MVP.View
 		/// Realiza todas as inicializações necessárias.
 		/// </summary>
 		void Initialize();
-		
+
+		string MapPath(string relFileName);
 	}
 }

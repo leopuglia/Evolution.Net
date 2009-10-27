@@ -6,11 +6,11 @@
 using log4net;
 using EvolutionNet.MVP.IoC;
 
-namespace EvolutionNet.MVP
+namespace EvolutionNet.MVP.IoC
 {
-	public abstract class BaseAbstractFactory<T> where T : IFactory
+	public abstract class AbstractIoCFactory<T> where T : IFactory
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(BaseAbstractFactory<T>));
+		private static readonly ILog log = LogManager.GetLogger(typeof(AbstractIoCFactory<T>));
 
 		public static T Instance
 		{

@@ -2,13 +2,14 @@ using System;
 using EvolutionNet.MVP.Contract;
 using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.Data.Definition;
+using EvolutionNet.MVP.IoC;
 using log4net;
 
 namespace EvolutionNet.MVP.Business
 {
-	public abstract class BaseListFacade<TO, T, IdT> : IListContract
+	public abstract class BaseListFacade<TO, T, IdT> : IListContract<TO, T, IdT>
 		where TO : ListTO<T, IdT> 
-		where T : Model<IdT>
+		where T : class, IModel<IdT>
 	{
         private static readonly ILog log = LogManager.GetLogger(typeof(BaseListFacade<TO, T, IdT>));
 
@@ -45,10 +46,7 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		public TO To
 		{
-			get
-			{
-				return to;
-			}
+			get { return to; }
 		}
 
 		#endregion
@@ -57,11 +55,11 @@ namespace EvolutionNet.MVP.Business
 
 		protected BaseListFacade()
 		{
-//			DoInitialize();
+//			Initialize();
 			try
 			{
 				// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
-				to = (TO)Activator.CreateInstance(typeof(TO));
+				to = Activator.CreateInstance<TO>();
 			}
 			catch (Exception ex)
 			{
@@ -106,24 +104,9 @@ namespace EvolutionNet.MVP.Business
 		/// <summary>
 		/// Realiza toda a inicialização necessária.
 		/// </summary>
-		public virtual void Initialize()
+		public void Initialize()
 		{
-			if (!isInitialized)
-			{
-				try
-				{
-					ModelAbstractFactory.Instance.Initialize();
-				}
-				catch (Exception ex)
-				{
-                    if (log.IsErrorEnabled)
-						log.Error("Não foi possível inicializar a ModelAbstractFactory.", ex);
-
-					throw new ApplicationException("Não foi possível inicializar a ModelAbstractFactory.", ex);
-				}
-
-				isInitialized = true;
-			}
+			DoInitialize();
 		}
 */
 
@@ -135,24 +118,9 @@ namespace EvolutionNet.MVP.Business
 		///<summary>
 		/// Realiza a liberação de recursos alocados pelo objeto.
 		///</summary>
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			if (! isDisposed)
-			{
-				try
-				{
-					ModelAbstractFactory.Instance.Dispose();
-				}
-				catch (Exception ex)
-				{
-                    if (log.IsErrorEnabled)
-						log.Error("Não foi possível destruir a ModelAbstractFactory.", ex);
-
-					throw new ApplicationException("Não foi possível destruir a ModelAbstractFactory.", ex);
-				}
-
-				isDisposed = true;
-			}
+			DoDispose();
 		}
 */
 
@@ -202,17 +170,18 @@ namespace EvolutionNet.MVP.Business
 
 		protected virtual void DoFindAll()
 		{
-			Dao<T, IdT>.FindAll();
+			To.List = Dao<T, IdT>.FindAll();
 		}
 
-		#endregion
-
-		#region Métodos Auxiliares
-
 /*
-		private void DoInitialize()
+		protected virtual void DoInitialize()
 		{
-			Initialize();
+			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Initialize();
+		}
+
+		protected virtual void DoDispose()
+		{
+			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Dispose();
 		}
 */
 

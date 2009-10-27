@@ -6,7 +6,7 @@ using EvolutionNet.MVP.Util;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class ListTO<T, IdT> where T : Model<IdT>
+	public abstract class ListTO<T, IdT> where T : class, IModel<IdT>
 	{
 	    private IList<T> list;
 	    public IList<T> List
@@ -20,7 +20,7 @@ namespace EvolutionNet.MVP.Data.Definition
 			try
 			{
 				// Instancia o tipo se não for um tipo nulo
-				if (typeof(T) != typeof(NullModel))
+				if (typeof(T) != typeof(INullModel))
 				{
 					//TODO: Adicionei aqui. Verificar como buscar os dados.
 					list = new SortableBindingList<T>();

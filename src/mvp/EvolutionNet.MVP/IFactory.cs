@@ -10,8 +10,9 @@ namespace EvolutionNet.MVP
 	/// <summary>
 	/// Interface que define uma implementação de factory básica.
 	/// </summary>
-	public interface IFactory// : IDisposable
+	public interface IFactory
 	{
+/*
 		/// <summary>
 		/// Instancia um objeto a partir de tipo e descrição do formato do tipo, tanto de origem como de destino.
 		/// </summary>
@@ -21,13 +22,12 @@ namespace EvolutionNet.MVP
 		/// <param name="destType">Tipo de destino, por exemplo [Funcionalidade]Facade</param>
 		/// <param name="args">Argumentos a serem passados ao construtor do tipo</param>
 		/// <returns>Retorna uma instância baseada no tipo de destino, por exemplo [Tipo.Funcionalidade]Facade</returns>
-		object GetObject(string sourceFormat, Type sourceType,
+		object CreateInstanceFromInterface(string sourceFormat, Type sourceType,
 						 string destFormat, Type destType,
 						 params object[] args);
+*/
 
-		/// <summary>
-		/// Realiza a inicialização básica de um módulo, na implementação da Factory.
-		/// </summary>
-//		void Initialize();
+		T CreateInstanceFromInterface<T>(string sourceFormat, string destFormat, Type destType, params object[] args);
+		T CreateInstance<T>(params object[] args);
 	}
 }

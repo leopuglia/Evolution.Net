@@ -1,7 +1,6 @@
-
 namespace EvolutionNet.MVP.Contract
 {
-	public interface IBaseContract
+	public interface INullContract : IBaseContract
 	{
 	}
 }

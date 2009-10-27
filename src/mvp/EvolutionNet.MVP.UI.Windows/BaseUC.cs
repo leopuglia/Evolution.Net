@@ -74,13 +74,14 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#region Métodos Protegidos
 
+/*
 		/// <summary>
 		/// Presenter, contém a referência ao presenter da funcionalidade atual.
 		/// </summary>
 		protected PresenterT GetPresenter<PresenterT, TO, T, IdT>()
 			where PresenterT : BasePresenter<TO, T, IdT>
 			where TO : TO<T, IdT>
-			where T : Model<IdT>
+			where T : class, IModel<IdT>
 		{
 			try
 			{
@@ -91,6 +92,7 @@ namespace EvolutionNet.MVP.UI.Windows
 				throw new ApplicationException("Não foi possível instanciar o Presenter.", ex);
 			}
 		}
+*/
 
 		protected void RunWorker()
 		{

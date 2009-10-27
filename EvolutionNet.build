@@ -26,7 +26,7 @@
   <property name="bin_path_util" value="${bin_path}\util\${envdir}\${target}"/>
   <property name="bin_path_zip" value="${bin_path}\zip"/>
 
-  <property name="version_mvp" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.Core.dll'))}" if="${file::exists(bin_path_mvp+'\EvolutionNet.MVP.Core.dll')}" />
+  <property name="version_mvp" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.dll'))}" if="${file::exists(bin_path_mvp+'\EvolutionNet.MVP.dll')}" />
   <property name="version_util" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_util+'\EvolutionNet.Util.dll'))}" if="${file::exists(bin_path_util+'\EvolutionNet.Util.dll')}" />
 
   <property name="deploy_path" value="${deploy}\${envdir}\${target}\EvolutionNet"/>
@@ -121,90 +121,18 @@
   <!-- ****** Target: build-mvp ****** -->
   <target name="build-mvp" depends="copy-libs-mvp" description="Compiles the mvp libraries">
 
-    <!-- ****** EvolutionNet.MVP.Core ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.Core.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+    <!-- ****** EvolutionNet.MVP ****** -->
+    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
       <sources>
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\*.cs" />
+        <include name="${src_path_mvp}\EvolutionNet.MVP\**\*.cs" />
       </sources>
       <references>
+        <include name="${lib_path}\castle\Castle.ActiveRecord.dll" />
         <include name="${lib_path}\castle\Castle.Core.dll" />
         <include name="${lib_path}\castle\Castle.MicroKernel.dll" />
         <include name="${lib_path}\castle\Castle.Windsor.dll" />
-        <include name="${lib_path}\log4net\log4net.dll" />
-      </references>
-    </csc>
-
-    <!-- ****** EvolutionNet.MVP.Data.Definition ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.Data.Definition.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
-      <sources>
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Data.Definition\**\*.cs" />
-        <exclude name="${src_path_mvp}\EvolutionNet.MVP.Data.Definition\**\AssemblyInfo.cs" />
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
-      </sources>
-      <references>
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Core.dll" />
-      </references>
-    </csc>
-
-    <!-- ****** EvolutionNet.MVP.Data.Access ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.Data.Access.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
-      <sources>
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Data.Access\**\*.cs" />
-        <exclude name="${src_path_mvp}\EvolutionNet.MVP.Data.Access\**\AssemblyInfo.cs" />
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
-      </sources>
-      <references>
-        <include name="${lib_path}\castle\Castle.ActiveRecord.dll" />
-        <include name="${lib_path}\log4net\log4net.dll" />
-
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Core.dll" />
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Data.Definition.dll" />
-      </references>
-    </csc>
-
-    <!-- ****** EvolutionNet.MVP.Business ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.Business.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
-      <sources>
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Business\**\*.cs" />
-        <exclude name="${src_path_mvp}\EvolutionNet.MVP.Business\**\AssemblyInfo.cs" />
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
-      </sources>
-      <references>
-        <include name="${lib_path}\castle\Castle.ActiveRecord.dll" />
-        <include name="${lib_path}\log4net\log4net.dll" />
         <include name="${lib_path}\nhibernate\NHibernate.dll" />
-
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Core.dll" />
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Data.Definition.dll" />
-      </references>
-    </csc>
-
-    <!-- ****** EvolutionNet.MVP.View ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.View.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
-      <sources>
-        <include name="${src_path_mvp}\EvolutionNet.MVP.View\**\*.cs" />
-        <exclude name="${src_path_mvp}\EvolutionNet.MVP.View\**\AssemblyInfo.cs" />
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
-      </sources>
-      <references>
         <include name="${lib_path}\log4net\log4net.dll" />
-
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Core.dll" />
-      </references>
-    </csc>
-
-    <!-- ****** EvolutionNet.MVP.Presenter ****** -->
-    <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.Presenter.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
-      <sources>
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Presenter\**\*.cs" />
-        <exclude name="${src_path_mvp}\EvolutionNet.MVP.Presenter\**\AssemblyInfo.cs" />
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
-      </sources>
-      <references>
-        <include name="${lib_path}\log4net\log4net.dll" />
-
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Core.dll" />
-        <include name="${build_path_mvp}\EvolutionNet.MVP.View.dll" />
       </references>
     </csc>
 
@@ -213,7 +141,7 @@
       <sources>
         <include name="${src_path_mvp}\EvolutionNet.MVP.UI.Windows\**\*.cs" />
         <exclude name="${src_path_mvp}\EvolutionNet.MVP.UI.Windows\**\AssemblyInfo.cs" />
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+        <include name="${src_path_mvp}\EvolutionNet.MVP\**\AssemblyInfo.cs" />
       </sources>
       <resources dynamicprefix="true" basedir="${src_path_mvp}">
         <include name="EvolutionNet.MVP.UI.Windows\**\*.resx" />
@@ -221,7 +149,7 @@
       <references>
         <include name="${lib_path}\log4net\log4net.dll" />
 
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Core.dll" />
+        <include name="${build_path_mvp}\EvolutionNet.MVP.dll" />
       </references>
     </csc>
 
@@ -230,12 +158,12 @@
       <sources>
         <include name="${src_path_mvp}\EvolutionNet.MVP.UI.Web\**\*.cs" />
         <exclude name="${src_path_mvp}\EvolutionNet.MVP.UI.Web\**\AssemblyInfo.cs" />
-        <include name="${src_path_mvp}\EvolutionNet.MVP.Core\**\AssemblyInfo.cs" />
+        <include name="${src_path_mvp}\EvolutionNet.MVP\**\AssemblyInfo.cs" />
       </sources>
       <references>
         <include name="${lib_path}\log4net\log4net.dll" />
 
-        <include name="${build_path_mvp}\EvolutionNet.MVP.Core.dll" />
+        <include name="${build_path_mvp}\EvolutionNet.MVP.dll" />
       </references>
     </csc>
 
@@ -275,8 +203,8 @@
     <!-- ****** COPY DLL's TO BIN ****** -->
     <copy todir="${bin_path_mvp}" flatten="true">
       <fileset basedir="${build_path_mvp}">
-        <include name="EvolutionNet.MVP.*.dll" />
-        <include name="EvolutionNet.MVP.*.pdb" if="${debug}" />
+        <include name="EvolutionNet.MVP*.dll" />
+        <include name="EvolutionNet.MVP*.pdb" if="${debug}" />
       </fileset>
     </copy>
 

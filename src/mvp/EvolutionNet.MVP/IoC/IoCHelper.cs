@@ -26,16 +26,13 @@ namespace EvolutionNet.MVP.IoC
 		/// </summary>
 		/// <typeparam name="T">Tipo de retorno</typeparam>
 		/// <param name="sourceFormat">String de formato do tipo de origem, por exemplo "{0}Presenter"</param>
-		/// <param name="sourceType">Tipo de origem, por exemplo [Funcionalidade]Presenter</param>
 		/// <param name="destFormat">String de formato do tipo de destino, por exemplo "{0}Facade"</param>
 		/// <param name="destType">Tipo de destino, por exemplo [Funcionalidade]Facade</param>
 		/// <param name="args">Argumentos a serem passados ao construtor do tipo</param>
 		/// <returns>Retorna uma instância do tipo de retorno, que é baseada no tipo de destino, por exemplo [Tipo.Funcionalidade]Facade</returns>
-		public static T InstantiateObj<T>(string sourceFormat, Type sourceType,
-		                                  string destFormat, Type destType,
-		                                  params object[] args)
+		public static T InstantiateObj<T>(string sourceFormat, string destFormat, Type destType, params object[] args)
 		{
-			return (T)InstantiateObj(sourceFormat, sourceType, destFormat, destType, args);
+			return (T)InstantiateObj(sourceFormat, typeof(T), destFormat, destType, args);
 		}
 
 		#endregion

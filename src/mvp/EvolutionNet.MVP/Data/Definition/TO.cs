@@ -4,7 +4,7 @@ using EvolutionNet.MVP.Data.Definition;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class TO<T, IdT> where T : Model<IdT>
+	public abstract class TO<T, IdT> where T : class, IModel<IdT>
 	{
 		private IdT id;
 		private T mainModel;
@@ -26,7 +26,7 @@ namespace EvolutionNet.MVP.Data.Definition
 			try
 			{
 				// Instancia o tipo se não for um tipo nulo
-				if (typeof(T) != typeof(NullModel))
+				if (typeof(T) != typeof(INullModel))
 				{
 					// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
 					mainModel = (T)Activator.CreateInstance(typeof(T));
