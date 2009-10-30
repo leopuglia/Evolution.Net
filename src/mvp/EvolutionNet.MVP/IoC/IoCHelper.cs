@@ -21,18 +21,9 @@ namespace EvolutionNet.MVP.IoC
 
 		#region InstantiateObj<T>
 
-		/// <summary>
-		/// Instancia um objeto a partir de tipo e descrição do formato do tipo, tanto de origem como de destino, já no tipo desejado.
-		/// </summary>
-		/// <typeparam name="T">Tipo de retorno</typeparam>
-		/// <param name="sourceFormat">String de formato do tipo de origem, por exemplo "{0}Presenter"</param>
-		/// <param name="destFormat">String de formato do tipo de destino, por exemplo "{0}Facade"</param>
-		/// <param name="destType">Tipo de destino, por exemplo [Funcionalidade]Facade</param>
-		/// <param name="args">Argumentos a serem passados ao construtor do tipo</param>
-		/// <returns>Retorna uma instância do tipo de retorno, que é baseada no tipo de destino, por exemplo [Tipo.Funcionalidade]Facade</returns>
-		public static T InstantiateObj<T>(string sourceFormat, string destFormat, Type destType, params object[] args)
+		public static T InstantiateObj<T>(string sourceFormat, string sourceExclude, string destFormat, Type destType, params object[] args)
 		{
-			return (T)InstantiateObj(sourceFormat, typeof(T), destFormat, destType, args);
+			return (T)InstantiateObj(sourceFormat, sourceExclude, typeof(T), destFormat, destType, args);
 		}
 
 		#endregion
@@ -43,16 +34,17 @@ namespace EvolutionNet.MVP.IoC
 		/// Instancia um objeto a partir de tipo e descrição do formato do tipo, tanto de origem como de destino.
 		/// </summary>
 		/// <param name="sourceFormat">String de formato do tipo de origem, por exemplo "{0}Presenter"</param>
+		/// <param name="sourceExclude">String a ser excluída do namespace de origem, por exemplo "Business"</param>
 		/// <param name="sourceType">Tipo de origem, por exemplo [Funcionalidade]Presenter</param>
 		/// <param name="destFormat">String de formato do tipo de destino, por exemplo "{0}Facade"</param>
 		/// <param name="destType">Tipo de destino, por exemplo [Funcionalidade]Facade</param>
 		/// <param name="args">Argumentos a serem passados ao construtor do tipo</param>
 		/// <returns>Retorna uma instância baseada no tipo de destino, por exemplo [Tipo.Funcionalidade]Facade</returns>
-		public static object InstantiateObj(string sourceFormat, Type sourceType,
+		public static object InstantiateObj(string sourceFormat, string sourceExclude, Type sourceType,
 		                                    string destFormat, Type destType, 
 		                                    params object[] args)
 		{
-			string sourceAssemblyName = sourceType.Assembly.GetName().Name;
+			string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
 			string sourceTypeName = sourceType.Name;
 
 			string destNamespace = destType.Namespace +

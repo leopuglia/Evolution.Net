@@ -12,6 +12,7 @@ namespace EvolutionNet.MVP.Business
 {
 	public abstract class BaseFacadeFactory : BaseFactory, IBaseFacadeFactory
 	{
+		private const string TYPE_NAME_CONTRACT_EXCLUDE = "Business";
 		private const string TYPE_NAME_CONTRACT = "I{0}Contract";
 		private const string TYPE_NAME_DEST = "{0}Facade";
 
@@ -19,7 +20,7 @@ namespace EvolutionNet.MVP.Business
 		{
 			return typeof(ContractT) == typeof(INullContract)
 				? default(ContractT)
-				: IoCHelper.InstantiateObj<ContractT>(TYPE_NAME_CONTRACT, TYPE_NAME_DEST, GetType());
+				: IoCHelper.InstantiateObj<ContractT>(TYPE_NAME_CONTRACT, TYPE_NAME_CONTRACT_EXCLUDE, TYPE_NAME_DEST, GetType());
 		}
 
 		/// <summary>
