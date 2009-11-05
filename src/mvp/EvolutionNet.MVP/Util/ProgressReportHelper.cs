@@ -4,7 +4,7 @@ namespace EvolutionNet.MVP.Util
 	/// <summary>
 	/// Classe utilitária para os eventos de progresso da requisição.
 	/// </summary>
-	public static class ProgressReportUtil
+	public static class ProgressReportHelper
 	{
 		/// <summary>
 		/// Calcula o valor correto do passo, pelo início, final e número de passos.

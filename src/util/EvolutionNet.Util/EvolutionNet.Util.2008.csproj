@@ -69,12 +69,16 @@
     <Compile Include="Calendar\MonthHelper.cs" />
     <Compile Include="Calendar\Period.cs" />
     <Compile Include="Imaging\BitmapEx.cs" />
-    <Compile Include="Imaging\ConvertHelper.cs" />
+    <Compile Include="ConvertHelper.cs" />
     <Compile Include="Imaging\ExifTag.cs" />
     <Compile Include="Imaging\ExifTagCollection.cs" />
     <Compile Include="Imaging\ImageProcessing.cs" />
+    <Compile Include="Imaging\JpegProcessing.cs" />
     <Compile Include="Imaging\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Collection\PropertySortDirection.cs" />
+    <Compile Include="Collection\SortableBindingList.cs" />
+    <Compile Include="TypePropertiesHelper.cs" />
     <Compile Include="Web\MultipleFileUpload.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,12 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace EvolutionNet.MVP.Util
+namespace EvolutionNet.Util
 {
 	/// <summary>
 	/// Classe estática com métodos utilitários para cópia de valores de propriedades comuns entre tipos diferentes.
 	/// </summary>
-	public static class TypePropertiesUtil
+	public static class TypePropertiesHelper
 	{
 		#region Métodos de Cópia de Super-Classe -> Sub-Classe
 
@@ -176,36 +176,6 @@ namespace EvolutionNet.MVP.Util
 		}
 
 		#endregion
-
-		#region Conversão de Tipos
-
-		public static T GetFromString<T>(string strToConvert, T standardValue)
-		{
-			object ret = standardValue;
-			if (strToConvert != null)
-			{
-				try
-				{
-					if (typeof(T) == typeof(bool))
-						ret = bool.Parse(strToConvert);
-					else if (typeof(T) == typeof(int))
-						ret = int.Parse(strToConvert);
-					else if (typeof(T).IsEnum)
-						ret = Enum.Parse(typeof(T), strToConvert);
-					else
-						throw new NotImplementedException("Tipo para conversão não implementado!");
-				}
-				catch
-				{
-					return (T)ret;
-				}
-			}
-			return (T)ret;
-		}
-
-		#endregion
-
-
 
 	}
 }

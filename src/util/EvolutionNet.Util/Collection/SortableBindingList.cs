@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace EvolutionNet.MVP.Util
+namespace EvolutionNet.Util.Collection
 {
 	/// <summary>
 	/// Classe que define uma lista com generics dos tipos de seus elementos, mas que pode ser ordenada por controles visuais.

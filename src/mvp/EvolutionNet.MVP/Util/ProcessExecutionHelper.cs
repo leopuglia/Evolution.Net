@@ -4,9 +4,9 @@ using log4net;
 
 namespace EvolutionNet.MVP.Util
 {
-	public abstract class ProcessManager
+	public abstract class ProcessExecutionHelper
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(ProcessManager));
+		private static readonly ILog log = LogManager.GetLogger(typeof(ProcessExecutionHelper));
 
 		public static void RunDosBatch(string workingDirectory, string fileName)
 		{

@@ -10,88 +10,9 @@ namespace EvolutionNet.Util.Imaging
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(ImageProcessing));
 
-		private const int QUALITY = 75;
+		#region DoCrop
 
-		#region Jpeg
-
-		public static void SaveJpegOnStream(Stream stream, Bitmap img, long quality)
-		{
-			// Encoder parameter for image quality
-			EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, quality);
-
-			// Jpeg image codec
-			ImageCodecInfo jpegCodec = GetEncoderInfo("image/jpeg");
-
-			if (jpegCodec == null)
-				return;
-
-			EncoderParameters encoderParams = new EncoderParameters(1);
-			encoderParams.Param[0] = qualityParam;
-
-			img.Save(stream, jpegCodec, encoderParams);
-		}
-
-		public static void SaveJpeg(string path, Bitmap img, long quality)
-		{
-			// Encoder parameter for image quality
-			EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, quality);
-
-			// Jpeg image codec
-			ImageCodecInfo jpegCodec = GetEncoderInfo(ImageFormat.Jpeg);
-
-			if (jpegCodec == null)
-				return;
-
-			EncoderParameters encoderParams = new EncoderParameters(1);
-			encoderParams.Param[0] = qualityParam;
-
-			img.Save(path, jpegCodec, encoderParams);
-		}
-
-		public static ImageCodecInfo GetEncoderInfo(ImageFormat format)
-		{
-			ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-
-			foreach (ImageCodecInfo codec in codecs)
-			{
-				if (codec.FormatID == format.Guid)
-					return codec;
-			}
-			return null;
-		}
-
-		public static ImageCodecInfo GetEncoderInfo(string mimeType)
-		{
-			// Get image codecs for all image formats
-			ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
-
-			// Find the correct image codec
-			foreach (ImageCodecInfo codec in codecs)
-				if (codec.MimeType == mimeType)
-					return codec;
-			return null;
-		}
-
-		#endregion
-
-		#region Crop
-
-		public static void CropOnStream(string fileName, Rectangle cropArea, Stream stream)
-		{
-			Bitmap imgCrop = Crop(fileName, cropArea);
-			SaveJpegOnStream(stream, imgCrop, QUALITY);
-			imgCrop.Dispose();
-		}
-
-		public static Bitmap Crop(string fileName, Rectangle cropArea)
-		{
-			Bitmap img = new Bitmap(fileName);
-			Bitmap imgCrop = Crop(img, cropArea);
-			img.Dispose();
-			return imgCrop;
-		}
-
-		public static Bitmap Crop(Bitmap img, Rectangle cropArea)
+		private static Bitmap DoCrop(Bitmap img, Rectangle cropArea)
 		{
 			Bitmap imgCrop = img.Clone(cropArea, img.PixelFormat);
 			img.Dispose();
@@ -100,72 +21,57 @@ namespace EvolutionNet.Util.Imaging
 
 		#endregion
 
-		#region Resize
+		#region Crop Overloads
 
-		public static void ResizeOnStream(Stream streamRead, Size newSize, Stream streamWrite)
+		public static Bitmap Crop(Bitmap img, Rectangle cropArea)
+		{
+			return DoCrop(img, cropArea);
+		}
+
+		public static Bitmap Crop(Stream streamRead, Rectangle cropArea)
 		{
 			Bitmap img = new Bitmap(streamRead);
-			Bitmap imgResized = Resize(img, newSize);
-			img.Dispose();
-			imgResized.Save(streamWrite, ImageFormat.Jpeg);
-			imgResized.Dispose();
-		}
-
-		public static void ResizeOnStream(string fileName, Size newSize, Stream streamWrite)
-		{
-			Bitmap imgResized = Resize(fileName, newSize);
-			imgResized.Save(streamWrite, ImageFormat.Jpeg);
-			imgResized.Dispose();
-		}
-
-		public static void ResizeOnStream(Bitmap img, Size newSize, Stream streamWrite)
-		{
-			Bitmap imgResized = Resize(img, newSize);
-			imgResized.Save(streamWrite, ImageFormat.Jpeg);
-			imgResized.Dispose();
-		}
-
-		public static void ResizeAndSaveJpeg(Stream streamRead, string newFileName, Size newSize)
-		{
-			Bitmap img = new Bitmap(streamRead);
-			Bitmap imgResized = Resize(img, newSize);
-			img.Dispose();
-			SaveJpeg(newFileName, imgResized, QUALITY);
-			imgResized.Dispose();
-		}
-
-		public static void ResizeAndSaveJpeg(string fileName, string newFileName, Size newSize)
-		{
-			Bitmap imgResized = Resize(fileName, newSize);
-			SaveJpeg(newFileName, imgResized, QUALITY);
-			imgResized.Dispose();
-		}
-
-		public static void ResizeAndSaveJpeg(Bitmap img, string newFileName, Size newSize)
-		{
-			Bitmap imgResized = Resize(img, newSize);
-			img.Dispose();
-			SaveJpeg(newFileName, imgResized, QUALITY);
-			imgResized.Dispose();
-		}
-
-		public static Bitmap Resize(Stream streamRead, Size newSize)
-		{
-			Bitmap img = new Bitmap(streamRead);
-			Bitmap imgResized = Resize(img, newSize);
+			Bitmap imgResized = DoCrop(img, cropArea);
 			img.Dispose();
 			return imgResized;
 		}
 
-		public static Bitmap Resize(string fileName, Size newSize)
+		public static Bitmap Crop(string fileName, Rectangle cropArea)
 		{
 			Bitmap img = new Bitmap(fileName);
-			Bitmap imgResized = Resize(img, newSize);
+			Bitmap imgCrop = DoCrop(img, cropArea);
 			img.Dispose();
-			return imgResized;
+			return imgCrop;
 		}
 
-		public static Bitmap Resize(Bitmap img, Size newSize)
+		public static void Crop(Stream streamRead, Rectangle cropArea, Stream streamWrite)
+		{
+			Bitmap img = new Bitmap(streamRead);
+			Bitmap imgResized = DoCrop(img, cropArea);
+			img.Dispose();
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		public static void Crop(string fileName, Rectangle cropArea, Stream streamWrite)
+		{
+			Bitmap imgCrop = Crop(fileName, cropArea);
+			imgCrop.Save(streamWrite, ImageFormat.Jpeg);
+			imgCrop.Dispose();
+		}
+
+		public static void Crop(Bitmap img, Rectangle cropArea, Stream streamWrite)
+		{
+			Bitmap imgResized = DoCrop(img, cropArea);
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		#endregion
+
+		#region DoResize
+
+		private static Bitmap DoResize(Bitmap img, Size newSize)
 		{
 			int imgWidth = img.Width;
 			int imgHeight = img.Height;
@@ -197,24 +103,57 @@ namespace EvolutionNet.Util.Imaging
 
 		#endregion
 
-		#region ResizeFixedSize
+		#region Resize Overloads
 
-		public static void ResizeFixedSizeOnStream(string fileName, Size newSize, Color paddingColor, Stream stream)
+		public static Bitmap Resize(Bitmap img, Size newSize)
 		{
-			Bitmap imgResized = ResizeFixedSize(fileName, newSize, paddingColor);
-			imgResized.Save(stream, ImageFormat.Jpeg);
-			imgResized.Dispose();
+			return DoResize(img, newSize);
 		}
 
-		public static Bitmap ResizeFixedSize(string fileName, Size newSize, Color paddingColor)
+		public static Bitmap Resize(Stream streamRead, Size newSize)
 		{
-			Bitmap img = new Bitmap(fileName);
-			Bitmap imgResized = ResizeFixedSize(img, newSize, paddingColor);
+			Bitmap img = new Bitmap(streamRead);
+			Bitmap imgResized = DoResize(img, newSize);
 			img.Dispose();
 			return imgResized;
 		}
 
-		public static Bitmap ResizeFixedSize(Bitmap img, Size newSize, Color paddingColor)
+		public static Bitmap Resize(string fileName, Size newSize)
+		{
+			Bitmap img = new Bitmap(fileName);
+			Bitmap imgResized = DoResize(img, newSize);
+			img.Dispose();
+			return imgResized;
+		}
+
+		public static void Resize(Stream streamRead, Size newSize, Stream streamWrite)
+		{
+			Bitmap img = new Bitmap(streamRead);
+			Bitmap imgResized = DoResize(img, newSize);
+			img.Dispose();
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		public static void Resize(string fileName, Size newSize, Stream streamWrite)
+		{
+			Bitmap imgResized = Resize(fileName, newSize);
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		public static void Resize(Bitmap img, Size newSize, Stream streamWrite)
+		{
+			Bitmap imgResized = DoResize(img, newSize);
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		#endregion
+
+		#region DoResizeFixedSize
+
+		private static Bitmap DoResizeFixedSize(Bitmap img, Size newSize, Color paddingColor)
 		{
 			int imgWidth = img.Width;
 			int imgHeight = img.Height;
@@ -249,9 +188,9 @@ namespace EvolutionNet.Util.Imaging
 				InterpolationMode.HighQualityBicubic;
 
 			grPhoto.DrawImage(img,
-			                  new Rectangle(destX, destY, destWidth, destHeight),
-			                  new Rectangle(0, 0, imgWidth, imgHeight),
-			                  GraphicsUnit.Pixel);
+							  new Rectangle(destX, destY, destWidth, destHeight),
+							  new Rectangle(0, 0, imgWidth, imgHeight),
+							  GraphicsUnit.Pixel);
 
 			grPhoto.Dispose();
 			img.Dispose();
@@ -261,21 +200,73 @@ namespace EvolutionNet.Util.Imaging
 
 		#endregion
 
+		#region Resize (FixedSize) Overloads
+
+		public static Bitmap Resize(Bitmap img, Size newSize, Color paddingColor)
+		{
+			return DoResizeFixedSize(img, newSize, paddingColor);
+		}
+
+		public static Bitmap Resize(Stream streamRead, Size newSize, Color paddingColor)
+		{
+			Bitmap img = new Bitmap(streamRead);
+			Bitmap imgResized = DoResizeFixedSize(img, newSize, paddingColor);
+			img.Dispose();
+			return imgResized;
+		}
+
+		public static Bitmap Resize(string fileName, Size newSize, Color paddingColor)
+		{
+			Bitmap img = new Bitmap(fileName);
+			Bitmap imgResized = DoResizeFixedSize(img, newSize, paddingColor);
+			img.Dispose();
+			return imgResized;
+		}
+
+		public static void Resize(Stream streamRead, Size newSize, Color paddingColor, Stream streamWrite)
+		{
+			Bitmap img = new Bitmap(streamRead);
+			Bitmap imgResized = DoResizeFixedSize(img, newSize, paddingColor);
+			img.Dispose();
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		public static void Resize(string fileName, Size newSize, Color paddingColor, Stream streamWrite)
+		{
+			Bitmap imgResized = Resize(fileName, newSize, paddingColor);
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		public static void Resize(Bitmap img, Size newSize, Color paddingColor, Stream streamWrite)
+		{
+			Bitmap imgResized = DoResizeFixedSize(img, newSize, paddingColor);
+			imgResized.Save(streamWrite, ImageFormat.Jpeg);
+			imgResized.Dispose();
+		}
+
+		#endregion
+
+		#region Auxiliary Methods
+
 		private static Bitmap GetNewBitmap(Image img, int destWidth, int destHeight)
 		{
 			log.DebugFormat("Creating a new bitmap with {0} width and {1} height", destWidth, destHeight);
 
 			Bitmap imgResized = new Bitmap(destWidth, destHeight,
-										   PixelFormat.Format24bppRgb);
+			                               PixelFormat.Format24bppRgb);
 			foreach (ExifTag exifTag in new ExifTagCollection(img))
 			{
 				log.DebugFormat("Adding propertyitem {0}: {1}", exifTag.Description, exifTag.Value);
 				imgResized.SetPropertyItem(img.GetPropertyItem(exifTag.Id));
 			}
 			imgResized.SetResolution(img.HorizontalResolution,
-									 img.VerticalResolution);
+			                         img.VerticalResolution);
 			return imgResized;
 		}
+
+		#endregion
 
 	}
 }

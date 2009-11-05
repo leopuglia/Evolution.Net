@@ -3,7 +3,7 @@
  * Created: terça-feira, 26 de fevereiro de 2008
  */
 
-namespace EvolutionNet.MVP.Util
+namespace EvolutionNet.Util.Collection
 {
 	/// <summary>
 	/// Estrutura utilitária para definir uma propriedade para ordenamento de uma lista e a direção (ascendente ou decrescente).

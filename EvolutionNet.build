@@ -13,21 +13,21 @@
   <property name="deploy" value="deploy" overwrite="false" />
 
   <property name="src_path" value="src"/>
-  <property name="src_path_mvp" value="src\mvp"/>
   <property name="src_path_util" value="src\util"/>
+  <property name="src_path_mvp" value="src\mvp"/>
   <property name="lib_path" value="lib\${envdir}\${target}"/>
 
   <property name="build_path" value="build"/>
-  <property name="build_path_mvp" value="${build_path}\mvp\${envdir}\${target}"/>
   <property name="build_path_util" value="${build_path}\util\${envdir}\${target}"/>
+  <property name="build_path_mvp" value="${build_path}\mvp\${envdir}\${target}"/>
 
   <property name="bin_path" value="bin"/>
-  <property name="bin_path_mvp" value="${bin_path}\mvp\${envdir}\${target}"/>
   <property name="bin_path_util" value="${bin_path}\util\${envdir}\${target}"/>
+  <property name="bin_path_mvp" value="${bin_path}\mvp\${envdir}\${target}"/>
   <property name="bin_path_zip" value="${bin_path}\zip"/>
 
-  <property name="version_mvp" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.dll'))}" if="${file::exists(bin_path_mvp+'\EvolutionNet.MVP.dll')}" />
   <property name="version_util" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_util+'\EvolutionNet.Util.dll'))}" if="${file::exists(bin_path_util+'\EvolutionNet.Util.dll')}" />
+  <property name="version_mvp" value="${assemblyname::get-version(assemblyname::get-assembly-name(bin_path_mvp+'\EvolutionNet.MVP.dll'))}" if="${file::exists(bin_path_mvp+'\EvolutionNet.MVP.dll')}" />
 
   <property name="deploy_path" value="${deploy}\${envdir}\${target}\EvolutionNet"/>
 
@@ -43,14 +43,14 @@
   
   <!-- ****** Target: clean ****** -->
   <target name="clean" description="remove all binaries">
-    
-    <delete if="${directory::exists(bin_path_mvp)}">
-      <fileset basedir="${bin_path_mvp}">
+
+    <delete if="${directory::exists(bin_path_util)}">
+      <fileset basedir="${bin_path_util}">
         <include name="**/*.*" />
       </fileset>
     </delete>
-    <delete if="${directory::exists(bin_path_util)}">
-      <fileset basedir="${bin_path_util}">
+    <delete if="${directory::exists(bin_path_mvp)}">
+      <fileset basedir="${bin_path_mvp}">
         <include name="**/*.*" />
       </fileset>
     </delete>
@@ -80,13 +80,26 @@
 
   <!-- ****** Target: init ****** -->
   <target name="init">
-    
-    <mkdir dir="${build_path_mvp}" />
+
     <mkdir dir="${build_path_util}" />
-    <mkdir dir="${bin_path_mvp}" />
+    <mkdir dir="${build_path_mvp}" />
     <mkdir dir="${bin_path_util}" />
+    <mkdir dir="${bin_path_mvp}" />
     <mkdir dir="${bin_path_zip}" unless="${debug}" />
     
+  </target>
+
+
+
+  <!-- ****** Target: copy-libs-util ****** -->
+  <target name="copy-libs-util" depends="init" >
+    <copy todir="${build_path_util}" flatten="true">
+      <fileset basedir="${lib_path}">
+        <!--        <include name="Aforge\Aforge.Imaging.dll" />-->
+      </fileset>
+    </copy>
+    <copy file="${lib_path}\castle\Castle.ActiveRecord.dll" todir="${build_path_mvp}" />
+
   </target>
 
 
@@ -105,21 +118,28 @@
 
 
 
-  <!-- ****** Target: copy-libs-util ****** -->
-  <target name="copy-libs-util" depends="init" >
-    <copy todir="${build_path_util}" flatten="true">
-      <fileset basedir="${lib_path}">
-<!--        <include name="Aforge\Aforge.Imaging.dll" />-->
-      </fileset>
-    </copy>
-        <copy file="${lib_path}\castle\Castle.ActiveRecord.dll" todir="${build_path_mvp}" />
+  <!-- ****** Target: build-util ****** -->
+  <target name="build-util" depends="copy-libs-util" description="Compiles the util libraries">
+
+    <!-- ****** EvolutionNet.Util ****** -->
+    <csc target="library" output="${build_path_util}\EvolutionNet.Util.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
+      <sources>
+        <include name="${src_path_util}\EvolutionNet.Util\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src_path_util}">
+        <include name="EvolutionNet.Util\**\*.swf" />
+      </resources>
+      <references>
+        <include name="${lib_path}\log4net\log4net.dll" />
+      </references>
+    </csc>
 
   </target>
 
 
 
   <!-- ****** Target: build-mvp ****** -->
-  <target name="build-mvp" depends="copy-libs-mvp" description="Compiles the mvp libraries">
+  <target name="build-mvp" depends="copy-libs-mvp, build-util" description="Compiles the mvp libraries">
 
     <!-- ****** EvolutionNet.MVP ****** -->
     <csc target="library" output="${build_path_mvp}\EvolutionNet.MVP.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
@@ -133,6 +153,8 @@
         <include name="${lib_path}\castle\Castle.Windsor.dll" />
         <include name="${lib_path}\nhibernate\NHibernate.dll" />
         <include name="${lib_path}\log4net\log4net.dll" />
+        
+        <include name="${build_path_util}\EvolutionNet.Util.dll" />
       </references>
     </csc>
 
@@ -172,46 +194,16 @@
 
 
 
-  <!-- ****** Target: build-util ****** -->
-  <target name="build-util" depends="copy-libs-util" description="Compiles the util libraries">
-
-    <!-- ****** EvolutionNet.Util ****** -->
-    <csc target="library" output="${build_path_util}\EvolutionNet.Util.dll" debug="${debug}" keyfile="${src_path}\EvolutionNet.snk" define="FRAMEWORK_${string::substring(target, 0, 1)}">
-      <sources>
-        <include name="${src_path_util}\EvolutionNet.Util\**\*.cs" />
-      </sources>
-      <resources dynamicprefix="true" basedir="${src_path_util}">
-        <include name="EvolutionNet.Util\**\*.swf" />
-      </resources>
-      <references>
-        <include name="${lib_path}\log4net\log4net.dll" />
-      </references>
-    </csc>
-
-  </target>
-
-
-
   <!-- ****** Target: build ****** -->
-  <target name="build" depends="build-mvp, build-util" />
+  <target name="build" depends="build-mvp" />
 
 
 
-  <!-- ****** Target: bin-mvp ****** -->
-  <target name="bin-mvp" depends="build-mvp">
+  <!-- ****** Target: rebuild ****** -->
+  <target name="rebuild" depends="delete, build"/>
 
-    <!-- ****** COPY DLL's TO BIN ****** -->
-    <copy todir="${bin_path_mvp}" flatten="true">
-      <fileset basedir="${build_path_mvp}">
-        <include name="EvolutionNet.MVP*.dll" />
-        <include name="EvolutionNet.MVP*.pdb" if="${debug}" />
-      </fileset>
-    </copy>
 
-  </target>
 
-  
-  
   <!-- ****** Target: bin-util ****** -->
   <target name="bin-util" depends="build-util">
 
@@ -225,15 +217,63 @@
 
   </target>
 
+
+
+  <!-- ****** Target: bin-mvp ****** -->
+  <target name="bin-mvp" depends="build-mvp, bin-util">
+
+    <!-- ****** COPY DLL's TO BIN ****** -->
+    <copy todir="${bin_path_mvp}" flatten="true">
+      <fileset basedir="${build_path_mvp}">
+        <include name="EvolutionNet.MVP*.dll" />
+        <include name="EvolutionNet.MVP*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+
+  </target>
+
   
   
   <!-- ****** Target: bin ****** -->
-  <target name="bin" depends="bin-mvp, bin-util" />
+  <target name="bin" depends="bin-mvp" />
 
 
 
-  <!-- ****** Target: REBUILD ****** -->
-  <target name="rebuild" depends="delete, build"/>
+  <!-- ****** Target: zip-util ****** -->
+  <target name="zip-util" depends="bin-util" unless="${debug or target=='2.0'}">
+
+    <delete if="${directory::exists('${bin_path_zip}')}">
+      <fileset basedir="${bin_path_zip}">
+        <include name="evolution-net-util*.zip" />
+      </fileset>
+    </delete>
+
+    <zip zipfile="${bin_path_zip}\evolution-net-util-${version_util}-bin.zip">
+      <fileset basedir="bin\util" prefix="">
+        <include name="**/*.dll" />
+        <exclude name="**/*.pdb"/>
+      </fileset>
+    </zip>
+
+    <zip zipfile="${bin_path_zip}\evolution-net-util-${version_util}-src.zip">
+      <fileset basedir="." prefix="">
+        <include name="*.*" />
+        <exclude name="*.txt" />
+      </fileset>
+
+      <fileset basedir="${src_path_util}" prefix="${src_path_util}">
+        <include name="**/*" />
+
+        <exclude name="log.txt" />
+        <exclude name="**/bin/**/*" />
+        <exclude name="**/obj/**/*" />
+        <exclude name="**/*.suo" />
+        <exclude name="**/*resharper*/**/*" />
+        <exclude name="**/*resharper*" />
+      </fileset>
+    </zip>
+
+  </target>
 
 
 
@@ -260,44 +300,6 @@
       </fileset>
 
       <fileset basedir="${src_path_mvp}" prefix="${src_path_mvp}">
-        <include name="**/*" />
-
-        <exclude name="log.txt" />
-        <exclude name="**/bin/**/*" />
-        <exclude name="**/obj/**/*" />
-        <exclude name="**/*.suo" />
-        <exclude name="**/*resharper*/**/*" />
-        <exclude name="**/*resharper*" />
-      </fileset>
-    </zip>
-
-  </target>
-
-  
-  
-  <!-- ****** Target: zip-util ****** -->
-  <target name="zip-util" depends="bin-util" unless="${debug or target=='2.0'}">
-
-    <delete if="${directory::exists('${bin_path_zip}')}">
-      <fileset basedir="${bin_path_zip}">
-        <include name="evolution-net-util*.zip" />
-      </fileset>
-    </delete>
-
-    <zip zipfile="${bin_path_zip}\evolution-net-util-${version_util}-bin.zip">
-      <fileset basedir="bin\util" prefix="">
-        <include name="**/*.dll" />
-        <exclude name="**/*.pdb"/>
-      </fileset>
-    </zip>
-
-    <zip zipfile="${bin_path_zip}\evolution-net-util-${version_util}-src.zip">
-      <fileset basedir="." prefix="">
-        <include name="*.*" />
-        <exclude name="*.txt" />
-      </fileset>
-
-      <fileset basedir="${src_path_util}" prefix="${src_path_util}">
         <include name="**/*" />
 
         <exclude name="log.txt" />
