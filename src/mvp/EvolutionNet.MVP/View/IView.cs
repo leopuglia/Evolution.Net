@@ -21,5 +21,7 @@ namespace EvolutionNet.MVP.View
 		void Initialize();
 
 		string MapPath(string relFileName);
+		string ResolveClientUrl(string relPath);
+//		string ResolveUrl(string relFileName);
 	}
 }

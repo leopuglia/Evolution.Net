@@ -1,7 +1,6 @@
 using System;
 using System.Data;
 using Castle.ActiveRecord;
-using EvolutionNet.MVP.IoC;
 using log4net;
 using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Contract;
@@ -239,12 +238,12 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoSave()
 		{
-			Dao<T, IdT>.SaveAndFlush(to.MainModel);
+			Dao<T, IdT>.Save(to.MainModel);
 		}
 
 		protected virtual void DoDelete()
 		{
-			Dao<T, IdT>.DeleteAndFlush(to.MainModel);
+			Dao<T, IdT>.Delete(to.MainModel);
 		}
 
 /*
