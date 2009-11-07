@@ -42,7 +42,7 @@ namespace EvolutionNet.MVP.Presenter
 			facade = GetFacade();
 
 			this.view = view;
-			view.Initialize();
+			view.DoLoad();
 		}
 
 		#endregion
@@ -62,6 +62,5 @@ namespace EvolutionNet.MVP.Presenter
 		}
 
 		#endregion
-
 	}
 }

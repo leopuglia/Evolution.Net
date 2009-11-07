@@ -67,6 +67,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -110,6 +111,7 @@
     <Compile Include="Util\ProgressReportHelper.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\IUCView.cs" />
+    <Compile Include="View\IWebUCView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">

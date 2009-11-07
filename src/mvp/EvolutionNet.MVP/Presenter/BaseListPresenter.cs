@@ -24,7 +24,7 @@ namespace EvolutionNet.MVP.Presenter
 			facade = GetListFacade();
 
 			this.view = view;
-			view.Initialize();
+			view.BeforeLoad();
 		}
 
 		protected virtual ContractT GetListFacade()

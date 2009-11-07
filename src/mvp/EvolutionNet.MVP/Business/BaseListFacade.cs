@@ -2,7 +2,6 @@ using System;
 using EvolutionNet.MVP.Contract;
 using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.Data.Definition;
-using EvolutionNet.MVP.IoC;
 using log4net;
 
 namespace EvolutionNet.MVP.Business
@@ -86,8 +85,6 @@ namespace EvolutionNet.MVP.Business
 
 		#region Métodos Públicos
 
-		#region Métodos de Dados
-
 		/// <summary>
 		/// Lista todos os elementos do model
 		/// </summary>
@@ -95,36 +92,6 @@ namespace EvolutionNet.MVP.Business
 		{
 			DoFindAll();
 		}
-
-	    #endregion
-
-		#region Initialize
-
-/*
-		/// <summary>
-		/// Realiza toda a inicialização necessária.
-		/// </summary>
-		public void Initialize()
-		{
-			DoInitialize();
-		}
-*/
-
-		#endregion
-
-		#region Dispose
-
-/*
-		///<summary>
-		/// Realiza a liberação de recursos alocados pelo objeto.
-		///</summary>
-		public void Dispose()
-		{
-			DoDispose();
-		}
-*/
-
-		#endregion
 
 		#endregion
 
@@ -172,18 +139,6 @@ namespace EvolutionNet.MVP.Business
 		{
 			To.List = Dao<T, IdT>.FindAll();
 		}
-
-/*
-		protected virtual void DoInitialize()
-		{
-			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Initialize();
-		}
-
-		protected virtual void DoDispose()
-		{
-			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Dispose();
-		}
-*/
 
 		#endregion
 

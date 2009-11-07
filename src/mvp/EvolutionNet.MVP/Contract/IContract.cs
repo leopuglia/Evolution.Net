@@ -38,7 +38,5 @@ namespace EvolutionNet.MVP.Contract
 		/// Deleta o MainModel atual
 		/// </summary>
 		void Delete();
-
-//		void Initialize();
 	}
 }

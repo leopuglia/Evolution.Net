@@ -17,12 +17,10 @@ namespace EvolutionNet.MVP.View
 		/// </summary>
 		//		TO To { get; /*set;*/ }
 
-		object CreateControl(string name);
+		object CreateControl(string virtualPath);
 		object CreateControl(Type t, params object[] args);
-		void ShowMessage(string msg);
-		void ShowMessage(string msg, bool isPostBack);
-		void ShowErrorMessage(string msg, Exception ex);
-		void ShowErrorMessage(string msg, Exception ex, bool isPostBack);
+		void ShowMessage(string caption, string msg);
+		void ShowErrorMessage(string caption, string msg, Exception ex);
 
 //		PresenterT Presenter { get; }
 	}

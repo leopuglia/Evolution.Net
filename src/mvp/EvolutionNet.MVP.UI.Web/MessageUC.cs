@@ -6,42 +6,41 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BaseMessageUC : UserControl
 	{
-		protected Label BaseLabel;
+		protected Label BaseLabelCaption;
+		protected Label BaseLabelMessage;
 		protected UpdatePanel BaseUpdatePanel;
 		protected Panel BasePanel;
 
-		public virtual void ShowMessage(string message)
+		public virtual void ShowMessage(string caption, string message)
 		{
-			ShowMessage(message, false);
-		}
+			BaseLabelCaption.Text = caption;
+			BaseLabelMessage.Text = message;
 
-		public virtual void ShowMessage(string message, bool isPostBack)
-		{
-			BaseLabel.Text = message;
-			
-			if (!isPostBack)
+			ScriptManager current = ScriptManager.GetCurrent(Page);
+			if (current != null && current.IsInAsyncPostBack)
 				BaseUpdatePanel.Update();
 			else
-				BasePanel.Style["display"] = "block";
+				Show();
 		}
 
-		public virtual void ShowErrorMessage(string message, Exception ex)
+		public virtual void ShowErrorMessage(string caption, string message, Exception ex)
 		{
-			ShowErrorMessage(message, ex, false);
-		}
+			BaseLabelCaption.Text = caption;
+			BaseLabelMessage.Text = string.Format("<b>{0}</b><br/>Exception: {1}", message, ex.Message);
 
-		public virtual void ShowErrorMessage(string message, Exception ex, bool isPostBack)
-		{
-			BaseLabel.Text = string.Format("<b>{0}</b><br />{1}", message, ex.Message);
-
-			if (!isPostBack)
+			ScriptManager current = ScriptManager.GetCurrent(Page);
+			if (current != null && current.IsInAsyncPostBack)
 				BaseUpdatePanel.Update();
 			else
-				BasePanel.Style["display"] = "block";
+				Show();
 
 #if DEBUG
 			throw ex;
 #endif
+		}
+
+		protected virtual void Show()
+		{
 		}
 
 	}

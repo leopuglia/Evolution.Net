@@ -4,71 +4,59 @@ using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.UI.Web
 {
-	public class BaseUC : UserControl, IUCView
+	public class BaseUC : UserControl, IWebUCView
 	{
 		protected BaseMessageUC messageUC;
 
-/*
-		/// <summary>
-		/// Presenter, contém a referência ao presenter da funcionalidade atual.
-		/// </summary>
-		protected PresenterT GetPresenter<PresenterT, ContractT, TO, T, IdT>()
-			where PresenterT : BasePresenter<ContractT, TO, T, IdT>
-			where ContractT : IContract<TO, T, IdT>
-			where TO : TO<T, IdT>
-			where T : class, IModel<IdT>
+		protected override void OnInit(EventArgs e)
 		{
-			try
-			{
-				return (PresenterT)PresenterAbstractFactory.Instance.GetPresenter<TO, T, IdT>((IView)this);
-			}
-			catch (Exception ex)
-			{
-				throw new ApplicationException("Não foi possível instanciar o Presenter.", ex);
-			}
-		}
-*/
+			base.OnInit(e);
 
-/*
-		public PresenterT GetPresenter<PresenterT>() where PresenterT : IPresenter
-		{
-			return (PresenterT)Activator.CreateInstance(typeof(PresenterT), new object[] {this});
+			Page.LoadComplete += BasePage_LoadComplete;
 		}
 
-*/
+		private void BasePage_LoadComplete(object sender, EventArgs e)
+		{
+			DoLoadComplete();
+		}
 
-		public virtual void Initialize()
+		public virtual void DoLoad()
 		{
 		}
 
-		public object CreateControl(string name)
+		public virtual void DoLoadComplete()
 		{
-			return LoadControl(name);
+
 		}
 
-		public object CreateControl(Type t, params object[] args)
+		public virtual void ShowMessage(string caption, string message)
+		{
+			messageUC.ShowMessage(caption, message);
+		}
+
+		public virtual void ShowErrorMessage(string caption, string message, Exception ex)
+		{
+			messageUC.ShowErrorMessage(caption, message, ex);
+		}
+
+		public virtual object CreateControl(string virtualPath)
+		{
+			return LoadControl(virtualPath);
+		}
+
+		public virtual object CreateControl(Type t, params object[] args)
 		{
 			return LoadControl(t, args);
 		}
 
-		public void ShowMessage(string message)
+		public virtual T CreateControl<T>(string virtualPath) where T : Control
 		{
-			messageUC.ShowMessage(message);
+			return (T) LoadControl(virtualPath);
 		}
 
-		public void ShowMessage(string message, bool isPostBack)
+		public virtual T CreateControl<T>(params object[] args) where T : Control
 		{
-			messageUC.ShowMessage(message, isPostBack);
-		}
-
-		public void ShowErrorMessage(string message, Exception ex)
-		{
-			messageUC.ShowErrorMessage(message, ex, false);
-		}
-
-		public void ShowErrorMessage(string message, Exception ex, bool isPostBack)
-		{
-			messageUC.ShowErrorMessage(message, ex, isPostBack);
+			return (T)LoadControl(typeof(T), args);
 		}
 
 	}

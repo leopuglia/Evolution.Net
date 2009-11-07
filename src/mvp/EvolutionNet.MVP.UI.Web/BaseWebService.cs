@@ -6,7 +6,11 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BaseWebService : WebService, IView
 	{
-		public virtual void Initialize()
+		public virtual void DoLoad()
+		{
+		}
+
+		public virtual void DoLoadComplete()
 		{
 		}
 

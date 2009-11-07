@@ -8,7 +8,11 @@ namespace EvolutionNet.MVP.UI.Web
 		public abstract void ProcessRequest(HttpContext context);
 		public abstract bool IsReusable { get; }
 
-		public virtual void Initialize()
+		public virtual void DoLoad()
+		{
+		}
+
+		public virtual void DoLoadComplete()
 		{
 		}
 

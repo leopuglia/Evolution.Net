@@ -18,7 +18,8 @@ namespace EvolutionNet.MVP.View
 		/// <summary>
 		/// Realiza todas as inicializações necessárias.
 		/// </summary>
-		void Initialize();
+		void DoLoad();
+		void DoLoadComplete();
 
 		string MapPath(string relFileName);
 		string ResolveClientUrl(string relPath);
