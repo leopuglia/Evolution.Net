@@ -92,6 +92,18 @@ namespace EvolutionNet.MVP.IoC
 			}
 		}
 
+		public static string GetControlVirtualPath(string sourceFormat, string sourceExclude, Type sourceType, string destFormat)
+		{
+			string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
+			string sourceTypeName = sourceType.Name;
+
+			string virtualPath = "~/" + sourceType.Namespace.Substring(sourceAssemblyName.Length + 1,
+																       sourceType.Namespace.Length - sourceAssemblyName.Length - 1).Replace('.', '/');
+			string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
+
+			return virtualPath + "/" + string.Format(destFormat, sourceEssence);
+		}
+
 		#endregion
 
 		#endregion
@@ -109,8 +121,13 @@ namespace EvolutionNet.MVP.IoC
 		private static string GetDestTypeFullName(string destFormat, string destRootNamespace,
 		                                          string sourceFormat, string sourceTypeName)
 		{
-			destRootNamespace += ".";
+			string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
 
+			return destRootNamespace + "." + string.Format(destFormat, sourceEssence);
+		}
+
+		private static string GetSourceEssence(string sourceFormat, string sourceTypeName)
+		{
 			int sourcePrefixLength = sourceFormat.IndexOf("{0}");
 			int sourceSuffixLength = sourceFormat.Length - sourcePrefixLength - 3;
 
@@ -118,8 +135,7 @@ namespace EvolutionNet.MVP.IoC
 
 			if (string.Format(sourceFormat, sourceEssence) != sourceTypeName)
 				throw new ArgumentException(string.Format("O tipo \"{0}\" não está no formato \"{1}\"!", sourceTypeName, sourceFormat));
-
-			return destRootNamespace + string.Format(destFormat, sourceEssence);
+			return sourceEssence;
 		}
 
 		#endregion

@@ -3,6 +3,8 @@
  * Created: quinta-feira, 29 de novembro de 2007
  */
 
+using System;
+
 namespace EvolutionNet.MVP.View
 {
 	/// <summary>
@@ -11,11 +13,6 @@ namespace EvolutionNet.MVP.View
 	public interface IView
 	{
 		/// <summary>
-		/// Transfer Object, contém a referência ao To, que é criado automaticamente pelo framework.
-		/// </summary>
-//		TO To { get; /*set;*/ }
-
-		/// <summary>
 		/// Realiza todas as inicializações necessárias.
 		/// </summary>
 		void DoLoad();
@@ -23,6 +20,5 @@ namespace EvolutionNet.MVP.View
 
 		string MapPath(string relFileName);
 		string ResolveClientUrl(string relPath);
-//		string ResolveUrl(string relFileName);
 	}
 }

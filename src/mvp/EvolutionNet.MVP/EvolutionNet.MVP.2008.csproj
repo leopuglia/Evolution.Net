@@ -110,8 +110,7 @@
     <Compile Include="Util\ProcessExecutionHelper.cs" />
     <Compile Include="Util\ProgressReportHelper.cs" />
     <Compile Include="View\IView.cs" />
-    <Compile Include="View\IUCView.cs" />
-    <Compile Include="View\IWebUCView.cs" />
+    <Compile Include="View\IControlView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">
