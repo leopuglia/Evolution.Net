@@ -38,10 +38,14 @@ namespace EvolutionNet.MVP.UI.Web
 			messageUC.ShowErrorMessage(caption, message, ex);
 		}
 
+		public T CreateControlView<T>() where T : IControlView
+		{
+			return ControlHelper.CreateControlFromView<T>(this);
+		}
+
 		public virtual T CreateControlView<T>(params object[] args) where T : IControlView
 		{
-//			return (T)(object)LoadControl(typeof(T), args);
-			return ControlHelper.CreateControlFromView<T>(this, args);
+			throw new NotImplementedException();
 		}
 
 		public virtual T GetControlView<T>(object sender) where T : IControlView
@@ -59,9 +63,19 @@ namespace EvolutionNet.MVP.UI.Web
 			ControlCollection.Add((Control) view);
 		}
 
+		public virtual void AddControlViewAt(int index, IControlView view)
+		{
+			ControlCollection.AddAt(index, (Control)view);
+		}
+
 		public virtual void RemoveControlView(IControlView view)
 		{
 			ControlCollection.Remove((Control)view);
+		}
+
+		public virtual void RemoveControlViewAt(int index)
+		{
+			ControlCollection.RemoveAt(index);
 		}
 
 		protected virtual ControlCollection ControlCollection

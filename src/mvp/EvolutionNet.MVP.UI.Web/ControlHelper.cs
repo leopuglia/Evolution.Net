@@ -14,7 +14,7 @@ namespace EvolutionNet.MVP.UI.Web
 		private const string TYPE_NAME_SOURCE_EXCLUDE = "View";
 		private const string TYPE_NAME_DEST = "{0}View.ascx";
 
-		public static T CreateControlFromView<T>(UserControl control, params object[] args) where T : IView
+		public static T CreateControlFromView<T>(UserControl control) where T : IView
 		{
 			return (T)(object)control.LoadControl(IoCHelper.GetControlVirtualPath(
 				TYPE_NAME_SOURCE, TYPE_NAME_SOURCE_EXCLUDE, typeof(T), TYPE_NAME_DEST));
