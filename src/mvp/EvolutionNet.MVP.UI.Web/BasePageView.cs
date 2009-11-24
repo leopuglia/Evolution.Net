@@ -4,7 +4,7 @@ using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.UI.Web
 {
-	public class BaseUCView : UserControl, IControlView
+	public class BasePageView : Page, IControlView
 	{
 		protected BaseMessageUC messageUC;
 
@@ -65,7 +65,7 @@ namespace EvolutionNet.MVP.UI.Web
 
 		public virtual void AddControlView(IControlView view)
 		{
-			ControlCollection.Add((Control) view);
+			ControlCollection.Add((Control)view);
 		}
 
 		public virtual void AddControlViewAt(int index, IControlView view)
@@ -87,28 +87,6 @@ namespace EvolutionNet.MVP.UI.Web
 		{
 			get { return Controls; }
 		}
-
-/*
-		public virtual object CreateControl(string virtualPath)
-		{
-			return LoadControl(virtualPath);
-		}
-
-		public virtual object CreateControl(Type t, params object[] args)
-		{
-			return LoadControl(t, args);
-		}
-
-		public virtual T CreateControl<T>(string virtualPath) where T : Control, IView
-		{
-			return (T) LoadControl(virtualPath);
-		}
-
-		public virtual T CreateControl<T>(params object[] args) where T : Control
-		{
-			return (T)LoadControl(typeof(T), args);
-		}
-*/
 
 	}
 }

@@ -1,9 +1,9 @@
 using System;
 using System.Data;
 using Castle.ActiveRecord;
+using EvolutionNet.MVP.Presenter;
 using log4net;
 using EvolutionNet.MVP.Business;
-using EvolutionNet.MVP.Contract;
 using EvolutionNet.MVP.Data.Definition;
 using EvolutionNet.MVP.Data.Access;
 
@@ -15,25 +15,17 @@ namespace EvolutionNet.MVP.Business
 	/// <typeparam name="TO">Tranfer Object, tipo do objeto de transferência de dados</typeparam>
 	/// <typeparam name="T">MainModel, tipo da principal entidade (model) do módulo</typeparam>
 	/// <typeparam name="IdT">Identity, tipo do ID do MainModel</typeparam>
-	public abstract class BaseFacade<TO, T, IdT> : IContract<TO, T, IdT>
+	public abstract class BaseCrudFacade<TO, T, IdT> : IContract<TO, T, IdT>
 		where TO : TO<T, IdT> 
 		where T : class, IModel<IdT>
 	{
-        private static readonly ILog log = LogManager.GetLogger(typeof(BaseFacade<TO, T, IdT>));
-
-        #region Variáveis Privadas
+        private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudFacade<TO, T, IdT>));
 
 		private readonly TO to;
-
-		#endregion
-
-		#region Variáveis Protegidas
-
+		private readonly IPresenter presenter;
 		protected double progress;
 		protected bool isInitialized;
 		protected bool isDisposed;
-
-		#endregion
 
 		#region Propriedades Protegidas
 
@@ -48,6 +40,11 @@ namespace EvolutionNet.MVP.Business
 		#endregion
 
 		#region Propriedades Públicas
+
+		public IPresenter Presenter
+		{
+			get { return presenter; }
+		}
 
 		/// <summary>
 		/// Transfer Object, contém a referência ao to, definido na View.
@@ -64,11 +61,13 @@ namespace EvolutionNet.MVP.Business
 
 		#region Constructor
 
-		protected BaseFacade()
+		protected BaseCrudFacade(IPresenter presenter)
 		{
-//			Initialize();
+
 			try
 			{
+				this.presenter = presenter;
+
 				// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
 				to = Activator.CreateInstance<TO>();
 			}
@@ -77,7 +76,7 @@ namespace EvolutionNet.MVP.Business
 				if (log.IsErrorEnabled)
 					log.Error("Não foi possível instanciar o TO no Facade.", ex);
 
-				throw new ApplicationException("Não foi possível instanciar o TO no Facade.", ex);
+				throw new FrameworkException("Não foi possível instanciar o TO no Facade.", ex);
 			}
 
 		}
@@ -201,7 +200,7 @@ namespace EvolutionNet.MVP.Business
 			progress += step;
 
 			if (progress > 100)
-				throw new ApplicationException("The maximum progress allowed is 100%");
+				throw new FrameworkException("The maximum progress allowed is 100%");
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
@@ -217,7 +216,7 @@ namespace EvolutionNet.MVP.Business
 			this.progress = progress;
 
 			if (progress > 100)
-				throw new ApplicationException("The maximum progress allowed is 100%");
+				throw new FrameworkException("The maximum progress allowed is 100%");
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));

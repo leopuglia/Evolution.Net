@@ -3,8 +3,6 @@
  * Created: quinta-feira, 29 de novembro de 2007
  */
 
-using System;
-
 namespace EvolutionNet.MVP.View
 {
 	/// <summary>
@@ -12,13 +10,12 @@ namespace EvolutionNet.MVP.View
 	/// </summary>
 	public interface IView
 	{
+		IPathHelper PathHelper { get; }
+
 		/// <summary>
 		/// Realiza todas as inicializações necessárias.
 		/// </summary>
 		void DoLoad();
 		void DoLoadComplete();
-
-		string MapPath(string relFileName);
-		string ResolveClientUrl(string relPath);
 	}
 }

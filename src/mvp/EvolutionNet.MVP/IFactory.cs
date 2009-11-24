@@ -27,7 +27,8 @@ namespace EvolutionNet.MVP
 						 params object[] args);
 */
 
-		T CreateInstanceFromInterface<T>(string sourceFormat, string sourceExclude, string destFormat, Type destType, params object[] args);
+		T CreateInstanceFromInterface<T>(string sourceFormat, string sourceExclude, string destFormat,
+		                                 string destAdd, Type destType, params object[] args);
 		T CreateInstance<T>(params object[] args);
 	}
 }

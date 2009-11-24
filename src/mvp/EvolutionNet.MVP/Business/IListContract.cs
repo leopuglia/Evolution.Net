@@ -1,6 +1,7 @@
+using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Data.Definition;
 
-namespace EvolutionNet.MVP.Contract
+namespace EvolutionNet.MVP.Business
 {
 	public interface IListContract<TO, T, IdT> : IBaseContract
 		where TO : ListTO<T, IdT>

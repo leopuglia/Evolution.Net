@@ -4,9 +4,11 @@
  */
 
 using System;
+using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Data.Definition;
+using EvolutionNet.MVP.Presenter;
 
-namespace EvolutionNet.MVP.Contract
+namespace EvolutionNet.MVP.Business
 {
 	/// <summary>
 	/// Essa interface representa o contrato entre o Presenter e o Facade, os métodos que ambos devem implementar
@@ -15,6 +17,8 @@ namespace EvolutionNet.MVP.Contract
 		where TO : TO<T, IdT>
 		where T : class, IModel<IdT>
 	{
+		IPresenter Presenter { get; }
+
 		//TODO: Aki eu posso aplicar a pattern de command, adicionando os métodos pra adicionar cada comando no contrato e, assim, definir se um facade vai ter salvar, ou listartodos, etc.
 		//TODO: Ou simplesmente definir os métodos Save, Cancelar, ou então os métodos CRUD, sei lá ou mesmo não definir métodos e deixar sem os métodos.
 		TO To { get; }

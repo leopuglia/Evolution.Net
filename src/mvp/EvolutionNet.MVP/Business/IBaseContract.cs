@@ -1,5 +1,5 @@
 
-namespace EvolutionNet.MVP.Contract
+namespace EvolutionNet.MVP.Business
 {
 	public interface IBaseContract
 	{

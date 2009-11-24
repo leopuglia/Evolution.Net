@@ -1,7 +1,6 @@
 using System;
 using Castle.ActiveRecord;
 using EvolutionNet.MVP.Business;
-using EvolutionNet.MVP.Contract;
 using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.View;
 
@@ -30,6 +29,11 @@ namespace EvolutionNet.MVP.Presenter
 			get { return facade; }
 		}
 
+		public IPathHelper PathHelper
+		{
+			get { return View.PathHelper; }
+		}
+
 		#endregion
 
 		#region Construtores
@@ -53,14 +57,15 @@ namespace EvolutionNet.MVP.Presenter
 		{
 			try
 			{
-				return AbstractIoCFactory<IBaseFacadeFactory>.Instance.GetFromContract<ContractT>();
+				return AbstractIoCFactory<IBusinessFactory>.Instance.GetFromContract<ContractT>(this);
 			}
 			catch (Exception ex)
 			{
-				throw new ApplicationException("Não foi possível instanciar o Facade no Presenter.", ex);
+				throw new FrameworkException("Error creating the IContract implementation no Presenter.", ex);
 			}
 		}
 
 		#endregion
+
 	}
 }

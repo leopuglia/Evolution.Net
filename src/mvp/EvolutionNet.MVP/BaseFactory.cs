@@ -23,9 +23,10 @@ namespace EvolutionNet.MVP
 		}
 */
 
-		public T CreateInstanceFromInterface<T>(string sourceFormat, string sourceExclude, string destFormat, Type destType, params object[] args)
+		public T CreateInstanceFromInterface<T>(string sourceFormat, string sourceExclude, string destFormat,
+		                                        string destAdd, Type destType, params object[] args)
 		{
-			return IoCHelper.InstantiateObj<T>(sourceFormat, sourceExclude, destFormat, destType, args);
+			return IoCHelper.InstantiateObj<T>(sourceFormat, sourceExclude, destFormat, destAdd, destType, args);
 		}
 
 		public T CreateInstance<T>(params object[] args)

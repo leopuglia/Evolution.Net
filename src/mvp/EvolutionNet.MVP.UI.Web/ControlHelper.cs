@@ -17,7 +17,13 @@ namespace EvolutionNet.MVP.UI.Web
 		public static T CreateControlFromView<T>(UserControl control) where T : IView
 		{
 			return (T)(object)control.LoadControl(IoCHelper.GetControlVirtualPath(
-				TYPE_NAME_SOURCE, TYPE_NAME_SOURCE_EXCLUDE, typeof(T), TYPE_NAME_DEST));
+				TYPE_NAME_SOURCE, TYPE_NAME_SOURCE_EXCLUDE, typeof(T), TYPE_NAME_DEST, null));
+		}
+
+		public static T CreateControlFromView<T>(Page control) where T : IView
+		{
+			return (T)(object)control.LoadControl(IoCHelper.GetControlVirtualPath(
+				TYPE_NAME_SOURCE, TYPE_NAME_SOURCE_EXCLUDE, typeof(T), TYPE_NAME_DEST, null));
 		}
 
 		//TODO: Aparentemente funciona com qualquer controle!!!

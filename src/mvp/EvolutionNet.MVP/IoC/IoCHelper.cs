@@ -21,9 +21,9 @@ namespace EvolutionNet.MVP.IoC
 
 		#region InstantiateObj<T>
 
-		public static T InstantiateObj<T>(string sourceFormat, string sourceExclude, string destFormat, Type destType, params object[] args)
+		public static T InstantiateObj<T>(string sourceFormat, string sourceIgnore, string destFormat, string destAdd, Type destType, params object[] args)
 		{
-			return (T)InstantiateObj(sourceFormat, sourceExclude, typeof(T), destFormat, destType, args);
+			return (T)InstantiateObj(sourceFormat, sourceIgnore, typeof(T), destFormat, destAdd, destType, args);
 		}
 
 		#endregion
@@ -37,11 +37,12 @@ namespace EvolutionNet.MVP.IoC
 		/// <param name="sourceExclude">String a ser excluída do namespace de origem, por exemplo "Business"</param>
 		/// <param name="sourceType">Tipo de origem, por exemplo [Funcionalidade]Presenter</param>
 		/// <param name="destFormat">String de formato do tipo de destino, por exemplo "{0}Facade"</param>
+		/// <param name="destAdd">String a ser adicionada no namespace de destino</param>
 		/// <param name="destType">Tipo de destino, por exemplo [Funcionalidade]Facade</param>
 		/// <param name="args">Argumentos a serem passados ao construtor do tipo</param>
 		/// <returns>Retorna uma instância baseada no tipo de destino, por exemplo [Tipo.Funcionalidade]Facade</returns>
 		public static object InstantiateObj(string sourceFormat, string sourceExclude, Type sourceType,
-		                                    string destFormat, Type destType, 
+		                                    string destFormat, string destAdd, Type destType, 
 		                                    params object[] args)
 		{
 			string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
@@ -51,7 +52,7 @@ namespace EvolutionNet.MVP.IoC
 			                       sourceType.Namespace.Substring(sourceAssemblyName.Length,
 			                                                      sourceType.Namespace.Length - sourceAssemblyName.Length);
 
-			string destTypeFullName = GetDestTypeFullName(destFormat, destNamespace,
+			string destTypeFullName = GetDestTypeFullName(destFormat, destAdd, destNamespace,
 			                                              sourceFormat, sourceTypeName);
 
 			try
@@ -92,14 +93,18 @@ namespace EvolutionNet.MVP.IoC
 			}
 		}
 
-		public static string GetControlVirtualPath(string sourceFormat, string sourceExclude, Type sourceType, string destFormat)
+		public static string GetControlVirtualPath(string sourceFormat, string sourceExclude, Type sourceType, string destFormat, string destAdd)
 		{
 			string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
 			string sourceTypeName = sourceType.Name;
 
 			string virtualPath = "~/" + sourceType.Namespace.Substring(sourceAssemblyName.Length + 1,
 																       sourceType.Namespace.Length - sourceAssemblyName.Length - 1).Replace('.', '/');
+
 			string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
+
+			if (!string.IsNullOrEmpty(destAdd))
+				virtualPath += "/" + destAdd;
 
 			return virtualPath + "/" + string.Format(destFormat, sourceEssence);
 		}
@@ -114,14 +119,18 @@ namespace EvolutionNet.MVP.IoC
 		/// Método que obtém o nome completo do tipo de destino.
 		/// </summary>
 		/// <param name="destFormat">String de formato do tipo de destino, por exemplo "{0}Facade"</param>
+		/// <param name="destAdd">String a ser adicionada no namespace de destino</param>
 		/// <param name="destRootNamespace">String contendo o namespace de raiz do tipo de destino</param>
 		/// <param name="sourceFormat">String de formato do tipo de origem, por exemplo "{0}Presenter"</param>
 		/// <param name="sourceTypeName">String contendo o nome do tipo de origem</param>
 		/// <returns>Retorna uma string com o nome completo do tipo de destino</returns>
-		private static string GetDestTypeFullName(string destFormat, string destRootNamespace,
+		private static string GetDestTypeFullName(string destFormat, string destAdd, string destRootNamespace,
 		                                          string sourceFormat, string sourceTypeName)
 		{
 			string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
+
+			if (!string.IsNullOrEmpty(destAdd))
+				destRootNamespace += "." + destAdd;
 
 			return destRootNamespace + "." + string.Format(destFormat, sourceEssence);
 		}

@@ -4,23 +4,24 @@
  */
 
 using EvolutionNet.MVP.Business;
-using EvolutionNet.MVP.Contract;
 using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.IoC;
 
 namespace EvolutionNet.MVP.Business
 {
-	public abstract class BaseFacadeFactory : BaseFactory, IBaseFacadeFactory
+	public abstract class BaseFacadeFactory : BaseFactory, IBusinessFactory
 	{
-		private const string TYPE_NAME_CONTRACT_EXCLUDE = "Business";
+		private const string TYPE_NAME_CONTRACT_IGNORE = "Business";
 		private const string TYPE_NAME_CONTRACT = "I{0}Contract";
 		private const string TYPE_NAME_DEST = "{0}Facade";
 
-		public ContractT GetFromContract<ContractT>() where ContractT : IBaseContract
+		public ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IBaseContract
 		{
-			return typeof(ContractT) == typeof(INullContract)
-				? default(ContractT)
-				: IoCHelper.InstantiateObj<ContractT>(TYPE_NAME_CONTRACT, TYPE_NAME_CONTRACT_EXCLUDE, TYPE_NAME_DEST, GetType());
+			return typeof (ContractT) == typeof (INullContract)
+			       	? default(ContractT)
+			       	: IoCHelper.InstantiateObj<ContractT>(TYPE_NAME_CONTRACT, TYPE_NAME_CONTRACT_IGNORE,
+			       	                                      TYPE_NAME_DEST, null, GetType(),
+														  args);
 		}
 
 		/// <summary>
@@ -30,16 +31,6 @@ namespace EvolutionNet.MVP.Business
 		{
 			DaoInitializer.InitializeActiveRecord();
 		}
-
-/*
-		///<summary>
-		/// Realiza a liberação de recursos alocados pelo objeto.
-		///</summary>
-		public virtual void Dispose()
-		{
-			DaoInitializer.Dispose();
-		}
-*/
 
 	}
 	

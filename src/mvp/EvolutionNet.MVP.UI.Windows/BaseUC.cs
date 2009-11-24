@@ -89,7 +89,7 @@ namespace EvolutionNet.MVP.UI.Windows
 			}
 			catch (Exception ex)
 			{
-				throw new ApplicationException("Não foi possível instanciar o Presenter.", ex);
+				throw new FrameworkException("Não foi possível instanciar o Presenter.", ex);
 			}
 		}
 */
