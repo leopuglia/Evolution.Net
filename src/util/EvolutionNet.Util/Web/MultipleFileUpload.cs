@@ -130,7 +130,7 @@ namespace EvolutionNet.Util.Web
 			                           "<param name=\"movie\" value=\"{0}\" />" +
 			                           "<param name=\"quality\" value=\"high\" />" +
 			                           "<param name=\"wmode\" value=\"transparent\">" +
-			                           "<PARAM NAME=FlashVars VALUE='{3}{4}{5}{6}{7}&uploadPage={1}?{2}'>" +
+			                           "<param name=FlashVars value='{3}{4}{5}{6}{7}&uploadPage={1}?{2}'>" +
 			                           "<embed src=\"{0}\"" +
 			                           "FlashVars='{3}{4}{5}{6}{7}&uploadPage={1}?{2}'" +
 			                           "quality=\"high\" wmode=\"transparent\" width=\"575\" height=\"375\" " +

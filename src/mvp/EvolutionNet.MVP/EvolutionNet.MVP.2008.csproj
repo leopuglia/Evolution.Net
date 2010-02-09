@@ -86,8 +86,8 @@
     <Compile Include="Business\BaseListFacade.cs" />
     <Compile Include="Business\IBusinessFactory.cs" />
     <Compile Include="Configuration\BaseConfiguration.cs" />
-    <Compile Include="Business\IBaseContract.cs" />
     <Compile Include="Business\IContract.cs" />
+    <Compile Include="Business\ICrudContract.cs" />
     <Compile Include="Business\IListContract.cs" />
     <Compile Include="Business\INullContract.cs" />
     <Compile Include="Business\ProgressEventArgs.cs" />

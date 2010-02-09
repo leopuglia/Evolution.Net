@@ -15,7 +15,7 @@ namespace EvolutionNet.MVP.Business
 		private const string TYPE_NAME_CONTRACT = "I{0}Contract";
 		private const string TYPE_NAME_DEST = "{0}Facade";
 
-		public ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IBaseContract
+		public ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IContract
 		{
 			return typeof (ContractT) == typeof (INullContract)
 			       	? default(ContractT)

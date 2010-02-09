@@ -11,7 +11,7 @@ namespace EvolutionNet.MVP.Business
 	/// </summary>
 	public interface IBusinessFactory : IFactory//, IDisposable
 	{
-		ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IBaseContract;
+		ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IContract;
 
 		/// <summary>
 		/// Realiza a inicialização básica de um módulo, na implementação da Factory.

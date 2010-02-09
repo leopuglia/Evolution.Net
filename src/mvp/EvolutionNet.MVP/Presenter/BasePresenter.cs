@@ -8,7 +8,7 @@ namespace EvolutionNet.MVP.Presenter
 {
 	public abstract class BasePresenter<ViewT, ContractT> : IPresenter
 		where ViewT : IView
-		where ContractT : IBaseContract
+		where ContractT : IContract
 	{
 		#region Variáveis Privadas
 
@@ -61,7 +61,7 @@ namespace EvolutionNet.MVP.Presenter
 			}
 			catch (Exception ex)
 			{
-				throw new FrameworkException("Error creating the IContract implementation no Presenter.", ex);
+				throw new FrameworkException("Error creating the ICrudContract implementation no Presenter.", ex);
 			}
 		}
 

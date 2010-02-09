@@ -1,6 +1,7 @@
 using System;
 using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.Data.Definition;
+using EvolutionNet.MVP.Presenter;
 using log4net;
 
 namespace EvolutionNet.MVP.Business
@@ -14,6 +15,7 @@ namespace EvolutionNet.MVP.Business
         #region Variáveis Privadas
 
 		private readonly TO to;
+        private readonly IPresenter presenter;
 
 		#endregion
 
@@ -39,7 +41,12 @@ namespace EvolutionNet.MVP.Business
 
 		#region Propriedades Públicas
 
-		/// <summary>
+        public IPresenter Presenter
+        {
+            get { return presenter; }
+        }
+
+        /// <summary>
 		/// Transfer Object, contém a referência ao to, definido na View.
 		/// </summary>
 		public TO To
@@ -51,12 +58,14 @@ namespace EvolutionNet.MVP.Business
 
 		#region Constructor
 
-		protected BaseListFacade()
+        protected BaseListFacade(IPresenter presenter)
 		{
 //			Initialize();
 			try
 			{
-				// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
+                this.presenter = presenter;
+
+                // Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
 				to = Activator.CreateInstance<TO>();
 			}
 			catch (Exception ex)

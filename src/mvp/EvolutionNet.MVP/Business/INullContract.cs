@@ -2,7 +2,7 @@ using EvolutionNet.MVP.Business;
 
 namespace EvolutionNet.MVP.Business
 {
-	public interface INullContract : IBaseContract
+	public interface INullContract : IContract
 	{
 	}
 }

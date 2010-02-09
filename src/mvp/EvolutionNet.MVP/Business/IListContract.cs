@@ -3,7 +3,7 @@ using EvolutionNet.MVP.Data.Definition;
 
 namespace EvolutionNet.MVP.Business
 {
-	public interface IListContract<TO, T, IdT> : IBaseContract
+	public interface IListContract<TO, T, IdT> : IContract
 		where TO : ListTO<T, IdT>
 		where T : class, IModel<IdT>
 	{
