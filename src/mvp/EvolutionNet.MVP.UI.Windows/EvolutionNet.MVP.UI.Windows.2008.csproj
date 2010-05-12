@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -97,18 +97,23 @@
   <ItemGroup>
     <EmbeddedResource Include="BaseFrm.resx">
       <DependentUpon>BaseFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseUC.resx">
       <DependentUpon>BaseUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\ProgressDlgFrm.resx">
       <DependentUpon>ProgressDlgFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ModalDialogFrm.resx">
       <DependentUpon>ModalDialogFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ModalDialogUC.resx">
       <DependentUpon>ModalDialogUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
