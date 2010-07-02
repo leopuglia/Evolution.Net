@@ -60,7 +60,7 @@ namespace EvolutionNet.MVP.Business
 
         protected BaseListFacade(IPresenter presenter)
 		{
-//			Initialize();
+
 			try
 			{
                 this.presenter = presenter;

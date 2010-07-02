@@ -13,7 +13,7 @@ namespace EvolutionNet.MVP.Business
 	/// Essa interface representa o contrato entre o Presenter e o Facade, os métodos que ambos devem implementar
 	/// </summary>
 	public interface ICrudContract<TO, T, IdT> : IContract//, IDisposable
-		where TO : TO<T, IdT>
+		where TO : CrudTO<T, IdT>
 		where T : class, IModel<IdT>
 	{
 		//TODO: Aki eu posso aplicar a pattern de command, adicionando os métodos pra adicionar cada comando no contrato e, assim, definir se um facade vai ter salvar, ou listartodos, etc.
@@ -29,6 +29,11 @@ namespace EvolutionNet.MVP.Business
 		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
 		/// </summary>
 		void Find();
+
+        /// <summary>
+        /// Lista todos os elementos do model
+        /// </summary>
+	    void FindAll();
 
 		/// <summary>
 		/// Salva o MainModel atual

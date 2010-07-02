@@ -4,7 +4,7 @@ using EvolutionNet.MVP.Data.Definition;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class TO<T, IdT> where T : class, IModel<IdT>
+	public abstract class ReadTO<T, IdT> where T : class, IModel<IdT>
 	{
 		private IdT id;
 		private T mainModel;
@@ -21,7 +21,7 @@ namespace EvolutionNet.MVP.Data.Definition
 			set { mainModel = value;  }
 		}
 
-		protected TO()
+		protected ReadTO()
 		{
 			try
 			{

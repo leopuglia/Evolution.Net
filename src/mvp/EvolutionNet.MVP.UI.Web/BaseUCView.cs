@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.UI.Web
 {
 	public class BaseUCView : UserControl, IControlView
 	{
+	    private GridView grid;
 		protected BaseMessageUC messageUC;
 
-		protected override void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
+        public IPathHelper PathHelper
+        {
+            get { return WebPathHelper.Instance; }
+        }
 
-			Page.LoadComplete += BasePage_LoadComplete;
-		}
+        protected virtual ControlCollection ControlCollection
+        {
+            get { return Controls; }
+        }
 
-		private void BasePage_LoadComplete(object sender, EventArgs e)
-		{
-			DoLoadComplete();
-		}
-
-		public IPathHelper PathHelper
-		{
-			get { return WebPathHelper.Instance; }
-		}
-
-		public virtual void DoLoad()
+        public virtual void DoLoad()
 		{
 		}
 
@@ -43,7 +38,22 @@ namespace EvolutionNet.MVP.UI.Web
 			messageUC.ShowErrorMessage(caption, message, ex);
 		}
 
-		public T CreateControlView<T>() where T : IControlView
+        public object GridDataSource
+        {
+            get
+            {
+                return grid ?? (grid = GetGrid()).DataSource;
+            }
+            set
+            {
+                if (grid == null)
+                    grid = GetGrid();
+                grid.DataSource = value;
+                grid.DataBind();
+            }
+        }
+
+	    public T CreateControlView<T>() where T : IControlView
 		{
 			return ControlHelper.CreateControlFromView<T>(this);
 		}
@@ -83,10 +93,27 @@ namespace EvolutionNet.MVP.UI.Web
 			ControlCollection.RemoveAt(index);
 		}
 
-		protected virtual ControlCollection ControlCollection
-		{
-			get { return Controls; }
-		}
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            Page.LoadComplete += BasePage_LoadComplete;
+        }
+
+        protected void BasePage_LoadComplete(object sender, EventArgs e)
+        {
+            DoLoadComplete();
+        }
+
+        private GridView GetGrid()
+	    {
+            foreach (var control in ControlCollection)
+            {
+                if (control is GridView)
+                    return (GridView)control;
+            }
+            throw new ArgumentOutOfRangeException("", "A View não possui um Grid!");
+	    }
 
 /*
 		public virtual object CreateControl(string virtualPath)

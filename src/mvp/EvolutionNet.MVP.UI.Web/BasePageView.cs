@@ -43,7 +43,13 @@ namespace EvolutionNet.MVP.UI.Web
 			messageUC.ShowErrorMessage(caption, message, ex);
 		}
 
-		public T CreateControlView<T>() where T : IControlView
+	    public object GridDataSource
+	    {
+	        get { throw new NotImplementedException(); }
+	        set { throw new NotImplementedException(); }
+	    }
+
+	    public T CreateControlView<T>() where T : IControlView
 		{
 			return ControlHelper.CreateControlFromView<T>(this);
 		}

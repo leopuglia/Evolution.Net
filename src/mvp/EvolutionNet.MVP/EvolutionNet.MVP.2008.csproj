@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Definition\CrudTO.cs" />
     <Compile Include="IoC\AbstractIoCFactory.cs" />
     <Compile Include="BaseFactory.cs" />
     <Compile Include="Business\ActionDelegate.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Data\Definition\INullModel.cs" />
     <Compile Include="Data\Definition\ListTO.cs" />
     <Compile Include="Data\Definition\Model.cs" />
-    <Compile Include="Data\Definition\TO.cs" />
+    <Compile Include="Data\Definition\ReadTO.cs" />
     <Compile Include="Data\Definition\NullModel.cs" />
     <Compile Include="FrameworkException.cs" />
     <Compile Include="IFactory.cs" />

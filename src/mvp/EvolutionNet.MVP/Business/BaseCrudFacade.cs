@@ -16,16 +16,25 @@ namespace EvolutionNet.MVP.Business
 	/// <typeparam name="T">MainModel, tipo da principal entidade (model) do módulo</typeparam>
 	/// <typeparam name="IdT">Identity, tipo do ID do MainModel</typeparam>
 	public abstract class BaseCrudFacade<TO, T, IdT> : ICrudContract<TO, T, IdT>
-		where TO : TO<T, IdT> 
+		where TO : CrudTO<T, IdT> 
 		where T : class, IModel<IdT>
 	{
         private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudFacade<TO, T, IdT>));
 
+        #region Variáveis Privadas
+
 		private readonly TO to;
-		private readonly IPresenter presenter;
+        private readonly IPresenter presenter;
+
+		#endregion
+
+		#region Variáveis Protegidas
+
 		protected double progress;
 		protected bool isInitialized;
 		protected bool isDisposed;
+
+		#endregion
 
 		#region Propriedades Protegidas
 
@@ -41,20 +50,17 @@ namespace EvolutionNet.MVP.Business
 
 		#region Propriedades Públicas
 
-		public IPresenter Presenter
-		{
-			get { return presenter; }
-		}
+        public IPresenter Presenter
+        {
+            get { return presenter; }
+        }
 
-		/// <summary>
+        /// <summary>
 		/// Transfer Object, contém a referência ao to, definido na View.
 		/// </summary>
 		public TO To
 		{
-			get
-			{
-				return to;
-			}
+			get { return to; }
 		}
 
 		#endregion
@@ -66,9 +72,9 @@ namespace EvolutionNet.MVP.Business
 
 			try
 			{
-				this.presenter = presenter;
+                this.presenter = presenter;
 
-				// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
+                // Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
 				to = Activator.CreateInstance<TO>();
 			}
 			catch (Exception ex)
@@ -139,7 +145,15 @@ namespace EvolutionNet.MVP.Business
 			DoFind();
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Lista todos os elementos do model
+        /// </summary>
+        public void FindAll()
+        {
+            DoFindAll();
+        }
+
+        /// <summary>
 		/// Salva o MainModel atual
 		/// </summary>
 		public void Save()
@@ -155,7 +169,7 @@ namespace EvolutionNet.MVP.Business
 			Execute(DoDelete);
 		}
 
-	    #endregion
+        #endregion
 
 		#region Initialize
 
@@ -232,7 +246,12 @@ namespace EvolutionNet.MVP.Business
 			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(to.ID);
 		}
 
-		/// <summary>
+        protected virtual void DoFindAll()
+        {
+            To.List = Dao<T, IdT>.FindAll();
+        }
+
+        /// <summary>
 		/// Realmente salva o MainModel. Pode ser sobrescrito.
 		/// </summary>
 		protected virtual void DoSave()

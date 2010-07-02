@@ -15,7 +15,8 @@ namespace EvolutionNet.MVP.View
 		void ShowMessage(string caption, string msg);
 		void ShowErrorMessage(string caption, string msg, Exception ex);
 
-		T CreateControlView<T>() where T : IControlView;
+        object GridDataSource { get; set; }
+        T CreateControlView<T>() where T : IControlView;
 		T CreateControlView<T>(params object[] args) where T : IControlView;
 		void AddControlView(IControlView view);
 		void AddControlViewAt(int index, IControlView view);
