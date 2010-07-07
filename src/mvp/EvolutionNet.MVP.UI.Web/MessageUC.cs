@@ -34,7 +34,7 @@ namespace EvolutionNet.MVP.UI.Web
 			else
 				Show();
 
-#if DEBUG
+#if DEBUG5
 			throw ex;
 #endif
 		}

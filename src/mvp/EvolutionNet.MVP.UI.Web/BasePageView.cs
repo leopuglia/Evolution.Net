@@ -6,93 +6,103 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BasePageView : Page, IControlView
 	{
-		protected BaseMessageUC messageUC;
+	    #region Variáveis
 
-		protected override void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
+        protected BaseMessageUC messageUC;
 
-			Page.LoadComplete += BasePage_LoadComplete;
-		}
+	    #endregion
 
-		private void BasePage_LoadComplete(object sender, EventArgs e)
-		{
-			DoLoadComplete();
-		}
+	    #region Propriedades
 
-		public IPathHelper PathHelper
-		{
-			get { return WebPathHelper.Instance; }
-		}
-
-		public virtual void DoLoad()
-		{
-		}
-
-		public virtual void DoLoadComplete()
-		{
-		}
-
-		public virtual void ShowMessage(string caption, string message)
-		{
-			messageUC.ShowMessage(caption, message);
-		}
-
-		public virtual void ShowErrorMessage(string caption, string message, Exception ex)
-		{
-			messageUC.ShowErrorMessage(caption, message, ex);
-		}
-
-	    public object GridDataSource
+	    public IPathHelper PathHelper
 	    {
-	        get { throw new NotImplementedException(); }
-	        set { throw new NotImplementedException(); }
+	        get { return WebPathHelper.Instance; }
 	    }
 
-	    public T CreateControlView<T>() where T : IControlView
-		{
-			return ControlHelper.CreateControlFromView<T>(this);
-		}
+        protected virtual ControlCollection ControlCollection
+	    {
+	        get { return Controls; }
+	    }
 
-		public virtual T CreateControlView<T>(params object[] args) where T : IControlView
-		{
-			throw new NotImplementedException();
-		}
+	    #endregion
 
-		public virtual T GetControlView<T>(object sender) where T : IControlView
-		{
-			while (!(sender is T))
-			{
-				sender = ((Control)sender).Parent;
-			}
+	    #region Métodos Públicos (IControlView)
 
-			return (T)sender;
-		}
+	    public virtual void DoLoad()
+	    {
+	    }
 
-		public virtual void AddControlView(IControlView view)
-		{
-			ControlCollection.Add((Control)view);
-		}
+	    public virtual void DoLoadComplete()
+	    {
+	    }
 
-		public virtual void AddControlViewAt(int index, IControlView view)
-		{
-			ControlCollection.AddAt(index, (Control)view);
-		}
+	    public virtual void ShowMessage(string caption, string message)
+	    {
+	        messageUC.ShowMessage(caption, message);
+	    }
 
-		public virtual void RemoveControlView(IControlView view)
-		{
-			ControlCollection.Remove((Control)view);
-		}
+	    public virtual void ShowErrorMessage(string caption, string message, Exception ex)
+	    {
+	        messageUC.ShowErrorMessage(caption, message, ex);
+	    }
 
-		public virtual void RemoveControlViewAt(int index)
-		{
-			ControlCollection.RemoveAt(index);
-		}
+	    public virtual T CreateControlView<T>() where T : IControlView
+	    {
+	        return ControlHelper.CreateControlFromView<T>(this);
+	    }
 
-		protected virtual ControlCollection ControlCollection
-		{
-			get { return Controls; }
-		}
+	    public virtual T CreateControlView<T>(params object[] args) where T : IControlView
+	    {
+	        throw new NotImplementedException();
+	    }
 
-	}
+	    public virtual T GetControlView<T>(object sender) where T : IControlView
+	    {
+	        while (!(sender is T))
+	        {
+	            sender = ((Control)sender).Parent;
+	        }
+
+	        return (T)sender;
+	    }
+
+	    public virtual void AddControlView(IControlView view)
+	    {
+	        ControlCollection.Add((Control)view);
+	    }
+
+	    public virtual void AddControlViewAt(int index, IControlView view)
+	    {
+	        ControlCollection.AddAt(index, (Control)view);
+	    }
+
+	    public virtual void RemoveControlView(IControlView view)
+	    {
+	        ControlCollection.Remove((Control)view);
+	    }
+
+	    public virtual void RemoveControlViewAt(int index)
+	    {
+	        ControlCollection.RemoveAt(index);
+	    }
+
+	    #endregion
+
+	    #region Métodods Locais (Inicialização)
+
+	    protected override void OnInit(EventArgs e)
+	    {
+	        base.OnInit(e);
+
+	        Page.LoadComplete += BasePage_LoadComplete;
+	    }
+
+	    private void BasePage_LoadComplete(object sender, EventArgs e)
+	    {
+	        DoLoadComplete();
+	    }
+
+	    #endregion
+
+    }
 }

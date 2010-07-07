@@ -1,4 +1,3 @@
-
 using EvolutionNet.MVP.Presenter;
 
 namespace EvolutionNet.MVP.Business
