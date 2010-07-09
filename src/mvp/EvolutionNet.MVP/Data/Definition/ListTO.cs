@@ -6,7 +6,7 @@ using EvolutionNet.Util.Collection;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class ListTO<T, IdT> where T : class, IModel<IdT>
+	public abstract class ListTO<T, IdT> : ITO where T : class, IModel<IdT>
 	{
 	    private IList<T> list;
 	    public IList<T> List
@@ -28,7 +28,7 @@ namespace EvolutionNet.MVP.Data.Definition
 			}
 			catch (Exception ex)
 			{
-				throw new MVPException("Não foi possível instanciar o Model no TO.", ex);
+				throw new MVPIoCException("Não foi possível instanciar o Model no TO.", ex);
 			}
 		}
 		

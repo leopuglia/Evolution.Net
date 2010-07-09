@@ -3,7 +3,7 @@
  * Created: quinta-feira, 29 de novembro de 2007
  */
 
-using System;
+using System.Collections.Generic;
 using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Data.Definition;
 
@@ -19,11 +19,7 @@ namespace EvolutionNet.MVP.Business
 		//TODO: Aki eu posso aplicar a pattern de command, adicionando os métodos pra adicionar cada comando no contrato e, assim, definir se um facade vai ter salvar, ou listartodos, etc.
 		//TODO: Ou simplesmente definir os métodos Save, Cancelar, ou então os métodos CRUD, sei lá ou mesmo não definir métodos e deixar sem os métodos.
 		TO To { get; }
-
-		/// <summary>
-		/// Reporta o progresso da requisição atual
-		/// </summary>
-		event EventHandler<ProgressEventArgs> ProgressReported;
+	    IList<ValidationError> ErrorList { get; set; }
 
 		/// <summary>
 		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo

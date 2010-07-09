@@ -82,7 +82,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\BaseFacade.cs" />
+    <Compile Include="MVPDataAccessException.cs" />
     <Compile Include="Data\Definition\CrudTO.cs" />
+    <Compile Include="Data\Definition\ITO.cs" />
+    <Compile Include="MVPIoCException.cs" />
     <Compile Include="IoC\AbstractIoCFactory.cs" />
     <Compile Include="BaseFactory.cs" />
     <Compile Include="Business\ActionDelegate.cs" />
@@ -106,6 +110,7 @@
     <Compile Include="IFactory.cs" />
     <Compile Include="IoC\IoCHelper.cs" />
     <Compile Include="IoC\IoCManager.cs" />
+    <Compile Include="ProcessExecutionException.cs" />
     <Compile Include="ValidationError.cs" />
     <Compile Include="MVPValidationException.cs" />
     <Compile Include="Presenter\BasePresenter.cs" />

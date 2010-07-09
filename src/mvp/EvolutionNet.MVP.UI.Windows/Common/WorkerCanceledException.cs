@@ -1,15 +1,10 @@
 using System;
-using System.Runtime.Serialization;
 using EvolutionNet.MVP;
 
 namespace EvolutionNet.MVP.UI.Windows.Common
 {
-	public class WorkerCanceledException : FrameworkException
+	public class WorkerCanceledException : MVPException
 	{
-		public WorkerCanceledException(SerializationInfo info, StreamingContext context) : base(info, context)
-		{
-		}
-
 		public WorkerCanceledException(string message, Exception innerException) : base(message, innerException)
 		{
 		}
@@ -18,7 +13,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 		{
 		}
 
-		public WorkerCanceledException() : base()
+		public WorkerCanceledException()
 		{
 		}
 	}

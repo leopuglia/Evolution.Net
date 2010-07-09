@@ -17,7 +17,7 @@ namespace EvolutionNet.MVP.Business
 	/// <typeparam name="TO">Tranfer Object, tipo do objeto de transferência de dados</typeparam>
 	/// <typeparam name="T">MainModel, tipo da principal entidade (model) do módulo</typeparam>
 	/// <typeparam name="IdT">Identity, tipo do ID do MainModel</typeparam>
-	public abstract class BaseCrudFacade<TO, T, IdT> : ICrudContract<TO, T, IdT>
+	public abstract class BaseCrudFacade<TO, T, IdT> : BaseFacade<TO>, ICrudContract<TO, T, IdT>
 		where TO : CrudTO<T, IdT> 
 		where T : class, IModel<IdT>
 	{
@@ -25,118 +25,87 @@ namespace EvolutionNet.MVP.Business
 
         #region Variáveis Privadas
 
-		private readonly TO to;
-        private readonly IPresenter presenter;
-
-		#endregion
-
-		#region Variáveis Protegidas
-
-		protected double progress;
-		protected bool isInitialized;
-		protected bool isDisposed;
+        private IList<ValidationError> errorList = new List<ValidationError>();
 
 		#endregion
 
 		#region Propriedades Protegidas
 
-		/// <summary>
-		/// Calcula o progresso restante ao método sendo utilizado.
-		/// </summary>
-		protected double RemainingProgress
-		{
-			get { return 100d - progress; }
-		}
+        //TODO: Colocar em um arquivo de configuração, sendo o padrão true
+        protected abstract bool ThrowException { get; }
 
-		#endregion
+        #endregion
 
 		#region Propriedades Públicas
 
-        public IPresenter Presenter
+        public IList<ValidationError> ErrorList
         {
-            get { return presenter; }
+            get { return errorList; }
+            set { errorList = value; }
         }
 
-        /// <summary>
-		/// Transfer Object, contém a referência ao to, definido na View.
-		/// </summary>
-		public TO To
-		{
-			get { return to; }
-		}
-
-		#endregion
+        #endregion
 
 		#region Constructor
 
-		protected BaseCrudFacade(IPresenter presenter)
+		protected BaseCrudFacade(IPresenter presenter) : base(presenter)
 		{
-
-			try
-			{
-                this.presenter = presenter;
-
-                // Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
-				to = Activator.CreateInstance<TO>();
-			}
-			catch (Exception ex)
-			{
-				if (log.IsErrorEnabled)
-					log.Error("Não foi possível instanciar o TO no Facade.", ex);
-
-				throw new MVPException("Não foi possível instanciar o TO no Facade.", ex);
-			}
-
 		}
 
 		#endregion
 
-		#region IContract Members
-
-		#region Eventos Públicos
-
-		/// <summary>
-		/// Reporta o progresso da requisição atual.
-		/// </summary>
-		public event EventHandler<ProgressEventArgs> ProgressReported;
-
-		#endregion
-
-		#region Métodos Públicos
-
-		#region Métodos de Dados
+		#region Métodos Públicos (de Dados)
 
 		/// <summary>
 		/// Executa o delegate em um ambiente transacional
 		/// </summary>
 		/// <param name="doAction">Delegate para uma função implementada pelo usuário</param>
-		public void Execute(ActionDelegate doAction)
+		/// <param name="insideTransaction"></param>
+		public void Execute(ActionDelegate doAction, bool insideTransaction)
 		{
-			// Start Transaction
-			TransactionScope transaction = new TransactionScope(TransactionMode.Inherits, IsolationLevel.ReadCommitted, OnDispose.Rollback);
+            if (insideTransaction)
+            {
+                // Start Transaction
+                TransactionScope transaction =
+                    new TransactionScope(TransactionMode.Inherits, IsolationLevel.ReadCommitted, OnDispose.Rollback);
 
-			try
-			{
-				doAction();
+                try
+                {
+                    doAction();
 
-				// Save Transaction
-				transaction.VoteCommit();
-                transaction.Flush();
+                    // Save Transaction
+                    transaction.VoteCommit();
+                    transaction.Flush();
+                }
+                catch (Exception ex)
+                {
+                    // RollBack Transaction
+                    transaction.VoteRollBack();
+
+                    if (log.IsErrorEnabled)
+                        log.Error("A transação foi cancelada por um erro.");
+
+                    throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
             }
-			catch
-			{
-				// RollBack Transaction
-				transaction.VoteRollBack();
+            else
+            {
+                try
+                {
+                    doAction();
+                }
+                catch (Exception ex)
+                {
+                    if (log.IsErrorEnabled)
+                        log.Error("A execução foi cancelada por um erro.");
 
-				if (log.IsErrorEnabled)
-					log.Error("A transação foi cancelada por um erro.");
-
-				throw;
-			}
-			finally
-			{
-				transaction.Dispose();
-			}
+                    throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
+                }
+            }
 		}
 
 		/// <summary>
@@ -144,7 +113,7 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		public void Find()
 		{
-			DoFind();
+            Execute(DoFind, false);
 		}
 
         /// <summary>
@@ -152,7 +121,7 @@ namespace EvolutionNet.MVP.Business
         /// </summary>
         public void FindAll()
         {
-            DoFindAll();
+            Execute(DoFindAll, false);
         }
 
         /// <summary>
@@ -183,51 +152,11 @@ namespace EvolutionNet.MVP.Business
 
         #endregion
 
-		#endregion
-
-		#endregion
-
-		#region Métodos de Eventos
-
-		/// <summary>
-		/// Reporta o progresso da requisição atual.
-		/// </summary>
-		/// <param name="step">O tamanho do passo atual realizado (porcentagem).</param>
-		protected virtual void ReportProgressStep(double step)
-		{
-			progress += step;
-
-			if (progress > 100)
-				throw new MVPException("The maximum progress allowed is 100%");
-
-			if (ProgressReported != null)
-				ProgressReported(this, new ProgressEventArgs(step, progress));
-		}
-
-		/// <summary>
-		/// Reporta o progresso da requisição atual.
-		/// </summary>
-		/// <param name="progress">O progresso total realizado (porcentagem).</param>
-		protected virtual void ReportProgressSet(double progress)
-		{
-			double step = progress - this.progress;
-			this.progress = progress;
-
-			if (progress > 100)
-				throw new MVPException("The maximum progress allowed is 100%");
-
-			if (ProgressReported != null)
-				ProgressReported(this, new ProgressEventArgs(step, progress));
-		}
-
-
-		#endregion
-
 		#region Hooks Protegidos
 
 		protected virtual void DoFind()
 		{
-			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(to.ID);
+			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
 		}
 
         protected virtual void DoFindAll()
@@ -240,91 +169,62 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void HookSave()
 		{
-            if (Validate(true))
-                Execute(DoSave);
+            if (Validate(ThrowException))
+                Execute(DoSave, true);
         }
 
         protected virtual void DoSave()
         {
-            Dao<T, IdT>.Save(to.MainModel);
+            Dao<T, IdT>.Save(To.MainModel);
         }
 
         protected virtual void HookDelete()
 		{
-            Execute(DoDelete);
+            Execute(DoDelete, true);
         }
 
         protected virtual void DoDelete()
         {
-            Dao<T, IdT>.Delete(to.MainModel);
+            Dao<T, IdT>.Delete(To.MainModel);
         }
 
         protected virtual void HookDeleteByID()
         {
-            Execute(DoDeleteByID);
+            Execute(DoDeleteByID, true);
         }
 
         protected virtual void DoDeleteByID()
         {
-            to.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
-            Dao<T, IdT>.Delete(to.MainModel);
+            To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
+            Dao<T, IdT>.Delete(To.MainModel);
         }
 
         protected virtual bool DoValidate(bool throwException)
         {
-            IValidatorRunner runner =
-                new ValidatorRunner(new CachedValidationRegistry());
-            if (runner.IsValid(to.MainModel))
+            IValidatorRunner runner = new ValidatorRunner(new CachedValidationRegistry());
+            if (runner.IsValid(To.MainModel))
                 return true;
+
+            ErrorSummary errors = runner.GetErrorSummary(To.MainModel);
+
+            for (int i = 0; i < errors.ErrorsCount; i++)
+            {
+                ErrorList.Add(new ValidationError(errors.InvalidProperties[i], errors.ErrorMessages[i]));
+            }
 
             if (throwException)
             {
-                ErrorSummary errors = runner.GetErrorSummary(to.MainModel);
-
-/*
-                var errorMessages = new List<string>(errors.ErrorMessages);
-                for (int i = 0; i < errorMessages.Count; i++)
-                {
-                    errorMessages[i] = errors.InvalidProperties[i] + ": " + errorMessages[i];
-                }
-
+                //TODO: Colocar a string em um resource
                 throw new MVPValidationException(
                     string.Format("Validation has failed with {0} errors. See inner exceptions for details.",
                                   errors.ErrorsCount),
-                    CreateValidationExceptions(errorMessages));
-*/
-                IList<ValidationError> errorList = new List<ValidationError>();
-                for (int i = 0; i < errors.ErrorsCount; i++)
-                {
-                    errorList.Add(new ValidationError(errors.InvalidProperties[i], errors.ErrorMessages[i]));
-                }
-
-                throw new MVPValidationException(
-                    string.Format("Validation has failed with {0} errors. See inner exceptions for details.",
-                                  errors.ErrorsCount),
-                    errorList);
+                    ErrorList);
             }
 
             return false;
         }
 
         #endregion
-
-	    #region Métodos Auxiliares
-
-/*
-	    private MVPValidationException CreateValidationExceptions(IList<string> errorMessages)
-	    {
-	        if (errorMessages.Count == 1)
-	            return new MVPValidationException(errorMessages[0]);
-
-	        string message = errorMessages[0];
-	        errorMessages.RemoveAt(0);
-	        return new MVPValidationException(message, CreateValidationExceptions(errorMessages));
-	    }
-*/
-
-	    #endregion
 
     }
 }
