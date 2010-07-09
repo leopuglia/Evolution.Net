@@ -41,9 +41,9 @@ namespace EvolutionNet.MVP.UI.Web
 	        messageUC.ShowMessage(caption, message);
 	    }
 
-	    public virtual void ShowErrorMessage(string caption, string message, Exception ex)
+	    public virtual void ShowErrorMessage(string caption, string message, string exceptionMessage)
 	    {
-	        messageUC.ShowErrorMessage(caption, message, ex);
+            messageUC.ShowErrorMessage(caption, message, exceptionMessage);
 	    }
 
 	    public virtual T CreateControlView<T>() where T : IControlView

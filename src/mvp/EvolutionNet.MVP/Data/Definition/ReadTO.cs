@@ -34,7 +34,7 @@ namespace EvolutionNet.MVP.Data.Definition
 			}
 			catch (Exception ex)
 			{
-				throw new FrameworkException("Não foi possível instanciar o Model no TO.", ex);
+				throw new MVPException("Não foi possível instanciar o Model no TO.", ex);
 			}
 		}
 		

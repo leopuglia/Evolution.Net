@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -41,6 +41,10 @@
     <Reference Include="Castle.ActiveRecord, Version=2.0.1000.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\debug\3.5\Castle\Castle.ActiveRecord.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SysVip\lib\debug\3.5\Castle\Castle.Components.Validator.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,10 +102,12 @@
     <Compile Include="Data\Definition\INullModel.cs" />
     <Compile Include="Data\Definition\ListTO.cs" />
     <Compile Include="Data\Definition\ReadTO.cs" />
-    <Compile Include="FrameworkException.cs" />
+    <Compile Include="MVPException.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="IoC\IoCHelper.cs" />
     <Compile Include="IoC\IoCManager.cs" />
+    <Compile Include="ValidationError.cs" />
+    <Compile Include="MVPValidationException.cs" />
     <Compile Include="Presenter\BasePresenter.cs" />
     <Compile Include="Presenter\IPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

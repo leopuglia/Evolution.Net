@@ -1,4 +1,3 @@
-using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -23,20 +22,16 @@ namespace EvolutionNet.MVP.UI.Web
 				Show();
 		}
 
-		public virtual void ShowErrorMessage(string caption, string message, Exception ex)
+		public virtual void ShowErrorMessage(string caption, string message, string exceptionMessage)
 		{
 			BaseLabelCaption.Text = caption;
-			BaseLabelMessage.Text = string.Format("<b>{0}</b><br/>Exception: {1}", message, ex.Message);
+            BaseLabelMessage.Text = string.Format("<b>{0}</b><br/>Exception: {1}", message, exceptionMessage);
 
 			ScriptManager current = ScriptManager.GetCurrent(Page);
 			if (current != null && current.IsInAsyncPostBack)
 				BaseUpdatePanel.Update();
 			else
 				Show();
-
-#if DEBUG5
-			throw ex;
-#endif
 		}
 
 		protected virtual void Show()

@@ -44,5 +44,10 @@ namespace EvolutionNet.MVP.Business
 		/// Deleta o MainModel atual
 		/// </summary>
 		void Delete();
-	}
+
+	    void DeleteByID();
+
+        bool Validate(bool throwException);
+
+    }
 }

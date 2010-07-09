@@ -13,15 +13,43 @@ namespace EvolutionNet.Util
 
 		public static int HexToInt(string hexString)
 		{
+            if (hexString.Length == 1)
+                hexString += hexString;
+
 			return int.Parse(hexString,
 							 System.Globalization.NumberStyles.HexNumber, null);
 		}
 
 		public static Color ColorFromHexadecimal(string hexa)
 		{
-			int red = HexToInt(hexa.Substring(1, 2));
-			int green = HexToInt(hexa.Substring(3, 2));
-			int blue = HexToInt(hexa.Substring(5, 2));
+		    int i;
+            int j;
+
+            switch (hexa.Length)
+            {
+                case 3:
+                    i = 0;
+                    j = 1;
+                    break;
+                case 4:
+                    i = 1;
+                    j = 1;
+                    break;
+                case 6:
+                    i = 0;
+                    j = 2;
+                    break;
+                case 7:
+                    i = 1;
+                    j = 2;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("hexa", "The Hexadecimal string has a unsupported lenght");
+            }
+
+		    int red = HexToInt(hexa.Substring(i, j));
+			int green = HexToInt(hexa.Substring(i + 2, j));
+			int blue = HexToInt(hexa.Substring(i + 4, j));
 
 			return Color.FromArgb(red, green, blue);
 		}

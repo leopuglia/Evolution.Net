@@ -13,7 +13,7 @@ namespace EvolutionNet.MVP.View
 	public interface IControlView : IView//<PresenterT> : IView, IDisposable where PresenterT : IPresenter
 	{
 		void ShowMessage(string caption, string msg);
-		void ShowErrorMessage(string caption, string msg, Exception ex);
+		void ShowErrorMessage(string caption, string msg, string exceptionMessage);
 
         T CreateControlView<T>() where T : IControlView;
 		T CreateControlView<T>(params object[] args) where T : IControlView;

@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using Castle.ActiveRecord;
+using Castle.Components.Validator;
 using EvolutionNet.MVP.Presenter;
 using log4net;
 using EvolutionNet.MVP.Business;
@@ -82,7 +84,7 @@ namespace EvolutionNet.MVP.Business
 				if (log.IsErrorEnabled)
 					log.Error("Não foi possível instanciar o TO no Facade.", ex);
 
-				throw new FrameworkException("Não foi possível instanciar o TO no Facade.", ex);
+				throw new MVPException("Não foi possível instanciar o TO no Facade.", ex);
 			}
 
 		}
@@ -119,7 +121,8 @@ namespace EvolutionNet.MVP.Business
 
 				// Save Transaction
 				transaction.VoteCommit();
-			}
+                transaction.Flush();
+            }
 			catch
 			{
 				// RollBack Transaction
@@ -132,7 +135,6 @@ namespace EvolutionNet.MVP.Business
 			}
 			finally
 			{
-				transaction.Flush();
 				transaction.Dispose();
 			}
 		}
@@ -158,7 +160,7 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		public void Save()
 		{
-			Execute(DoSave);
+            HookSave();
 		}
 
 		/// <summary>
@@ -166,38 +168,20 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		public void Delete()
 		{
-			Execute(DoDelete);
+		    HookDelete();
 		}
+
+        public void DeleteByID()
+        {
+            HookDeleteByID();
+        }
+
+        public bool Validate(bool throwException)
+        {
+            return DoValidate(throwException);
+        }
 
         #endregion
-
-		#region Initialize
-
-/*
-		/// <summary>
-		/// Realiza toda a inicialização necessária.
-		/// </summary>
-		public void Initialize()
-		{
-			DoInitialize();
-		}
-*/
-
-		#endregion
-
-		#region Dispose
-
-/*
-		///<summary>
-		/// Realiza a liberação de recursos alocados pelo objeto.
-		///</summary>
-		public void Dispose()
-		{
-			DoDispose();
-		}
-*/
-
-		#endregion
 
 		#endregion
 
@@ -214,7 +198,7 @@ namespace EvolutionNet.MVP.Business
 			progress += step;
 
 			if (progress > 100)
-				throw new FrameworkException("The maximum progress allowed is 100%");
+				throw new MVPException("The maximum progress allowed is 100%");
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
@@ -230,7 +214,7 @@ namespace EvolutionNet.MVP.Business
 			this.progress = progress;
 
 			if (progress > 100)
-				throw new FrameworkException("The maximum progress allowed is 100%");
+				throw new MVPException("The maximum progress allowed is 100%");
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
@@ -254,29 +238,93 @@ namespace EvolutionNet.MVP.Business
         /// <summary>
 		/// Realmente salva o MainModel. Pode ser sobrescrito.
 		/// </summary>
-		protected virtual void DoSave()
+		protected virtual void HookSave()
 		{
-			Dao<T, IdT>.Save(to.MainModel);
-		}
+            if (Validate(true))
+                Execute(DoSave);
+        }
 
-		protected virtual void DoDelete()
+        protected virtual void DoSave()
+        {
+            Dao<T, IdT>.Save(to.MainModel);
+        }
+
+        protected virtual void HookDelete()
 		{
-			Dao<T, IdT>.Delete(to.MainModel);
-		}
+            Execute(DoDelete);
+        }
+
+        protected virtual void DoDelete()
+        {
+            Dao<T, IdT>.Delete(to.MainModel);
+        }
+
+        protected virtual void HookDeleteByID()
+        {
+            Execute(DoDeleteByID);
+        }
+
+        protected virtual void DoDeleteByID()
+        {
+            to.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
+            Dao<T, IdT>.Delete(to.MainModel);
+        }
+
+        protected virtual bool DoValidate(bool throwException)
+        {
+            IValidatorRunner runner =
+                new ValidatorRunner(new CachedValidationRegistry());
+            if (runner.IsValid(to.MainModel))
+                return true;
+
+            if (throwException)
+            {
+                ErrorSummary errors = runner.GetErrorSummary(to.MainModel);
 
 /*
-		protected virtual void DoInitialize()
-		{
-			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Initialize();
-		}
+                var errorMessages = new List<string>(errors.ErrorMessages);
+                for (int i = 0; i < errorMessages.Count; i++)
+                {
+                    errorMessages[i] = errors.InvalidProperties[i] + ": " + errorMessages[i];
+                }
 
-		protected virtual void DoDispose()
-		{
-			AbstractIoCFactory<IBaseFacadeFactory>.Instance.Dispose();
-		}
+                throw new MVPValidationException(
+                    string.Format("Validation has failed with {0} errors. See inner exceptions for details.",
+                                  errors.ErrorsCount),
+                    CreateValidationExceptions(errorMessages));
+*/
+                IList<ValidationError> errorList = new List<ValidationError>();
+                for (int i = 0; i < errors.ErrorsCount; i++)
+                {
+                    errorList.Add(new ValidationError(errors.InvalidProperties[i], errors.ErrorMessages[i]));
+                }
+
+                throw new MVPValidationException(
+                    string.Format("Validation has failed with {0} errors. See inner exceptions for details.",
+                                  errors.ErrorsCount),
+                    errorList);
+            }
+
+            return false;
+        }
+
+        #endregion
+
+	    #region Métodos Auxiliares
+
+/*
+	    private MVPValidationException CreateValidationExceptions(IList<string> errorMessages)
+	    {
+	        if (errorMessages.Count == 1)
+	            return new MVPValidationException(errorMessages[0]);
+
+	        string message = errorMessages[0];
+	        errorMessages.RemoveAt(0);
+	        return new MVPValidationException(message, CreateValidationExceptions(errorMessages));
+	    }
 */
 
-		#endregion
+	    #endregion
 
-	}
+    }
 }

@@ -73,7 +73,7 @@ namespace EvolutionNet.MVP.Business
 				if (log.IsErrorEnabled)
 					log.Error("Não foi possível instanciar o TO no Facade.", ex);
 
-				throw new FrameworkException("Não foi possível instanciar o TO no Facade.", ex);
+				throw new MVPException("Não foi possível instanciar o TO no Facade.", ex);
 			}
 
 		}
@@ -116,7 +116,7 @@ namespace EvolutionNet.MVP.Business
 			progress += step;
 
 			if (progress > 100)
-				throw new FrameworkException("The maximum progress allowed is 100%");
+				throw new MVPException("The maximum progress allowed is 100%");
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
@@ -132,7 +132,7 @@ namespace EvolutionNet.MVP.Business
 			this.progress = progress;
 
 			if (progress > 100)
-				throw new FrameworkException("The maximum progress allowed is 100%");
+				throw new MVPException("The maximum progress allowed is 100%");
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
