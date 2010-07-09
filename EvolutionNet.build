@@ -109,6 +109,7 @@
 
     <!-- ****** COPY LIB DLL's TO BUILD ****** -->
     <copy file="${lib_path}\castle\Castle.ActiveRecord.dll" todir="${build_path_mvp}" />
+    <copy file="${lib_path}\castle\Castle.Components.Validator.dll" todir="${build_path_mvp}" />
     <copy file="${lib_path}\castle\Castle.Core.dll" todir="${build_path_mvp}" />
     <copy file="${lib_path}\castle\Castle.MicroKernel.dll" todir="${build_path_mvp}" />
     <copy file="${lib_path}\castle\Castle.Windsor.dll" todir="${build_path_mvp}" />
@@ -148,6 +149,7 @@
       </sources>
       <references>
         <include name="${lib_path}\castle\Castle.ActiveRecord.dll" />
+        <include name="${lib_path}\castle\Castle.Components.Validator.dll" />
         <include name="${lib_path}\castle\Castle.Core.dll" />
         <include name="${lib_path}\castle\Castle.MicroKernel.dll" />
         <include name="${lib_path}\castle\Castle.Windsor.dll" />
