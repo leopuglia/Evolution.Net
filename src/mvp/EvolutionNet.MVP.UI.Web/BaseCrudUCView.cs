@@ -23,6 +23,11 @@ namespace EvolutionNet.MVP.UI.Web
             }
         }
 
+        public virtual event EventHandler Save;
+        public virtual event EventHandler Delete;
+        public virtual event EventHandler Edit;
+        public virtual event EventHandler Cancel;
+
         private GridView GetGrid()
         {
             foreach (var control in ControlCollection)

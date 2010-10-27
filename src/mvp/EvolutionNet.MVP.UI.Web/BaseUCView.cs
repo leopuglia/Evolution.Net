@@ -26,7 +26,23 @@ namespace EvolutionNet.MVP.UI.Web
 
 	    #endregion
 
-	    #region Métodos Públicos (IControlView)
+        #region Métodos Locais (Inicialização)
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            Page.LoadComplete += BasePage_LoadComplete;
+        }
+
+        protected void BasePage_LoadComplete(object sender, EventArgs e)
+        {
+            DoLoadComplete();
+        }
+
+        #endregion
+
+        #region Métodos Públicos (IControlView)
 
 	    public virtual void DoLoad()
 	    {
@@ -84,22 +100,6 @@ namespace EvolutionNet.MVP.UI.Web
 	    public virtual void RemoveControlViewAt(int index)
 	    {
 	        ControlCollection.RemoveAt(index);
-	    }
-
-	    #endregion
-
-	    #region Métodos Locais (Inicialização)
-
-	    protected override void OnInit(EventArgs e)
-	    {
-	        base.OnInit(e);
-
-	        Page.LoadComplete += BasePage_LoadComplete;
-	    }
-
-	    protected void BasePage_LoadComplete(object sender, EventArgs e)
-	    {
-	        DoLoadComplete();
 	    }
 
 	    #endregion
