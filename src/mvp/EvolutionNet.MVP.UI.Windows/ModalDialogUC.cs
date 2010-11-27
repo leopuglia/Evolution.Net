@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
-	public partial class ModalDialogUC : BaseUC
+	public partial class ModalDialogUC : BaseUCView
 	{
 		#region Construtor
 

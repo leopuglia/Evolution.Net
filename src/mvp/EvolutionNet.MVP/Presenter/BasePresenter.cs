@@ -10,14 +10,14 @@ namespace EvolutionNet.MVP.Presenter
 		where ViewT : IView
 		where ContractT : IContract
 	{
-		#region Variáveis Privadas
+		#region Variáveis Locais
 
 		private readonly ViewT view;
 		private readonly ContractT facade;
 
 		#endregion
 
-		#region Propriedades Públicas
+		#region Propriedades
 
 		protected ViewT View
 		{

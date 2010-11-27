@@ -28,14 +28,14 @@ namespace EvolutionNet.MVP.UI.Web
 
 		#endregion
 
-		public string GetAbsolutePath(string path)
+		public string GetPhysicalPath(string virtualPath)
 		{
-			return HttpContext.Current.Server.MapPath(path);
+			return HttpContext.Current.Server.MapPath(virtualPath);
 		}
 
-		public string GetRelativePath(string path)
+        public string GetAbsolutePath(string virtualPath)
 		{
-			return VirtualPathUtility.ToAbsolute(path);
+            return VirtualPathUtility.ToAbsolute(virtualPath);
 		}
 
 	}
