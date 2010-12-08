@@ -3,8 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Windows.2008", "EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.2008.csproj", "{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B3E6E996-7228-4EDA-B31C-36F289894CEB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_build", "_build", "{B3E6E996-7228-4EDA-B31C-36F289894CEB}"
 	ProjectSection(SolutionItems) = preProject
+		..\AssemblyInfo.template = ..\AssemblyInfo.template
 		..\..\build.bat = ..\..\build.bat
 		..\..\build_deploy.bat = ..\..\build_deploy.bat
 		..\..\EvolutionNet.build = ..\..\EvolutionNet.build

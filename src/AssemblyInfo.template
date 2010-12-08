@@ -1,15 +1,15 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EvolutionNet.MVP.UI.Web")]
-[assembly: AssemblyDescription("EvolutionNet MVP Libraries 0.1.0")]
+[assembly: AssemblyTitle("@ASSEMBLY_TITLE@")]
+[assembly: AssemblyDescription("@ASSEMBLY_DESCRIPTION@")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Evolution")]
-[assembly: AssemblyProduct("EvolutionNet.MVP.UI.Web")]
-[assembly: AssemblyCopyright("Copyright � Evolution 2009")]
+[assembly: AssemblyCompany("@ASSEMBLY_COMPANY@")]
+[assembly: AssemblyProduct("@ASSEMBLY_TITLE@")]
+[assembly: AssemblyCopyright("Copyright © @ASSEMBLY_COMPANY@ 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.1.0.*")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("@VERSION@.*")]
+[assembly: AssemblyFileVersion("@VERSION@.0")]
