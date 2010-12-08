@@ -14,8 +14,8 @@ namespace EvolutionNet.MVP.UI.Windows
 
         private void ModalDialogFrm_AfterLoad(object sender, System.EventArgs e)
         {
-            AcceptButton = ((ModalDialogUC)baseUC).btnOK;
-            CancelButton = ((ModalDialogUC)baseUC).btnCancelar;
+            AcceptButton = ((ModalDialogUC)BaseUC).btnOK;
+            CancelButton = ((ModalDialogUC)BaseUC).btnCancelar;
         }
 	}
 }

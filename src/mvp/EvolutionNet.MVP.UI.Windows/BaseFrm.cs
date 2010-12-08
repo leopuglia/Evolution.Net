@@ -11,7 +11,6 @@ namespace EvolutionNet.MVP.UI.Windows
         #region Variáveis
 
         private bool IsInitialized;
-        protected BaseUCView baseUC;
 //        protected BaseMessageUC messageUC;
 
         #endregion
@@ -27,7 +26,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
         #region Construtor
 
-        public BaseFrm()
+        protected BaseFrm()
         {
             InitializeComponent();
 
@@ -40,13 +39,13 @@ namespace EvolutionNet.MVP.UI.Windows
 
         public event AfterLoadDelegate AfterLoad;
 
-        protected virtual void OnAfterLoad(EventArgs e)
+        private void OnAfterLoad(EventArgs e)
         {
             if (AfterLoad != null)
                 AfterLoad(this, e);
 
-            if (baseUC != null)
-                baseUC.DoAfterLoad(e);
+            if (BaseUC != null)
+                BaseUC.DoAfterLoad(e);
         }
 
         #endregion
