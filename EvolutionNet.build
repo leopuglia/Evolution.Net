@@ -983,9 +983,15 @@
   <target name="deploy-bin" depends="bin">
     <mkdir dir="${deploy.path}" />
     <copy todir="${deploy.path}" flatten="true">
-      <fileset basedir="${bin.path}">
-        <include name="**/*.dll" />
-        <include name="**/*.pdb" if="${debug}" />
+      <fileset basedir="${bin.path.mvp}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+    <copy todir="${deploy.path}" flatten="true">
+      <fileset basedir="${bin.path.util}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
       </fileset>
     </copy>
   </target>
