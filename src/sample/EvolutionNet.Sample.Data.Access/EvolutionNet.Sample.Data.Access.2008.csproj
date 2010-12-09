@@ -47,6 +47,20 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mvp\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj">
+      <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
+      <Name>EvolutionNet.MVP.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">
+      <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
+      <Name>EvolutionNet.Util.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.Sample.Data.Definition\EvolutionNet.Sample.Data.Definition.2008.csproj">
+      <Project>{DF9543AD-490C-4A75-86D8-93391F8F05A7}</Project>
+      <Name>EvolutionNet.Sample.Data.Definition.2008</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
