@@ -6,7 +6,7 @@
 
   <!-- **************************************** Variáveis locais **************************************** -->
   <property name="version.util" value="0.0.1" />
-  <property name="version.mvp" value="0.1.0" />
+  <property name="version.mvp" value="0.2.0" />
 
   <property name="assemblyinfo.path" value="" />
   <property name="assemblyinfo.title" value="" />
@@ -113,7 +113,7 @@
   </target>
 
   <!-- ****** Target: clean ****** -->
-  <target name="clean" depends="clean-util, clean-mvp, clean-zip"  />
+  <target name="clean" depends="clean-util, clean-mvp"  />
 
 
 
