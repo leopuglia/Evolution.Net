@@ -5,8 +5,9 @@
 <project name="EvolutionNet" default="all" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
 
   <!-- **************************************** Variáveis locais **************************************** -->
-  <property name="version.util" value="0.0.1" />
-  <property name="version.mvp" value="0.2.0" />
+  <property name="version.util" value="0.0.2" />
+  <property name="version.mvp" value="0.2.1" />
+  <property name="version.sample" value="0.0.1" />
 
   <property name="assemblyinfo.path" value="" />
   <property name="assemblyinfo.title" value="" />
@@ -23,24 +24,41 @@
   <property name="deploy" value="deploy" overwrite="false" />
 
   <property name="imports.path" value="lib\${envdir}\${target}"/>
+  <property name="libs.sample.path" value="src\sample\lib\${envdir}\${target}"/>
 
   <property name="src.path" value="src"/>
   <property name="src.path.util" value="src\util"/>
   <property name="src.path.mvp" value="src\mvp"/>
-  
+  <property name="src.path.sample" value="src\sample\app"/>
+
   <property name="build.path" value="build"/>
   <property name="build.path.util" value="${build.path}\util\${envdir}\${target}"/>
   <property name="build.path.mvp" value="${build.path}\mvp\${envdir}\${target}"/>
+  <property name="build.path.sample" value="${build.path}\sample\${envdir}"/>
+  <property name="build.path.sample.web" value="${build.path.sample}\web"/>
+  <property name="build.path.sample.win" value="${build.path.sample}\win"/>
 
   <property name="bin.path" value="bin"/>
   <property name="bin.path.util" value="${bin.path}\util\${envdir}\${target}"/>
   <property name="bin.path.mvp" value="${bin.path}\mvp\${envdir}\${target}"/>
+  <property name="bin.path.sample" value="${bin.path}\sample\${envdir}"/>
+  <property name="bin.path.sample.web" value="${bin.path.sample}\web"/>
+  <property name="bin.path.sample.win" value="${bin.path.sample}\win"/>
   <property name="bin.path.zip" value="${bin.path}\zip"/>
 
   <property name="project.util" value="EvolutionNet.Util"/>
   <property name="project.mvp" value="EvolutionNet.MVP"/>
   <property name="project.mvp.web" value="EvolutionNet.MVP.UI.Web"/>
   <property name="project.mvp.win" value="EvolutionNet.MVP.UI.Windows"/>
+
+  <property name="project.sample.core" value="EvolutionNet.Sample.Core"/>
+  <property name="project.sample.data.definition" value="EvolutionNet.Sample.Data.Definition"/>
+  <property name="project.sample.data.access" value="EvolutionNet.Sample.Data.Access"/>
+  <property name="project.sample.business" value="EvolutionNet.Sample.Business"/>
+  <property name="project.sample.presenter" value="EvolutionNet.Sample.Presenter"/>
+  <property name="project.sample.reports" value="EvolutionNet.Sample.UI.Reports"/>
+  <property name="project.sample.web" value="EvolutionNet.Sample.UI.Web"/>
+  <property name="project.sample.win" value="EvolutionNet.Sample.UI.Windows"/>
 
   <property name="deploy.path" value="${deploy}\${envdir}\${target}\EvolutionNet"/>
 
@@ -71,6 +89,15 @@
     </delete>
   </target>
 
+  <!-- ****** Target: delete-sample ****** -->
+  <target name="delete-sample" description="" if="${target=='3.5'}">
+    <delete if="${directory::exists(build.path.sample)}">
+      <fileset basedir="${build.path.sample}">
+        <include name="**/*" />
+      </fileset>
+    </delete>
+  </target>
+
 
 
   <!-- **************************************** Clean **************************************** -->
@@ -88,6 +115,15 @@
   <target name="clean-mvp" description="remove all binaries">
     <delete if="${directory::exists(bin.path.mvp)}">
       <fileset basedir="${bin.path.mvp}">
+        <include name="**/*.*" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- ****** Target: clean-sample ****** -->
+  <target name="clean-sample" description="remove all binaries" if="${target=='3.5'}">
+    <delete if="${directory::exists(bin.path.sample)}">
+      <fileset basedir="${bin.path.sample}">
         <include name="**/*.*" />
       </fileset>
     </delete>
@@ -113,7 +149,7 @@
   </target>
 
   <!-- ****** Target: clean ****** -->
-  <target name="clean" depends="clean-util, clean-mvp"  />
+  <target name="clean" depends="clean-util, clean-mvp, clean-sample"  />
 
 
 
@@ -124,8 +160,14 @@
     <mkdir dir="${build.path}" />
     <mkdir dir="${build.path.util}" />
     <mkdir dir="${build.path.mvp}" />
+    <mkdir dir="${build.path.sample}" />
+    <mkdir dir="${build.path.sample.web}" />
+    <mkdir dir="${build.path.sample.win}" />
     <mkdir dir="${bin.path.util}" />
     <mkdir dir="${bin.path.mvp}" />
+    <mkdir dir="${bin.path.sample}"/>
+    <mkdir dir="${bin.path.sample.web}" />
+    <mkdir dir="${bin.path.sample.win}" />
     <mkdir dir="${bin.path.zip}"/>
   </target>
 
@@ -173,7 +215,54 @@
     <property name="assemblyinfo.description" value="EvolutionNet MVP Libraries ${version.mvp}" />
     <property name="assemblyinfo.version" value="${version.mvp}" />
     <call target="convert-assemblyinfo" />
-  </target>
+    <!-- ****** EvolutionNet.Sample.Data.Definition ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.data.definition}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet.Sample Libraries ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />
+    <!-- ****** EvolutionNet.Sample.Core ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.core}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet.Sample Libraries ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />
+    <!-- ****** EvolutionNet.Sample.Data.Access ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.data.access}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />
+    <!-- ****** EvolutionNet.Sample.Business ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.business}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />
+    <!-- ****** EvolutionNet.Sample.Presenter ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.presenter}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />
+    <!-- ****** EvolutionNet.Sample.UI.Reports ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.reports}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />
+    <!-- ****** EvolutionNet.Sample.UI.Web ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.web}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet Sample Web Application ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />
+    <!-- ****** EvolutionNet.Sample.UI.Windows ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.win}" />
+    <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
+    <property name="assemblyinfo.description" value="EvolutionNet Sample Web Site ${version.sample}" />
+    <property name="assemblyinfo.version" value="${version.sample}" />
+    <call target="convert-assemblyinfo" />  </target>
 
 
 
@@ -277,10 +366,370 @@
 
 
 
+  <!-- **************************************** Libs **************************************** -->
+
+  <!-- ****** Target: build-sample-libs ****** -->
+  <target name="build-sample-libs" depends="init" description="Compila as libs's do sistema">
+    <!-- ****** EvolutionNet.Sample.Data.Definition ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.data.definition}" />
+    <csc target="library" output="${build.path.sample}\${assemblyinfo.title}.dll" debug="${debug}" keyfile="src\EvolutionNet.snk">
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
+      <references>
+        <include name="${imports.path}\Castle\Castle.ActiveRecord.dll" />
+        <include name="${imports.path}\Castle\Castle.Components.Validator.dll" />
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.Util.dll" />
+      </references>
+    </csc>
+    <!-- ****** EvolutionNet.Sample.Core ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.core}" />
+    <csc target="library" output="${build.path.sample}\${assemblyinfo.title}.dll" debug="${debug}" keyfile="src\EvolutionNet.snk">
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
+      <references>
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.Util.dll" />
+        <include name="${build.path}\${project.sample.data.definition}.dll" />
+      </references>
+    </csc>
+    <!-- ****** EvolutionNet.Sample.Data.Access ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.data.access}" />
+    <csc target="library" output="${build.path.sample}\${assemblyinfo.title}.dll" debug="${debug}" keyfile="src\EvolutionNet.snk">
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
+      <references>
+        <include name="${imports.path}\Castle\Castle.ActiveRecord.dll" />
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <include name="${imports.path}\MySQL\MySql.Data.dll" />
+        <include name="${imports.path}\NHibernate\NHibernate.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.Util.dll" />
+        <include name="${build.path}\${project.sample.core}.dll" />
+        <include name="${build.path}\${project.sample.data.definition}.dll" />
+      </references>
+    </csc>
+    <!-- ****** EvolutionNet.Sample.Business ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.business}" />
+    <csc target="library" output="${build.path.sample}\${assemblyinfo.title}.dll" debug="${debug}" keyfile="src\EvolutionNet.snk">
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
+      <references>
+        <include name="${imports.path}\Castle\Castle.ActiveRecord.dll" />
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <include name="${imports.path}\NHibernate\NHibernate.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.Util.dll" />
+        <include name="${build.path}\${project.sample.core}.dll" />
+        <include name="${build.path}\${project.sample.data.definition}.dll" />
+        <include name="${build.path}\${project.sample.data.access}.dll" />
+      </references>
+    </csc>
+    <!-- ****** EvolutionNet.Sample.Presenter ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.presenter}" />
+    <csc target="library" output="${build.path.sample}\${assemblyinfo.title}.dll" debug="${debug}" keyfile="src\EvolutionNet.snk">
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
+      <references>
+        <include name="${imports.path}\Castle\Castle.ActiveRecord.dll" />
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <include name="${imports.path}\NHibernate\NHibernate.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.Util.dll" />
+        <include name="${build.path}\${project.sample.core}.dll" />
+        <include name="${build.path}\${project.sample.data.definition}.dll" />
+        <include name="${build.path}\${project.sample.business}.dll" />
+      </references>
+    </csc>
+    <!-- ****** EvolutionNet.Sample.UI.Reports ******
+    <property name="assemblyinfo.title" value="${project.sample.reports}" />
+    <csc target="library" output="${build.path.sample}\${assemblyinfo.title}.dll" debug="${debug}" keyfile="src\EvolutionNet.snk">
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.rpt" />
+        <exclude name="${assemblyinfo.title}\obj\**\*.rpt" />
+        <exclude name="${assemblyinfo.title}\bin\**\*.rpt" />
+      </resources>
+      <references>
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <include name="${imports.path}\CrystalReports\CrystalDecisions.CrystalReports.Engine.dll" />
+        <include name="${imports.path}\CrystalReports\CrystalDecisions.Enterprise.Framework.dll" />
+        <include name="${imports.path}\CrystalReports\CrystalDecisions.Enterprise.InfoStore.dll" />
+        <include name="${imports.path}\CrystalReports\CrystalDecisions.ReportSource.dll" />
+        <include name="${imports.path}\CrystalReports\CrystalDecisions.Shared.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${build.path}\${project.sample.core}.dll" />
+        <include name="${build.path}\${project.sample.data.definition}.dll" />
+      </references>
+    </csc>-->
+  </target>
+
+
+
+  <!-- **************************************** Copy Sample Libs **************************************** -->
+
+  <!-- ****** Target: copy-sample-libs-web ****** -->
+  <target name="copy-sample-libs-web" depends="build-sample-libs">
+    <!-- ****** COPY Web Files TO BUILD ****** -->
+    <copy todir="${build.path.sample.web}">
+      <fileset basedir="${src.path.sample}\${project.sample.web}">
+        <include name="**/*.*" />
+        <exclude name="**/*.cs" />
+        <exclude name="**/*.csproj" />
+        <exclude name="**/*.user" />
+        <exclude name="**/*.sln" />
+        <exclude name="**/*.suo" />
+        <exclude name="**/*.snk" />
+        <exclude name="**/*.config" />
+        <exclude name="**/*.template" />
+        <!--
+        <exclude name="**/*.txt" />
+        <exclude name="**/*.xml" />
+        -->
+        <exclude name="**/_log-file.txt" />
+        <exclude name="**/*hbm*.xml" />
+        <exclude name="*publish.xml" />
+        <exclude name="**/bin/**/*" />
+        <exclude name="**/obj/**/*" />
+        <exclude name="**/*resharper*/**/*" />
+        <exclude name="**/*resharper*" />
+      </fileset>
+    </copy>
+    <!-- ****** Definição de propriedades ****** -->
+<!--
+    <property name="connectionstring" value="Data Source=mssql502.ixwebhosting.com;Database=c270501_vip;User ID=c270501_villa;Password=L0r3n0;" />
+    <property name="connectionstring" value="Data Source=.\SQLEXPRESS;Database=Vip;User ID=sa;Password=l30pugl1@;" if="${debug}"/>
+    <property name="log.level" value="ERROR" />
+    <property name="log.level" value="DEBUG" if="${debug}" />
+-->
+    <!-- ****** Generate Web.config ON BUILD ****** -->
+<!--
+    <copy file="${src.path.sample}\${project.sample.web}\Web.config.template" tofile="${build.path.sample}\Web.config" overwrite="true">
+      <filterchain>
+        <replacetokens>
+          <token key="CONNECTION_STRING" value="${connectionstring}" />
+          <token key="DEBUG" value="${debug}" />
+          <token key="RELEASE" value="${release}" />
+          <token key="LOG_LEVEL" value="${log.level}" />
+        </replacetokens>
+      </filterchain>
+    </copy>
+-->
+    <!-- ****** COPY Libs DLL'S TO BUILD ****** -->
+    <copy todir="${build.path.sample.web}\bin" flatten="true" >
+      <fileset basedir="${imports.path}">
+        <include name="AForge\Aforge.Imaging.dll" />
+        <include name="AjaxControlToolkit\AjaxControlToolkit.dll" />
+        <include name="Castle\Castle.ActiveRecord.dll" />
+        <include name="Castle\Castle.Components.Validator.dll" />
+        <include name="Castle\Castle.Core.dll" />
+        <include name="Castle\Castle.DynamicProxy2.dll" />
+        <include name="Castle\Castle.MicroKernel.dll" />
+        <include name="Castle\Castle.Windsor.dll" />
+        <include name="Castle\Iesi.Collections.dll" />
+        <include name="log4net\log4net.dll" />
+        <include name="MySQL\MySql.Data.dll" />
+        <include name="NHibernate\Antlr3.Runtime.dll" />
+        <include name="NHibernate\NHibernate.dll" />
+        <include name="NHibernate\NHibernate.ByteCode.Castle.dll" />
+        <!--    <include name="NHibernate\NHibernate.JetDriver.dll" />-->
+        <include name="Telerik\Telerik.Web.UI.dll" />
+      </fileset>
+    </copy>
+    <!-- ****** COPY EvolutionNet TO BUILD ****** -->
+    <copy todir="${build.path.sample.web}\bin" flatten="true">
+      <fileset basedir="${build.path.mvp}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+        <exclude name="EvolutionNet.MVP.UI.Windows.*" />
+      </fileset>
+    </copy>
+    <!-- ****** COPY EvolutionNet TO BUILD ****** -->
+    <copy todir="${build.path.sample.web}\bin" flatten="true">
+      <fileset basedir="${build.path.util}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+    <!-- ****** COPY Sample DLL'S TO BUILD ****** -->
+    <copy todir="${build.path.sample.web}\bin" flatten="true">
+      <fileset basedir="${build.path.sample}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- ****** Target: copy-libs-win ****** -->
+  <target name="copy-sample-libs-win" depends="build-sample-libs">
+    <!-- ****** Definição de propriedades ****** -->
+<!--
+    <property name="connectionstring" value="Data Source=mssql502.ixwebhosting.com;Database=c270501_vip;User ID=c270501_villa;Password=L0r3n0;" />
+    <property name="connectionstring" value="Data Source=.\SQLEXPRESS;Database=Vip;User ID=sa;Password=l30pugl1@;" if="${debug}"/>
+    <property name="log.level" value="ERROR" />
+    <property name="log.level" value="DEBUG" if="${debug}" />
+-->
+    <!-- ****** Generate Web.config ON BUILD ****** -->
+<!--
+    <copy file="${src.path.sample}\${project.sample.win}\App.config.template" tofile="${build.path.sample}\App.config" overwrite="true">
+      <filterchain>
+        <replacetokens>
+          <token key="CONNECTION_STRING" value="${connectionstring}" />
+          <token key="DEBUG" value="${debug}" />
+          <token key="RELEASE" value="${release}" />
+          <token key="VERSION" value="${version.sample}" />
+          <token key="LOG_LEVEL" value="${log.level}" />
+        </replacetokens>
+      </filterchain>
+    </copy>
+-->
+    <!-- ****** COPY Libs DLL'S TO BUILD ****** -->
+    <copy todir="${build.path.sample.win}" flatten="true" >
+      <fileset basedir="${imports.path}">
+        <include name="AForge\Aforge.Imaging.dll" />
+        <include name="AjaxControlToolkit\AjaxControlToolkit.dll" />
+        <include name="Castle\Castle.ActiveRecord.dll" />
+        <include name="Castle\Castle.Components.Validator.dll" />
+        <include name="Castle\Castle.Core.dll" />
+        <include name="Castle\Castle.DynamicProxy2.dll" />
+        <include name="Castle\Castle.MicroKernel.dll" />
+        <include name="Castle\Castle.Windsor.dll" />
+        <include name="Castle\Iesi.Collections.dll" />
+        <include name="log4net\log4net.dll" />
+        <include name="MySQL\MySql.Data.dll" />
+        <include name="NHibernate\Antlr3.Runtime.dll" />
+        <include name="NHibernate\NHibernate.dll" />
+        <include name="NHibernate\NHibernate.ByteCode.Castle.dll" />
+        <!--<include name="NHibernate\NHibernate.JetDriver.dll" />-->
+        <!--<include name="Telerik\Telerik.Web.UI.dll" />-->
+      </fileset>
+    </copy>
+    <!-- ****** COPY EvolutionNet TO BUILD ****** -->
+    <copy todir="${build.path.sample.win}" flatten="true">
+      <fileset basedir="${build.path.mvp}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+        <exclude name="EvolutionNet.MVP.UI.Web.*" />
+      </fileset>
+    </copy>
+    <!-- ****** COPY EvolutionNet TO BUILD ****** -->
+    <copy todir="${build.path.sample.win}" flatten="true">
+      <fileset basedir="${build.path.util}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+    <!-- ****** COPY Sample DLL'S TO BUILD ****** -->
+    <copy todir="${build.path.sample.win}" flatten="true">
+      <fileset basedir="${build.path.sample}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+  </target>
+
+
+
+  <!-- **************************************** Build Sample Web **************************************** -->
+
+  <!-- ****** Target: build-sample-web ****** -->
+  <target name="build-sample-web" description="Compiles the webapp" depends="build-sample-libs, copy-sample-libs-web">
+    <!-- ****** EvolutionNet.Sample.UI.Web ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.web}" />
+    <csc target="library" output="${build.path.sample.web}\bin\${assemblyinfo.title}.dll" debug="${debug}" keyfile="${src.path}\EvolutionNet.snk">
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
+      <references>
+        <!--<include name="${imports.path}\AForge\Aforge.Imaging.dll" />-->
+        <include name="${imports.path}\AjaxControlToolkit\AjaxControlToolkit.dll" />
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <!--        <include name="${imports.path}\mysql\MySql.Data.dll" />-->
+        <!--        <include name="${imports.path}\nhibernate\NHibernate.dll" />-->
+        <include name="${imports.path}\Telerik\Telerik.Web.UI.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.UI.Web.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.Util.dll" />
+        <include name="${build.path}\${project.sample.business}.dll" />
+        <include name="${build.path}\${project.sample.core}.dll" />
+        <include name="${build.path}\${project.sample.data.definition}.dll" />
+        <include name="${build.path}\${project.sample.presenter}.dll" />
+        <!--        <include name="${build.path}\${project.sample.reports}.dll" />-->
+      </references>
+    </csc>
+  </target>
+
+
+
+  <!-- **************************************** Build Sample Win **************************************** -->
+
+  <!-- ****** Target: build-sample-win ****** -->
+  <target name="build-sample-win" description="Compiles the webapp" depends="build-sample-libs, copy-sample-libs-win">
+    <!-- ****** EvolutionNet.Sample.UI.Windows ****** -->
+    <property name="assemblyinfo.title" value="${project.sample.win}" />
+    <csc target="winexe" platform="x86" output="${build.path.sample.win}\${assemblyinfo.title}.exe" debug="${debug}" keyfile="${src.path}\EvolutionNet.snk">
+      <!--win32icon="${app.path}\${assemblyinfo.title}\Resources\SysVipIcon.ico"-->
+      <sources>
+        <include name="${src.path.sample}\${assemblyinfo.title}\**\*.cs" />
+      </sources>
+      <resources dynamicprefix="true" basedir="${src.path.sample}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
+      <resources dynamicprefix="true" basedir="licenses">
+        <include name="*.licenses" />
+      </resources>
+      <references>
+        <include name="${imports.path}\AForge\Aforge.Imaging.dll" />
+        <include name="${imports.path}\AjaxControlToolkit\AjaxControlToolkit.dll" />
+        <include name="${imports.path}\log4net\log4net.dll" />
+        <!--<include name="${imports.path}\Telerik\Telerik.Web.UI.dll" />-->
+        <!--<include name="${imports.path}\mysql\MySql.Data.dll" />-->
+        <!--<include name="${imports.path}\nhibernate\NHibernate.dll" />-->
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.MVP.UI.Web.dll" />
+        <include name="${imports.path}\EvolutionNet\EvolutionNet.Util.dll" />
+        <include name="${build.path}\${project.sample.business}.dll" />
+        <include name="${build.path}\${project.sample.core}.dll" />
+        <include name="${build.path}\${project.sample.data.definition}.dll" />
+        <include name="${build.path}\${project.sample.presenter}.dll" />
+        <!--        <include name="${build.path}\${project.sample.reports}.dll" />-->
+      </references>
+    </csc>
+  </target>
+
+
+
   <!-- **************************************** Gerais **************************************** -->
 
   <!-- ****** Target: all ****** -->
-  <target name="all" depends="build-mvp, build-util" />
+  <target name="all" depends="build-mvp, build-util, build-sample-web, build-sample-win" />
 
   <!-- ****** Target: rebuild ****** -->
   <target name="rebuild" depends="delete, all"/>
@@ -311,8 +760,42 @@
     </copy>
   </target>
 
+  <!-- ****** Target: bin-sample-libs ****** -->
+  <target name="bin-sample-libs" depends="build-sample-libs">
+    <!-- ****** COPY DLL's TO BIN ****** -->
+    <copy todir="${bin.path.sample}">
+      <fileset basedir="${build.path.sample}">
+        <include name="*.dll" />
+        <include name="*.pdb" if="${debug}" />
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- ****** Target: bin-sample-web ****** -->
+  <target name="bin-sample-web" depends="build-sample-web">
+    <!-- ****** COPY WEB FILES TO BIN ****** -->
+    <copy todir="${bin.path.sample.web}">
+      <fileset basedir="${build.path.sample.web}">
+        <include name="**/*" />
+        <exclude name="**/*.pdb" unless="${debug}" />
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- ****** Target: bin-sample-win ****** -->
+  <target name="bin-sample-win" depends="build-sample-win">
+    <!-- ****** COPY WEB FILES TO BIN ****** -->
+    <copy todir="${bin.path.sample.win}">
+      <fileset basedir="${build.path.sample.win}">
+        <include name="**/*" />
+        <exclude name="Img/Fotos/**/*" />
+        <exclude name="**/*.pdb" unless="${debug}" />
+      </fileset>
+    </copy>
+  </target>
+
   <!-- ****** Target: bin ****** -->
-  <target name="bin" depends="bin-mvp, bin-util" />
+  <target name="bin" depends="bin-mvp, bin-util, bin-sample-libs, bin-sample-web, bin-sample-win" />
 
 
 
