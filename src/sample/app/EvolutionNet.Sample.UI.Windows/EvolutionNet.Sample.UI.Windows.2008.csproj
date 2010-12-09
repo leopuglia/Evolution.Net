@@ -65,6 +65,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,6 +75,24 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mvp\EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.2008.csproj">
+      <Project>{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}</Project>
+      <Name>EvolutionNet.MVP.UI.Windows.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mvp\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj">
+      <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
+      <Name>EvolutionNet.MVP.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">
+      <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
+      <Name>EvolutionNet.Util.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.Sample.Core\EvolutionNet.Sample.Core.2008.csproj">
+      <Project>{EC46E835-B794-40E7-AFDC-46CEC253807A}</Project>
+      <Name>EvolutionNet.Sample.Core.2008</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
