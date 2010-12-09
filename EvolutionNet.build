@@ -794,8 +794,11 @@
     </copy>
   </target>
 
+  <!-- ****** Target: bin-sample ****** -->
+  <target name="bin-sample" depends="bin-sample-libs, bin-sample-web, bin-sample-win" />
+  
   <!-- ****** Target: bin ****** -->
-  <target name="bin" depends="bin-mvp, bin-util, bin-sample-libs, bin-sample-web, bin-sample-win" />
+  <target name="bin" depends="bin-mvp, bin-util, bin-sample" />
 
 
 
@@ -809,11 +812,12 @@
       </fileset>
     </delete>
     <zip zipfile="${bin.path.zip}\evolution-net-util-${version.util}-bin.zip">
-      <fileset basedir="bin\util" prefix="">
+      <fileset basedir="${bin.path}\util" prefix="">
         <include name="**/*.dll" />
-        <exclude name="**/*.pdb"/>
+        <include name="**/*.pdb"/>
       </fileset>
     </zip>
+<!--
     <zip zipfile="${bin.path.zip}\evolution-net-util-${version.util}-src.zip">
       <fileset basedir="." prefix="">
         <include name="*.*" />
@@ -829,6 +833,7 @@
         <exclude name="**/*resharper*" />
       </fileset>
     </zip>
+-->
   </target>
 
   <!-- ****** Target: zip-mvp ****** -->
@@ -839,11 +844,12 @@
       </fileset>
     </delete>
     <zip zipfile="${bin.path.zip}\evolution-net-mvp-${version.mvp}-bin.zip">
-      <fileset basedir="bin\mvp" prefix="">
+      <fileset basedir="${bin.path}\mvp" prefix="">
         <include name="**/*.dll" />
-        <exclude name="**/*.pdb"/>
+        <include name="**/*.pdb"/>
       </fileset>
     </zip>
+<!--
     <zip zipfile="${bin.path.zip}\evolution-net-mvp-${version.mvp}-src.zip">
       <fileset basedir="." prefix="">
         <include name="*.*" />
@@ -859,13 +865,33 @@
         <exclude name="**/*resharper*" />
       </fileset>
     </zip>
+-->
   </target>
 
   <!-- ****** Target: zip-full ****** -->
   <target name="zip-full" depends="bin" unless="${debug or target=='2.0'}">
     <delete if="${directory::exists('${bin.path.zip}')}">
       <fileset basedir="${bin.path.zip}">
-        <include name="evolution-net-util*.zip" />
+        <include name="evolution-net-full-latest-bin.zip" />
+      </fileset>
+    </delete>
+    <zip zipfile="${bin.path.zip}\evolution-net-full-latest-bin.zip">
+      <fileset basedir="${bin.path}\util" prefix="">
+        <include name="**/*.dll" />
+        <include name="**/*.pdb"/>
+      </fileset>
+      <fileset basedir="${bin.path}\mvp" prefix="">
+        <include name="**/*.dll" />
+        <include name="**/*.pdb"/>
+      </fileset>
+    </zip>
+  </target>
+
+  <!-- ****** Target: zip-full-src ****** -->
+  <target name="zip-full-src" depends="bin" unless="${debug or target=='2.0'}">
+    <delete if="${directory::exists('${bin.path.zip}')}">
+      <fileset basedir="${bin.path.zip}">
+        <include name="evolution-net-full-latest-src.zip" />
       </fileset>
     </delete>
     <zip zipfile="${bin.path.zip}\evolution-net-full-latest-src.zip">
@@ -873,7 +899,67 @@
         <include name="*.*" />
         <exclude name="*.txt" />
       </fileset>
+<!--
+      <fileset basedir="bin" prefix="bin">
+        <include name="**/*" />
+      </fileset>
+-->
+      <fileset basedir="doc" prefix="doc">
+        <include name="**/*" />
+      </fileset>
+      <fileset basedir="lib" prefix="lib">
+        <include name="**/*" />
+      </fileset>
+      <fileset basedir="sql" prefix="sql">
+        <include name="**/*" />
+      </fileset>
+      <fileset basedir="tools" prefix="tools">
+        <include name="**/*" />
+      </fileset>
       <fileset basedir="${src.path}" prefix="${src.path}">
+        <include name="**/*" />
+        <exclude name="log.txt" />
+        <exclude name="**/*.Load" />
+        <exclude name="**/*.bak" />
+        <exclude name="**/*.log" />
+<!--        <exclude name="**/*.resharper" />-->
+        <exclude name="**/*.suo" />
+        <exclude name="**/*.tmp" />
+        <exclude name="**/*.txt" />
+        <exclude name="**/*.user" />
+        <exclude name="**/*.xml" />
+        
+        <exclude name="**/*resharper*" />
+        <exclude name="**/*resharper*/**/*" />
+        <exclude name="**/UpgradeLog.XML" />
+        <exclude name="**/_UpgradeReport_Files/**/*" />
+        <exclude name="**/_basic_sample_projects**/*" />
+        <exclude name="**/bin/**/*" />
+        <exclude name="**/obj/**/*" />
+      </fileset>
+    </zip>
+  </target>
+
+  <!-- ****** Target: zip-sample ****** -->
+  <target name="zip-sample" depends="bin-sample" unless="${debug or target=='2.0'}">
+    <delete if="${directory::exists('${bin.path.zip}')}">
+      <fileset basedir="${bin.path.zip}">
+        <include name="evolution-net-sample*.zip" />
+      </fileset>
+    </delete>
+    <zip zipfile="${bin.path.zip}\evolution-net-sample-${version.sample}-bin.zip">
+      <fileset basedir="${bin.path.sample}" prefix="">
+        <include name="**/*" />
+        <exclude name="*.*" />
+      </fileset>
+    </zip>
+<!--
+    <zip zipfile="${bin.path.zip}\evolution-net-sample-${version.util}-src.zip">
+      <fileset basedir="." prefix="">
+        <include name="*.*" />
+        <exclude name="*.txt" />
+      </fileset>
+      <fileset basedir="${src.path.sample}" prefix="${src.path.sample}">
         <include name="**/*" />
         <exclude name="log.txt" />
         <exclude name="**/bin/**/*" />
@@ -883,10 +969,11 @@
         <exclude name="**/*resharper*" />
       </fileset>
     </zip>
+-->
   </target>
 
   <!-- ****** Target: ZIP ****** -->
-  <target name="zip" depends="zip-mvp, zip-util, zip-full" unless="${debug or target=='2.0'}" />
+  <target name="zip" depends="zip-mvp, zip-util, zip-full, zip-full-src, zip-sample" unless="${debug or target=='2.0'}" />
 
 
 
