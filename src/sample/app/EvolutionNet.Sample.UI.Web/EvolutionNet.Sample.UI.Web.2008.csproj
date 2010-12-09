@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\debug\3.5\log4net\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -54,15 +58,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,9 +87,25 @@
       <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
       <Name>EvolutionNet.Util.2008</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.Sample.Business\EvolutionNet.Sample.Business.2008.csproj">
+      <Project>{52986B75-86E4-4E98-8B46-6F54BB242BD2}</Project>
+      <Name>EvolutionNet.Sample.Business.2008</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EvolutionNet.Sample.Core\EvolutionNet.Sample.Core.2008.csproj">
       <Project>{EC46E835-B794-40E7-AFDC-46CEC253807A}</Project>
       <Name>EvolutionNet.Sample.Core.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.Sample.Data.Access\EvolutionNet.Sample.Data.Access.2008.csproj">
+      <Project>{37BB9000-FE4B-454D-AA98-20E60E45BC05}</Project>
+      <Name>EvolutionNet.Sample.Data.Access.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.Sample.Data.Definition\EvolutionNet.Sample.Data.Definition.2008.csproj">
+      <Project>{DF9543AD-490C-4A75-86D8-93391F8F05A7}</Project>
+      <Name>EvolutionNet.Sample.Data.Definition.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.Sample.Presenter\EvolutionNet.Sample.Presenter.2008.csproj">
+      <Project>{2FC86B8C-923D-4F52-9D1C-D88A532CA734}</Project>
+      <Name>EvolutionNet.Sample.Presenter.2008</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
