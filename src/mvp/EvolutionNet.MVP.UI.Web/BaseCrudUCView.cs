@@ -30,7 +30,7 @@ namespace EvolutionNet.MVP.UI.Web
 
         private GridView GetGrid()
         {
-            foreach (var control in ControlCollection)
+            foreach (object control in ControlCollection)
             {
                 if (control is GridView)
                     return (GridView)control;

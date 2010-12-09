@@ -201,6 +201,7 @@ namespace EvolutionNet.MVP.Business
 
         protected virtual bool DoValidate(bool throwException)
         {
+#if FRAMEWORK_3
             IValidatorRunner runner = new ValidatorRunner(new CachedValidationRegistry());
             if (runner.IsValid(To.MainModel))
                 return true;
@@ -221,6 +222,7 @@ namespace EvolutionNet.MVP.Business
                     ErrorList);
             }
 
+#endif
             return false;
         }
 

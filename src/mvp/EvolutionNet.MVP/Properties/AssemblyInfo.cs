@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EvolutionNet.MVP")]
-[assembly: AssemblyDescription("EvolutionNet MVP Libraries 0.1.0")]
+[assembly: AssemblyDescription("EvolutionNet MVP Libraries 0.2.0")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Evolution")]
 [assembly: AssemblyProduct("EvolutionNet.MVP")]
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.1.0.*")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.2.0.*")]
+[assembly: AssemblyFileVersion("0.2.0.0")]

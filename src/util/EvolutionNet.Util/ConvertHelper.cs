@@ -94,10 +94,10 @@ namespace EvolutionNet.Util
 
 		public static IList<T> ListEnumValues<T>()
 		{
-			var list = new List<T>();
-			foreach (var value in Enum.GetNames(typeof(T)))
+			List<T> list = new List<T>();
+			foreach (string value in Enum.GetNames(typeof(T)))
 			{
-				var typedValue = (T)Enum.Parse(typeof(T), value);
+				T typedValue = (T)Enum.Parse(typeof(T), value);
 				list.Add(typedValue);
 			}
 
