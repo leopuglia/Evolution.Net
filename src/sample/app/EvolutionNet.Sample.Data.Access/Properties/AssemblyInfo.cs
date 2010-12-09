@@ -1,16 +1,15 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EvolutionNet.Sample.Data.Access")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("EvolutionNet Sample Libraries 0.0.1")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Villa das Pedras")]
+[assembly: AssemblyCompany("Evolution")]
 [assembly: AssemblyProduct("EvolutionNet.Sample.Data.Access")]
-[assembly: AssemblyCopyright("Copyright © Villa das Pedras 2009")]
+[assembly: AssemblyCopyright("Copyright � Evolution 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5700fa21-f6c0-4c45-bcb3-b87c4b87a1fc")]
+[assembly: Guid("d51a4dae-010d-4f6f-b22a-0db553eb198a")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,8 +28,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.0.1.*")]
+[assembly: AssemblyFileVersion("0.0.1.0")]
