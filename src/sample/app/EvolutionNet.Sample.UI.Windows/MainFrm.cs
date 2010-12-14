@@ -5,12 +5,14 @@ using log4net.Config;
 
 namespace EvolutionNet.Sample.UI.Windows
 {
-    public partial class MainFrm : BaseFrm
+    public partial class MainFrm : BaseFrmView
 	{
 		public MainFrm()
 		{
 			InitializeComponent();
-        }
+
+		    baseUC = mainView1;
+		}
 
         public override void DoLoad()
         {
