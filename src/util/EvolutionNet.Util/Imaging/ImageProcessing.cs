@@ -255,14 +255,14 @@ namespace EvolutionNet.Util.Imaging
 			log.DebugFormat("Creating a new bitmap with {0} width and {1} height", destWidth, destHeight);
 
 			Bitmap imgResized = new Bitmap(destWidth, destHeight,
-			                               PixelFormat.Format24bppRgb);
+										   PixelFormat.Format24bppRgb);
 			foreach (ExifTag exifTag in new ExifTagCollection(img))
 			{
 				log.DebugFormat("Adding propertyitem {0}: {1}", exifTag.Description, exifTag.Value);
 				imgResized.SetPropertyItem(img.GetPropertyItem(exifTag.Id));
 			}
 			imgResized.SetResolution(img.HorizontalResolution,
-			                         img.VerticalResolution);
+									 img.VerticalResolution);
 			return imgResized;
 		}
 

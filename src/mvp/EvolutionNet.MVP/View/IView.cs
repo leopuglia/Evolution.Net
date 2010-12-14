@@ -13,8 +13,8 @@ namespace EvolutionNet.MVP.View
 	public interface IView
 	{
 		IPathHelper PathHelper { get; }
-//        IControlHelper ControlHelper { get; }
-//        IMessageHelper MessageHelper { get; }
+//		IControlHelper ControlHelper { get; }
+//		IMessageHelper MessageHelper { get; }
 
 /*
 		/// <summary>
@@ -23,7 +23,7 @@ namespace EvolutionNet.MVP.View
 		void DoLoad();
 		void DoLoadComplete();
 */
-//        event EventHandler Load;
-//        event EventHandler LoadComplete;
-    }
+//		event EventHandler Load;
+//		event EventHandler LoadComplete;
+	}
 }

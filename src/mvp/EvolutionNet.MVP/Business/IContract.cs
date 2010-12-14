@@ -5,11 +5,11 @@ namespace EvolutionNet.MVP.Business
 {
 	public interface IContract
 	{
-        IPresenter Presenter { get; }
+		IPresenter Presenter { get; }
 
-	    /// <summary>
-	    /// Reporta o progresso da requisição atual.
-	    /// </summary>
-	    event EventHandler<ProgressEventArgs> ProgressReported;
+		/// <summary>
+		/// Reporta o progresso da requisição atual.
+		/// </summary>
+		event EventHandler<ProgressEventArgs> ProgressReported;
 	}
 }

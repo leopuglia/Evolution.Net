@@ -5,7 +5,7 @@ using EvolutionNet.Util.Collection;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-    public abstract class CrudTO<T, IdT> : ITO where T : class, IModel<IdT>
+	public abstract class CrudTO<T, IdT> : ITO where T : class, IModel<IdT>
 	{
 		private IdT id;
 		private T mainModel;
@@ -22,14 +22,14 @@ namespace EvolutionNet.MVP.Data.Definition
 			set { mainModel = value;  }
 		}
 
-        private IList<T> list;
-        public IList<T> List
-        {
-            get { return list; }
-            set { list = value; }
-        }
+		private IList<T> list;
+		public IList<T> List
+		{
+			get { return list; }
+			set { list = value; }
+		}
 
-        protected CrudTO()
+		protected CrudTO()
 		{
 			try
 			{
@@ -39,9 +39,9 @@ namespace EvolutionNet.MVP.Data.Definition
 					// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
 					mainModel = (T)Activator.CreateInstance(typeof(T));
 
-                    // Cria a lista vazia
-                    list = new SortableBindingList<T>();
-                }
+					// Cria a lista vazia
+					list = new SortableBindingList<T>();
+				}
 			}
 			catch (Exception ex)
 			{

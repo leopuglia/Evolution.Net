@@ -16,9 +16,9 @@ namespace EvolutionNet.MVP.Business
 		public ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IContract
 		{
 			return typeof (ContractT) == typeof (INullContract)
-			       	? default(ContractT)
-			       	: IoCHelper.InstantiateObj<ContractT>(TYPE_NAME_CONTRACT, TYPE_NAME_CONTRACT_IGNORE,
-			       	                                      TYPE_NAME_DEST, null, GetType(),
+				   	? default(ContractT)
+				   	: IoCHelper.InstantiateObj<ContractT>(TYPE_NAME_CONTRACT, TYPE_NAME_CONTRACT_IGNORE,
+				   										  TYPE_NAME_DEST, null, GetType(),
 														  args);
 		}
 

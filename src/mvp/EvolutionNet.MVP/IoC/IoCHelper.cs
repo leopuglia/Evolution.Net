@@ -15,9 +15,9 @@ namespace EvolutionNet.MVP.IoC
 	/// </summary>
 	public static class IoCHelper
 	{
-        private static readonly ILog log = LogManager.GetLogger(typeof(IoCHelper));
+		private static readonly ILog log = LogManager.GetLogger(typeof(IoCHelper));
 
-        #region Métodos Estáticos Públicos
+		#region Métodos Estáticos Públicos
 
 		#region InstantiateObj<T>
 
@@ -42,50 +42,50 @@ namespace EvolutionNet.MVP.IoC
 		/// <param name="args">Argumentos a serem passados ao construtor do tipo</param>
 		/// <returns>Retorna uma instância baseada no tipo de destino, por exemplo [Tipo.Funcionalidade]Facade</returns>
 		public static object InstantiateObj(string sourceFormat, string sourceExclude, Type sourceType,
-		                                    string destFormat, string destAdd, Type destType, 
-		                                    params object[] args)
+											string destFormat, string destAdd, Type destType, 
+											params object[] args)
 		{
-            try
-            {
-                string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
-			    string sourceTypeName = sourceType.Name;
+			try
+			{
+				string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
+				string sourceTypeName = sourceType.Name;
 
-                if (sourceType.Namespace != null)
-                {
-                    string destNamespace = destType.Namespace +
-                                           sourceType.Namespace.Substring(sourceAssemblyName.Length,
-                                                                          sourceType.Namespace.Length - sourceAssemblyName.Length);
+				if (sourceType.Namespace != null)
+				{
+					string destNamespace = destType.Namespace +
+										   sourceType.Namespace.Substring(sourceAssemblyName.Length,
+																		  sourceType.Namespace.Length - sourceAssemblyName.Length);
 
-                    string destTypeFullName = GetDestTypeFullName(destFormat, destAdd, destNamespace,
-                                                                  sourceFormat, sourceTypeName);
+					string destTypeFullName = GetDestTypeFullName(destFormat, destAdd, destNamespace,
+																  sourceFormat, sourceTypeName);
 
-                    object ret = destType.Assembly.CreateInstance(
-                        destTypeFullName, false, BindingFlags.Default, null, args, null, null);
+					object ret = destType.Assembly.CreateInstance(
+						destTypeFullName, false, BindingFlags.Default, null, args, null, null);
 
-                    if (ret == null)
-                    {
-                        string msg = string.Format("O tipo \"{0}\" não existe no namespace \"{1}\"!",
-                                                   destTypeFullName, destNamespace);
+					if (ret == null)
+					{
+						string msg = string.Format("O tipo \"{0}\" não existe no namespace \"{1}\"!",
+												   destTypeFullName, destNamespace);
 
-                        TypeLoadException ex = new TypeLoadException(msg);
+						TypeLoadException ex = new TypeLoadException(msg);
 
-                        if (log.IsErrorEnabled)
-                            log.Error(msg, ex);
+						if (log.IsErrorEnabled)
+							log.Error(msg, ex);
 
-                        throw ex;
-                    }
+						throw ex;
+					}
 
-                    return ret;
-                }
+					return ret;
+				}
 
-                string msgException = string.Format("O tipo \"{0}\" não possui namespace!", sourceType);
-                TypeLoadException typeLoadException = new TypeLoadException(msgException);
-                
-                if (log.IsErrorEnabled)
-                    log.Error(msgException, typeLoadException);
-                
-                throw typeLoadException;
-            }
+				string msgException = string.Format("O tipo \"{0}\" não possui namespace!", sourceType);
+				TypeLoadException typeLoadException = new TypeLoadException(msgException);
+				
+				if (log.IsErrorEnabled)
+					log.Error(msgException, typeLoadException);
+				
+				throw typeLoadException;
+			}
 			catch (Exception ex)
 			{
 				// Tenta obter uma excessão interna de erro de configuração do ActiveRecord, que fica oculta por outras excessões
@@ -97,8 +97,8 @@ namespace EvolutionNet.MVP.IoC
 				if (innerException == null)
 					innerException = ex;
 
-                if (log.IsErrorEnabled)
-                    log.Error("Ocorreu um erro de configuração do ActiveRecord.", innerException);
+				if (log.IsErrorEnabled)
+					log.Error("Ocorreu um erro de configuração do ActiveRecord.", innerException);
 
 				throw innerException;
 			}
@@ -109,27 +109,27 @@ namespace EvolutionNet.MVP.IoC
 			string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
 			string sourceTypeName = sourceType.Name;
 
-		    if (sourceType.Namespace != null)
-		    {
-		        string virtualPath = "~/" + sourceType.Namespace.Substring(sourceAssemblyName.Length + 1,
-		                                                                   sourceType.Namespace.Length - sourceAssemblyName.Length - 1).Replace('.', '/');
+			if (sourceType.Namespace != null)
+			{
+				string virtualPath = "~/" + sourceType.Namespace.Substring(sourceAssemblyName.Length + 1,
+																		   sourceType.Namespace.Length - sourceAssemblyName.Length - 1).Replace('.', '/');
 
-		        string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
+				string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
 
-		        if (!string.IsNullOrEmpty(destAdd))
-		            virtualPath += "/" + destAdd;
+				if (!string.IsNullOrEmpty(destAdd))
+					virtualPath += "/" + destAdd;
 
-		        return virtualPath + "/" + string.Format(destFormat, sourceEssence);
-		    }
+				return virtualPath + "/" + string.Format(destFormat, sourceEssence);
+			}
 
-            string msgException = string.Format("O tipo \"{0}\" não possui namespace!", sourceType);
-            TypeLoadException typeLoadException = new TypeLoadException(msgException);
+			string msgException = string.Format("O tipo \"{0}\" não possui namespace!", sourceType);
+			TypeLoadException typeLoadException = new TypeLoadException(msgException);
 
-            if (log.IsErrorEnabled)
-                log.Error(msgException, typeLoadException);
+			if (log.IsErrorEnabled)
+				log.Error(msgException, typeLoadException);
 
-            throw typeLoadException;
-        }
+			throw typeLoadException;
+		}
 
 		#endregion
 
@@ -147,7 +147,7 @@ namespace EvolutionNet.MVP.IoC
 		/// <param name="sourceTypeName">String contendo o nome do tipo de origem</param>
 		/// <returns>Retorna uma string com o nome completo do tipo de destino</returns>
 		private static string GetDestTypeFullName(string destFormat, string destAdd, string destRootNamespace,
-		                                          string sourceFormat, string sourceTypeName)
+												  string sourceFormat, string sourceTypeName)
 		{
 			string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
 

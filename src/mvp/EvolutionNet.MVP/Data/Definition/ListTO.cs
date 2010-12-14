@@ -7,12 +7,12 @@ namespace EvolutionNet.MVP.Data.Definition
 	[Serializable]
 	public abstract class ListTO<T, TId> : ITO where T : class, IModel<TId>
 	{
-	    private IList<T> list;
-	    public IList<T> List
-	    {
-            get { return list; }
-            set { list = value; }
-	    }
+		private IList<T> list;
+		public IList<T> List
+		{
+			get { return list; }
+			set { list = value; }
+		}
 
 		protected ListTO()
 		{

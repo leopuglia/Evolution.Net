@@ -32,12 +32,12 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 
 		#region Construtor
 
-	    protected ProgressDlgFrm()
-	    {
-	        InitializeComponent();
-	    }
+		protected ProgressDlgFrm()
+		{
+			InitializeComponent();
+		}
 
-	    #endregion
+		#endregion
 
 		#region Métodos de Eventos
 
@@ -92,55 +92,55 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 
 		#region Métodos Estáticos de Exibição
 
-	    public static ProgressDlgFrm Show(Form owner)
-	    {
-	        return Show(owner, null);
-	    }
+		public static ProgressDlgFrm Show(Form owner)
+		{
+			return Show(owner, null);
+		}
 		
-	    public static ProgressDlgFrm Show(Form owner, string text)
-	    {
-	        return Show(owner, null, null);
-	    }
+		public static ProgressDlgFrm Show(Form owner, string text)
+		{
+			return Show(owner, null, null);
+		}
 
-	    public static ProgressDlgFrm Show(Form owner, string text, string caption)
-	    {
-	        return Show(owner, null, null, ProgressoDlgButtons.Cancel);
-	    }
+		public static ProgressDlgFrm Show(Form owner, string text, string caption)
+		{
+			return Show(owner, null, null, ProgressoDlgButtons.Cancel);
+		}
 		
-	    public static ProgressDlgFrm Show(
-	        Form owner, string text, string caption, ProgressoDlgButtons buttons)
-	    {
-	        ProgressDlgFrm frm = new ProgressDlgFrm();
+		public static ProgressDlgFrm Show(
+			Form owner, string text, string caption, ProgressoDlgButtons buttons)
+		{
+			ProgressDlgFrm frm = new ProgressDlgFrm();
 
-	        if (text == null)
-	            text = "Aguarde enquanto os dados são carregados...";
+			if (text == null)
+				text = "Aguarde enquanto os dados são carregados...";
 
-	        if (caption == null)
-	            caption = "Progresso";
+			if (caption == null)
+				caption = "Progresso";
 			
-	        frm.Text = text;
-	        frm.Caption = caption;
+			frm.Text = text;
+			frm.Caption = caption;
 			
-	        switch(buttons)
-	        {
-	            case ProgressoDlgButtons.Cancel:
-	                frm.btnOK.Visible = false;
-	                break;
-	            case ProgressoDlgButtons.Ok:
-	                frm.btnCancelar.Visible = false;
-	                frm.btnOK.Location = new Point(frm.btnCancelar.Location.X, frm.btnCancelar.Location.Y);
-	                break;
-	        }
+			switch(buttons)
+			{
+				case ProgressoDlgButtons.Cancel:
+					frm.btnOK.Visible = false;
+					break;
+				case ProgressoDlgButtons.Ok:
+					frm.btnCancelar.Visible = false;
+					frm.btnOK.Location = new Point(frm.btnCancelar.Location.X, frm.btnCancelar.Location.Y);
+					break;
+			}
 
-	        frm.Owner = owner;
-	        owner.Enabled = false;
+			frm.Owner = owner;
+			owner.Enabled = false;
 
-	        frm.Show((IWin32Window)owner);
+			frm.Show((IWin32Window)owner);
 
-	        return frm;
-	    }
+			return frm;
+		}
 
-	    #endregion
+		#endregion
 
 	}
 	

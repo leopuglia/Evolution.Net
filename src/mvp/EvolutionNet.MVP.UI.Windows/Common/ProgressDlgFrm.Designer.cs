@@ -129,7 +129,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 		private System.Windows.Forms.Label lblText;
 		public System.Windows.Forms.Button btnCancelar;
 		public System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.ProgressBar progressBar1;
+		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.Label lblTime;
 		private System.Windows.Forms.Timer timer2;

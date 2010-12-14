@@ -28,47 +28,47 @@ namespace EvolutionNet.MVP.Presenter
 			get { return facade; }
 		}
 
-	    #endregion
+		#endregion
 
-	    #region Propriedades Públicas
+		#region Propriedades Públicas
 
-        public IPathHelper PathHelper
-        {
-            get { return View.PathHelper; }
-        }
-        
-        #endregion
+		public IPathHelper PathHelper
+		{
+			get { return View.PathHelper; }
+		}
+		
+		#endregion
 
-	    #region Construtores
+		#region Construtores
 
-	    protected BasePresenter(ViewT view)
-	    {
+		protected BasePresenter(ViewT view)
+		{
 //			if (SessionScope.Current == null)
 //				new SessionScope(FlushAction.Never);
 
-	        facade = GetFacade();
+			facade = GetFacade();
 
-	        this.view = view;
+			this.view = view;
 //			view.DoLoad();
-	    }
+		}
 
-	    #endregion
+		#endregion
 
-	    #region Métodos Locais
+		#region Métodos Locais
 
-	    private ContractT GetFacade()
-	    {
-	        try
-	        {
-	            return AbstractIoCFactory<IBusinessFactory>.Instance.GetFromContract<ContractT>(this);
-	        }
-	        catch (Exception ex)
-	        {
-	            throw new MVPIoCException("Error creating the ICrudContract implementation no Presenter.", ex);
-	        }
-	    }
+		private ContractT GetFacade()
+		{
+			try
+			{
+				return AbstractIoCFactory<IBusinessFactory>.Instance.GetFromContract<ContractT>(this);
+			}
+			catch (Exception ex)
+			{
+				throw new MVPIoCException("Error creating the ICrudContract implementation no Presenter.", ex);
+			}
+		}
 
-	    #endregion
+		#endregion
 
 	}
 }

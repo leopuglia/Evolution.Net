@@ -1,6 +1,6 @@
 namespace EvolutionNet.MVP.Data.Definition
 {
-    public interface ITO
-    {
-    }
+	public interface ITO
+	{
+	}
 }

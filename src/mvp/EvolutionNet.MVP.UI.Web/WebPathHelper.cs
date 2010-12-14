@@ -11,9 +11,9 @@ namespace EvolutionNet.MVP.UI.Web
 			return HttpContext.Current.Server.MapPath(virtualPath);
 		}
 
-        public string GetAbsolutePath(string virtualPath)
+		public string GetAbsolutePath(string virtualPath)
 		{
-            return VirtualPathUtility.ToAbsolute(virtualPath);
+			return VirtualPathUtility.ToAbsolute(virtualPath);
 		}
 
 	}

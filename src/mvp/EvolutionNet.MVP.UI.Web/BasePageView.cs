@@ -6,76 +6,76 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BasePageView : Page, IControlView
 	{
-	    private IControlHelper controlHelper;
+		private IControlHelper controlHelper;
 
-	    #region Propriedades
+		#region Propriedades
 
-	    public IPathHelper PathHelper
-	    {
-	        get { return WebPathHelper.Instance; }
-	    }
+		public IPathHelper PathHelper
+		{
+			get { return WebPathHelper.Instance; }
+		}
 
-        public IControlHelper ControlHelper
-        {
-            get { return controlHelper ?? (controlHelper = new WebControlHelper(this)); }
-        }
+		public IControlHelper ControlHelper
+		{
+			get { return controlHelper ?? (controlHelper = new WebControlHelper(this)); }
+		}
 
-        public IMessageHelper MessageHelper
-        {
-            get { return WebMessageHelper.Instance; }
-        }
+		public IMessageHelper MessageHelper
+		{
+			get { return WebMessageHelper.Instance; }
+		}
 
-	    public IRedirectHelper RedirectHelper
-	    {
-            get { return WebRedirectHelper.Instance; }
-	    }
+		public IRedirectHelper RedirectHelper
+		{
+			get { return WebRedirectHelper.Instance; }
+		}
 
-	    public IControlView ParentView
-        {
-            get { return (IControlView)Parent; }
-        }
+//		public IControlView ParentView
+//		{
+//			get { return (IControlView)Parent; }
+//		}
 
-	    #endregion
-
-/*
-	    #region Métodos Públicos (IControlView)
-
-	    public virtual void DoLoad()
-	    {
-	    }
-
-	    public virtual void DoLoadComplete()
-	    {
-	    }
-
-	    #endregion
-*/
-
-	    #region Métodods Locais (Inicialização)
+		#endregion
 
 /*
-	    protected override void OnInit(EventArgs e)
-	    {
-	        base.OnInit(e);
+		#region Métodos Públicos (IControlView)
 
-//            ControlHelper.Initialize(this);
+		public virtual void DoLoad()
+		{
+		}
 
-            Page.Load += Page_Load;
-            Page.LoadComplete += Page_LoadComplete;
-	    }
+		public virtual void DoLoadComplete()
+		{
+		}
 
-        private void Page_Load(object sender, EventArgs e)
-        {
-            DoLoad();
-        }
-
-        private void Page_LoadComplete(object sender, EventArgs e)
-	    {
-	        DoLoadComplete();
-	    }
+		#endregion
 */
 
-	    #endregion
+		#region Métodos Locais (Inicialização)
 
-    }
+/*
+		protected override void OnInit(EventArgs e)
+		{
+			base.OnInit(e);
+
+//			ControlHelper.Initialize(this);
+
+			Page.Load += Page_Load;
+			Page.LoadComplete += Page_LoadComplete;
+		}
+
+		private void Page_Load(object sender, EventArgs e)
+		{
+			DoLoad();
+		}
+
+		private void Page_LoadComplete(object sender, EventArgs e)
+		{
+			DoLoadComplete();
+		}
+*/
+
+		#endregion
+
+	}
 }

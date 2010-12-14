@@ -3,7 +3,7 @@ using System;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-    public abstract class ReadTO<T, IdT> : ITO where T : class, IModel<IdT>
+	public abstract class ReadTO<T, IdT> : ITO where T : class, IModel<IdT>
 	{
 		private IdT id;
 		private T mainModel;

@@ -65,9 +65,9 @@ namespace EvolutionNet.MVP.Util
 
 						throw new ProcessExecutionException(string.Format("Erro executando batch {0}", fileName));
 					}
-				    
-                    if (log.IsInfoEnabled)
-				        log.InfoFormat("Batch {0} executado\r\n", fileName);
+					
+					if (log.IsInfoEnabled)
+						log.InfoFormat("Batch {0} executado\r\n", fileName);
 				}
 			}
 			else if (generateException)

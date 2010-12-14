@@ -2,22 +2,24 @@ using System;
 
 namespace EvolutionNet.Util.Singleton
 {
-    public abstract class BaseSingleton<T>
-    {
-		#region Thread Safe Singleton
-
-        public static T Instance
+	/// <summary>
+	/// Thread Safe Singleton
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public abstract class BaseSingleton<T>
+	{
+		public static T Instance
 		{
 			get { return Nested.instance; }
 		}
 
-        public static T CreateInstance()
-        {
-            // TODO: Teoricamente um singleton só deve ter uma instância, mas há casos em que outras instâncias podem ser necessárias
-            return Nested.CreateLocalInstance();
-        }
+		public static T CreateInstance()
+		{
+			// TODO: Teoricamente um singleton só deve ter uma instância, mas há casos em que outras instâncias podem ser necessárias
+			return Nested.CreateLocalInstance();
+		}
 
-        private class Nested
+		private class Nested
 		{
 			// Explicit static constructor to tell C# compiler
 			// not to mark type as beforefieldinit
@@ -25,15 +27,13 @@ namespace EvolutionNet.Util.Singleton
 			{
 			}
 
-            internal static readonly T instance = CreateLocalInstance();
+			internal static readonly T instance = CreateLocalInstance();
 
-            internal static T CreateLocalInstance()
-            {
-                return Activator.CreateInstance<T>();
-            }
+			internal static T CreateLocalInstance()
+			{
+				return Activator.CreateInstance<T>();
+			}
 		}
 
-		#endregion
-
-    }
+	}
 }

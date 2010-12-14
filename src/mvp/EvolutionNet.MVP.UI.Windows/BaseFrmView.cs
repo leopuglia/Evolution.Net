@@ -5,103 +5,103 @@ using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
-    public partial class BaseFrmView : Form, IControlView, IWinControl
-    {
-        #region Variáveis Locais
+	public partial class BaseFrmView : Form, IControlView, IWinControl
+	{
+		#region Variáveis Locais
 
-        private IControlHelper controlHelper;
-        private bool IsInitialized;
-        protected BaseUCView baseUC;
-//        protected BaseMessageUC messageUC;
+		private IControlHelper controlHelper;
+		private bool IsInitialized;
+		protected BaseUCView baseUC;
+//		protected BaseMessageUC messageUC;
 
-        #endregion
+		#endregion
 
-        #region Definição de Eventos
+		#region Definição de Eventos
 
-        [Category("Behavior"), Description("Event fired after all the controls are loaded.")]
-        public event EventHandler LoadComplete;
+		[Category("Behavior"), Description("Event fired after all the controls are loaded.")]
+		public event EventHandler LoadComplete;
 
-        #endregion
+		#endregion
 
-        #region Propriedades Públicas
+		#region Propriedades Públicas
 
-        public IPathHelper PathHelper
-        {
-            get { return WinPathHelper.Instance; }
-        }
+		public IPathHelper PathHelper
+		{
+			get { return WinPathHelper.Instance; }
+		}
 
-        public IControlHelper ControlHelper
-        {
-            get { return controlHelper ?? (controlHelper = new WinControlHelper(this)); }
-        }
+		public IControlHelper ControlHelper
+		{
+			get { return controlHelper ?? (controlHelper = new WinControlHelper(this)); }
+		}
 
-        public IMessageHelper MessageHelper
-        {
-            get { return WinMessageHelper.Instance; }
-        }
+		public IMessageHelper MessageHelper
+		{
+			get { return WinMessageHelper.Instance; }
+		}
 
-        public IRedirectHelper RedirectHelper
-        {
-            get { return WinRedirectHelper.Instance; }
-        }
+		public IRedirectHelper RedirectHelper
+		{
+			get { return WinRedirectHelper.Instance; }
+		}
 
-        public IControlView ParentView
-        {
-            get { return (IControlView)Parent; }
-        }
+		public IControlView ParentView
+		{
+			get { return (IControlView)Parent; }
+		}
 
-        #endregion
+		#endregion
 
-        #region Construtor
+		#region Construtor
 
-        protected BaseFrmView()
-        {
-            InitializeComponent();
+		protected BaseFrmView()
+		{
+			InitializeComponent();
 
-//            ControlHelper.Initialize(this);
-            // O WinMessageHelper Helper é um singleton, então deve existir apenas uma instância dele.
-            // Portanto, ele só deve ser inicializado uma vez!
-            // TODO: Estou inicializando no BaseUCView, portanto todos os Presenter's devem ser feitos com WebControls
-//            WinMessageHelper.Instance.Initialize(this);
+//			ControlHelper.Initialize(this);
+			// O WinMessageHelper Helper é um singleton, então deve existir apenas uma instância dele.
+			// Portanto, ele só deve ser inicializado uma vez!
+			// TODO: Estou inicializando no BaseUCView, portanto todos os Presenter's devem ser feitos com WebControls
+//			WinMessageHelper.Instance.Initialize(this);
 
-//            DoLoad();
-        }
+//			DoLoad();
+		}
 
-        #endregion
+		#endregion
 
-        #region Implementação de Eventos
+		#region Implementação de Eventos
 
-        private void BaseFrm_Activated(object sender, EventArgs e)
-        {
-            if (!IsInitialized)
-            {
-                IsInitialized = true;
+		private void BaseFrm_Activated(object sender, EventArgs e)
+		{
+			if (!IsInitialized)
+			{
+				IsInitialized = true;
 
-                if (LoadComplete != null)
-                    LoadComplete(this, e);
+				if (LoadComplete != null)
+					LoadComplete(this, e);
 
-                if (baseUC != null)
-                    baseUC.OnLoadComplete(e);
-            }
+				if (baseUC != null)
+					baseUC.OnLoadComplete(e);
+			}
 
-//            DoLoadComplete();
-        }
+//			DoLoadComplete();
+		}
 
-        #endregion
+		#endregion
 
-        #region Métodos Públicos (IControlView)
+		#region Métodos Públicos (IControlView)
 
 /*
-        public virtual void DoLoad()
-        {
-        }
+		public virtual void DoLoad()
+		{
+		}
 
-        public virtual void DoLoadComplete()
-        {
-        }
+		public virtual void DoLoadComplete()
+		{
+		}
 */
 
-        #endregion
+		#endregion
 
-    }
+	}
 }

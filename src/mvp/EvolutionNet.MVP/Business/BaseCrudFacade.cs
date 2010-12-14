@@ -20,30 +20,30 @@ namespace EvolutionNet.MVP.Business
 		where TO : CrudTO<T, IdT> 
 		where T : class, IModel<IdT>
 	{
-        private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudFacade<TO, T, IdT>));
+		private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudFacade<TO, T, IdT>));
 
-        #region Variáveis Privadas
+		#region Variáveis Privadas
 
-        private IList<ValidationError> errorList = new List<ValidationError>();
+		private IList<ValidationError> errorList = new List<ValidationError>();
 
 		#endregion
 
 		#region Propriedades Protegidas
 
-        //TODO: Colocar em um arquivo de configuração, sendo o padrão true
-        protected abstract bool ThrowException { get; }
+		//TODO: Colocar em um arquivo de configuração, sendo o padrão true
+		protected abstract bool ThrowException { get; }
 
-        #endregion
+		#endregion
 
 		#region Propriedades Públicas
 
-        public IList<ValidationError> ErrorList
-        {
-            get { return errorList; }
-            set { errorList = value; }
-        }
+		public IList<ValidationError> ErrorList
+		{
+			get { return errorList; }
+			set { errorList = value; }
+		}
 
-        #endregion
+		#endregion
 
 		#region Constructor
 
@@ -62,49 +62,49 @@ namespace EvolutionNet.MVP.Business
 		/// <param name="insideTransaction"></param>
 		public void Execute(ActionDelegate doAction, bool insideTransaction)
 		{
-            if (insideTransaction)
-            {
-                // Start Transaction
-                TransactionScope transaction =
-                    new TransactionScope(TransactionMode.Inherits, IsolationLevel.ReadCommitted, OnDispose.Rollback);
+			if (insideTransaction)
+			{
+				// Start Transaction
+				TransactionScope transaction =
+					new TransactionScope(TransactionMode.Inherits, IsolationLevel.ReadCommitted, OnDispose.Rollback);
 
-                try
-                {
-                    doAction();
+				try
+				{
+					doAction();
 
-                    // Save Transaction
-                    transaction.VoteCommit();
-                    transaction.Flush();
-                }
-                catch (Exception ex)
-                {
-                    // RollBack Transaction
-                    transaction.VoteRollBack();
+					// Save Transaction
+					transaction.VoteCommit();
+					transaction.Flush();
+				}
+				catch (Exception ex)
+				{
+					// RollBack Transaction
+					transaction.VoteRollBack();
 
-                    if (log.IsErrorEnabled)
-                        log.Error("A transação foi cancelada por um erro.");
+					if (log.IsErrorEnabled)
+						log.Error("A transação foi cancelada por um erro.");
 
-                    throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
-                }
-                finally
-                {
-                    transaction.Dispose();
-                }
-            }
-            else
-            {
-                try
-                {
-                    doAction();
-                }
-                catch (Exception ex)
-                {
-                    if (log.IsErrorEnabled)
-                        log.Error("A execução foi cancelada por um erro.");
+					throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
+				}
+				finally
+				{
+					transaction.Dispose();
+				}
+			}
+			else
+			{
+				try
+				{
+					doAction();
+				}
+				catch (Exception ex)
+				{
+					if (log.IsErrorEnabled)
+						log.Error("A execução foi cancelada por um erro.");
 
-                    throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
-                }
-            }
+					throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
+				}
+			}
 		}
 
 		/// <summary>
@@ -112,23 +112,23 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		public void Find()
 		{
-            Execute(DoFind, false);
+			Execute(DoFind, false);
 		}
 
-        /// <summary>
-        /// Lista todos os elementos do model
-        /// </summary>
-        public void FindAll()
-        {
-            Execute(DoFindAll, false);
-        }
+		/// <summary>
+		/// Lista todos os elementos do model
+		/// </summary>
+		public void FindAll()
+		{
+			Execute(DoFindAll, false);
+		}
 
-        /// <summary>
+		/// <summary>
 		/// Salva o MainModel atual
 		/// </summary>
 		public void Save()
 		{
-            HookSave();
+			HookSave();
 		}
 
 		/// <summary>
@@ -136,20 +136,20 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		public void Delete()
 		{
-		    HookDelete();
+			HookDelete();
 		}
 
-        public void DeleteByID()
-        {
-            HookDeleteByID();
-        }
+		public void DeleteByID()
+		{
+			HookDeleteByID();
+		}
 
-        public bool Validate(bool throwException)
-        {
-            return DoValidate(throwException);
-        }
+		public bool Validate(bool throwException)
+		{
+			return DoValidate(throwException);
+		}
 
-        #endregion
+		#endregion
 
 		#region Hooks Protegidos
 
@@ -158,74 +158,74 @@ namespace EvolutionNet.MVP.Business
 			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
 		}
 
-        protected virtual void DoFindAll()
-        {
-            To.List = Dao<T, IdT>.FindAll();
-        }
+		protected virtual void DoFindAll()
+		{
+			To.List = Dao<T, IdT>.FindAll();
+		}
 
-        /// <summary>
+		/// <summary>
 		/// Realmente salva o MainModel. Pode ser sobrescrito.
 		/// </summary>
 		protected virtual void HookSave()
 		{
-            if (Validate(ThrowException))
-                Execute(DoSave, true);
-        }
+			if (Validate(ThrowException))
+				Execute(DoSave, true);
+		}
 
-        protected virtual void DoSave()
-        {
-            Dao<T, IdT>.Save(To.MainModel);
-        }
-
-        protected virtual void HookDelete()
+		protected virtual void DoSave()
 		{
-            Execute(DoDelete, true);
-        }
+			Dao<T, IdT>.Save(To.MainModel);
+		}
 
-        protected virtual void DoDelete()
-        {
-            Dao<T, IdT>.Delete(To.MainModel);
-        }
+		protected virtual void HookDelete()
+		{
+			Execute(DoDelete, true);
+		}
 
-        protected virtual void HookDeleteByID()
-        {
-            Execute(DoDeleteByID, true);
-        }
+		protected virtual void DoDelete()
+		{
+			Dao<T, IdT>.Delete(To.MainModel);
+		}
 
-        protected virtual void DoDeleteByID()
-        {
-            To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
-            Dao<T, IdT>.Delete(To.MainModel);
-        }
+		protected virtual void HookDeleteByID()
+		{
+			Execute(DoDeleteByID, true);
+		}
 
-        protected virtual bool DoValidate(bool throwException)
-        {
+		protected virtual void DoDeleteByID()
+		{
+			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
+			Dao<T, IdT>.Delete(To.MainModel);
+		}
+
+		protected virtual bool DoValidate(bool throwException)
+		{
 #if FRAMEWORK_3
-            IValidatorRunner runner = new ValidatorRunner(new CachedValidationRegistry());
-            if (runner.IsValid(To.MainModel))
-                return true;
+			IValidatorRunner runner = new ValidatorRunner(new CachedValidationRegistry());
+			if (runner.IsValid(To.MainModel))
+				return true;
 
-            ErrorSummary errors = runner.GetErrorSummary(To.MainModel);
+			ErrorSummary errors = runner.GetErrorSummary(To.MainModel);
 
-            for (int i = 0; i < errors.ErrorsCount; i++)
-            {
-                ErrorList.Add(new ValidationError(errors.InvalidProperties[i], errors.ErrorMessages[i]));
-            }
+			for (int i = 0; i < errors.ErrorsCount; i++)
+			{
+				ErrorList.Add(new ValidationError(errors.InvalidProperties[i], errors.ErrorMessages[i]));
+			}
 
-            if (throwException)
-            {
-                //TODO: Colocar a string em um resource
-                throw new MVPValidationException(
-                    string.Format("Validation has failed with {0} errors. See inner exceptions for details.",
-                                  errors.ErrorsCount),
-                    ErrorList);
-            }
+			if (throwException)
+			{
+				//TODO: Colocar a string em um resource
+				throw new MVPValidationException(
+					string.Format("Validation has failed with {0} errors. See inner exceptions for details.",
+								  errors.ErrorsCount),
+					ErrorList);
+			}
 
 #endif
-            return false;
-        }
+			return false;
+		}
 
-        #endregion
+		#endregion
 
-    }
+	}
 }

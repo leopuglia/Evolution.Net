@@ -124,29 +124,29 @@ namespace EvolutionNet.Util.Web
 
 			string url = Page.ClientScript.GetWebResourceUrl(GetType(), FLASH_SWF);
 			string obj = string.Format("<object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\"" +
-			                           "codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0\"" +
-			                           "width=\"575\" height=\"375\" id=\"fileUpload\" align=\"middle\">" +
-			                           "<param name=\"allowScriptAccess\" value=\"sameDomain\" />" +
-			                           "<param name=\"movie\" value=\"{0}\" />" +
-			                           "<param name=\"quality\" value=\"high\" />" +
-			                           "<param name=\"wmode\" value=\"transparent\">" +
-			                           "<param name=FlashVars value='{3}{4}{5}{6}{7}&uploadPage={1}?{2}'>" +
-			                           "<embed src=\"{0}\"" +
-			                           "FlashVars='{3}{4}{5}{6}{7}&uploadPage={1}?{2}'" +
-			                           "quality=\"high\" wmode=\"transparent\" width=\"575\" height=\"375\" " +
-			                           "name=\"fileUpload\" align=\"middle\" allowScriptAccess=\"sameDomain\" " +
-			                           "type=\"application/x-shockwave-flash\" " +
-			                           "pluginspage=\"http://www.macromedia.com/go/getflashplayer\" />" +
-			                           "</object>", 
-			                           url, 
-			                           ResolveUrl(UploadPage),
-			                           HttpContext.Current.Server.UrlEncode(QueryParameters), 
+									   "codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0\"" +
+									   "width=\"575\" height=\"375\" id=\"fileUpload\" align=\"middle\">" +
+									   "<param name=\"allowScriptAccess\" value=\"sameDomain\" />" +
+									   "<param name=\"movie\" value=\"{0}\" />" +
+									   "<param name=\"quality\" value=\"high\" />" +
+									   "<param name=\"wmode\" value=\"transparent\">" +
+									   "<param name=FlashVars value='{3}{4}{5}{6}{7}&uploadPage={1}?{2}'>" +
+									   "<embed src=\"{0}\"" +
+									   "FlashVars='{3}{4}{5}{6}{7}&uploadPage={1}?{2}'" +
+									   "quality=\"high\" wmode=\"transparent\" width=\"575\" height=\"375\" " +
+									   "name=\"fileUpload\" align=\"middle\" allowScriptAccess=\"sameDomain\" " +
+									   "type=\"application/x-shockwave-flash\" " +
+									   "pluginspage=\"http://www.macromedia.com/go/getflashplayer\" />" +
+									   "</object>", 
+									   url, 
+									   ResolveUrl(UploadPage),
+									   HttpContext.Current.Server.UrlEncode(QueryParameters), 
 //									   QueryParameters,
-			                           string.IsNullOrEmpty(OnUploadComplete) ? "" : "&completeFunction=" + OnUploadComplete,
-			                           string.IsNullOrEmpty(FileTypes) ? "" : "&fileTypes=" + HttpContext.Current.Server.UrlEncode(FileTypes),
-			                           string.IsNullOrEmpty(FileTypeDescription) ? "" : "&fileTypeDescription=" + HttpContext.Current.Server.UrlEncode(FileTypeDescription),
-			                           TotalUploadSizeLimit > 0 ? "&totalUploadSize=" + TotalUploadSizeLimit : "",
-			                           UploadFileSizeLimit > 0 ? "&fileSizeLimit=" + UploadFileSizeLimit : ""
+									   string.IsNullOrEmpty(OnUploadComplete) ? "" : "&completeFunction=" + OnUploadComplete,
+									   string.IsNullOrEmpty(FileTypes) ? "" : "&fileTypes=" + HttpContext.Current.Server.UrlEncode(FileTypes),
+									   string.IsNullOrEmpty(FileTypeDescription) ? "" : "&fileTypeDescription=" + HttpContext.Current.Server.UrlEncode(FileTypeDescription),
+									   TotalUploadSizeLimit > 0 ? "&totalUploadSize=" + TotalUploadSizeLimit : "",
+									   UploadFileSizeLimit > 0 ? "&fileSizeLimit=" + UploadFileSizeLimit : ""
 				);
 			writer.Write(obj);
 		}

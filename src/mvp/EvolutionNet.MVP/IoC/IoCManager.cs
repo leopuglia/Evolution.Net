@@ -101,11 +101,11 @@ namespace EvolutionNet.MVP.IoC
 			return new IoCManager(resourceName, resourceType);
 		}
 
-        #endregion
+		#endregion
 
-        #region Métodos Públicos
+		#region Métodos Públicos
 
-        /// <summary>
+		/// <summary>
 		/// Cria uma instância do objeto do tipo informado.
 		/// </summary>
 		/// <param name="t">Tipo do objeto a ser criado</param>

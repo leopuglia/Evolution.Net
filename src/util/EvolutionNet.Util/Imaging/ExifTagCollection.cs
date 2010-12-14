@@ -29,8 +29,8 @@ namespace EvolutionNet.Util.Imaging
 			using (FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			{
 				Image image = Image.FromStream(stream,
-				                               useEmbeddedColorManagement,
-				                               validateImageData);
+											   useEmbeddedColorManagement,
+											   validateImageData);
 
 				ReadTags(image.PropertyItems);
 			}
@@ -708,7 +708,7 @@ namespace EvolutionNet.Util.Imaging
 						case 0x829A: // ExposureTime
 							value = rat + " sec";
 							break;
-						case 0x2: // GPSLatitude                                
+						case 0x2: // GPSLatitude								
 							value = new GPSRational(pitem.Value).ToString();
 							break;
 						case 0x4: // GPSLongitude
@@ -745,7 +745,7 @@ namespace EvolutionNet.Util.Imaging
 						case 0x1A: // GPSDestDistance
 							value = rat.ToDouble().ToString();
 							break;
-						case 0x7: // GPSTimeStamp                                
+						case 0x7: // GPSTimeStamp								
 							value = new GPSRational(pitem.Value).ToString(":");
 							break;
 

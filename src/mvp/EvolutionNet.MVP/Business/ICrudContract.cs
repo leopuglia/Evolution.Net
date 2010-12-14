@@ -18,17 +18,17 @@ namespace EvolutionNet.MVP.Business
 		//TODO: Aki eu posso aplicar a pattern de command, adicionando os métodos pra adicionar cada comando no contrato e, assim, definir se um facade vai ter salvar, ou listartodos, etc.
 		//TODO: Ou simplesmente definir os métodos Save, Cancelar, ou então os métodos CRUD, sei lá ou mesmo não definir métodos e deixar sem os métodos.
 		TO To { get; }
-	    IList<ValidationError> ErrorList { get; set; }
+		IList<ValidationError> ErrorList { get; set; }
 
 		/// <summary>
 		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
 		/// </summary>
 		void Find();
 
-        /// <summary>
-        /// Lista todos os elementos do model
-        /// </summary>
-	    void FindAll();
+		/// <summary>
+		/// Lista todos os elementos do model
+		/// </summary>
+		void FindAll();
 
 		/// <summary>
 		/// Salva o MainModel atual
@@ -40,9 +40,9 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		void Delete();
 
-	    void DeleteByID();
+		void DeleteByID();
 
-        bool Validate(bool throwException);
+		bool Validate(bool throwException);
 
-    }
+	}
 }
