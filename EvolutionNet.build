@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--****************************
-* Build File: EvolutionNet.build
+    * Build File: EvolutionNet.build
     **************************** -->
 <project name="EvolutionNet" default="all" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
 
