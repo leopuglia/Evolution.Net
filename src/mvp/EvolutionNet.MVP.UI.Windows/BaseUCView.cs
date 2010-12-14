@@ -11,7 +11,7 @@ namespace EvolutionNet.MVP.UI.Windows
         #region Definição de Eventos
 
         [Category("Behavior"), Description("Event fired after all the form and controls are loaded.")]
-        public event AfterLoadDelegate AfterLoad;
+        public event EventHandler LoadComplete;
 
         #endregion
 
@@ -66,15 +66,9 @@ namespace EvolutionNet.MVP.UI.Windows
         #region Construtor
 
         protected BaseUCView()
-            : this(null)
-        {
-        }
-
-        protected BaseUCView(Control parent)
         {
             InitializeComponent();
 
-            Parent = parent;
             backgroundWorker1 = new BackgroundWorker();
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
@@ -82,16 +76,17 @@ namespace EvolutionNet.MVP.UI.Windows
             backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
 
-//            ControlHelper.Initialize(this);
+            //            ControlHelper.Initialize(this);
             WinMessageHelper.Instance.Initialize(this);
 
-            DoLoad();
+//            DoLoad();
         }
 
         #endregion
 
         #region Métodos Públicos
 
+/*
         public virtual void DoLoad()
         {
         }
@@ -99,23 +94,24 @@ namespace EvolutionNet.MVP.UI.Windows
         public virtual void DoLoadComplete()
         {
         }
+*/
 
         public void Close()
         {
             if (ParentForm != null) ParentForm.Close();
         }
 
-        public void DoAfterLoad(EventArgs e)
+        public void OnLoadComplete(EventArgs e)
         {
             if (workerEnabledOnLoad)
             {
                 RunWorker();
             }
 
-            if (AfterLoad != null)
-                AfterLoad(this, e);
+            if (LoadComplete != null)
+                LoadComplete(this, e);
 
-            DoLoadComplete();
+//            DoLoadComplete();
         }
 
         #endregion

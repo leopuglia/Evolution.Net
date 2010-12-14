@@ -13,13 +13,5 @@ namespace EvolutionNet.MVP.UI.Web
 			get { return WebPathHelper.Instance; }
 		}
 
-		public virtual void DoLoad()
-		{
-		}
-
-		public virtual void DoLoadComplete()
-		{
-		}
-
 	}
 }

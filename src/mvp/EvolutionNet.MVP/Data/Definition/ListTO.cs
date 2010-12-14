@@ -5,7 +5,7 @@ using EvolutionNet.Util.Collection;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class ListTO<T, IdT> : ITO where T : class, IModel<IdT>
+	public abstract class ListTO<T, TId> : ITO where T : class, IModel<TId>
 	{
 	    private IList<T> list;
 	    public IList<T> List

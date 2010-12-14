@@ -37,6 +37,7 @@ namespace EvolutionNet.MVP.UI.Web
 
 	    #endregion
 
+/*
 	    #region Métodos Públicos (IControlView)
 
 	    public virtual void DoLoad()
@@ -48,9 +49,11 @@ namespace EvolutionNet.MVP.UI.Web
 	    }
 
 	    #endregion
+*/
 
 	    #region Métodods Locais (Inicialização)
 
+/*
 	    protected override void OnInit(EventArgs e)
 	    {
 	        base.OnInit(e);
@@ -70,6 +73,7 @@ namespace EvolutionNet.MVP.UI.Web
 	    {
 	        DoLoadComplete();
 	    }
+*/
 
 	    #endregion
 

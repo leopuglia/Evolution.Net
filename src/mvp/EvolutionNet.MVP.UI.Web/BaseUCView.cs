@@ -37,41 +37,45 @@ namespace EvolutionNet.MVP.UI.Web
 
 	    #endregion
 
+        #region Métodos Públicos (IControlView)
+
+/*
+        public virtual void DoLoad()
+        {
+        }
+
+        public virtual void DoLoadComplete()
+        {
+        }
+*/
+
+        #endregion
+
         #region Métodos Locais (Inicialização)
 
+/*
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
 
 //            ControlHelper.Initialize(this);
 
-            Page.Load += Page_Load;
-            Page.LoadComplete += BasePage_LoadComplete;
+            Page.Load += BasePageLoad;
+            Page.LoadComplete += BasePageLoadComplete;
         }
 
-        void Page_Load(object sender, EventArgs e)
+        private void BasePageLoad(object sender, EventArgs e)
         {
             DoLoad();
         }
 
-        protected void BasePage_LoadComplete(object sender, EventArgs e)
+        private void BasePageLoadComplete(object sender, EventArgs e)
         {
             DoLoadComplete();
         }
+*/
 
         #endregion
-
-        #region Métodos Públicos (IControlView)
-
-	    public virtual void DoLoad()
-	    {
-	    }
-
-	    public virtual void DoLoadComplete()
-	    {
-	    }
-
-	    #endregion
 
 	}
 }

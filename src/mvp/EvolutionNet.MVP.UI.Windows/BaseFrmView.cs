@@ -19,7 +19,7 @@ namespace EvolutionNet.MVP.UI.Windows
         #region Definição de Eventos
 
         [Category("Behavior"), Description("Event fired after all the controls are loaded.")]
-        public event AfterLoadDelegate AfterLoad;
+        public event EventHandler LoadComplete;
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace EvolutionNet.MVP.UI.Windows
             // TODO: Estou inicializando no BaseUCView, portanto todos os Presenter's devem ser feitos com WebControls
 //            WinMessageHelper.Instance.Initialize(this);
 
-            DoLoad();
+//            DoLoad();
         }
 
         #endregion
@@ -77,20 +77,21 @@ namespace EvolutionNet.MVP.UI.Windows
             {
                 IsInitialized = true;
 
-                if (AfterLoad != null)
-                    AfterLoad(this, e);
+                if (LoadComplete != null)
+                    LoadComplete(this, e);
 
                 if (baseUC != null)
-                    baseUC.DoAfterLoad(e);
+                    baseUC.OnLoadComplete(e);
             }
 
-            DoLoadComplete();
+//            DoLoadComplete();
         }
 
         #endregion
 
         #region Métodos Públicos (IControlView)
 
+/*
         public virtual void DoLoad()
         {
         }
@@ -98,6 +99,7 @@ namespace EvolutionNet.MVP.UI.Windows
         public virtual void DoLoadComplete()
         {
         }
+*/
 
         #endregion
 

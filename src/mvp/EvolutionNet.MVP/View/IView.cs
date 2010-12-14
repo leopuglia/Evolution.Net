@@ -3,6 +3,8 @@
  * Created: quinta-feira, 29 de novembro de 2007
  */
 
+using System;
+
 namespace EvolutionNet.MVP.View
 {
 	/// <summary>
@@ -14,10 +16,14 @@ namespace EvolutionNet.MVP.View
 //        IControlHelper ControlHelper { get; }
 //        IMessageHelper MessageHelper { get; }
 
+/*
 		/// <summary>
 		/// Realiza todas as inicializações necessárias.
 		/// </summary>
 		void DoLoad();
 		void DoLoadComplete();
-	}
+*/
+//        event EventHandler Load;
+//        event EventHandler LoadComplete;
+    }
 }

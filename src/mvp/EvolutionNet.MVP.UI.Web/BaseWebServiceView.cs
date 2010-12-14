@@ -10,6 +10,7 @@ namespace EvolutionNet.MVP.UI.Web
 			get { return WebPathHelper.Instance; }
 		}
 
+/*
 		public virtual void DoLoad()
 		{
 		}
@@ -17,6 +18,7 @@ namespace EvolutionNet.MVP.UI.Web
 		public virtual void DoLoadComplete()
 		{
 		}
+*/
 
 	}
 }
