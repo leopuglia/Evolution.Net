@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_build", "_build", "{3B69A80F-A846-4C58-8D80-A4ECCFAC8611}"
 	ProjectSection(SolutionItems) = preProject
+		..\AssemblyInfo.template = ..\AssemblyInfo.template
 		..\..\build.bat = ..\..\build.bat
 		..\..\EvolutionNet.build = ..\..\EvolutionNet.build
 		..\EvolutionNet.snk = ..\EvolutionNet.snk
