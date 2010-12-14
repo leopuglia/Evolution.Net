@@ -55,12 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BaseFrm.Designer.cs">
-      <DependentUpon>BaseFrm.cs</DependentUpon>
-    </Compile>
     <Compile Include="BaseUCView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -74,6 +68,12 @@
       <DependentUpon>ProgressDlgFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\WorkerCanceledException.cs" />
+    <Compile Include="BaseFrmView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseFrmView.Designer.cs">
+      <DependentUpon>BaseFrmView.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModalDialogFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,20 +93,21 @@
     <Compile Include="SingleInstance\SingleInstanceException.cs" />
     <Compile Include="SingleInstance\SingleInstanceProxy.cs" />
     <Compile Include="SingleInstance\SingleInstanceTracker.cs" />
+    <Compile Include="WinControlHelper.cs" />
+    <Compile Include="WinMessageHelper.cs" />
     <Compile Include="WinPathHelper.cs" />
+    <Compile Include="WinRedirectHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BaseFrm.resx">
-      <DependentUpon>BaseFrm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="BaseUCView.resx">
       <DependentUpon>BaseUCView.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\ProgressDlgFrm.resx">
       <DependentUpon>ProgressDlgFrm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseFrmView.resx">
+      <DependentUpon>BaseFrmView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModalDialogFrm.resx">
       <DependentUpon>ModalDialogFrm.cs</DependentUpon>
@@ -118,6 +119,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">
+      <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
+      <Name>EvolutionNet.Util.2008</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj">
       <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
       <Name>EvolutionNet.MVP.2008</Name>

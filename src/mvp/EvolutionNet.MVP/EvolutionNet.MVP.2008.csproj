@@ -83,12 +83,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\BaseFacade.cs" />
+    <Compile Include="Data\Definition\NullTO.cs" />
     <Compile Include="MVPDataAccessException.cs" />
     <Compile Include="Data\Definition\CrudTO.cs" />
     <Compile Include="Data\Definition\ITO.cs" />
     <Compile Include="MVPIoCException.cs" />
     <Compile Include="IoC\AbstractIoCFactory.cs" />
-    <Compile Include="BaseFactory.cs" />
+    <Compile Include="IoC\BaseFactory.cs" />
     <Compile Include="Business\ActionDelegate.cs" />
     <Compile Include="Business\BaseCrudFacade.cs" />
     <Compile Include="Business\BaseFacadeFactory.cs" />
@@ -107,9 +108,10 @@
     <Compile Include="Data\Definition\ListTO.cs" />
     <Compile Include="Data\Definition\ReadTO.cs" />
     <Compile Include="MVPException.cs" />
-    <Compile Include="IFactory.cs" />
+    <Compile Include="IoC\IFactory.cs" />
     <Compile Include="IoC\IoCHelper.cs" />
     <Compile Include="IoC\IoCManager.cs" />
+    <Compile Include="Presenter\IPresenterFactory.cs" />
     <Compile Include="ProcessExecutionException.cs" />
     <Compile Include="ValidationError.cs" />
     <Compile Include="MVPValidationException.cs" />
@@ -118,10 +120,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ProcessExecutionHelper.cs" />
     <Compile Include="Util\ProgressReportHelper.cs" />
+    <Compile Include="View\IControlHelper.cs" />
     <Compile Include="View\ICrudView.cs" />
+    <Compile Include="View\IMessageHelper.cs" />
     <Compile Include="View\IPathHelper.cs" />
+    <Compile Include="View\IRedirectHelper.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\IControlView.cs" />
+    <Compile Include="View\IWinControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">

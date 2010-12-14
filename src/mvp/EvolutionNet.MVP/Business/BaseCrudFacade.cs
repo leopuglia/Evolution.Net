@@ -5,7 +5,6 @@ using Castle.ActiveRecord;
 using Castle.Components.Validator;
 using EvolutionNet.MVP.Presenter;
 using log4net;
-using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Data.Definition;
 using EvolutionNet.MVP.Data.Access;
 

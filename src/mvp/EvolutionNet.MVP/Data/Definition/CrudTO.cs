@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using EvolutionNet.MVP.Data.Definition;
 using EvolutionNet.Util.Collection;
 
 namespace EvolutionNet.MVP.Data.Definition

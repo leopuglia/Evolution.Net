@@ -4,7 +4,6 @@
  */
 
 using log4net;
-using EvolutionNet.MVP.IoC;
 
 namespace EvolutionNet.MVP.IoC
 {

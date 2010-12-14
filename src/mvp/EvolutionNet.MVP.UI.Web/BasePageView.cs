@@ -6,11 +6,7 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BasePageView : Page, IControlView
 	{
-	    #region Variáveis
-
-        protected BaseMessageUC messageUC;
-
-	    #endregion
+	    private IControlHelper controlHelper;
 
 	    #region Propriedades
 
@@ -19,10 +15,25 @@ namespace EvolutionNet.MVP.UI.Web
 	        get { return WebPathHelper.Instance; }
 	    }
 
-        protected virtual ControlCollection ControlCollection
+        public IControlHelper ControlHelper
+        {
+            get { return controlHelper ?? (controlHelper = new WebControlHelper(this)); }
+        }
+
+        public IMessageHelper MessageHelper
+        {
+            get { return WebMessageHelper.Instance; }
+        }
+
+	    public IRedirectHelper RedirectHelper
 	    {
-	        get { return Controls; }
+            get { return WebRedirectHelper.Instance; }
 	    }
+
+	    public IControlView ParentView
+        {
+            get { return (IControlView)Parent; }
+        }
 
 	    #endregion
 
@@ -36,56 +47,6 @@ namespace EvolutionNet.MVP.UI.Web
 	    {
 	    }
 
-	    public virtual void ShowMessage(string caption, string message)
-	    {
-	        messageUC.ShowMessage(caption, message);
-	    }
-
-	    public virtual void ShowErrorMessage(string caption, string message, string exceptionMessage)
-	    {
-            messageUC.ShowErrorMessage(caption, message, exceptionMessage);
-	    }
-
-	    public virtual T CreateControlView<T>() where T : IControlView
-	    {
-	        return ControlHelper.CreateControlFromView<T>(this);
-	    }
-
-	    public virtual T CreateControlView<T>(params object[] args) where T : IControlView
-	    {
-	        throw new NotImplementedException();
-	    }
-
-	    public virtual T GetControlView<T>(object sender) where T : IControlView
-	    {
-	        while (!(sender is T))
-	        {
-	            sender = ((Control)sender).Parent;
-	        }
-
-	        return (T)sender;
-	    }
-
-	    public virtual void AddControlView(IControlView view)
-	    {
-	        ControlCollection.Add((Control)view);
-	    }
-
-	    public virtual void AddControlViewAt(int index, IControlView view)
-	    {
-	        ControlCollection.AddAt(index, (Control)view);
-	    }
-
-	    public virtual void RemoveControlView(IControlView view)
-	    {
-	        ControlCollection.Remove((Control)view);
-	    }
-
-	    public virtual void RemoveControlViewAt(int index)
-	    {
-	        ControlCollection.RemoveAt(index);
-	    }
-
 	    #endregion
 
 	    #region Métodods Locais (Inicialização)
@@ -94,10 +55,18 @@ namespace EvolutionNet.MVP.UI.Web
 	    {
 	        base.OnInit(e);
 
-	        Page.LoadComplete += BasePage_LoadComplete;
+//            ControlHelper.Initialize(this);
+
+            Page.Load += Page_Load;
+            Page.LoadComplete += Page_LoadComplete;
 	    }
 
-	    private void BasePage_LoadComplete(object sender, EventArgs e)
+        private void Page_Load(object sender, EventArgs e)
+        {
+            DoLoad();
+        }
+
+        private void Page_LoadComplete(object sender, EventArgs e)
 	    {
 	        DoLoadComplete();
 	    }

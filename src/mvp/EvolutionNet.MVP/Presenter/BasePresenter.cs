@@ -1,5 +1,4 @@
 using System;
-using Castle.ActiveRecord;
 using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.View;
@@ -29,19 +28,14 @@ namespace EvolutionNet.MVP.Presenter
 			get { return facade; }
 		}
 
-		public IPathHelper PathHelper
-		{
-			get { return View.PathHelper; }
-		}
-
-		#endregion
+	    #endregion
 
 		#region Construtores
 
 		protected BasePresenter(ViewT view)
 		{
-			if (SessionScope.Current == null)
-				new SessionScope(FlushAction.Never);
+//			if (SessionScope.Current == null)
+//				new SessionScope(FlushAction.Never);
 
 			facade = GetFacade();
 
@@ -67,5 +61,21 @@ namespace EvolutionNet.MVP.Presenter
 
 		#endregion
 
+	    public IPathHelper PathHelper
+	    {
+            get { return View.PathHelper; }
+	    }
+
+/*
+	    public IControlHelper ControlHelper
+	    {
+            get { return View.ControlHelper; }
+	    }
+
+	    public IMessageHelper MessageHelper
+	    {
+            get { return View.MessageHelper; }
+	    }
+*/
 	}
 }

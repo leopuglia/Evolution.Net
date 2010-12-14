@@ -43,7 +43,7 @@ namespace EvolutionNet.MVP.UI.Windows
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModalDialogFrm";
-            this.AfterLoad += new EvolutionNet.MVP.UI.Windows.AfterLoadDelegate(this.ModalDialogFrm_AfterLoad);
+            this.AfterLoad += new EvolutionNet.MVP.View.AfterLoadDelegate(this.ModalDialogFrm_AfterLoad);
             this.Load += new System.EventHandler(this.ModalDialogFrm_Load);
             this.ResumeLayout(false);
 

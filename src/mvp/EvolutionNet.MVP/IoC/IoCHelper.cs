@@ -45,36 +45,47 @@ namespace EvolutionNet.MVP.IoC
 		                                    string destFormat, string destAdd, Type destType, 
 		                                    params object[] args)
 		{
-			string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
-			string sourceTypeName = sourceType.Name;
+            try
+            {
+                string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
+			    string sourceTypeName = sourceType.Name;
 
-			string destNamespace = destType.Namespace +
-			                       sourceType.Namespace.Substring(sourceAssemblyName.Length,
-			                                                      sourceType.Namespace.Length - sourceAssemblyName.Length);
-
-			string destTypeFullName = GetDestTypeFullName(destFormat, destAdd, destNamespace,
-			                                              sourceFormat, sourceTypeName);
-
-			try
-			{
-				object ret = destType.Assembly.CreateInstance(
-					destTypeFullName, false, BindingFlags.Default, null, args, null, null);
-
-                if (ret == null)
+                if (sourceType.Namespace != null)
                 {
-                    string msg = string.Format("O tipo \"{0}\" não existe no namespace \"{1}\"!",
-                        destTypeFullName, destNamespace);
+                    string destNamespace = destType.Namespace +
+                                           sourceType.Namespace.Substring(sourceAssemblyName.Length,
+                                                                          sourceType.Namespace.Length - sourceAssemblyName.Length);
 
-                    Exception ex = new TypeLoadException(msg);
+                    string destTypeFullName = GetDestTypeFullName(destFormat, destAdd, destNamespace,
+                                                                  sourceFormat, sourceTypeName);
 
-                    if (log.IsErrorEnabled)
-                        log.Error(msg, ex);
+                    object ret = destType.Assembly.CreateInstance(
+                        destTypeFullName, false, BindingFlags.Default, null, args, null, null);
 
-                    throw ex;
+                    if (ret == null)
+                    {
+                        string msg = string.Format("O tipo \"{0}\" não existe no namespace \"{1}\"!",
+                                                   destTypeFullName, destNamespace);
+
+                        TypeLoadException ex = new TypeLoadException(msg);
+
+                        if (log.IsErrorEnabled)
+                            log.Error(msg, ex);
+
+                        throw ex;
+                    }
+
+                    return ret;
                 }
 
-			    return ret;
-			}
+                string msgException = string.Format("O tipo \"{0}\" não possui namespace!", sourceType);
+                TypeLoadException typeLoadException = new TypeLoadException(msgException);
+                
+                if (log.IsErrorEnabled)
+                    log.Error(msgException, typeLoadException);
+                
+                throw typeLoadException;
+            }
 			catch (Exception ex)
 			{
 				// Tenta obter uma excessão interna de erro de configuração do ActiveRecord, que fica oculta por outras excessões
@@ -98,16 +109,27 @@ namespace EvolutionNet.MVP.IoC
 			string sourceAssemblyName = sourceType.Assembly.GetName().Name + (string.IsNullOrEmpty(sourceExclude) ? "" : "." + sourceExclude);
 			string sourceTypeName = sourceType.Name;
 
-			string virtualPath = "~/" + sourceType.Namespace.Substring(sourceAssemblyName.Length + 1,
-																       sourceType.Namespace.Length - sourceAssemblyName.Length - 1).Replace('.', '/');
+		    if (sourceType.Namespace != null)
+		    {
+		        string virtualPath = "~/" + sourceType.Namespace.Substring(sourceAssemblyName.Length + 1,
+		                                                                   sourceType.Namespace.Length - sourceAssemblyName.Length - 1).Replace('.', '/');
 
-			string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
+		        string sourceEssence = GetSourceEssence(sourceFormat, sourceTypeName);
 
-			if (!string.IsNullOrEmpty(destAdd))
-				virtualPath += "/" + destAdd;
+		        if (!string.IsNullOrEmpty(destAdd))
+		            virtualPath += "/" + destAdd;
 
-			return virtualPath + "/" + string.Format(destFormat, sourceEssence);
-		}
+		        return virtualPath + "/" + string.Format(destFormat, sourceEssence);
+		    }
+
+            string msgException = string.Format("O tipo \"{0}\" não possui namespace!", sourceType);
+            TypeLoadException typeLoadException = new TypeLoadException(msgException);
+
+            if (log.IsErrorEnabled)
+                log.Error(msgException, typeLoadException);
+
+            throw typeLoadException;
+        }
 
 		#endregion
 

@@ -3,6 +3,8 @@
  * Created: quinta-feira, 6 de dezembro de 2007
  */
 
+using EvolutionNet.MVP.IoC;
+
 namespace EvolutionNet.MVP.Business
 {
 	/// <summary>

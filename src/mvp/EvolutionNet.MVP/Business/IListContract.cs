@@ -1,4 +1,3 @@
-using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.Data.Definition;
 
 namespace EvolutionNet.MVP.Business

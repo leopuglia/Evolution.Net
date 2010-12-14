@@ -1,4 +1,5 @@
 using System;
+using Castle.ActiveRecord;
 using EvolutionNet.MVP.Data.Definition;
 using EvolutionNet.MVP.Presenter;
 using log4net;
@@ -10,18 +11,26 @@ namespace EvolutionNet.MVP.Business
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(BaseFacade<TO>));
 
-        #region Variáveis Privadas
+        #region Variáveis Privadas e Protegidas
 
         private readonly TO to;
         private readonly IPresenter presenter;
 
-        #endregion
-
-        #region Variáveis Protegidas
-
         protected double progress;
         protected bool isInitialized;
         protected bool isDisposed;
+
+        #endregion
+
+        #region Propriedades Protegidas
+
+        /// <summary>
+        /// Calcula o progresso restante ao método sendo utilizado.
+        /// </summary>
+        protected double RemainingProgress
+        {
+            get { return 100d - progress; }
+        }
 
         #endregion
 
@@ -42,22 +51,23 @@ namespace EvolutionNet.MVP.Business
 
         #endregion
 
-        #region Propriedades Protegidas
-
-        /// <summary>
-        /// Calcula o progresso restante ao método sendo utilizado.
-        /// </summary>
-        protected double RemainingProgress
-        {
-            get { return 100d - progress; }
-        }
-
-        #endregion
-
         #region Construtor
 
         protected BaseFacade(IPresenter presenter)
         {
+            try
+            {
+                if (SessionScope.Current == null)
+                    new SessionScope(FlushAction.Never);
+            }
+            catch (Exception ex)
+            {
+                if (log.IsErrorEnabled)
+                    log.Error("Não foi possível iniciar uma sessão no ActiveRecord/NHibernate.", ex);
+
+                throw new MVPIoCException("Não foi possível iniciar uma sessão no ActiveRecord/NHibernate.", ex);
+            }
+
             try
             {
                 this.presenter = presenter;

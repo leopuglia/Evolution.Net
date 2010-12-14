@@ -11,6 +11,8 @@ namespace EvolutionNet.MVP.View
 	public interface IView
 	{
 		IPathHelper PathHelper { get; }
+//        IControlHelper ControlHelper { get; }
+//        IMessageHelper MessageHelper { get; }
 
 		/// <summary>
 		/// Realiza todas as inicializações necessárias.

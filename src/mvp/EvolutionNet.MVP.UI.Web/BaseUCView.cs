@@ -6,23 +6,34 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BaseUCView : UserControl, IControlView
 	{
-	    #region Variáveis Locais
+        private IControlHelper controlHelper;
 
-	    protected BaseMessageUC messageUC;
-
-	    #endregion
-
-	    #region Propriedades
+        #region Propriedades
 
 	    public IPathHelper PathHelper
 	    {
 	        get { return WebPathHelper.Instance; }
 	    }
 
-        protected virtual ControlCollection ControlCollection
+        public IControlHelper ControlHelper
+        {
+            get { return controlHelper ?? (controlHelper = new WebControlHelper(this)); }
+        }
+
+        public IMessageHelper MessageHelper
 	    {
-	        get { return Controls; }
+            get { return WebMessageHelper.Instance; }
 	    }
+
+        public IRedirectHelper RedirectHelper
+        {
+            get { return WebRedirectHelper.Instance; }
+        }
+
+        public IControlView ParentView
+        {
+            get { return (IControlView)Parent; }
+        }
 
 	    #endregion
 
@@ -32,7 +43,15 @@ namespace EvolutionNet.MVP.UI.Web
         {
             base.OnInit(e);
 
+//            ControlHelper.Initialize(this);
+
+            Page.Load += Page_Load;
             Page.LoadComplete += BasePage_LoadComplete;
+        }
+
+        void Page_Load(object sender, EventArgs e)
+        {
+            DoLoad();
         }
 
         protected void BasePage_LoadComplete(object sender, EventArgs e)
@@ -50,56 +69,6 @@ namespace EvolutionNet.MVP.UI.Web
 
 	    public virtual void DoLoadComplete()
 	    {
-	    }
-
-	    public virtual void ShowMessage(string caption, string message)
-	    {
-	        messageUC.ShowMessage(caption, message);
-	    }
-
-	    public virtual void ShowErrorMessage(string caption, string message, string exceptionMessage)
-	    {
-            messageUC.ShowErrorMessage(caption, message, exceptionMessage);
-	    }
-
-	    public virtual T CreateControlView<T>() where T : IControlView
-	    {
-	        return ControlHelper.CreateControlFromView<T>(this);
-	    }
-
-	    public virtual T CreateControlView<T>(params object[] args) where T : IControlView
-	    {
-	        throw new NotImplementedException();
-	    }
-
-	    public virtual T GetControlView<T>(object sender) where T : IControlView
-	    {
-	        while (!(sender is T))
-	        {
-	            sender = ((Control)sender).Parent;
-	        }
-
-	        return (T)sender;
-	    }
-
-	    public virtual void AddControlView(IControlView view)
-	    {
-	        ControlCollection.Add((Control) view);
-	    }
-
-	    public virtual void AddControlViewAt(int index, IControlView view)
-	    {
-	        ControlCollection.AddAt(index, (Control)view);
-	    }
-
-	    public virtual void RemoveControlView(IControlView view)
-	    {
-	        ControlCollection.Remove((Control)view);
-	    }
-
-	    public virtual void RemoveControlViewAt(int index)
-	    {
-	        ControlCollection.RemoveAt(index);
 	    }
 
 	    #endregion

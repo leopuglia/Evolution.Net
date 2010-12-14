@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using EvolutionNet.MVP.View;
 
@@ -12,12 +13,12 @@ namespace EvolutionNet.MVP.UI.Web
         {
             get
             {
-                return grid ?? (grid = GetGrid()).DataSource;
+                return grid ?? (grid = FindMainGrid(this)).DataSource;
             }
             set
             {
                 if (grid == null)
-                    grid = GetGrid();
+                    grid = FindMainGrid(this);
                 grid.DataSource = value;
                 grid.DataBind();
             }
@@ -28,14 +29,19 @@ namespace EvolutionNet.MVP.UI.Web
         public virtual event EventHandler Edit;
         public virtual event EventHandler Cancel;
 
-        private GridView GetGrid()
+        private GridView FindMainGrid(Control control)
         {
-            foreach (object control in ControlCollection)
+            GridView gridView = null;
+            foreach (var child in control.Controls)
             {
-                if (control is GridView)
-                    return (GridView)control;
+                if (child is GridView)
+                    return (GridView)child;
+
+                gridView = FindMainGrid((Control)child);
+                if (gridView != null)
+                    return gridView;
             }
-            throw new ArgumentOutOfRangeException("", "A View não possui um Grid!");
+            return gridView;
         }
     }
 }

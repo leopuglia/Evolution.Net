@@ -1,5 +1,4 @@
 using System;
-using EvolutionNet.MVP.Data.Definition;
 
 namespace EvolutionNet.MVP.Data.Definition
 {
