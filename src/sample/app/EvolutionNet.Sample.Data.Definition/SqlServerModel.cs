@@ -1,6 +1,6 @@
 namespace EvolutionNet.Sample.Data.Definition
 {
-    public abstract class SqlServerModel
-    {
-    }
+	public abstract class SqlServerModel
+	{
+	}
 }

@@ -116,6 +116,9 @@
     <EmbeddedResource Include="CategoriesCrudFrm.resx">
       <DependentUpon>CategoriesCrudFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CategoriesCrudView.resx">
+      <DependentUpon>CategoriesCrudView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainFrm.resx">
       <DependentUpon>MainFrm.cs</DependentUpon>
     </EmbeddedResource>

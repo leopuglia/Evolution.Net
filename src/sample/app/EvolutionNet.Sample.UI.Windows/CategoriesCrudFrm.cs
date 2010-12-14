@@ -10,11 +10,13 @@ using EvolutionNet.MVP.UI.Windows;
 
 namespace EvolutionNet.Sample.UI.Windows
 {
-    public partial class CategoriesCrudFrm : BaseFrmView
-    {
-        public CategoriesCrudFrm()
-        {
-            InitializeComponent();
-        }
-    }
+	public partial class CategoriesCrudFrm : ModalFrmView
+	{
+		public CategoriesCrudFrm()
+		{
+			InitializeComponent();
+
+//			baseUC = categoriesCrudView1;
+		}
+	}
 }
