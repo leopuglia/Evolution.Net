@@ -32,12 +32,12 @@ namespace EvolutionNet.MVP.UI.Web
         private GridView FindMainGrid(Control control)
         {
             GridView gridView = null;
-            foreach (var child in control.Controls)
+            foreach (Control child in control.Controls)
             {
                 if (child is GridView)
                     return (GridView)child;
 
-                gridView = FindMainGrid((Control)child);
+                gridView = FindMainGrid(child);
                 if (gridView != null)
                     return gridView;
             }

@@ -4,6 +4,7 @@ using log4net;
 
 namespace EvolutionNet.MVP.Data.Access
 {
+/*
 	public static class DaoInitializer
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(DaoInitializer));
@@ -80,4 +81,5 @@ namespace EvolutionNet.MVP.Data.Access
 		}
 
 	}
+*/
 }

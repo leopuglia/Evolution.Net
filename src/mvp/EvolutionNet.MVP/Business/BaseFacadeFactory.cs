@@ -3,7 +3,6 @@
  * Created: quinta-feira, 6 de dezembro de 2007
  */
 
-using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.IoC;
 
 namespace EvolutionNet.MVP.Business
@@ -26,10 +25,12 @@ namespace EvolutionNet.MVP.Business
 		/// <summary>
 		/// Realiza a inicialização básica de um módulo, na implementação da Factory.
 		/// </summary>
-		public virtual void Initialize()
+		public abstract void Initialize();
+/*
 		{
 			DaoInitializer.InitializeActiveRecord();
 		}
+*/
 
 	}
 	
