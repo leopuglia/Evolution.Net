@@ -18,5 +18,6 @@ namespace EvolutionNet.MVP.View
 		void RemoveControlViewAt(int index, object controlCollection);
 		T GetControlView<T>(object sender) where T : IControlView;
 //		T GetControlView<T>(object sender, object controlCollection) where T : IControlView;
+		T FindControlView<T>(IControlView view) where T : IControlView;
 	}
 }

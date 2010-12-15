@@ -24,24 +24,15 @@ namespace EvolutionNet.MVP.UI.Web
 			}
 		}
 
-		public virtual event EventHandler Save;
-		public virtual event EventHandler Delete;
-		public virtual event EventHandler Edit;
-		public virtual event EventHandler Cancel;
+		public virtual event CrudEventHandler AddNew;
+		public virtual event CrudEventHandler Save;
+		public virtual event CrudEventHandler Delete;
+		public virtual event CrudEventHandler Edit;
+		public virtual event CrudEventHandler Cancel;
 
 		private GridView FindMainGrid(Control control)
 		{
-			GridView gridView = null;
-			foreach (Control child in control.Controls)
-			{
-				if (child is GridView)
-					return (GridView)child;
-
-				gridView = FindMainGrid(child);
-				if (gridView != null)
-					return gridView;
-			}
-			return gridView;
+			return WebControlHelper.FindControl<GridView>(control);
 		}
 	}
 }

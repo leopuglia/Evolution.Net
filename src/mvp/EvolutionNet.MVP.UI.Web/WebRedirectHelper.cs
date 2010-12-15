@@ -1,3 +1,4 @@
+using System;
 using System.Web;
 using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.View;
@@ -11,18 +12,30 @@ namespace EvolutionNet.MVP.UI.Web
 		private const string TypeNameSourceExclude = "View";
 		private const string TypeNameDest = "{0}.aspx";
 
-		public void RedirectToView<T>(object senderView, params object[] args)
+		public void RedirectToView<T>(object senderView, params object[] args) where T : IControlView
 		{
 			HttpContext.Current.Response.Redirect(IoCHelper.GetControlVirtualPath(
 				TypeNameSource, TypeNameSourceExclude, typeof(T), TypeNameDest, null));
 		}
 
-		public bool RedirectToViewModal<T>(object senderView, params object[] args)
+		public bool ShowModalDialogView(IControlView destView, object senderView)
+		{
+			throw new NotImplementedException();
+		}
+
+		public T CreateModalDialogView<T>(object senderView, params object[] args) where T : IControlView
+		{
+			throw new NotImplementedException();
+		}
+
+/*
+		public bool ShowModalDialogView<T>(object senderView, params object[] args)
 		{
 			HttpContext.Current.Response.Redirect(IoCHelper.GetControlVirtualPath(
 				TypeNameSource, TypeNameSourceExclude, typeof(T), TypeNameDest, null));
 
 			return true;
 		}
+*/
 	}
 }
