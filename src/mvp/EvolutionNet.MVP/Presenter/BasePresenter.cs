@@ -43,13 +43,11 @@ namespace EvolutionNet.MVP.Presenter
 
 		protected BasePresenter(ViewT view)
 		{
-//			if (SessionScope.Current == null)
-//				new SessionScope(FlushAction.Never);
+			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
 
 			facade = GetFacade();
 
 			this.view = view;
-//			view.DoLoad();
 		}
 
 		#endregion

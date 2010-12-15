@@ -1,38 +1,43 @@
 using System;
+using System.Reflection;
 using Castle.ActiveRecord;
+using Castle.ActiveRecord.Framework.Config;
+using EvolutionNet.Util.Singleton;
 using log4net;
 
 namespace EvolutionNet.MVP.Data.Access
 {
-/*
-	public static class DaoInitializer
+	public class DaoInitializer : BaseSingleton<DaoInitializer>
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(DaoInitializer));
-		private static bool isInitialized;
-		private static bool isDisposed;
+//		private bool isDisposed;
 
-		/// <summary>
-		/// Realiza a inicialização básica de um módulo, na implementação da Factory.
-		/// </summary>
-		public static void InitializeActiveRecord()
+		public void GenerateCreationScripts(string fileName)
+		{
+			ActiveRecordStarter.GenerateCreationScripts(fileName);
+		}
+
+		public void InitializeActiveRecord()
+		{
+			InitializeActiveRecord(null);
+		}
+
+		public void InitializeActiveRecord(Type type)
 		{
 			try
 			{
-				if (!isInitialized)
+				if (!ActiveRecordStarter.IsInitialized)
 				{
 					if (log.IsInfoEnabled)
 						log.Info("Inicializando o ActiveRecord\r\n******************************");
 
-					//TODO: Eu tenho que criar algum valor no arquivo de config onde eu possa setar as assemblies que devem ser inicializadas pelo ActiveRecord.
-					//Se isso não puder ser setado nas próprias sections do ActiveRecord.
-
+					//TODO: Eu tenho que criar algum valor no arquivo de config onde eu possa setar as assemblies que devem ser inicializadas pelo ActiveRecord, se isso não puder ser setado nas próprias sections do ActiveRecord.
 					//Aqui eu estou inicializando o ActiveRecord, dizendo pra achar as classes que implementam [ActiveRecord] apenas neste assembly (por padrão é o assembly que chama).
-					ActiveRecordStarter.Initialize();
-
-					if (log.IsInfoEnabled)
-						log.Info("Finalizando a inicialização do ActiveRecord\r\n******************************");
-
-					isInitialized = true;
+					if (type == null)
+						ActiveRecordStarter.Initialize(ActiveRecordSectionHandler.Instance);
+//						ActiveRecordStarter.Initialize();
+					else
+						ActiveRecordStarter.Initialize(Assembly.GetAssembly(type), ActiveRecordSectionHandler.Instance);
 				}
 			}
 			catch (Exception ex)
@@ -43,43 +48,37 @@ namespace EvolutionNet.MVP.Data.Access
 			}
 		}
 
-		public static void Initialize()
+		public void InitializeSessionScope()
 		{
-			//TODO: Verificar aqui setando o SessionScope pra nunca fazer o flush. Senão o NHibernate pode fazer alterações nas tabelas em qualquer momento, mesmo sem chamar um Save...
-			//TODO: Eu tinha feito o HospedagemDao ser Lazy, mas aí eu preciso manter o session scope vivo durante toda a vida do TO, pois ele cria um proxy nem onde as propriedades podem ser obtidas apenas na hora que forem chamadas
-			//TODO: O mesmo vale pra relações lazy...
-			//TODO: De qq jeito, eu ainda tenho que estudar onde vai ficar o sessionscope (talvez no to??), pois ele é o responsável pelos flush's.
-			//				scope = new SessionScope(FlushAction.Never);
+			try
+			{
+				if (log.IsInfoEnabled)
+					log.Info("Inicializando o SessionScope");
 
-			if (log.IsInfoEnabled)
-				log.Info("Inicializando o SessionScope");
+				if (SessionScope.Current == null)
+					new SessionScope(FlushAction.Never);
+			}
+			catch (Exception ex)
+			{
+				if (log.IsErrorEnabled)
+					log.Error("Não foi possível iniciar uma sessão no ActiveRecord/NHibernate.", ex);
 
-			new SessionScope(FlushAction.Never);
+				throw new MVPIoCException("Não foi possível iniciar uma sessão no ActiveRecord/NHibernate.", ex);
+			}
 		}
 
 		///<summary>
 		/// Realiza a liberação de recursos alocados pelo objeto.
 		///</summary>
-		public static void Dispose()
+		public void DisposeSessionScope()
 		{
-			if (!isDisposed)
+			if (SessionScope.Current != null)
 			{
-				if (SessionScope.Current != null)
-				{
-					if (log.IsInfoEnabled)
-						log.Info("Finalizando o SessionScope");
+				if (log.IsInfoEnabled)
+					log.Info("Finalizando o SessionScope");
 
-					SessionScope.Current.Dispose();
-				}
-				isDisposed = true;
+				SessionScope.Current.Dispose();
 			}
 		}
-
-		public static void GenerateCreationScripts(string fileName)
-		{
-			ActiveRecordStarter.GenerateCreationScripts(fileName);
-		}
-
 	}
-*/
 }

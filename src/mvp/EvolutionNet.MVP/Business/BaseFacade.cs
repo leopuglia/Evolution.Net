@@ -1,5 +1,5 @@
 using System;
-using Castle.ActiveRecord;
+using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.Data.Definition;
 using EvolutionNet.MVP.Presenter;
 using log4net;
@@ -55,23 +55,12 @@ namespace EvolutionNet.MVP.Business
 
 		protected BaseFacade(IPresenter presenter)
 		{
-			try
-			{
-				if (SessionScope.Current == null)
-					new SessionScope(FlushAction.Never);
-			}
-			catch (Exception ex)
-			{
-				if (log.IsErrorEnabled)
-					log.Error("Não foi possível iniciar uma sessão no ActiveRecord/NHibernate.", ex);
+			this.presenter = presenter;
 
-				throw new MVPIoCException("Não foi possível iniciar uma sessão no ActiveRecord/NHibernate.", ex);
-			}
+			DaoInitializer.Instance.InitializeSessionScope();
 
 			try
 			{
-				this.presenter = presenter;
-
 				// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
 				to = Activator.CreateInstance<TO>();
 			}

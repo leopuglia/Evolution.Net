@@ -13,7 +13,20 @@ namespace EvolutionNet.MVP.IoC
 
 		public static T Instance
 		{
-			get
+			get { return Nested.instance; }
+		}
+
+		private class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static readonly T instance = CreateLocalInstance();
+
+			internal static T CreateLocalInstance()
 			{
 				T anyFactoryImpl = IoCManager.DefaultInstance.CreateObject<T>();
 
@@ -23,5 +36,6 @@ namespace EvolutionNet.MVP.IoC
 				return anyFactoryImpl;
 			}
 		}
+
 	}
 }

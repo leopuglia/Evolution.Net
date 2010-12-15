@@ -3,6 +3,7 @@
  * Created: quinta-feira, 6 de dezembro de 2007
  */
 
+using System;
 using EvolutionNet.MVP.IoC;
 
 namespace EvolutionNet.MVP.Business
@@ -15,10 +16,8 @@ namespace EvolutionNet.MVP.Business
 	{
 		ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IContract;
 
-		/// <summary>
-		/// Realiza a inicialização básica de um módulo, na implementação da Factory.
-		/// </summary>
 		void Initialize();
+//		void Initialize(Type type);
 	}
 
 }

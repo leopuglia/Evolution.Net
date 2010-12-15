@@ -13,6 +13,8 @@ namespace EvolutionNet.MVP.Business
 		private const string TYPE_NAME_CONTRACT = "I{0}Contract";
 		private const string TYPE_NAME_DEST = "{0}Facade";
 
+//		private bool isInitialized;
+
 		public ContractT GetFromContract<ContractT>(params object[] args) where ContractT : IContract
 		{
 			return typeof (ContractT) == typeof (INullContract)
@@ -22,13 +24,25 @@ namespace EvolutionNet.MVP.Business
 														  args);
 		}
 
-		/// <summary>
-		/// Realiza a inicialização básica de um módulo, na implementação da Factory.
-		/// </summary>
 		public abstract void Initialize();
 /*
 		{
-			DaoInitializer.InitializeActiveRecord();
+			if (!isInitialized)
+			{
+				XmlConfigurator.Configure();
+				DaoInitializer.Instance.InitializeActiveRecord();
+				isInitialized = true;
+			}
+		}
+
+		public virtual void Initialize(Type type)
+		{
+			if (!isInitialized)
+			{
+				XmlConfigurator.Configure();
+				DaoInitializer.Instance.InitializeActiveRecord(type);
+				isInitialized = true;
+			}
 		}
 */
 
