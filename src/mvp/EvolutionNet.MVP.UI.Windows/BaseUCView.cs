@@ -22,12 +22,17 @@ namespace EvolutionNet.MVP.UI.Windows
 		private WorkerCompletedDelegate workerCompleted;
 		private bool doWorkAdded;
 		private bool workerCompletedAdded;
+		private bool isVSDesigner = true;
 		protected readonly BackgroundWorker backgroundWorker1;
 		protected bool workerEnabledOnLoad;
 		protected bool showProgressDlgFrm = true;
 		protected ProgressDlgFrm frm;
 		protected double progress;
-		protected bool IsVSDesigner { get { return LicenseManager.UsageMode == LicenseUsageMode.Designtime; } }
+		protected bool IsVSDesigner
+		{
+//			get { return LicenseManager.UsageMode == LicenseUsageMode.Designtime; }
+			get { return isVSDesigner; }
+		}
 
 		protected delegate void DoWorkDelegate(BackgroundWorker bw, DoWorkEventArgs e);
 		protected delegate void WorkerCompletedDelegate(BackgroundWorker bw, RunWorkerCompletedEventArgs e);
@@ -67,6 +72,8 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		protected BaseUCView()
 		{
+			isVSDesigner = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+
 			InitializeComponent();
 
 			backgroundWorker1 = new BackgroundWorker();

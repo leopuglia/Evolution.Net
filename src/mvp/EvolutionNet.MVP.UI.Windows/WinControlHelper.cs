@@ -80,5 +80,25 @@ namespace EvolutionNet.MVP.UI.Windows
 			return (T)sender;
 		}
 
+		public T FindControlView<T>(IControlView view) where T : IControlView
+		{
+			return FindControl<T>((Control)view);
+		}
+
+		public static T FindControl<T>(Control control)
+		{
+			T findControl = default(T);
+			foreach (object child in control.Controls)
+			{
+				if (child is T)
+					return (T)child;
+
+				findControl = FindControl<T>(child as Control);
+				if (!findControl.Equals(default(T)))
+					return findControl;
+			}
+			return findControl;
+		}
+
 	}
 }

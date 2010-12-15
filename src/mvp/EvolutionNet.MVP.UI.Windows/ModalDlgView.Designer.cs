@@ -1,6 +1,6 @@
 namespace EvolutionNet.MVP.UI.Windows
 {
-	partial class ModalFrmView
+	partial class ModalDlgView
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -31,7 +31,6 @@ namespace EvolutionNet.MVP.UI.Windows
 			this.pnlButtons = new System.Windows.Forms.Panel();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnOK = new System.Windows.Forms.Button();
-			this.pnlView = new System.Windows.Forms.Panel();
 			this.pnlButtons.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -67,27 +66,18 @@ namespace EvolutionNet.MVP.UI.Windows
 			this.btnOK.Text = "OK";
 			this.btnOK.UseVisualStyleBackColor = true;
 			// 
-			// pnlView
-			// 
-			this.pnlView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pnlView.Location = new System.Drawing.Point(0, 0);
-			this.pnlView.Name = "pnlView";
-			this.pnlView.Size = new System.Drawing.Size(774, 461);
-			this.pnlView.TabIndex = 1;
-			// 
-			// ModalFrmView
+			// ModalDlgView
 			// 
 			this.AcceptButton = this.btnOK;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(774, 512);
-			this.Controls.Add(this.pnlView);
 			this.Controls.Add(this.pnlButtons);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "ModalFrmView";
+			this.Name = "ModalDlgView";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -100,7 +90,6 @@ namespace EvolutionNet.MVP.UI.Windows
 		#endregion
 
 		private System.Windows.Forms.Panel pnlButtons;
-		protected System.Windows.Forms.Panel pnlView;
 		protected System.Windows.Forms.Button btnOK;
 		protected System.Windows.Forms.Button btnCancel;
 

@@ -1,9 +1,9 @@
 
 namespace EvolutionNet.MVP.UI.Windows
 {
-	public partial class ModalFrmView : BaseFrmView
+	public partial class ModalDlgView : BaseFrmView
 	{
-		protected ModalFrmView()
+		protected ModalDlgView()
 		{
 			InitializeComponent();
 		}
