@@ -12,17 +12,7 @@ namespace EvolutionNet.Sample.UI.Windows
 			InitializeComponent();
 
 			baseUC = mainView1;
-
-			XmlConfigurator.Configure();
-			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
 		}
 
-/*
-		public override void DoLoad()
-		{
-			XmlConfigurator.Configure();
-			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
-		}
-*/
 	}
 }

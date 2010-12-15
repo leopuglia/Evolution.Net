@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using EvolutionNet.MVP.Business;
+using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.UI.Windows;
 using EvolutionNet.Sample.Core.View;
 using EvolutionNet.Sample.Presenter;
+using log4net.Config;
 
 namespace EvolutionNet.Sample.UI.Windows
 {

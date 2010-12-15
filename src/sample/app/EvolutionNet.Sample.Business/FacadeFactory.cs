@@ -1,22 +1,28 @@
-using System.Reflection;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework.Config;
 using EvolutionNet.MVP.Business;
+using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.Sample.Core.Business;
 using EvolutionNet.Sample.Data.Definition;
+using log4net.Config;
 
 namespace EvolutionNet.Sample.Business
 {
 	public class FacadeFactory : BaseFacadeFactory, IFacadeFactory
 	{
+		private bool isInitialized;
+
 		public override void Initialize()
 		{
-			ActiveRecordStarter.Initialize(Assembly.GetAssembly(typeof(SqlServerModel)), ActiveRecordSectionHandler.Instance);
+			if (!isInitialized)
+			{
+				XmlConfigurator.Configure();
+				DaoInitializer.Instance.InitializeActiveRecord(typeof (SqlServerModel));
+				isInitialized = true;
+			}
 		}
 
 		public void GenerateCreationScripts(string fileName)
 		{
-			ActiveRecordStarter.CreateSchema(typeof(SqlServerModel));
+			DaoInitializer.Instance.GenerateCreationScripts(fileName);
 		}
 	}
 }

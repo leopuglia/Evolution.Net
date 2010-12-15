@@ -15,9 +15,6 @@ namespace EvolutionNet.Sample.Presenter
 		{
 			if (view is IWinControl)
 			{
-//				XmlConfigurator.Configure();
-//				AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
-
 				var mnuFile = view.AddMenuItem("&File", "mnuFile");
 				view.AddMenuItem("&Categories", "mnuFileCategories", mnuFile, mnuFileCategoriesClick);
 				view.AddMenuItem("-", "mnuFileSeparator", mnuFile);
