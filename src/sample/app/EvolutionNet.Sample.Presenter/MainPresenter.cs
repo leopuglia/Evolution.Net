@@ -1,11 +1,8 @@
 using System;
-using EvolutionNet.MVP.Business;
-using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.Presenter;
 using EvolutionNet.MVP.View;
 using EvolutionNet.Sample.Core.Business;
 using EvolutionNet.Sample.Core.View;
-using log4net.Config;
 
 namespace EvolutionNet.Sample.Presenter
 {
@@ -13,23 +10,24 @@ namespace EvolutionNet.Sample.Presenter
 	{
 		public MainPresenter(IMainView view) : base(view)
 		{
-			if (view is IWinControl)
-			{
-				var mnuFile = view.AddMenuItem("&File", "mnuFile");
-				view.AddMenuItem("&Categories", "mnuFileCategories", mnuFile, mnuFileCategoriesClick);
-				view.AddMenuItem("-", "mnuFileSeparator", mnuFile);
-				view.AddMenuItem("E&xit", "mnuFileExit", mnuFile, mnuFileExitClick);
-			}
+//			if (view is IWinControl)
+//			{
+				var mnuCategory = view.AddMenuItem("&Category", "mnuCategory");
+				view.AddMenuItem("&Show Dialog", "mnuCategoryShowDialog", mnuCategory, mnuCategoryShowDialogClick);
+				view.AddMenuItem("E&xit", "mnuExit", mnuExitClick);
+//			}
 		}
 
-		private void mnuFileExitClick(object sender, EventArgs eventArgs)
+		private void mnuCategoryShowDialogClick(object sender, EventArgs eventArgs)
+		{
+			ICategoryCrudView view = View.RedirectHelper.CreateModalDialogView<ICategoryCrudView>(View);
+			View.RedirectHelper.ShowModalDialogView(view, View);
+		}
+
+		private void mnuExitClick(object sender, EventArgs eventArgs)
 		{
 			((IWinControl)View).Close();
 		}
 
-		private void mnuFileCategoriesClick(object sender, EventArgs eventArgs)
-		{
-			View.RedirectHelper.RedirectToViewModal<ICategoriesCrudView>(View);
-		}
 	}
 }

@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\IBusinessFactory.cs" />
+    <Compile Include="Business\ICategoryCrudContract.cs" />
     <Compile Include="Business\IMainContract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\ICategoriesCrudView.cs" />
+    <Compile Include="View\ICategoryCrudView.cs" />
+    <Compile Include="View\ICategoryEditView.cs" />
     <Compile Include="View\IMainView.cs" />
   </ItemGroup>
   <ItemGroup>

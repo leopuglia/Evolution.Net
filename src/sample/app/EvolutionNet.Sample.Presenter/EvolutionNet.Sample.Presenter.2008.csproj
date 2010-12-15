@@ -39,6 +39,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -49,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryCrudPresenter.cs" />
     <Compile Include="MainPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -64,6 +66,10 @@
     <ProjectReference Include="..\EvolutionNet.Sample.Core\EvolutionNet.Sample.Core.2008.csproj">
       <Project>{EC46E835-B794-40E7-AFDC-46CEC253807A}</Project>
       <Name>EvolutionNet.Sample.Core.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.Sample.Data.Definition\EvolutionNet.Sample.Data.Definition.2008.csproj">
+      <Project>{DF9543AD-490C-4A75-86D8-93391F8F05A7}</Project>
+      <Name>EvolutionNet.Sample.Data.Definition.2008</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

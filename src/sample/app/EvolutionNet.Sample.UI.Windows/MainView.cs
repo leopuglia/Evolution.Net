@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using EvolutionNet.MVP.Business;
-using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.UI.Windows;
 using EvolutionNet.Sample.Core.View;
 using EvolutionNet.Sample.Presenter;
-using log4net.Config;
 
 namespace EvolutionNet.Sample.UI.Windows
 {
@@ -16,8 +13,8 @@ namespace EvolutionNet.Sample.UI.Windows
 			InitializeComponent();
 
 			// Do not create the presenter on visual studio design time, because it causes error
-			if (! IsVSDesigner)
-				new MainPresenter(this);
+//			if (!IsVSDesigner)
+//				new MainPresenter(this);
 		}
 
 		public object AddMenuItem(string text, string name)
@@ -46,5 +43,20 @@ namespace EvolutionNet.Sample.UI.Windows
 
 			return menu;
 		}
+
+		private void MainView_LoadComplete(object sender, EventArgs e)
+		{
+			// Do not create the presenter on visual studio design time, because it causes error
+//			if (!IsVSDesigner)
+//				new MainPresenter(this);
+		}
+
+		private void MainView_Load(object sender, EventArgs e)
+		{
+			// Do not create the presenter on visual studio design time, because it causes error
+			if (!IsVSDesigner)
+				new MainPresenter(this);
+		}
+
 	}
 }

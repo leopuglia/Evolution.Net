@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Util.2008", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.2008", "..\mvp\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj", "{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Web", "..\mvp\EvolutionNet.MVP.UI.Web\EvolutionNet.MVP.UI.Web.csproj", "{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Web.2008", "..\mvp\EvolutionNet.MVP.UI.Web\EvolutionNet.MVP.UI.Web.2008.csproj", "{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Windows.2008", "..\mvp\EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.2008.csproj", "{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}"
 EndProject

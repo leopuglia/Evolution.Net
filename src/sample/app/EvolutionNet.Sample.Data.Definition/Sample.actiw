@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<model dslVersion="1.0.0.0" Id="bc6b1a0f-78b7-47da-8dfa-8346c70a8986" caseOfPrivateFields="Camelcase" useGenerics="false" namespace="EvolutionNet.Sample.Data.Definition" implementINotifyPropertyChanged="true" manyToManyCollectionIDColumnType="AnsiChar" manyToManyCollectionIDGenerator="None" xmlns="http://schemas.microsoft.com/dsltools/ActiveWriter">
+  <additionalImports>AAEAAAD/////AQAAAAAAAAAMAgAAAF1BbHRpbm9yZW4uQWN0aXZlV3JpdGVyLkRzbCwgVmVyc2lvbj0xLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTkwNTE0MTM5NmRkYjA3OTkEAQAAAKEBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tBbHRpbm9yZW4uQWN0aXZlV3JpdGVyLkltcG9ydCwgQWx0aW5vcmVuLkFjdGl2ZVdyaXRlci5Ec2wsIFZlcnNpb249MS4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj05MDUxNDEzOTZkZGIwNzk5XV0DAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgQAAB9BbHRpbm9yZW4uQWN0aXZlV3JpdGVyLkltcG9ydFtdAgAAAAgICQMAAAABAAAACwAAAAcDAAAAAAEAAAAEAAAABB1BbHRpbm9yZW4uQWN0aXZlV3JpdGVyLkltcG9ydAIAAAAJBAAAAA0DBQQAAAAdQWx0aW5vcmVuLkFjdGl2ZVdyaXRlci5JbXBvcnQCAAAAFTxOYW1lPmtfX0JhY2tpbmdGaWVsZBk8UmVwbGFjZXM+a19fQmFja2luZ0ZpZWxkAQECAAAABgUAAAAgRXZvbHV0aW9uTmV0Lk1WUC5EYXRhLkRlZmluaXRpb24KCw==</additionalImports>
+  <classes>
+    <modelClass name="Category" schema="dbo" table="Categories" baseClassName="SqlServerModel, IModel&lt;int&gt;">
+      <properties>
+        <modelProperty Id="10169d1d-88eb-44a4-89a8-78d1522aa980" name="ID" column="CategoryID" columnType="Int32" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="eb6c7706-35cf-4e88-9c76-22b51f079bb1" name="CategoryName" column="CategoryName" length="0" notNull="true" />
+        <modelProperty Id="5a9a74f5-7700-4501-836f-d7c318f69e87" name="Description" column="Description" columnType="StringClob" length="0" />
+        <modelProperty Id="52415e2c-20a0-4765-ba83-78ccf5f52e85" name="Picture" column="Picture" columnType="BinaryBlob" length="0" />
+      </properties>
+    </modelClass>
+    <modelClass name="Territory" schema="dbo" table="Territories" baseClassName="SqlServerModel, IModel&lt;string&gt;">
+      <targets>
+        <manyToOneRelation Id="cd722d12-07c5-4e93-aa45-25e294b30110" targetColumnKey="RegionID" targetLazy="true" targetTable="Territories" targetPropertyName="Territories" sourceColumn="RegionID">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Region" />
+        </manyToOneRelation>
+      </targets>
+      <properties>
+        <modelProperty Id="a0009b23-d346-45f1-8a18-2faf047f556a" name="ID" column="TerritoryID" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="deba1ab8-fa01-47ff-af3f-dfc18f307c69" name="TerritoryDescription" column="TerritoryDescription" columnType="Char" length="0" notNull="true" />
+      </properties>
+      <manyToManyTargets>
+        <manyToManyRelation Id="404b9eaf-57e1-43c8-b2c2-fa2f1bcfa09b" sourceColumn="TerritoryID" schema="dbo" table="EmployeeTerritories" targetColumn="EmployeeID" targetLazy="true" collectionIDColumnType="AnsiChar" collectionIDGenerator="None">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Employee" />
+        </manyToManyRelation>
+      </manyToManyTargets>
+    </modelClass>
+    <modelClass name="CustomerDemographics" schema="dbo" table="CustomerDemographics" baseClassName="SqlServerModel, IModel&lt;string&gt;">
+      <properties>
+        <modelProperty Id="27665ef5-3c32-4f24-9ca7-acd2eab8e59d" name="ID" column="CustomerTypeID" columnType="Char" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="9baeff94-83c5-4d3f-83e4-6e88631d1ca2" name="CustomerDesc" column="CustomerDesc" columnType="StringClob" length="0" />
+      </properties>
+      <manyToManyTargets>
+        <manyToManyRelation Id="ee63fa72-fed5-45c5-8e98-60dc798eada6" sourceColumn="CustomerTypeID" schema="dbo" table="CustomerCustomerDemo" targetColumn="CustomerID" targetLazy="true" collectionIDColumnType="AnsiChar" collectionIDGenerator="None">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Customer" />
+        </manyToManyRelation>
+      </manyToManyTargets>
+    </modelClass>
+    <modelClass name="Customer" schema="dbo" table="Customers" baseClassName="SqlServerModel, IModel&lt;string&gt;">
+      <properties>
+        <modelProperty Id="532c05be-6c3d-4718-8ac1-5a64e050c617" name="ID" column="CustomerID" columnType="Char" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="bd7ec38a-9619-4d54-9642-120c147c426a" name="CompanyName" column="CompanyName" length="0" notNull="true" />
+        <modelProperty Id="125907ed-f7ce-46f6-a03e-9466130998e7" name="ContactName" column="ContactName" length="0" />
+        <modelProperty Id="77c3b736-92a4-46e6-ae72-ed9806be712b" name="ContactTitle" column="ContactTitle" length="0" />
+        <modelProperty Id="d71b4828-9fb4-45d1-94d3-e0bc9186ee74" name="Address" column="Address" length="0" />
+        <modelProperty Id="b10b7e0b-f7f9-482f-adf6-ab6c009ac8a7" name="City" column="City" length="0" />
+        <modelProperty Id="28774988-54a2-4501-9bf5-7962b5c33b11" name="Region" column="Region" length="0" />
+        <modelProperty Id="e05ee3df-de85-45d2-bec4-1a496cd633b5" name="PostalCode" column="PostalCode" length="0" />
+        <modelProperty Id="8d9cef87-8aa4-411d-a94a-c7f223ad8bd3" name="Country" column="Country" length="0" />
+        <modelProperty Id="1f293084-1e01-4a1e-b7ca-067753674508" name="Phone" column="Phone" length="0" />
+        <modelProperty Id="8f6fdbe1-6ad5-491f-82a6-ab69334dfebe" name="Fax" column="Fax" length="0" />
+      </properties>
+    </modelClass>
+    <modelClass name="Employee" schema="dbo" table="Employees" baseClassName="SqlServerModel, IModel&lt;int&gt;">
+      <targets>
+        <manyToOneRelation Id="9b076070-bdf6-4e8b-974a-df15aeede0e9" targetColumnKey="ReportsTo" targetLazy="true" targetTable="Employees" targetPropertyName="Employees" sourceColumn="ReportsTo" sourcePropertyName="ReportsTo">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Employee" />
+        </manyToOneRelation>
+      </targets>
+      <properties>
+        <modelProperty Id="4f4d5b5d-c870-4cae-8707-b4c45ee61f69" name="ID" column="EmployeeID" columnType="Int32" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="964af755-3f34-4cb2-8ee3-8ddbdc6be485" name="LastName" column="LastName" length="0" notNull="true" />
+        <modelProperty Id="dc1510e1-c665-4d55-9b95-2b2c1dad6d41" name="FirstName" column="FirstName" length="0" notNull="true" />
+        <modelProperty Id="f2c283b7-90db-45f4-95aa-eb82a3f2e3ca" name="Title" column="Title" length="0" />
+        <modelProperty Id="9fe4513e-2594-4587-8d91-f8c0fe87b6c8" name="TitleOfCourtesy" column="TitleOfCourtesy" length="0" />
+        <modelProperty Id="72ed5260-4c8f-49e7-848c-69a4aae80800" name="BirthDate" column="BirthDate" columnType="Timestamp" length="0" />
+        <modelProperty Id="80e4ae38-b608-4a84-a254-a0c45772af0f" name="HireDate" column="HireDate" columnType="Timestamp" length="0" />
+        <modelProperty Id="71ace064-cb5e-4336-9d30-66148d885df7" name="Address" column="Address" length="0" />
+        <modelProperty Id="203f14b9-01e6-48d2-a8f2-824950718612" name="City" column="City" length="0" />
+        <modelProperty Id="35375b0b-d3d0-42bf-bb61-df08ceae931a" name="Region" column="Region" length="0" />
+        <modelProperty Id="cf7b42f0-a7c3-4118-af6a-ece03d040a19" name="PostalCode" column="PostalCode" length="0" />
+        <modelProperty Id="a2ef0537-eb30-42cc-8f49-13879add96c5" name="Country" column="Country" length="0" />
+        <modelProperty Id="2877b404-1512-4f0d-b20e-6167a88b063b" name="HomePhone" column="HomePhone" length="0" />
+        <modelProperty Id="14d8926f-d3b9-457c-ae04-44c22ac63732" name="Extension" column="Extension" length="0" />
+        <modelProperty Id="84cc8afd-795c-47dc-8226-8982a7562da5" name="Photo" column="Photo" columnType="BinaryBlob" length="0" />
+        <modelProperty Id="e854ab7a-cc9c-4f66-9fe4-e71978832679" name="Notes" column="Notes" columnType="StringClob" length="0" />
+        <modelProperty Id="2fca461b-6d4e-4485-9351-2904e83f3256" name="PhotoPath" column="PhotoPath" length="0" />
+      </properties>
+    </modelClass>
+    <modelClass name="OrderDetail" schema="dbo" table="Order Details" baseClassName="SqlServerModel, IModel&lt;OrderDetailKey&gt;">
+      <targets>
+        <manyToOneRelation Id="57b9c9eb-4edd-4535-a663-18bed03e92d8" targetColumnKey="OrderID" targetLazy="true" targetTable="Order Details" targetPropertyName="OrderDetails" sourceColumn="OrderID">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Order" />
+        </manyToOneRelation>
+        <manyToOneRelation Id="44bbb8fe-46ca-44fd-af23-d22a2aaf5147" targetColumnKey="ProductID" targetLazy="true" targetTable="Order Details" targetPropertyName="OrderDetails" sourceColumn="ProductID">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Product" />
+        </manyToOneRelation>
+      </targets>
+      <properties>
+        <modelProperty Id="ae8eb22a-5e07-4a84-941f-8fb900301af0" name="UnitPrice" column="UnitPrice" length="0" notNull="true" />
+        <modelProperty Id="01d1758c-1b9a-440b-bc52-94b6b666efa1" name="Quantity" column="Quantity" columnType="Int16" length="0" notNull="true" />
+        <modelProperty Id="9ac9be6e-639e-45a9-bf3d-c69a582e95bd" name="Discount" column="Discount" columnType="Single" length="0" notNull="true" />
+        <modelProperty Id="b96d1661-17a1-4ee8-850e-cb4a7f49706d" name="Order" column="OrderID" columnType="Int32" length="0" generator="Foreign" keyType="CompositeKey" compositeKeyName="OrderDetailKey" />
+        <modelProperty Id="4299e8c1-af37-4a8a-af7e-9a13483f8f5b" name="Product" column="ProductID" columnType="Int32" length="0" generator="Foreign" keyType="CompositeKey" compositeKeyName="OrderDetailKey" />
+      </properties>
+    </modelClass>
+    <modelClass name="Order" schema="dbo" table="Orders" baseClassName="SqlServerModel, IModel&lt;int&gt;">
+      <targets>
+        <manyToOneRelation Id="0ad147fa-3f77-4e7e-898a-004a7a9bafa0" targetColumnKey="CustomerID" targetLazy="true" targetTable="Orders" targetPropertyName="Orders" sourceColumn="CustomerID">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Customer" />
+        </manyToOneRelation>
+        <manyToOneRelation Id="f7c1cd25-9dff-495a-a600-030200bef184" targetColumnKey="EmployeeID" targetLazy="true" targetTable="Orders" targetPropertyName="Orders" sourceColumn="EmployeeID">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Employee" />
+        </manyToOneRelation>
+        <manyToOneRelation Id="81d8708f-720c-4a00-b2a6-146f11df6863" targetColumnKey="ShipVia" targetLazy="true" targetTable="Orders" targetPropertyName="Orders" sourceColumn="ShipVia">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Shipper" />
+        </manyToOneRelation>
+      </targets>
+      <properties>
+        <modelProperty Id="65cca1a5-b14b-48d6-80fe-1e0841bf3f2a" name="ID" column="OrderID" columnType="Int32" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="dfd6b366-a33d-4da2-b70c-e1e21734c191" name="OrderDate" column="OrderDate" columnType="Timestamp" length="0" />
+        <modelProperty Id="6f127dfc-f14d-4dbc-99d1-97d2eb7ee395" name="RequiredDate" column="RequiredDate" columnType="Timestamp" length="0" />
+        <modelProperty Id="440a6bdc-bc9f-4cd8-88e8-0b786e011576" name="ShippedDate" column="ShippedDate" columnType="Timestamp" length="0" />
+        <modelProperty Id="a0960a69-b02d-4aac-ba54-2a13a168004b" name="Freight" column="Freight" length="0" />
+        <modelProperty Id="13d77983-5c07-4ec3-9056-28ceddbf17ea" name="ShipName" column="ShipName" length="0" />
+        <modelProperty Id="d52ac89e-4c81-4dc4-844e-598649fe31f4" name="ShipAddress" column="ShipAddress" length="0" />
+        <modelProperty Id="df0a9637-b344-4b2c-9153-51b78c940ffe" name="ShipCity" column="ShipCity" length="0" />
+        <modelProperty Id="c669b421-6b1c-4043-94cc-0bcefacdc3ee" name="ShipRegion" column="ShipRegion" length="0" />
+        <modelProperty Id="0a35af8b-999c-44c2-af3a-d954e3ea1513" name="ShipPostalCode" column="ShipPostalCode" length="0" />
+        <modelProperty Id="d8f2b1cc-339e-41a6-9ef7-a37e3fa6b2a3" name="ShipCountry" column="ShipCountry" length="0" />
+      </properties>
+    </modelClass>
+    <modelClass name="Product" schema="dbo" table="Products" baseClassName="SqlServerModel, IModel&lt;int&gt;">
+      <targets>
+        <manyToOneRelation Id="423c72aa-6aad-4ffb-8933-5e53641019f5" targetColumnKey="CategoryID" targetLazy="true" targetTable="Products" targetPropertyName="Products" sourceColumn="CategoryID">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Category" />
+        </manyToOneRelation>
+        <manyToOneRelation Id="8679fd4f-3650-4db9-8907-87c95e5280e4" targetColumnKey="SupplierID" targetLazy="true" targetTable="Products" targetPropertyName="Products" sourceColumn="SupplierID">
+          <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Supplier" />
+        </manyToOneRelation>
+      </targets>
+      <properties>
+        <modelProperty Id="cd5537d6-a5aa-4270-9bc0-25801fc43800" name="ID" column="ProductID" columnType="Int32" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="f1507ce8-29be-4c78-b574-0cd9e9041654" name="ProductName" column="ProductName" length="0" notNull="true" />
+        <modelProperty Id="dd356791-8543-40f9-89db-ecd30a1beda8" name="QuantityPerUnit" column="QuantityPerUnit" length="0" />
+        <modelProperty Id="ff942c57-8dae-4351-9bb3-13b54ce75bab" name="UnitPrice" column="UnitPrice" length="0" />
+        <modelProperty Id="f9021670-dd97-4dde-a4ac-97fa35fc6106" name="UnitsInStock" column="UnitsInStock" columnType="Int16" length="0" />
+        <modelProperty Id="e657d751-8c13-4fa2-b141-71db863fd116" name="UnitsOnOrder" column="UnitsOnOrder" columnType="Int16" length="0" />
+        <modelProperty Id="d6b18379-a306-4fb4-b969-4b6c82b370d8" name="ReorderLevel" column="ReorderLevel" columnType="Int16" length="0" />
+        <modelProperty Id="97bc4b5d-7efa-4427-a6b7-ee132e594ac8" name="Discontinued" column="Discontinued" columnType="Boolean" length="0" notNull="true" />
+      </properties>
+    </modelClass>
+    <modelClass name="Region" schema="dbo" table="Region" baseClassName="SqlServerModel, IModel&lt;int&gt;">
+      <properties>
+        <modelProperty Id="15447f54-9d93-4c12-9a2b-05936b945c73" name="ID" column="RegionID" columnType="Int32" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="0bde1b6b-41ba-4e5e-b590-945147822b67" name="RegionDescription" column="RegionDescription" columnType="Char" length="0" notNull="true" />
+      </properties>
+    </modelClass>
+    <modelClass name="Shipper" schema="dbo" table="Shippers" baseClassName="SqlServerModel, IModel&lt;int&gt;">
+      <properties>
+        <modelProperty Id="99d15614-535c-4315-991d-ba3698b9f8d3" name="ID" column="ShipperID" columnType="Int32" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="9bf05d14-ff2a-4a65-b3e9-24008c08c629" name="CompanyName" column="CompanyName" length="0" notNull="true" />
+        <modelProperty Id="47af61ea-6359-44dc-9f9a-7840d959dc3b" name="Phone" column="Phone" length="0" />
+      </properties>
+    </modelClass>
+    <modelClass name="Supplier" schema="dbo" table="Suppliers" baseClassName="SqlServerModel, IModel&lt;int&gt;">
+      <properties>
+        <modelProperty Id="74cb5b5d-e7d4-476a-9d8f-5be2ea98747d" name="ID" column="SupplierID" columnType="Int32" length="0" notNull="true" keyType="PrimaryKey" />
+        <modelProperty Id="7f77f237-ef94-4d92-8ed2-f05bda133771" name="CompanyName" column="CompanyName" length="0" notNull="true" />
+        <modelProperty Id="a1f83f16-c47c-4900-9adc-a40d256c97de" name="ContactName" column="ContactName" length="0" />
+        <modelProperty Id="55b151ed-3699-4b6b-ad17-a31f4f48cd46" name="ContactTitle" column="ContactTitle" length="0" />
+        <modelProperty Id="619c676b-931e-418c-90a2-3d9cab913aa9" name="Address" column="Address" length="0" />
+        <modelProperty Id="7915088d-b749-4843-b7a8-da3321e243f9" name="City" column="City" length="0" />
+        <modelProperty Id="2242356b-06cd-48a0-a49e-7ee01823d61a" name="Region" column="Region" length="0" />
+        <modelProperty Id="4d87aa9c-d226-450b-9dab-fff82f714bd7" name="PostalCode" column="PostalCode" length="0" />
+        <modelProperty Id="97fdf17d-c13b-43f6-b143-cfae8b3d529f" name="Country" column="Country" length="0" />
+        <modelProperty Id="1722df49-b882-435d-b048-4d6cc790c828" name="Phone" column="Phone" length="0" />
+        <modelProperty Id="bc8603f3-f91b-4388-bd70-e8aef2a0349f" name="Fax" column="Fax" length="0" />
+        <modelProperty Id="a2d609fb-86af-4f0b-bb41-de44ab4328c9" name="HomePage" column="HomePage" columnType="StringClob" length="0" />
+      </properties>
+    </modelClass>
+  </classes>
+</model>

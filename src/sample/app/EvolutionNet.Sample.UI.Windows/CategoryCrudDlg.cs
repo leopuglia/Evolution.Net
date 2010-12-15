@@ -2,14 +2,13 @@
 
 namespace EvolutionNet.Sample.UI.Windows
 {
-	public partial class MainFrm : BaseFrmView
+	public partial class CategoryCrudDlg : BaseFrmView
 	{
-		public MainFrm()
+		public CategoryCrudDlg()
 		{
 			InitializeComponent();
 
-			baseUC = mainView1;
+			baseUC = categoryCrudView1;
 		}
-
 	}
 }

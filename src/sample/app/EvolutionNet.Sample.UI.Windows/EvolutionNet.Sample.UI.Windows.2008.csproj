@@ -70,10 +70,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\debug\3.5\NHibernate\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\debug\3.5\NHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -87,17 +92,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoriesCrudFrm.cs">
+    <Compile Include="CategoryCrudDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CategoriesCrudFrm.Designer.cs">
-      <DependentUpon>CategoriesCrudFrm.cs</DependentUpon>
+    <Compile Include="CategoryCrudDlg.Designer.cs">
+      <DependentUpon>CategoryCrudDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="CategoriesCrudView.cs">
+    <Compile Include="CategoryCrudView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CategoriesCrudView.Designer.cs">
-      <DependentUpon>CategoriesCrudView.cs</DependentUpon>
+    <Compile Include="CategoryCrudView.Designer.cs">
+      <DependentUpon>CategoryCrudView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryEditDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CategoryEditDlg.Designer.cs">
+      <DependentUpon>CategoryEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryEditView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CategoryEditView.Designer.cs">
+      <DependentUpon>CategoryEditView.cs</DependentUpon>
     </Compile>
     <Compile Include="MainFrm.cs">
       <SubType>Form</SubType>
@@ -113,11 +130,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CategoriesCrudFrm.resx">
-      <DependentUpon>CategoriesCrudFrm.cs</DependentUpon>
+    <EmbeddedResource Include="CategoryCrudDlg.resx">
+      <DependentUpon>CategoryCrudDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CategoriesCrudView.resx">
-      <DependentUpon>CategoriesCrudView.cs</DependentUpon>
+    <EmbeddedResource Include="CategoryCrudView.resx">
+      <DependentUpon>CategoryCrudView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoryEditDlg.resx">
+      <DependentUpon>CategoryEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoryEditView.resx">
+      <DependentUpon>CategoryEditView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainFrm.resx">
       <DependentUpon>MainFrm.cs</DependentUpon>
@@ -136,6 +159,7 @@
     </Compile>
     <None Include="App.config" />
     <None Include="App.config.template" />
+    <None Include="Properties\DataSources\EvolutionNet.Sample.Data.Definition.Category.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -95,9 +95,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\mvp\EvolutionNet.MVP.UI.Web\EvolutionNet.MVP.UI.Web.csproj">
+    <ProjectReference Include="..\..\..\mvp\EvolutionNet.MVP.UI.Web\EvolutionNet.MVP.UI.Web.2008.csproj">
       <Project>{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}</Project>
-      <Name>EvolutionNet.MVP.UI.Web</Name>
+      <Name>EvolutionNet.MVP.UI.Web.2008</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\mvp\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj">
       <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
