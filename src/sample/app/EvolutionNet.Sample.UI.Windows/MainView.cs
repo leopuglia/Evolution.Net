@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using EvolutionNet.MVP.UI.Windows;
+using EvolutionNet.MVP.View;
 using EvolutionNet.Sample.Core.View;
 using EvolutionNet.Sample.Presenter;
 
@@ -15,6 +16,13 @@ namespace EvolutionNet.Sample.UI.Windows
 			// Do not create the presenter on visual studio design time, because it causes error
 //			if (!IsVSDesigner)
 //				new MainPresenter(this);
+		}
+
+		private void MainView_Load(object sender, EventArgs e)
+		{
+			// Do not create the presenter on visual studio design time, because it causes error
+			if (!IsVSDesigner)
+				new MainPresenter(this);
 		}
 
 		public object AddMenuItem(string text, string name)
@@ -44,19 +52,22 @@ namespace EvolutionNet.Sample.UI.Windows
 			return menu;
 		}
 
-		private void MainView_LoadComplete(object sender, EventArgs e)
+		public void AddTabItemView(string text, IControlView controlView)
 		{
-			// Do not create the presenter on visual studio design time, because it causes error
-//			if (!IsVSDesigner)
-//				new MainPresenter(this);
+			TabPage tabPage = new TabPage(text);
+			tabPage.Padding = new Padding(3);
+			tabPage.UseVisualStyleBackColor = true;
+
+			tabPage.Controls.Add((Control)controlView);
+
+			tabControl1.TabPages.Add(tabPage);
+			tabPage.Focus();
 		}
 
-		private void MainView_Load(object sender, EventArgs e)
+		public void DeleteTabItem()
 		{
-			// Do not create the presenter on visual studio design time, because it causes error
-			if (!IsVSDesigner)
-				new MainPresenter(this);
+			if (tabControl1.SelectedTab != null)
+				tabControl1.TabPages.Remove(tabControl1.SelectedTab);
 		}
-
 	}
 }

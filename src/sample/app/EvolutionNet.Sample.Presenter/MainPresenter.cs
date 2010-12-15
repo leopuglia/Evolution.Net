@@ -10,12 +10,22 @@ namespace EvolutionNet.Sample.Presenter
 	{
 		public MainPresenter(IMainView view) : base(view)
 		{
-//			if (view is IWinControl)
-//			{
+			if (view is IWinControl)
+			{
+				var mnuFile = view.AddMenuItem("&File", "mnuFile");
+				view.AddMenuItem("&Remove tab", "mnuFileRemoveTab", mnuFile, mnuFileRemoveTab);
+				view.AddMenuItem("-", "", mnuFile);
+				view.AddMenuItem("E&xit", "mnuFileExit", mnuFile, mnuFileExitClick);
+
 				var mnuCategory = view.AddMenuItem("&Category", "mnuCategory");
-				view.AddMenuItem("&Show Dialog", "mnuCategoryShowDialog", mnuCategory, mnuCategoryShowDialogClick);
-				view.AddMenuItem("E&xit", "mnuExit", mnuExitClick);
-//			}
+				view.AddMenuItem("&Add tab", "mnuCategoryAddTab", mnuCategory, mnuCategoryAddTabClick);
+				view.AddMenuItem("&Show dialog...", "mnuCategoryShowDialog", mnuCategory, mnuCategoryShowDialogClick);
+			}
+		}
+
+		private void mnuFileRemoveTab(object sender, EventArgs e)
+		{
+			View.DeleteTabItem();
 		}
 
 		private void mnuCategoryShowDialogClick(object sender, EventArgs eventArgs)
@@ -24,7 +34,12 @@ namespace EvolutionNet.Sample.Presenter
 			View.RedirectHelper.ShowModalDialogView(view, View);
 		}
 
-		private void mnuExitClick(object sender, EventArgs eventArgs)
+		private void mnuCategoryAddTabClick(object sender, EventArgs eventArgs)
+		{
+			View.AddTabItemView("Category Tab", View.ControlHelper.CreateControlView<ICategoryCrudView>());
+		}
+
+		private void mnuFileExitClick(object sender, EventArgs eventArgs)
 		{
 			((IWinControl)View).Close();
 		}

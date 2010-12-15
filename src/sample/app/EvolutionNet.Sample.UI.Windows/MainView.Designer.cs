@@ -82,7 +82,6 @@
 			this.Controls.Add(this.menuStrip1);
 			this.Name = "MainView";
 			this.Load += new System.EventHandler(this.MainView_Load);
-			this.LoadComplete += new System.EventHandler(this.MainView_LoadComplete);
 			this.tabControl1.ResumeLayout(false);
 			this.tabCategory.ResumeLayout(false);
 			this.ResumeLayout(false);
