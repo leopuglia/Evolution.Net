@@ -1,7 +1,7 @@
 using System;
 using System.Web;
-using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.View;
+using EvolutionNet.Util.IoC;
 using EvolutionNet.Util.Singleton;
 
 namespace EvolutionNet.MVP.UI.Web

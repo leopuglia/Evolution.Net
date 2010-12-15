@@ -3,8 +3,8 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
-using EvolutionNet.MVP.IoC;
 using EvolutionNet.MVP.View;
+using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Web
 {

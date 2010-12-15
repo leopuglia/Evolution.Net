@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EvolutionNet.MVP.IoC
+namespace EvolutionNet.Util.IoC
 {
 	/// <summary>
 	/// Interface que define uma implementação de factory básica.

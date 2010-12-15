@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace EvolutionNet.Util
+namespace EvolutionNet.Util.Reflection
 {
 	/// <summary>
 	/// Classe estática com métodos utilitários para cópia de valores de propriedades comuns entre tipos diferentes.

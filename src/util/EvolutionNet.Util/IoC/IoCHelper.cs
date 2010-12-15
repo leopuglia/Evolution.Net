@@ -7,7 +7,7 @@ using System;
 using System.Reflection;
 using log4net;
 
-namespace EvolutionNet.MVP.IoC
+namespace EvolutionNet.Util.IoC
 {
 	/// <summary>
 	/// Classe estática de auxílio à criação de instâncias por Inversion Of Control (IOC).

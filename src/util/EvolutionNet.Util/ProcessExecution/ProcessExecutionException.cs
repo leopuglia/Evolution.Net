@@ -1,8 +1,8 @@
 using System;
 
-namespace EvolutionNet.MVP
+namespace EvolutionNet.Util.ProcessExecution
 {
-	public class ProcessExecutionException : MVPException
+	public class ProcessExecutionException : UtilException
 	{
 		public ProcessExecutionException(string message, Exception innerException) : base(message, innerException)
 		{

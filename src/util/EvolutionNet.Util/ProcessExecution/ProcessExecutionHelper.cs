@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using log4net;
 
-namespace EvolutionNet.MVP.Util
+namespace EvolutionNet.Util.ProcessExecution
 {
 	public abstract class ProcessExecutionHelper
 	{

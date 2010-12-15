@@ -4,7 +4,7 @@ using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using log4net;
 
-namespace EvolutionNet.MVP.IoC
+namespace EvolutionNet.Util.IoC
 {
 	/// <summary>
 	/// Classe que gerencia o acesso ao IOC usando o Castle Windsor.

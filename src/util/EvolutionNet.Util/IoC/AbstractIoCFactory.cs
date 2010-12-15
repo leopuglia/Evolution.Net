@@ -5,7 +5,7 @@
 
 using log4net;
 
-namespace EvolutionNet.MVP.IoC
+namespace EvolutionNet.Util.IoC
 {
 	public abstract class AbstractIoCFactory<T> where T : IFactory
 	{

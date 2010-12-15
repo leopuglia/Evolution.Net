@@ -4,7 +4,7 @@ namespace EvolutionNet.MVP.Configuration
 {
 	public static class BaseConfiguration
 	{
-		public static void SalvarConfiguracoes()
+		public static void SaveAppSettings()
 		{
 			System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 

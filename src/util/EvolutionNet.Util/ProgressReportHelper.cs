@@ -1,5 +1,5 @@
 
-namespace EvolutionNet.MVP.Util
+namespace EvolutionNet.Util
 {
 	/// <summary>
 	/// Classe utilitária para os eventos de progresso da requisição.

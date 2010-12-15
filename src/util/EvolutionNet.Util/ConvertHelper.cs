@@ -20,7 +20,7 @@ namespace EvolutionNet.Util
 							 System.Globalization.NumberStyles.HexNumber, null);
 		}
 
-		public static Color ColorFromHexadecimal(string hexa)
+		public static Color ColorFromHex(string hexa)
 		{
 			int i;
 			int j;
@@ -54,7 +54,7 @@ namespace EvolutionNet.Util
 			return Color.FromArgb(red, green, blue);
 		}
 
-		public static int ArgbFromHexadecimal(string hexa)
+		public static int ArgbFromHex(string hexa)
 		{
 			int red = HexToInt(hexa.Substring(1, 2));
 			int green = HexToInt(hexa.Substring(3, 2));
