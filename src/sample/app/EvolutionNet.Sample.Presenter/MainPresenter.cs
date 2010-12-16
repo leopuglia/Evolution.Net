@@ -12,14 +12,16 @@ namespace EvolutionNet.Sample.Presenter
 		{
 			if (view is IWinControl)
 			{
-				var mnuFile = view.AddMenuItem("&File", "mnuFile");
-				view.AddMenuItem("&Remove tab", "mnuFileRemoveTab", mnuFile, mnuFileRemoveTab);
-				view.AddMenuItem("-", "", mnuFile);
-				view.AddMenuItem("E&xit", "mnuFileExit", mnuFile, mnuFileExitClick);
+				var menuHelper = view.HelperFactory.MenuHelper;
 
-				var mnuCategory = view.AddMenuItem("&Category", "mnuCategory");
-				view.AddMenuItem("&Add tab", "mnuCategoryAddTab", mnuCategory, mnuCategoryAddTabClick);
-				view.AddMenuItem("&Show dialog...", "mnuCategoryShowDialog", mnuCategory, mnuCategoryShowDialogClick);
+				var mnuFile = menuHelper.AddMenuItem("&File", "mnuFile");
+				menuHelper.AddMenuItem("&Remove tab", "mnuFileRemoveTab", mnuFile, mnuFileRemoveTab);
+				menuHelper.AddMenuItem("-", "", mnuFile);
+				menuHelper.AddMenuItem("E&xit", "mnuFileExit", mnuFile, mnuFileExitClick);
+
+				var mnuCategory = menuHelper.AddMenuItem("&Category", "mnuCategory");
+				menuHelper.AddMenuItem("&Add tab", "mnuCategoryAddTab", mnuCategory, mnuCategoryAddTabClick);
+				menuHelper.AddMenuItem("&Show dialog...", "mnuCategoryShowDialog", mnuCategory, mnuCategoryShowDialogClick);
 			}
 		}
 
@@ -30,13 +32,14 @@ namespace EvolutionNet.Sample.Presenter
 
 		private void mnuCategoryShowDialogClick(object sender, EventArgs eventArgs)
 		{
-			ICategoryCrudView view = View.RedirectHelper.CreateModalDialogView<ICategoryCrudView>(View);
-			View.RedirectHelper.ShowModalDialogView(view, View);
+			ICategoryCrudView view = View.HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryCrudView>(View);
+			View.HelperFactory.RedirectHelper.ShowModalDialogView(view, View);
 		}
 
 		private void mnuCategoryAddTabClick(object sender, EventArgs eventArgs)
 		{
-			View.AddTabItemView("Category Tab", View.ControlHelper.CreateControlView<ICategoryCrudView>());
+			IControlHelper controlHelper = View.HelperFactory.GetControlHelper(View);
+			View.AddTabItemView("Category Tab", controlHelper.CreateControlView<ICategoryCrudView>());
 		}
 
 		private void mnuFileExitClick(object sender, EventArgs eventArgs)

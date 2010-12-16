@@ -145,6 +145,7 @@
   <castle>
     <components>
       <component id="FacadeFactoryImpl" service="EvolutionNet.MVP.Business.IBusinessFactory, EvolutionNet.MVP" type="EvolutionNet.Sample.Business.FacadeFactory, EvolutionNet.Sample.Business"/>
+      <component id="HelperFactoryImpl" service="EvolutionNet.MVP.View.IHelperFactory, EvolutionNet.MVP" type="EvolutionNet.MVP.UI.Web.WebHelperFactory, EvolutionNet.MVP.UI.Web"/>
     </components>
   </castle>
 

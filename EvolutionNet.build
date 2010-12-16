@@ -293,6 +293,9 @@
       </resources>
       <references>
         <include name="${imports.path}\log4net\log4net.dll" />
+        <include name="${imports.path}\castle\Castle.Core.dll" />
+        <include name="${imports.path}\castle\Castle.MicroKernel.dll" />
+        <include name="${imports.path}\castle\Castle.Windsor.dll" />
       </references>
     </csc>
   </target>
@@ -329,9 +332,11 @@
       <references>
         <include name="${imports.path}\castle\Castle.ActiveRecord.dll" />
         <include name="${imports.path}\castle\Castle.Components.Validator.dll" />
+<!--
         <include name="${imports.path}\castle\Castle.Core.dll" />
         <include name="${imports.path}\castle\Castle.MicroKernel.dll" />
         <include name="${imports.path}\castle\Castle.Windsor.dll" />
+-->
         <include name="${imports.path}\nhibernate\NHibernate.dll" />
         <include name="${imports.path}\log4net\log4net.dll" />
         <include name="${build.path.util}\${project.util}.dll" />

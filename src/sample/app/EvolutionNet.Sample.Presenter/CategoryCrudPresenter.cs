@@ -20,7 +20,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.MessageHelper.ShowErrorMessage("Error", "Could not initialize", ex.Message);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not initialize", ex.Message);
 			}
 		}
 
@@ -35,20 +35,23 @@ namespace EvolutionNet.Sample.Presenter
 			view.Cancel += view_Cancel;
 
 			DoFindAll();
-			BindGrid(!view.IsPostBack);
+			if (view is IWebControl && ((IWebControl)view).IsPostBack)
+				return;
+			
+			BindGrid();
 		}
 
 		#endregion
 
-        #region Métodos de Eventos
+		#region Métodos de Eventos
 
 /*
 		protected void view_AddNew(object sender, CrudEventArgs e)
 		{
 			ICategoryEditView categoryEditView =
-				View.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Facade.To.MainModel);
+				View.HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Facade.To.MainModel);
 
-			if (View.RedirectHelper.ShowModalDialogView(categoryEditView, View))
+			if (View.HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
 			{
 				Facade.To.MainModel = categoryEditView.Model;
 				view_Save(sender, e);
@@ -57,117 +60,116 @@ namespace EvolutionNet.Sample.Presenter
 */
 
 		protected void view_Save(object sender, CrudEventArgs e)
-        {
-            try
-            {
-                DoSave();
-                CleanViewData();
+		{
+			try
+			{
+				DoSave();
+				CleanViewData();
 
-                View.MessageHelper.ShowMessage("Success", "Values saved");
-            }
-            catch (Exception ex)
-            {
-//                View.ShowModalDialog();
-                View.MessageHelper.ShowErrorMessage("Error", "Error trying to save values", ex.Message);
-            }
-            finally
-            {
-                DoFindAll();
-                BindGrid(true);
-            }
-        }
+				View.HelperFactory.MessageHelper.ShowMessage("Success", "Values saved");
+			}
+			catch (Exception ex)
+			{
+//				View.ShowModalDialog();
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save values", ex.Message);
+			}
+			finally
+			{
+				DoFindAll();
+				BindGrid();
+			}
+		}
 
 		protected void view_Delete(object sender, CrudEventArgs e)
-        {
-            try
-            {
-                Facade.To.MainModel = Facade.To.List[e.RowIndex];
-                DoDelete();
+		{
+			try
+			{
+				Facade.To.MainModel = Facade.To.List[e.RowIndex];
+				DoDelete();
 
-                View.MessageHelper.ShowMessage("Success", "Values deleted");
-            }
-            catch (Exception ex)
-            {
-				View.MessageHelper.ShowErrorMessage("Error", "Error trying to delete values", ex.Message);
-            }
-            finally
-            {
-                CleanViewData();
-                DoFindAll();
-                BindGrid(true);
-            }
-        }
+				View.HelperFactory.MessageHelper.ShowMessage("Success", "Values deleted");
+			}
+			catch (Exception ex)
+			{
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete values", ex.Message);
+			}
+			finally
+			{
+				CleanViewData();
+				DoFindAll();
+				BindGrid();
+			}
+		}
 
 		protected void view_Edit(object sender, CrudEventArgs e)
-        {
-            try
-            {
+		{
+			try
+			{
 				Facade.To.MainModel = e.RowIndex == -1 ? new Category() : Facade.To.List[e.RowIndex];
 
 				ICategoryEditView categoryEditView =
-					View.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Facade.To.MainModel);
+					View.HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Facade.To.MainModel);
 
-				if (View.RedirectHelper.ShowModalDialogView(categoryEditView, View))
+				if (View.HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
 				{
 					Facade.To.MainModel = categoryEditView.Model;
 					view_Save(sender, e);
 				}
 			}
-            catch (Exception ex)
-            {
-				View.MessageHelper.ShowErrorMessage("Error", "Error trying to edit values", ex.Message);
-            }
-        }
+			catch (Exception ex)
+			{
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit values", ex.Message);
+			}
+		}
 
 		protected void view_Cancel(object sender, CrudEventArgs e)
-        {
-            try
-            {
-                CleanViewData();
-//                View.HideModalDialog();
-            }
-            catch (Exception ex)
-            {
-				View.MessageHelper.ShowErrorMessage("Error", "Error trying to clean values", ex.Message);
-            }
-        }
+		{
+			try
+			{
+				CleanViewData();
+//				View.HideModalDialog();
+			}
+			catch (Exception ex)
+			{
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to clean values", ex.Message);
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Métodos Locais
+		#region Métodos Locais
 
-        protected virtual void DoSave()
-        {
-            Facade.Save();
-        }
+		protected virtual void DoSave()
+		{
+			Facade.Save();
+		}
 
-        protected virtual void DoDelete()
-        {
-            Facade.Delete();
-        }
+		protected virtual void DoDelete()
+		{
+			Facade.Delete();
+		}
 
-        protected virtual void DoFindAll()
-        {
-            Facade.FindAll();
+		protected virtual void DoFindAll()
+		{
+			Facade.FindAll();
 
-//        	list = new SortableBindingList<Category>(Facade.To.List);
-        }
+//			list = new SortableBindingList<Category>(Facade.To.List);
+		}
 
-        protected virtual void BindGrid(bool bindGrid)
-        {
-			if (bindGrid)
-				View.GridDataSource = Facade.To.List;
-//                View.GridDataSource = list;
-        }
+		protected virtual void BindGrid()
+		{
+			View.GridDataSource = Facade.To.List;
+//			View.GridDataSource = list;
+		}
 
-        protected virtual void CleanViewData()
-        {
-//            View.Nome = string.Empty;
-//            View.Descricao = string.Empty;
-//            View.RowIndex = -1;
-        }
+		protected virtual void CleanViewData()
+		{
+//			View.Nome = string.Empty;
+//			View.Descricao = string.Empty;
+//			View.RowIndex = -1;
+		}
 
-        #endregion
+		#endregion
 
 	}
 }

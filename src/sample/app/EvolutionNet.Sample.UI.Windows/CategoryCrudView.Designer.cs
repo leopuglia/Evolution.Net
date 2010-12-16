@@ -56,12 +56,12 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
-            this.categoryNameDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn,
-            this.pictureDataGridViewImageColumn,
-            this.productsDataGridViewTextBoxColumn,
-            this.pictureImageDataGridViewImageColumn});
+			this.iDDataGridViewTextBoxColumn,
+			this.categoryNameDataGridViewTextBoxColumn,
+			this.descriptionDataGridViewTextBoxColumn,
+			this.pictureDataGridViewImageColumn,
+			this.productsDataGridViewTextBoxColumn,
+			this.pictureImageDataGridViewImageColumn});
 			this.dataGridView1.DataSource = this.bindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 33);
 			this.dataGridView1.MultiSelect = false;
