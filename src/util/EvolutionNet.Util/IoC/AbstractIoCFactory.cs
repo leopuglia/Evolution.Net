@@ -3,6 +3,7 @@
  * Created: quinta-feira, 6 de dezembro de 2007
  */
 
+using System;
 using log4net;
 
 namespace EvolutionNet.Util.IoC
@@ -13,7 +14,20 @@ namespace EvolutionNet.Util.IoC
 
 		public static T Instance
 		{
-			get { return Nested.instance; }
+			get
+			{
+				try
+				{
+					return Nested.instance;
+				}
+				catch (Exception ex)
+				{
+					throw new UtilIoCException(
+						string.Format(
+							"Error creating the Factory instance of type ({0}) via IoC. See if the factory is set on the config, in the <castle><components> section.",
+							typeof(T)), ex);
+				}
+			}
 		}
 
 		private class Nested

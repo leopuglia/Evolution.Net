@@ -21,13 +21,14 @@ namespace EvolutionNet.Util.Singleton
 
 		private class Nested
 		{
+			internal static readonly T instance;
+
 			// Explicit static constructor to tell C# compiler
 			// not to mark type as beforefieldinit
 			static Nested()
 			{
+				instance = CreateLocalInstance();
 			}
-
-			internal static readonly T instance = CreateLocalInstance();
 
 			internal static T CreateLocalInstance()
 			{
