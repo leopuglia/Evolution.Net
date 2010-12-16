@@ -63,10 +63,11 @@
     <Compile Include="BaseWebServiceView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MessageUC.cs">
+    <Compile Include="BaseMessageUC.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebControlHelper.cs" />
+    <Compile Include="WebHelperFactory.cs" />
     <Compile Include="WebMessageHelper.cs" />
     <Compile Include="WebPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

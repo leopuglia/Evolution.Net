@@ -1,39 +1,17 @@
-﻿using System;
-using System.Web.UI;
+﻿using System.Web.UI;
 using EvolutionNet.MVP.View;
+using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Web
 {
-	public class BasePageView : Page, IControlView
+	public class BasePageView : Page, IControlView, IWebControl
 	{
-		private IControlHelper controlHelper;
-
 		#region Propriedades
 
-		public IPathHelper PathHelper
+		public IHelperFactory HelperFactory
 		{
-			get { return WebPathHelper.Instance; }
+			get { return AbstractIoCFactory<IHelperFactory>.Instance; }
 		}
-
-		public IControlHelper ControlHelper
-		{
-			get { return controlHelper ?? (controlHelper = new WebControlHelper(this)); }
-		}
-
-		public IMessageHelper MessageHelper
-		{
-			get { return WebMessageHelper.Instance; }
-		}
-
-		public IRedirectHelper RedirectHelper
-		{
-			get { return WebRedirectHelper.Instance; }
-		}
-
-//		public IControlView ParentView
-//		{
-//			get { return (IControlView)Parent; }
-//		}
 
 		#endregion
 

@@ -87,7 +87,9 @@
     <Compile Include="SingleInstance\SingleInstanceException.cs" />
     <Compile Include="SingleInstance\SingleInstanceProxy.cs" />
     <Compile Include="SingleInstance\SingleInstanceTracker.cs" />
+    <Compile Include="WinHelperFactory.cs" />
     <Compile Include="WinControlHelper.cs" />
+    <Compile Include="WinMenuHelper.cs" />
     <Compile Include="WinMessageHelper.cs" />
     <Compile Include="WinPathHelper.cs" />
     <Compile Include="WinRedirectHelper.cs" />

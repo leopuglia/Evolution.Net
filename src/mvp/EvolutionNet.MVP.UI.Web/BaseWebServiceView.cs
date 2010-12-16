@@ -1,13 +1,14 @@
 using System.Web.Services;
 using EvolutionNet.MVP.View;
+using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Web
 {
 	public class BaseWebServiceView : WebService, IView
 	{
-		public IPathHelper PathHelper
+		public IHelperFactory HelperFactory
 		{
-			get { return WebPathHelper.Instance; }
+			get { return AbstractIoCFactory<IHelperFactory>.Instance; }
 		}
 
 /*

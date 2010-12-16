@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.UI;
+﻿using System.Web.UI;
 using System.Web.UI.WebControls;
 using EvolutionNet.MVP.View;
 
@@ -24,7 +23,7 @@ namespace EvolutionNet.MVP.UI.Web
 			}
 		}
 
-		public virtual event CrudEventHandler AddNew;
+//		public virtual event CrudEventHandler AddNew;
 		public virtual event CrudEventHandler Save;
 		public virtual event CrudEventHandler Delete;
 		public virtual event CrudEventHandler Edit;

@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.Util.IoC;
@@ -12,24 +11,52 @@ namespace EvolutionNet.MVP.UI.Windows
 		private const string TypeNameDest = "{0}View";
 		private readonly ContainerControl parentView;
 
+		#region Constructor
+
 		public WinControlHelper(IControlView view)
 		{
 			parentView = (ContainerControl)view;
 		}
 
-/*
-		public void Initialize(IControlView view)
-		{
-			parentView = (ContainerControl)view;
-		}
-*/
+		#endregion
 
-		public T CreateControlView<T>() where T : IControlView
+		#region Thread Safe "Singleton"
+
+//		public static T Instance
+//		{
+//			get { return Nested.instance; }
+//		}
+
+		// This is not exactly a singleton, but has to be created from a static method
+		public static WinControlHelper CreateInstance(IControlView view)
+		{
+			return Nested.CreateLocalInstance(view);
+		}
+
+		private class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static WinControlHelper CreateLocalInstance(IControlView view)
+			{
+				return new WinControlHelper(view);
+			}
+		}
+
+		#endregion
+
+		#region IControlHelper Methods
+
+		public virtual T CreateControlView<T>() where T : IControlView
 		{
 			return CreateControlView<T>(null);
 		}
 
-		public T CreateControlView<T>(params object[] args) where T : IControlView
+		public virtual T CreateControlView<T>(params object[] args) where T : IControlView
 		{
 			return (T)IoCHelper.InstantiateObj(TypeNameSource, TypeNameSourceExclude, typeof(T),
 				TypeNameDest, "", parentView.GetType(), args);
@@ -37,47 +64,47 @@ namespace EvolutionNet.MVP.UI.Windows
 //			return (T)Activator.CreateInstance(typeof(T), args);
 		}
 
-		public void AddControlView(IControlView view)
+		public virtual void AddControlView(IControlView view)
 		{
 			parentView.Controls.Add((Control)view);
 		}
 
-		public void AddControlView(IControlView view, object controlCollection)
+		public virtual void AddControlView(IControlView view, object controlCollection)
 		{
 			((Control.ControlCollection)controlCollection).Add((Control)view);
 		}
 
-		public void AddControlViewAt(int index, IControlView view)
+		public virtual void AddControlViewAt(int index, IControlView view)
 		{
 			parentView.Controls.Add((Control)view);
 		}
 
-		public void AddControlViewAt(int index, IControlView view, object controlCollection)
+		public virtual void AddControlViewAt(int index, IControlView view, object controlCollection)
 		{
 			((Control.ControlCollection)controlCollection).Add((Control)view);
 		}
 
-		public void RemoveControlView(IControlView view)
+		public virtual void RemoveControlView(IControlView view)
 		{
 			parentView.Controls.Remove((Control)view);
 		}
 
-		public void RemoveControlView(IControlView view, object controlCollection)
+		public virtual void RemoveControlView(IControlView view, object controlCollection)
 		{
 			((Control.ControlCollection)controlCollection).Remove((Control)view);
 		}
 
-		public void RemoveControlViewAt(int index)
+		public virtual void RemoveControlViewAt(int index)
 		{
 			parentView.Controls.RemoveAt(index);
 		}
 
-		public void RemoveControlViewAt(int index, object controlCollection)
+		public virtual void RemoveControlViewAt(int index, object controlCollection)
 		{
 			((Control.ControlCollection)controlCollection).RemoveAt(index);
 		}
 
-		public T GetControlView<T>(object sender) where T : IControlView
+		public virtual T GetControlView<T>(object sender) where T : IControlView
 		{
 			while (!(sender is T))
 			{
@@ -87,10 +114,15 @@ namespace EvolutionNet.MVP.UI.Windows
 			return (T)sender;
 		}
 
-		public T FindControlView<T>(IControlView view) where T : IControlView
+		public virtual T FindControlView<T>(IControlView view) where T : IControlView
 		{
 			return FindControl<T>((Control)view);
 		}
+
+
+		#endregion
+
+		#region Static Methods
 
 		public static T FindControl<T>(Control control)
 		{
@@ -101,11 +133,13 @@ namespace EvolutionNet.MVP.UI.Windows
 					return (T)child;
 
 				findControl = FindControl<T>(child as Control);
-				if (!findControl.Equals(default(T)))
+				if (! findControl.Equals(default(T)))
 					return findControl;
 			}
 			return findControl;
 		}
+
+		#endregion
 
 	}
 }

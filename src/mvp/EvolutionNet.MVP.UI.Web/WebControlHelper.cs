@@ -15,70 +15,97 @@ namespace EvolutionNet.MVP.UI.Web
 		private const string TypeNameDest = "{0}View.ascx";
 		private readonly TemplateControl parentView;
 
-		public WebControlHelper(IControlView view)
+		#region Constructor
+
+		private WebControlHelper(IControlView view)
 		{
 			parentView = (TemplateControl)view;
 		}
 
-/*
-		public void Initialize(IControlView view)
-		{
-			parentView = (TemplateControl)view;
-		}
-*/
+		#endregion
 
-		public T CreateControlView<T>() where T : IControlView
+		#region Thread Safe Singleton
+
+//		public static T Instance
+//		{
+//			get { return Nested.instance; }
+//		}
+
+		public static WebControlHelper CreateInstance(IControlView view)
+		{
+			return Nested.CreateLocalInstance(view);
+		}
+
+		private class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static WebControlHelper CreateLocalInstance(IControlView view)
+			{
+				return new WebControlHelper(view);
+			}
+		}
+
+		#endregion
+
+		#region IControlHelper Methods
+
+		public virtual T CreateControlView<T>() where T : IControlView
 		{
 			return CreateControlView<T>(null);
 		}
 
-		public T CreateControlView<T>(params object[] args) where T : IControlView
+		public virtual T CreateControlView<T>(params object[] args) where T : IControlView
 		{
 			return (T)(object)parentView.LoadControl(IoCHelper.GetControlVirtualPath(
 				TypeNameSource, TypeNameSourceExclude, typeof(T), TypeNameDest, null));
 		}
 
-		public void AddControlView(IControlView view)
+		public virtual void AddControlView(IControlView view)
 		{
 			parentView.Controls.Add((Control)view);
 		}
 
-		public void AddControlView(IControlView view, object controlCollection)
+		public virtual void AddControlView(IControlView view, object controlCollection)
 		{
 			((ControlCollection)controlCollection).Add((Control)view);
 		}
 
-		public void AddControlViewAt(int index, IControlView view)
+		public virtual void AddControlViewAt(int index, IControlView view)
 		{
 			parentView.Controls.AddAt(index, (Control)view);
 		}
 
-		public void AddControlViewAt(int index, IControlView view, object controlCollection)
+		public virtual void AddControlViewAt(int index, IControlView view, object controlCollection)
 		{
 			((ControlCollection)controlCollection).AddAt(index, (Control)view);
 		}
 
-		public void RemoveControlView(IControlView view)
+		public virtual void RemoveControlView(IControlView view)
 		{
 			parentView.Controls.Remove((Control)view);
 		}
 
-		public void RemoveControlView(IControlView view, object controlCollection)
+		public virtual void RemoveControlView(IControlView view, object controlCollection)
 		{
 			((ControlCollection)controlCollection).Remove((Control)view);
 		}
 
-		public void RemoveControlViewAt(int index)
+		public virtual void RemoveControlViewAt(int index)
 		{
 			parentView.Controls.RemoveAt(index);
 		}
 
-		public void RemoveControlViewAt(int index, object controlCollection)
+		public virtual void RemoveControlViewAt(int index, object controlCollection)
 		{
 			((ControlCollection)controlCollection).RemoveAt(index);
 		}
 
-		public T GetControlView<T>(object sender) where T : IControlView
+		public virtual T GetControlView<T>(object sender) where T : IControlView
 		{
 			while (!(sender is T))
 			{
@@ -88,10 +115,17 @@ namespace EvolutionNet.MVP.UI.Web
 			return (T)sender;
 		}
 
-		public T FindControlView<T>(IControlView view) where T : IControlView
+		public virtual T FindControlView<T>(IControlView view) where T : IControlView
 		{
 			return FindControl<T>((Control) view);
 		}
+
+
+		#endregion
+
+		#region Static Methods
+
+		#region FindControl<T>
 
 		public static T FindControl<T>(Control control)
 		{
@@ -101,12 +135,16 @@ namespace EvolutionNet.MVP.UI.Web
 				if (child is T)
 					return (T)child;
 
-				findControl = FindControl<T>(child as Control);
-				if (! findControl.Equals(default(T)))
+				if (child is Control)
+					findControl = FindControl<T>((Control)child);
+
+				if (findControl != null && ! findControl.Equals(default(T)))
 					return findControl;
 			}
 			return findControl;
 		}
+
+		#endregion
 
 		#region GenerateControlHtml
 
@@ -171,6 +209,8 @@ namespace EvolutionNet.MVP.UI.Web
 
 			return html;
 		}
+
+		#endregion
 
 		#endregion
 

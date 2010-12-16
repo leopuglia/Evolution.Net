@@ -1,5 +1,6 @@
 using System.Web;
 using EvolutionNet.MVP.View;
+using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Web
 {
@@ -8,9 +9,9 @@ namespace EvolutionNet.MVP.UI.Web
 		public abstract void ProcessRequest(HttpContext context);
 		public abstract bool IsReusable { get; }
 
-		public IPathHelper PathHelper
+		public IHelperFactory HelperFactory
 		{
-			get { return WebPathHelper.Instance; }
+			get { return AbstractIoCFactory<IHelperFactory>.Instance; }
 		}
 
 	}

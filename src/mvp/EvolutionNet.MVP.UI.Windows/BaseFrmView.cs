@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
+using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
@@ -9,8 +10,7 @@ namespace EvolutionNet.MVP.UI.Windows
 	{
 		#region Variáveis Locais
 
-		private IControlHelper controlHelper;
-		private bool IsInitialized;
+		private bool isInitialized;
 		protected BaseUCView baseUC;
 //		protected BaseMessageUC messageUC;
 
@@ -25,29 +25,9 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#region Propriedades Públicas
 
-		public IPathHelper PathHelper
+		public IHelperFactory HelperFactory
 		{
-			get { return WinPathHelper.Instance; }
-		}
-
-		public IControlHelper ControlHelper
-		{
-			get { return controlHelper ?? (controlHelper = new WinControlHelper(this)); }
-		}
-
-		public IMessageHelper MessageHelper
-		{
-			get { return WinMessageHelper.Instance; }
-		}
-
-		public IRedirectHelper RedirectHelper
-		{
-			get { return WinRedirectHelper.Instance; }
-		}
-
-		public IControlView ParentView
-		{
-			get { return (IControlView)Parent; }
+			get { return AbstractIoCFactory<IHelperFactory>.Instance; }
 		}
 
 		#endregion
@@ -73,9 +53,9 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		private void BaseFrm_Activated(object sender, EventArgs e)
 		{
-			if (!IsInitialized)
+			if (!isInitialized)
 			{
-				IsInitialized = true;
+				isInitialized = true;
 
 				if (LoadComplete != null)
 					LoadComplete(this, e);

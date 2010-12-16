@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.UI.Windows.Common;
+using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
@@ -17,7 +18,6 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#region Variáveis Locais
 
-		private IControlHelper controlHelper;
 		private DoWorkDelegate doWork;
 		private WorkerCompletedDelegate workerCompleted;
 		private bool doWorkAdded;
@@ -41,30 +41,10 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#region Propriedades Publicas
 
-		public IPathHelper PathHelper
+		public IHelperFactory HelperFactory
 		{
-			get { return WinPathHelper.Instance; }
+			get { return AbstractIoCFactory<IHelperFactory>.Instance; }
 		}
-
-		public IControlHelper ControlHelper
-		{
-			get { return controlHelper ?? (controlHelper = new WinControlHelper(this)); }
-		}
-
-		public IMessageHelper MessageHelper
-		{
-			get { return WinMessageHelper.Instance; }
-		}
-
-		public IRedirectHelper RedirectHelper
-		{
-			get { return WinRedirectHelper.Instance; }
-		}
-
-//		public IControlView ParentView
-//		{
-//			get { return (IControlView)Parent; }
-//		}
 
 		#endregion
 
@@ -164,8 +144,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 			if (e.Cancelled && workerEnabledOnLoad)
 			{
-				if (ParentForm != null)
-					ParentForm.Close();
+				Close();
 			}
 
 			else if (e.Error != null)
@@ -173,7 +152,7 @@ namespace EvolutionNet.MVP.UI.Windows
 				MessageBox.Show(this, e.Error.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error,
 								MessageBoxDefaultButton.Button1);
 				if (workerEnabledOnLoad)
-					if (ParentForm != null) ParentForm.Close();
+					Close();
 			}
 			else
 			{
