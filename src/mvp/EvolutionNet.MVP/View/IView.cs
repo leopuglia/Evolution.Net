@@ -12,7 +12,8 @@ namespace EvolutionNet.MVP.View
 	/// </summary>
 	public interface IView
 	{
-		IPathHelper PathHelper { get; }
+		IHelperFactory HelperFactory { get; }
+//		IPathHelper PathHelper { get; }
 //		IControlHelper ControlHelper { get; }
 //		IMessageHelper MessageHelper { get; }
 

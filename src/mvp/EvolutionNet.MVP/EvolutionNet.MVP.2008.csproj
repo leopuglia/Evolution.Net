@@ -112,13 +112,17 @@
     <Compile Include="Presenter\BasePresenter.cs" />
     <Compile Include="Presenter\IPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\IHelperFactory.cs" />
+    <Compile Include="View\CrudEventArgs.cs" />
     <Compile Include="View\IControlHelper.cs" />
     <Compile Include="View\ICrudView.cs" />
+    <Compile Include="View\IMenuHelper.cs" />
     <Compile Include="View\IMessageHelper.cs" />
     <Compile Include="View\IPathHelper.cs" />
     <Compile Include="View\IRedirectHelper.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\IControlView.cs" />
+    <Compile Include="View\IWebControl.cs" />
     <Compile Include="View\IWinControl.cs" />
   </ItemGroup>
   <ItemGroup>

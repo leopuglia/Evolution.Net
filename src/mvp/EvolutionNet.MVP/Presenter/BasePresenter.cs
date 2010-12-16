@@ -32,9 +32,9 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region Propriedades Públicas
 
-		public IPathHelper PathHelper
+		public IHelperFactory HelperFactory
 		{
-			get { return View.PathHelper; }
+			get { return View.HelperFactory; }
 		}
 		
 		#endregion
