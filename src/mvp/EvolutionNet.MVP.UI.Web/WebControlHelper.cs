@@ -24,7 +24,7 @@ namespace EvolutionNet.MVP.UI.Web
 
 		#endregion
 
-		#region Thread Safe Singleton
+		#region Thread Safe "Singleton"
 
 //		public static T Instance
 //		{
@@ -120,6 +120,10 @@ namespace EvolutionNet.MVP.UI.Web
 			return FindControl<T>((Control) view);
 		}
 
+		public virtual object FindControlByNameOrID(IControlView view, string name, bool searchAllChildren)
+		{
+			return FindControlByNameOrID((Control)view, name, searchAllChildren);
+		}
 
 		#endregion
 
@@ -139,6 +143,23 @@ namespace EvolutionNet.MVP.UI.Web
 					findControl = FindControl<T>((Control)child);
 
 				if (findControl != null && ! findControl.Equals(default(T)))
+					return findControl;
+			}
+			return findControl;
+		}
+
+		public static object FindControlByNameOrID(Control control, string name, bool searchAllChildren)
+		{
+			object findControl = null;
+			foreach (Control child in control.Controls)
+			{
+				if (child.ID == name)
+					return child;
+
+				if (searchAllChildren)
+					findControl = FindControlByNameOrID(child, name, true);
+
+				if (findControl != null)
 					return findControl;
 			}
 			return findControl;

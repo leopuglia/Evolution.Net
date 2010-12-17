@@ -1,4 +1,3 @@
-using System;
 using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.UI.Windows
@@ -27,7 +26,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		public IMenuHelper MenuHelper
 		{
-			get { throw new NotImplementedException(); }
+			get { return WinMenuHelper.Instance; }
 		}
 	}
 }

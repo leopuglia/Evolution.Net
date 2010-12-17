@@ -19,5 +19,6 @@ namespace EvolutionNet.MVP.View
 		T GetControlView<T>(object sender) where T : IControlView;
 //		T GetControlView<T>(object sender, object controlCollection) where T : IControlView;
 		T FindControlView<T>(IControlView view) where T : IControlView;
+		object FindControlByNameOrID(IControlView view, string name, bool searchAllChildren);
 	}
 }

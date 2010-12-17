@@ -1,3 +1,4 @@
+using System;
 using EvolutionNet.MVP.View;
 using EvolutionNet.Util.Singleton;
 
@@ -17,9 +18,9 @@ namespace EvolutionNet.MVP.UI.Web
 			messageUC.ShowMessage(caption, message);
 		}
 
-		public void ShowErrorMessage(string caption, string message, string exceptionMessage)
+		public void ShowErrorMessage(string caption, string message, Exception exception)
 		{
-			messageUC.ShowErrorMessage(caption, message, exceptionMessage);
+			messageUC.ShowErrorMessage(caption, message, exception);
 		}
 	}
 }

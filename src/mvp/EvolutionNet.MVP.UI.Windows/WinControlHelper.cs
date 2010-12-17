@@ -119,6 +119,10 @@ namespace EvolutionNet.MVP.UI.Windows
 			return FindControl<T>((Control)view);
 		}
 
+		public virtual object FindControlByNameOrID(IControlView view, string name, bool searchAllChildren)
+		{
+			return ((Control)view).Controls.Find(name, searchAllChildren);
+		}
 
 		#endregion
 
@@ -132,8 +136,10 @@ namespace EvolutionNet.MVP.UI.Windows
 				if (child is T)
 					return (T)child;
 
-				findControl = FindControl<T>(child as Control);
-				if (! findControl.Equals(default(T)))
+				if (child is Control)
+					findControl = FindControl<T>((Control)child);
+
+				if (findControl != null && !findControl.Equals(default(T)))
 					return findControl;
 			}
 			return findControl;
