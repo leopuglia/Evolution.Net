@@ -20,7 +20,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not initialize", ex.Message);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not initialize", ex);
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace EvolutionNet.Sample.Presenter
 			catch (Exception ex)
 			{
 //				View.ShowModalDialog();
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save values", ex.Message);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save values", ex);
 			}
 			finally
 			{
@@ -91,7 +91,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete values", ex.Message);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete values", ex);
 			}
 			finally
 			{
@@ -118,7 +118,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit values", ex.Message);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit values", ex);
 			}
 		}
 
@@ -131,7 +131,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to clean values", ex.Message);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to clean values", ex);
 			}
 		}
 
