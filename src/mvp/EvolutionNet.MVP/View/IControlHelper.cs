@@ -4,6 +4,8 @@ namespace EvolutionNet.MVP.View
 	{
 //		void Initialize(IControlView view);
 
+		void Clear();
+		void Clear(object controlCollection);
 		T CreateControlView<T>() where T : IControlView;
 //		T CreateControlView<T>(object controlCollection) where T : IControlView;
 		T CreateControlView<T>(params object[] args) where T : IControlView;

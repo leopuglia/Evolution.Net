@@ -51,6 +51,16 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#region IControlHelper Methods
 
+		public virtual void Clear()
+		{
+			parentView.Controls.Clear();
+		}
+
+		public virtual void Clear(object controlCollection)
+		{
+			((Control.ControlCollection)controlCollection).Clear();
+		}
+
 		public virtual T CreateControlView<T>() where T : IControlView
 		{
 			return CreateControlView<T>(null);
