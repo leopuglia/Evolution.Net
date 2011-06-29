@@ -38,11 +38,11 @@ namespace EvolutionNet.Sample.Presenter
 			menuHelper.AddMenuItem("&Show dialog...", "mnuCategoryShowDialog", mnuCategory, mnuCategoryShowDialogClick);
 		}
 
-		private void mnuFileRemoveTab(object sender, EventArgs e)
+		protected void mnuFileRemoveTab(object sender, EventArgs e)
 		{
 			try
 			{
-				View.DeleteTabItem();
+				View.DeleteTabPage();
 			}
 			catch (Exception ex)
 			{
@@ -50,7 +50,20 @@ namespace EvolutionNet.Sample.Presenter
 			}
 		}
 
-		private void mnuCategoryShowDialogClick(object sender, EventArgs eventArgs)
+		protected void mnuCategoryAddTabClick(object sender, EventArgs e)
+		{
+			try
+			{
+				IControlHelper controlHelper = View.HelperFactory.GetControlHelper(View);
+				View.AddTabPageView("Category Tab", controlHelper.CreateControlView<ICategoryCrudView>());
+			}
+			catch (Exception ex)
+			{
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not add tab", ex);
+			}
+		}
+
+		protected void mnuCategoryShowDialogClick(object sender, EventArgs e)
 		{
 			try
 			{
@@ -63,20 +76,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 		}
 
-		private void mnuCategoryAddTabClick(object sender, EventArgs eventArgs)
-		{
-			try
-			{
-				IControlHelper controlHelper = View.HelperFactory.GetControlHelper(View);
-				View.AddTabItemView("Category Tab", controlHelper.CreateControlView<ICategoryCrudView>());
-			}
-			catch (Exception ex)
-			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not add tab", ex);
-			}
-		}
-
-		private void mnuFileExitClick(object sender, EventArgs eventArgs)
+		protected void mnuFileExitClick(object sender, EventArgs e)
 		{
 			try
 			{

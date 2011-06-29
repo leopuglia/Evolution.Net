@@ -4,7 +4,7 @@ namespace EvolutionNet.Sample.Core.View
 {
 	public interface IMainView : IControlView
 	{
-		void AddTabItemView(string text, IControlView controlView);
-		void DeleteTabItem();
+		void AddTabPageView(string text, IControlView controlView);
+		void DeleteTabPage();
 	}
 }

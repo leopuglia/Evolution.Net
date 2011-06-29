@@ -25,7 +25,7 @@ namespace EvolutionNet.Sample.UI.Windows
 				new MainPresenter(this);
 		}
 
-		public void AddTabItemView(string text, IControlView controlView)
+		public void AddTabPageView(string text, IControlView controlView)
 		{
 			TabPage tabPage = new TabPage(text);
 			tabPage.Padding = new Padding(3);
@@ -37,7 +37,7 @@ namespace EvolutionNet.Sample.UI.Windows
 			tabPage.Focus();
 		}
 
-		public void DeleteTabItem()
+		public void DeleteTabPage()
 		{
 			if (tabControl1.SelectedTab != null)
 				tabControl1.TabPages.Remove(tabControl1.SelectedTab);
