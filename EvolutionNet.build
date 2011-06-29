@@ -177,7 +177,7 @@
 
   <!-- ****** Target: convert-assembly-info ****** -->
   <target name="convert-assemblyinfo">
-    <copy file="src\AssemblyInfo.template" tofile="${assemblyinfo.path}\AssemblyInfo.cs" overwrite="true">
+    <copy file="src\${assemblyinfo.template}" tofile="${assemblyinfo.path}\AssemblyInfo.cs" overwrite="true">
       <filterchain>
         <replacetokens>
           <token key="ASSEMBLY_TITLE" value="${assemblyinfo.title}" />
@@ -192,72 +192,84 @@
   <!-- ****** Target: generate-assembly-info ****** -->
   <target name="generate-assemblyinfo">
     <!-- ****** EvolutionNet.Util ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfoUtil.template" />
     <property name="assemblyinfo.title" value="${project.util}" />
     <property name="assemblyinfo.path" value="${src.path.util}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Util Libraries ${version.util}" />
     <property name="assemblyinfo.version" value="${version.util}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.MVP ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.mvp}" />
     <property name="assemblyinfo.path" value="${src.path.mvp}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet MVP Libraries ${version.mvp}" />
     <property name="assemblyinfo.version" value="${version.mvp}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.MVP.UI.Web ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.mvp.web}" />
     <property name="assemblyinfo.path" value="${src.path.mvp}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet MVP Libraries ${version.mvp}" />
     <property name="assemblyinfo.version" value="${version.mvp}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.MVP.UI.Windows ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.mvp.win}" />
     <property name="assemblyinfo.path" value="${src.path.mvp}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet MVP Libraries ${version.mvp}" />
     <property name="assemblyinfo.version" value="${version.mvp}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.Data.Definition ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.data.definition}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
     <property name="assemblyinfo.version" value="${version.sample}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.Core ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.core}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
     <property name="assemblyinfo.version" value="${version.sample}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.Data.Access ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.data.access}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
     <property name="assemblyinfo.version" value="${version.sample}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.Business ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.business}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
     <property name="assemblyinfo.version" value="${version.sample}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.Presenter ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.presenter}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Libraries ${version.sample}" />
     <property name="assemblyinfo.version" value="${version.sample}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.UI.Reports ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.reports}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Reports ${version.sample}" />
     <property name="assemblyinfo.version" value="${version.sample}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.UI.Web ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.web}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Web Application ${version.sample}" />
     <property name="assemblyinfo.version" value="${version.sample}" />
     <call target="convert-assemblyinfo" />
     <!-- ****** EvolutionNet.Sample.UI.Windows ****** -->
+    <property name="assemblyinfo.template" value="AssemblyInfo.template" />
     <property name="assemblyinfo.title" value="${project.sample.win}" />
     <property name="assemblyinfo.path" value="${src.path.sample}\${assemblyinfo.title}\Properties" />
     <property name="assemblyinfo.description" value="EvolutionNet Sample Windows Application ${version.sample}" />
