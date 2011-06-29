@@ -2,8 +2,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Web.UI;
 
-[assembly: WebResource("EvolutionNet.Util.Web.FlashFileUpload.swf", "application/x-shockwave-flash")]
-
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
@@ -33,3 +31,5 @@ using System.Web.UI;
 //
 [assembly: AssemblyVersion("0.0.2.*")]
 [assembly: AssemblyFileVersion("0.0.2.0")]
+
+[assembly: WebResource("EvolutionNet.Util.Web.FlashFileUpload.swf", "application/x-shockwave-flash")]
