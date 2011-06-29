@@ -190,7 +190,7 @@
   </target>
 
   <!-- ****** Target: generate-assembly-info ****** -->
-  <target name="generate-assemblyinfo">
+  <target name="generate-assemblyinfo" unless="${debug}">
     <!-- ****** EvolutionNet.Util ****** -->
     <property name="assemblyinfo.template" value="AssemblyInfoUtil.template" />
     <property name="assemblyinfo.title" value="${project.util}" />
