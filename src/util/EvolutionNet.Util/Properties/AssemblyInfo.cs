@@ -1,11 +1,14 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Web.UI;
+
+[assembly: WebResource("EvolutionNet.Util.Web.FlashFileUpload.swf", "application/x-shockwave-flash")]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EvolutionNet.Util")]
-[assembly: AssemblyDescription("EvolutionNet Util Libraries 0.0.1")]
+[assembly: AssemblyDescription("EvolutionNet Util Libraries 0.0.2")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Evolution")]
 [assembly: AssemblyProduct("EvolutionNet.Util")]
@@ -28,5 +31,5 @@ using System.Runtime.InteropServices;
 //	  Build Number
 //	  Revision
 //
-[assembly: AssemblyVersion("0.0.1.*")]
-[assembly: AssemblyFileVersion("0.0.1.0")]
+[assembly: AssemblyVersion("0.0.2.*")]
+[assembly: AssemblyFileVersion("0.0.2.0")]
