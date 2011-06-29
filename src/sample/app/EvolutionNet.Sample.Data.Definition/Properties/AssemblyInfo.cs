@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EvolutionNet.Sample.Data.Definition")]
-[assembly: AssemblyDescription("EvolutionNet.Sample Libraries 0.0.1")]
+[assembly: AssemblyDescription("EvolutionNet Sample Libraries 0.0.1")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Evolution")]
 [assembly: AssemblyProduct("EvolutionNet.Sample.Data.Definition")]

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EvolutionNet.Sample.UI.Reports")]
-[assembly: AssemblyDescription("EvolutionNet Sample Libraries 0.0.1")]
+[assembly: AssemblyDescription("EvolutionNet Sample Reports 0.0.1")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Evolution")]
 [assembly: AssemblyProduct("EvolutionNet.Sample.UI.Reports")]
@@ -23,10 +23,10 @@ using System.Runtime.InteropServices;
 
 // Version information for an assembly consists of the following four values:
 //
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
+//	  Major Version
+//	  Minor Version 
+//	  Build Number
+//	  Revision
 //
 [assembly: AssemblyVersion("0.0.1.*")]
 [assembly: AssemblyFileVersion("0.0.1.0")]

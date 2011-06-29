@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Web.200
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Windows.2008", "..\mvp\EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.2008.csproj", "{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Test", "test\EvolutionNet.Sample.Test\EvolutionNet.Sample.Test.csproj", "{19DC2396-9BCF-4C98-8A76-0E544AC11338}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -87,6 +89,10 @@ Global
 		{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
