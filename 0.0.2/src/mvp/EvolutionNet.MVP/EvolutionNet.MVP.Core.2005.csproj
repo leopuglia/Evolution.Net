@@ -1,0 +1,101 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{196DCEDC-302B-4B3B-B9E0-9BFE3AA268AD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EvolutionNet.MVP.Core</RootNamespace>
+    <AssemblyName>EvolutionNet.MVP.Core</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>EvolutionNet.MVP.Core.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\2.0\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\2.0\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\2.0\debug\Castle\Castle.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Castle.MicroKernel, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\2.0\debug\Castle\Castle.MicroKernel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\2.0\debug\Castle\Castle.Windsor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\2.0\debug\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseAbstractFactory.cs" />
+    <Compile Include="BaseFactory.cs" />
+    <Compile Include="Business\FacadeAbstractFactory.cs" />
+    <Compile Include="Business\IFacade.cs" />
+    <Compile Include="Business\IFacadeFactory.cs" />
+    <Compile Include="Configuration\BaseConfiguration.cs" />
+    <Compile Include="Contract\IContract.cs" />
+    <Compile Include="Contract\IDominioContract.cs" />
+    <Compile Include="Contract\ProgressEventArgs.cs" />
+    <Compile Include="Data\Access\DaoAbstractFactory.cs" />
+    <Compile Include="Data\Access\IDao.cs" />
+    <Compile Include="Data\Access\IDaoFactory.cs" />
+    <Compile Include="Data\Definition\IDominioModel.cs" />
+    <Compile Include="Data\Definition\IModel.cs" />
+    <Compile Include="Data\Definition\INullModel.cs" />
+    <Compile Include="FrameworkException.cs" />
+    <Compile Include="IFactory.cs" />
+    <Compile Include="IoC\IoCHelper.cs" />
+    <Compile Include="IoC\IoCManager.cs" />
+    <Compile Include="Presenter\IPresenter.cs" />
+    <Compile Include="Presenter\IPresenterFactory.cs" />
+    <Compile Include="Presenter\PresenterAbstractFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TO\ITo.cs" />
+    <Compile Include="Util\ProcessManager.cs" />
+    <Compile Include="Util\ProgressReportUtil.cs" />
+    <Compile Include="Util\PropertySortDirection.cs" />
+    <Compile Include="Util\SortableBindingList.cs" />
+    <Compile Include="Util\TypePropertiesUtil.cs" />
+    <Compile Include="View\IView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EvolutionNet.MVP.Core.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

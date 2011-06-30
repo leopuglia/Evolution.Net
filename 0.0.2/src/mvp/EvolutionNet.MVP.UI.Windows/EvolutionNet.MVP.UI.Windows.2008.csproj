@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EvolutionNet.MVP.UI.Windows</RootNamespace>
+    <AssemblyName>EvolutionNet.MVP.UI.Windows</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\3.5\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\3.5\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\debug\3.5\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseUCView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseUCView.Designer.cs">
+      <DependentUpon>BaseUCView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ProgressDlgFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ProgressDlgFrm.Designer.cs">
+      <DependentUpon>ProgressDlgFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\WorkerCanceledException.cs" />
+    <Compile Include="BaseFrmView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseFrmView.Designer.cs">
+      <DependentUpon>BaseFrmView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModalDlgView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModalDlgView.Designer.cs">
+      <DependentUpon>ModalDlgView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleInstance\Global Delegates.cs" />
+    <Compile Include="SingleInstance\ISingleInstanceEnforcer.cs" />
+    <Compile Include="SingleInstance\MessageEventArgs.cs" />
+    <Compile Include="SingleInstance\SingleInstanceException.cs" />
+    <Compile Include="SingleInstance\SingleInstanceProxy.cs" />
+    <Compile Include="SingleInstance\SingleInstanceTracker.cs" />
+    <Compile Include="WinHelperFactory.cs" />
+    <Compile Include="WinControlHelper.cs" />
+    <Compile Include="WinMenuHelper.cs" />
+    <Compile Include="WinMessageHelper.cs" />
+    <Compile Include="WinPathHelper.cs" />
+    <Compile Include="WinRedirectHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BaseUCView.resx">
+      <DependentUpon>BaseUCView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ProgressDlgFrm.resx">
+      <DependentUpon>ProgressDlgFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseFrmView.resx">
+      <DependentUpon>BaseFrmView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModalDlgView.resx">
+      <DependentUpon>ModalDlgView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">
+      <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
+      <Name>EvolutionNet.Util.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj">
+      <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
+      <Name>EvolutionNet.MVP.2008</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
