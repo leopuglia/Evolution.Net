@@ -5,8 +5,8 @@
 <project name="EvolutionNet" default="all" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
 
   <!-- **************************************** Variáveis locais **************************************** -->
-  <property name="version.util" value="0.0.2" />
-  <property name="version.mvp" value="0.2.1" />
+  <property name="version.util" value="0.0.3" />
+  <property name="version.mvp" value="0.2.2" />
   <property name="version.sample" value="0.0.1" />
 
   <property name="assemblyinfo.path" value="" />
