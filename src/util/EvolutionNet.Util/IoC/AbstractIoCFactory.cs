@@ -22,23 +22,29 @@ namespace EvolutionNet.Util.IoC
 				}
 				catch (Exception ex)
 				{
+					var message = string.Format(
+						"Error creating the Factory instance of type ({0}) via IoC. See if the factory is set on the config, in the <castle><components> section.",
+						typeof(T));
+
+					if (log.IsErrorEnabled)
+						log.Error(message, ex);
+
 					throw new UtilIoCException(
-						string.Format(
-							"Error creating the Factory instance of type ({0}) via IoC. See if the factory is set on the config, in the <castle><components> section.",
-							typeof(T)), ex);
+						message, ex);
 				}
 			}
 		}
 
 		private class Nested
 		{
+			internal static readonly T instance;
+
 			// Explicit static constructor to tell C# compiler
 			// not to mark type as beforefieldinit
 			static Nested()
 			{
+				instance = CreateLocalInstance();
 			}
-
-			internal static readonly T instance = CreateLocalInstance();
 
 			internal static T CreateLocalInstance()
 			{

@@ -80,6 +80,7 @@
     <Compile Include="Calendar\Holiday\StateHoliday.cs" />
     <Compile Include="Calendar\MonthHelper.cs" />
     <Compile Include="Calendar\Period.cs" />
+    <Compile Include="UtilSingletonException.cs" />
     <Compile Include="Imaging\BitmapEx.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="Imaging\ExifTag.cs" />

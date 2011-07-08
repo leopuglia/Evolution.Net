@@ -32,6 +32,7 @@ namespace EvolutionNet.Util.Calendar.Holiday
 		}
 
 		// Calcula o domingo de páscoa segundo a fórmula de gauss (deprecated)
+		[Obsolete("Use GetEasterSundayDate")]
 		public static DateTime GetEasterSundayByGaussDate(int year)
 		{
 			int day, month;
