@@ -43,7 +43,8 @@ namespace EvolutionNet.MVP.Presenter
 
 		protected BasePresenter(ViewT view)
 		{
-			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
+			//Todo: Retirei a chamada daqui, porque, de vez em quando, estava chamando mais de uma vez, apesar da instância da factory
+//			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
 
 			facade = GetFacade();
 

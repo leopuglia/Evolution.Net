@@ -42,6 +42,9 @@ namespace EvolutionNet.MVP.Data.Access
 			}
 			catch (Exception ex)
 			{
+				if (log.IsErrorEnabled)
+					log.Error("\r\n\r\nErro na inicialização do ActiveRecord!!!", ex);
+
 				throw new Castle.ActiveRecord.Framework.ActiveRecordInitializationException(
 					"Não foi possível inicializar o ActiveRecord. Dica: Verifique se todas os BaseDao's estão declarados como abstract.",
 					ex);
