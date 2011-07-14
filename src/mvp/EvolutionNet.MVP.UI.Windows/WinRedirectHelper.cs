@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.Util.IoC;
@@ -13,10 +14,15 @@ namespace EvolutionNet.MVP.UI.Windows
 		private const string TypeNameDestForm = "{0}Frm";
 		private const string TypeNameDestDialog = "{0}Dlg";
 
-		public void RedirectToView<T>(object senderView, params object[] args) where T : IControlView
+		public void RedirectToView<T>(object senderView) where T : IControlView
+		{
+			RedirectToView<T>(senderView, null);
+		}
+
+		public void RedirectToView<T>(object senderView, IDictionary<string, string> args) where T : IControlView
 		{
 			Form frm = (Form) IoCHelper.InstantiateObj(TypeNameSource, TypeNameSourceExclude, typeof(T), 
-				TypeNameDestForm, "", senderView.GetType(), args);
+				TypeNameDestForm, "", senderView.GetType(), args == null ? null : args.Values);
 			frm.Show(((UserControl) senderView).ParentForm);
 		}
 

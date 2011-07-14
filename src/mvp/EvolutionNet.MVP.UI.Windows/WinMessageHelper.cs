@@ -22,10 +22,18 @@ namespace EvolutionNet.MVP.UI.Windows
 			ShowMessageBox(caption, message);
 		}
 
+		public void ShowErrorMessage(string caption, string message)
+		{
+			ShowErrorMessage(caption, message, null);
+		}
+
 		public void ShowErrorMessage(string caption, string message, Exception exception)
 		{
 #if DEBUG
-			ShowMessageBoxError(caption, message + "\r\nException: {0}", exception.Message);
+			if (exception != null)
+				ShowMessageBoxError(caption, message + "\r\nException: {0}", exception.Message);
+			else
+				ShowMessageBoxError(caption, message);
 #else
 			ShowMessageBoxError(caption, message);
 #endif

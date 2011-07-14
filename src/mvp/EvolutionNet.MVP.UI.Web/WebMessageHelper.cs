@@ -18,6 +18,11 @@ namespace EvolutionNet.MVP.UI.Web
 			messageUC.ShowMessage(caption, message);
 		}
 
+		public void ShowErrorMessage(string caption, string message)
+		{
+			ShowErrorMessage(caption, message, null);
+		}
+
 		public void ShowErrorMessage(string caption, string message, Exception exception)
 		{
 			messageUC.ShowErrorMessage(caption, message, exception);
