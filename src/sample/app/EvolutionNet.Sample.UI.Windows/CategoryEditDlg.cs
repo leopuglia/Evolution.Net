@@ -3,7 +3,7 @@ using EvolutionNet.Sample.Data.Definition;
 
 namespace EvolutionNet.Sample.UI.Windows
 {
-	public partial class CategoryEditDlg : ModalDlgView
+	public partial class CategoryEditDlg : ModalFrmView
 	{
 		public CategoryEditDlg(Category category)
 		{

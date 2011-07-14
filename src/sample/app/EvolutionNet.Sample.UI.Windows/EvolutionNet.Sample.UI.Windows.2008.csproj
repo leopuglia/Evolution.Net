@@ -105,6 +105,7 @@
       <DependentUpon>CategoryCrudView.cs</DependentUpon>
     </Compile>
     <Compile Include="CategoryEditDlg.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="CategoryEditDlg.Designer.cs">
       <DependentUpon>CategoryEditDlg.cs</DependentUpon>
