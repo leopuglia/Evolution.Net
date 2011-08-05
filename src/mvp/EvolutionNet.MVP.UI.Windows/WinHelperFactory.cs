@@ -1,6 +1,5 @@
-using System;
 using EvolutionNet.MVP.View;
-using EvolutionNet.Util.ProgressReporting;
+using EvolutionNet.MVP.View.Helper;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
@@ -31,19 +30,11 @@ namespace EvolutionNet.MVP.UI.Windows
 			get { return WinMenuHelper.Instance; }
 		}
 
-		//TODO: Implementar
-		public IProgressReportHelper ProgressHelper
-		{
-			get { throw new NotImplementedException(); }
-		}
-
-		//TODO: Implementar
 		public IBackgroundWorkerHelper BackgroundWorkerHelper
 		{
-			get { throw new NotImplementedException(); }
+			get { return WinBackgroundWorkerHelper.Instance; }
 		}
 
-		//TODO: Implementar
 //		public IBackgroundWorkerHelper GetBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
 //		{
 //			return WinBackgroundWorkerHelper.CreateInstance(view, workerEnabledOnLoad, showProgressDlgFrm);

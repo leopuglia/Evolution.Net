@@ -35,6 +35,8 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 		protected ProgressDlgFrm()
 		{
 			InitializeComponent();
+
+			timer2.Enabled = true;
 		}
 
 		#endregion
@@ -73,9 +75,9 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			base.Close();
 		}
 
-		public void SetProgressTick()
+		public void SetAutomaticProgress()
 		{
-			timer1.Enabled = true;
+			timer1.Enabled = timer2.Enabled = true;
 		}
 
 		public void ProgressStep()
@@ -86,6 +88,11 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 		public void ProgressIncrement(int value)
 		{
 			progressBar1.Increment(value);
+		}
+
+		public void StopTimeDisplay()
+		{
+			timer2.Enabled = false;
 		}
 
 		#endregion
@@ -113,10 +120,10 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			ProgressDlgFrm frm = new ProgressDlgFrm();
 
 			if (text == null)
-				text = "Aguarde enquanto os dados são carregados...";
+				text = CommonMessages.ProgressDlgFrm_Msg001;
 
 			if (caption == null)
-				caption = "Progresso";
+				caption = CommonMessages.ProgressDlgFrm_Caption001;
 			
 			frm.Text = text;
 			frm.Caption = caption;

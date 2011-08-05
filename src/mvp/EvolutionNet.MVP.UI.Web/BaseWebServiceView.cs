@@ -1,5 +1,6 @@
 using System.Web.Services;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Web

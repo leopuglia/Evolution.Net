@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.Singleton;
 
 namespace EvolutionNet.MVP.UI.Windows

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Windows

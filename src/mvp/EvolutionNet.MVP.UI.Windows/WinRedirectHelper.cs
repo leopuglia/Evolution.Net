@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
 using EvolutionNet.Util.Singleton;
 

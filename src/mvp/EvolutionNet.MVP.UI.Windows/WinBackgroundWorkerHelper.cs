@@ -3,32 +3,48 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using EvolutionNet.MVP.UI.Windows.Common;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.BackgroundWork;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.Singleton;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
 	public class WinBackgroundWorkerHelper : BaseSingleton<WinBackgroundWorkerHelper>, IBackgroundWorkerHelper
 	{
-		private IWinControl view;
-		private bool workerEnabledOnLoad;
-		private bool showProgressDlgFrm;
-		private BackgroundWorker backgroundWorker1;
+		private BackgroundWorker backgroundWorker;
 
 		private DoWorkDelegate doWork;
 		private WorkerCompletedDelegate workerCompleted;
+
+		private IWinControl view;
+		private bool workerEnabledOnLoad;
+		private bool showProgressDlgFrm;
+		
 		private ProgressDlgFrm frm;
 		private bool doWorkAdded;
 		private bool workerCompletedAdded;
 		private double progress;
+		private IBackgroundWorkerControl backgroundWorkerView;
 
-		#region Contructor
+		#region Event Definition
 
-/*
-		public WinBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
+		public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+
+		#endregion
+
+		#region Public Properties
+
+		public DoWorkDelegate DoWork
 		{
-			Initialize(view, workerEnabledOnLoad, showProgressDlgFrm);
+			get { return doWork; }
+			set { doWork = value; }
 		}
-*/
+
+		public WorkerCompletedDelegate WorkerCompleted
+		{
+			get { return workerCompleted; }
+			set { workerCompleted = value; }
+		}
 
 		#endregion
 
@@ -60,7 +76,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#region Event Methods
 
-		private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+		private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			// Do not access the form's BackgroundWorker reference directly.
 			// Instead, use the reference provided by the sender parameter.
@@ -70,7 +86,7 @@ namespace EvolutionNet.MVP.UI.Windows
 			{
 				if (!doWorkAdded)
 				{
-					doWork += DoWork;
+					doWork += backgroundWorkerView.DoBackgroundWork;
 					doWorkAdded = true;
 				}
 				doWork(bw, e);
@@ -90,34 +106,25 @@ namespace EvolutionNet.MVP.UI.Windows
 		}
 
 		//TODO: Revisar esse método com uso real! Verificar se realmente preciso da variável workerEnabledOnLoad...
-		private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
 			// Do not access the form's BackgroundWorker reference directly.
 			// Instead, use the reference provided by the sender parameter.
 			BackgroundWorker bw = (BackgroundWorker)sender;
 
-			if (e.Cancelled && workerEnabledOnLoad)
-			{
+			if (workerEnabledOnLoad && (e.Cancelled || e.Error != null)) 
 				view.Close();
-			}
 
-			else if (e.Error != null)
-			{
-				view.HelperFactory.MessageHelper.ShowErrorMessage("Error", e.Error.Message);
+			if (frm != null && frm.Visible)
+				frm.StopTimeDisplay();
 
-				if (workerEnabledOnLoad)
-					view.Close();
-			}
-			else
+			if (!workerCompletedAdded)
 			{
-				if (!workerCompletedAdded)
-				{
-					workerCompleted += WorkerCompleted;
-					workerCompletedAdded = true;
-				}
-				workerCompleted(bw, e);
-				progress = 0;
+				workerCompleted += backgroundWorkerView.BackgroundWorkCompleted;
+				workerCompletedAdded = true;
 			}
+			workerCompleted(bw, e);
+			progress = 0;
 
 			if (frm != null && frm.Visible)
 			{
@@ -125,14 +132,14 @@ namespace EvolutionNet.MVP.UI.Windows
 			}
 		}
 
-		private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+		private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			ProgressChanged((BackgroundWorker)sender, e);
+			OnProgressChanged(sender, e);
 		}
 
 		private void frmProgresso_BtnCancelar_OnClick(object sender, EventArgs e)
 		{
-			backgroundWorker1.CancelAsync();
+			backgroundWorker.CancelAsync();
 
 			if (showProgressDlgFrm)
 				frm.btnCancelar.Enabled = false;
@@ -144,24 +151,21 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		public void Initialize(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
 		{
-			//TODO: Atenção aqui neste CAST, não foi testado
-			this.view = (IWinControl)view;
 			this.workerEnabledOnLoad = workerEnabledOnLoad;
-			this.showProgressDlgFrm = showProgressDlgFrm;
 
-			backgroundWorker1 = new BackgroundWorker();
-			backgroundWorker1.WorkerReportsProgress = true;
-			backgroundWorker1.WorkerSupportsCancellation = true;
-			backgroundWorker1.DoWork += backgroundWorker1_DoWork;
-			backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
-			backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
+			if (workerEnabledOnLoad)
+				RunWorker(view, showProgressDlgFrm);
+			else
+				DoInitialize(view, showProgressDlgFrm);
 		}
 
-		public void RunWorker()
+		public void RunWorker(IControlView view, bool showProgressDlgFrm)
 		{
-			if (BeforeRunWorker())
+			DoInitialize(view, showProgressDlgFrm);
+
+			if (backgroundWorkerView.BeforeRunWorker())
 			{
-				backgroundWorker1.RunWorkerAsync();
+				backgroundWorker.RunWorkerAsync();
 
 				if (showProgressDlgFrm)
 				{
@@ -171,6 +175,9 @@ namespace EvolutionNet.MVP.UI.Windows
 			}
 		}
 
+/*
+		// Excluí esses métodos, pois coloquei os delegates como públicos, assim posso adicionar ou remover métodos usando += ou -= ao invés dos métodos abaixo
+		// Achei que fica mais claro
 		public void AddDoWork(DoWorkDelegate worker)
 		{
 			doWork += worker;
@@ -190,49 +197,54 @@ namespace EvolutionNet.MVP.UI.Windows
 		{
 			workerCompleted -= completed;
 		}
+*/
 
-		public void StepProgress(BackgroundWorker bw, double step)
+		public void StepProgress(double step)
 		{
 			progress += step;
 
-			SetProgress(bw, progress);
+			SetProgress(progress);
 		}
 
-		public void SetProgress(BackgroundWorker bw, double value)
+		public void SetProgress(double value)
 		{
 			progress = value;
 
-			if (bw.CancellationPending)
+			if (backgroundWorker.CancellationPending)
 				throw new WorkerCanceledException();
 
-			bw.ReportProgress((int)progress);
+			backgroundWorker.ReportProgress((int)progress);
 		}
 
 		#endregion
 
-		#region Public Virtual Methods (Hooks)
+		#region Private Methods
 
-		public virtual bool BeforeRunWorker()
+		private void DoInitialize(IControlView view, bool showProgressDlgFrm)
 		{
-			return true;
+			this.view = (IWinControl)view;
+			backgroundWorkerView = (IBackgroundWorkerControl)view;
+
+			this.showProgressDlgFrm = showProgressDlgFrm;
+
+//			if (backgroundWorker == null)
+//			{
+			backgroundWorker = new BackgroundWorker();
+			backgroundWorker.WorkerReportsProgress = true;
+			backgroundWorker.WorkerSupportsCancellation = true;
+			backgroundWorker.DoWork += backgroundWorker_DoWork;
+			backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+			backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
+//			}
 		}
 
-		public virtual void AfterRunWorker()
-		{
-		}
-
-		public virtual void DoWork(BackgroundWorker bw, DoWorkEventArgs e)
-		{
-		}
-
-		public virtual void WorkerCompleted(BackgroundWorker bw, RunWorkerCompletedEventArgs e)
-		{
-		}
-
-		public virtual void ProgressChanged(BackgroundWorker bw, ProgressChangedEventArgs e)
+		private void OnProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			if (showProgressDlgFrm)
 				frm.Progress = e.ProgressPercentage;
+
+			if (ProgressChanged != null)
+				ProgressChanged(sender, e);
 		}
 
 		#endregion

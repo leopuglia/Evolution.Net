@@ -48,7 +48,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			this.lblText.Name = "lblText";
 			this.lblText.Size = new System.Drawing.Size(370, 24);
 			this.lblText.TabIndex = 0;
-			this.lblText.Text = "Aguarde enquanto os dados são carregados...";
+			this.lblText.Text = "Executing operation...";
 			this.lblText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// btnCancelar
@@ -59,7 +59,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			this.btnCancelar.Name = "btnCancelar";
 			this.btnCancelar.Size = new System.Drawing.Size(100, 23);
 			this.btnCancelar.TabIndex = 904;
-			this.btnCancelar.Text = "Cancelar";
+			this.btnCancelar.Text = "Cancel";
 			this.btnCancelar.UseVisualStyleBackColor = true;
 			// 
 			// btnOK
@@ -119,7 +119,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			this.Name = "ProgressDlgFrm";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Carregando Dados";
+			this.Text = "Progress";
 			this.ResumeLayout(false);
 
 		}

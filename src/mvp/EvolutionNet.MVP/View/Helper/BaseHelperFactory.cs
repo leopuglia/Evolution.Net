@@ -1,6 +1,6 @@
 /*using EvolutionNet.Util.ProgressReporting;
 
-namespace EvolutionNet.MVP.View
+namespace EvolutionNet.MVP.View.Helper
 {
 	public abstract class BaseHelperFactory : IHelperFactory
 	{

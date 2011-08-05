@@ -1,4 +1,4 @@
-namespace EvolutionNet.MVP.View
+namespace EvolutionNet.MVP.View.Helper
 {
 	public interface IControlHelper
 	{

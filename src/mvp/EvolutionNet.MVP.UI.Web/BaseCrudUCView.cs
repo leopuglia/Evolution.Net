@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿/*
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using EvolutionNet.MVP.View;
 
@@ -35,3 +36,4 @@ namespace EvolutionNet.MVP.UI.Web
 		}
 	}
 }
+*/

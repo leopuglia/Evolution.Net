@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace EvolutionNet.MVP.Configuration
+namespace EvolutionNet.MVP.Core.Configuration
 {
 	public static class BaseConfiguration
 	{

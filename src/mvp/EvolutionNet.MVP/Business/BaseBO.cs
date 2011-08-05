@@ -1,4 +1,5 @@
 using System;
+using EvolutionNet.MVP.Core.ProgressReporting;
 using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.Data.Definition;
 using EvolutionNet.MVP.Presenter;
@@ -18,6 +19,7 @@ namespace EvolutionNet.MVP.Business
 
 		private readonly TO to;
 		private readonly IPresenter presenter;
+		private readonly ProgressReportHelper progressHelper;
 
 		protected bool isInitialized;
 		protected bool isDisposed;
@@ -42,6 +44,17 @@ namespace EvolutionNet.MVP.Business
 			get { return to; }
 		}
 
+		public bool ReportsProgress
+		{
+			get { return progressHelper.ReportsProgress; }
+			set { progressHelper.ReportsProgress = value; }
+		}
+
+		public ProgressReportHelper ProgressHelper
+		{
+			get { return progressHelper; }
+		}
+
 		#endregion
 
 		#region Constructor
@@ -53,6 +66,8 @@ namespace EvolutionNet.MVP.Business
 
 			// Initializes the ActiveRecord/NHibernate Session Scope
 			DaoInitializer.Instance.InitializeSessionScope();
+
+			progressHelper = new ProgressReportHelper();
 
 			try
 			{

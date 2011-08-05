@@ -1,6 +1,7 @@
 using System;
 using EvolutionNet.MVP.Business;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.Presenter

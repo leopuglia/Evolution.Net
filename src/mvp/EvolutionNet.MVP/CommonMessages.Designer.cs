@@ -22,7 +22,7 @@ namespace EvolutionNet.MVP {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CommonMessages {
+    public class CommonMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace EvolutionNet.MVP {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EvolutionNet.MVP.CommonMessages", typeof(CommonMessages).Assembly);
@@ -51,7 +51,7 @@ namespace EvolutionNet.MVP {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace EvolutionNet.MVP {
         /// <summary>
         ///   Looks up a localized string similar to The action was canceled by an error.
         /// </summary>
-        internal static string BaseCrudFacade_Error001 {
+        public static string BaseCrudFacade_Error001 {
             get {
                 return ResourceManager.GetString("BaseCrudFacade_Error001", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace EvolutionNet.MVP {
         /// <summary>
         ///   Looks up a localized string similar to The transaction has been canceled by an error (exception).
         /// </summary>
-        internal static string BaseCrudFacade_Error002 {
+        public static string BaseCrudFacade_Error002 {
             get {
                 return ResourceManager.GetString("BaseCrudFacade_Error002", resourceCulture);
             }
@@ -81,9 +81,63 @@ namespace EvolutionNet.MVP {
         /// <summary>
         ///   Looks up a localized string similar to The TO could not be instantiated on the Facade.
         /// </summary>
-        internal static string BaseFacade_Error001 {
+        public static string BaseFacade_Error001 {
             get {
                 return ResourceManager.GetString("BaseFacade_Error001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Common_CaptionError {
+            get {
+                return ResourceManager.GetString("Common_CaptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string CommonMessages_Common_CaptionSuccess {
+            get {
+                return ResourceManager.GetString("CommonMessages.Common_CaptionSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress.
+        /// </summary>
+        public static string ProgressDlgFrm_Caption001 {
+            get {
+                return ResourceManager.GetString("ProgressDlgFrm_Caption001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing operation....
+        /// </summary>
+        public static string ProgressDlgFrm_Msg001 {
+            get {
+                return ResourceManager.GetString("ProgressDlgFrm_Msg001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress Error.
+        /// </summary>
+        public static string ProgressReportHelper_CaptionError {
+            get {
+                return ResourceManager.GetString("ProgressReportHelper_CaptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The maximum progress allowed is 100%.
+        /// </summary>
+        public static string ProgressReportHelper_Error001 {
+            get {
+                return ResourceManager.GetString("ProgressReportHelper_Error001", resourceCulture);
             }
         }
     }

@@ -1,6 +1,6 @@
 using System;
 
-namespace EvolutionNet.Util.ProgressReporting
+namespace EvolutionNet.MVP.Core.ProgressReporting
 {
 	/// <summary>
 	/// Define os argumentos a serem passados por um evento ProgressReported.
@@ -8,7 +8,7 @@ namespace EvolutionNet.Util.ProgressReporting
 	public class ProgressEventArgs : EventArgs
 	{
 		private double step;
-		private double progress;
+		private double progressPercentage;
 
 		/// <summary>
 		/// Define a porcentagem do trabalho realizado nesse passo.
@@ -22,20 +22,20 @@ namespace EvolutionNet.Util.ProgressReporting
 		/// <summary>
 		/// Define o trabalho total realizado até o momento.
 		/// </summary>
-		public double Progress
+		public double ProgressPercentage
 		{
-			get { return progress; }
-			set { progress = value; }
+			get { return progressPercentage; }
+			set { progressPercentage = value; }
 		}
 		/// <summary>
 		/// Construtor da classe.
 		/// </summary>
 		/// <param name="step">Define a porcentagem do trabalho realizado nesse passo</param>
-		/// <param name="progress">Define o trabalho total realizado até o momento</param>
-		public ProgressEventArgs(double step, double progress)
+		/// <param name="progressPercentage">Define o trabalho total realizado até o momento</param>
+		public ProgressEventArgs(double step, double progressPercentage)
 		{
 			this.step = step;
-			this.progress = progress;
+			this.progressPercentage = progressPercentage;
 		}
 	}
 }

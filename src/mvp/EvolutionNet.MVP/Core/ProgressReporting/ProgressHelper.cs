@@ -1,34 +1,72 @@
 using System;
 
-namespace EvolutionNet.Util.ProgressReporting
+namespace EvolutionNet.MVP.Core.ProgressReporting
 {
 	/// <summary>
 	/// Helper class for informing progress on any request
 	/// </summary>
-	public class ProgressReportHelper// : BaseSingleton<ProgressReportHelper>
+	public class ProgressReportHelper : IProgress
 	{
-		protected double progress;
+		private double progress;
+		private bool cancelationPending;
+		private bool reportsProgress = true;
+		private bool supportsCancelation;
 
-		#region Protected Properties
+		#region Public Properties
 
 		/// <summary>
 		/// Calcula o progresso restante ao método sendo utilizado.
 		/// </summary>
-		protected double RemainingProgress
+		public double RemainingProgress
 		{
 			get { return 100d - progress; }
 		}
 
+		public bool CancelationPending
+		{
+			get { return cancelationPending; }
+		}
+
+		public bool ReportsProgress
+		{
+			get { return reportsProgress; }
+			set { reportsProgress = value; }
+		}
+
+		public bool SupportsCancelation
+		{
+			get { return supportsCancelation; }
+			set { supportsCancelation = value; }
+		}
+
 		#endregion
 
-		#region Event Definition (IProgressReport)
+		#region Event Definition
 
 		/// <summary>
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		public virtual event EventHandler<ProgressEventArgs> ProgressReported;
+		public virtual event EventHandler WorkCompleted;
 
 		#endregion
+
+		#region Public Methods
+
+		public void ReportProgress(int progress)
+		{
+			OnReportProgress(progress);
+		}
+
+		public void ReportProgressStep(int step)
+		{
+			OnReportProgressStep(step);
+		}
+
+		public void Cancel()
+		{
+			cancelationPending = true;
+		}
 
 		/// <summary>
 		/// Calculates the correct value of the step
@@ -54,18 +92,23 @@ namespace EvolutionNet.Util.ProgressReporting
 			return ((step * (progressEnd - progressStart)) / 100);
 		}
 
-		#region Métodos de Eventos
+		#endregion
+
+		#region Events Calling Methods
 
 		/// <summary>
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		/// <param name="step">O tamanho do passo atual realizado (porcentagem).</param>
-		public virtual void OnReportProgressStep(double step)
+		protected virtual void OnReportProgressStep(double step)
 		{
 			progress += step;
 
 			if (progress > 100)
-				throw new ArgumentOutOfRangeException("step", "The maximum progress allowed is 100%");
+				throw new ArgumentOutOfRangeException(CommonMessages.ProgressReportHelper_CaptionError, CommonMessages.ProgressReportHelper_Error001);
+			
+			if (progress == 100 && WorkCompleted != null)
+				WorkCompleted(this, new EventArgs());
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
@@ -75,13 +118,16 @@ namespace EvolutionNet.Util.ProgressReporting
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		/// <param name="progress">O progresso total realizado (porcentagem).</param>
-		public virtual void OnReportProgressSet(double progress)
+		protected virtual void OnReportProgress(double progress)
 		{
 			double step = progress - this.progress;
 			this.progress = progress;
 
 			if (progress > 100)
-				throw new ArgumentOutOfRangeException("progress", "The maximum progress allowed is 100%");
+				throw new ArgumentOutOfRangeException(CommonMessages.ProgressReportHelper_CaptionError, CommonMessages.ProgressReportHelper_Error001);
+
+			if (progress == 100 && WorkCompleted != null)
+				WorkCompleted(this, new EventArgs());
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));

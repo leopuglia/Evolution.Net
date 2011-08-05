@@ -1,5 +1,6 @@
 using System;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 
 namespace EvolutionNet.MVP.UI.Web
 {
@@ -10,7 +11,7 @@ namespace EvolutionNet.MVP.UI.Web
 			get { return WebPathHelper.Instance; }
 		}
 
-		public IControlHelper GetControlHelper(IControlView view)
+		public virtual IControlHelper GetControlHelper(IControlView view)
 		{
 			return WebControlHelper.CreateInstance(view);
 		}
@@ -25,9 +26,22 @@ namespace EvolutionNet.MVP.UI.Web
 			get { return WebRedirectHelper.Instance; }
 		}
 
-		public IMenuHelper MenuHelper
+		//TODO: Implementar
+		public virtual IMenuHelper MenuHelper
 		{
 			get { throw new NotImplementedException(); }
 		}
+
+		//TODO: Implementar
+		public IBackgroundWorkerHelper BackgroundWorkerHelper
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		//TODO: Implementar
+//		public IBackgroundWorkerHelper GetBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
+//		{
+//			throw new NotImplementedException();
+//		}
 	}
 }

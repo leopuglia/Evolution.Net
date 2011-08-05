@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EvolutionNet.MVP.View
+namespace EvolutionNet.MVP.View.Helper
 {
 	public interface IRedirectHelper
 	{
