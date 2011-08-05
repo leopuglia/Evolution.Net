@@ -1,4 +1,5 @@
 using EvolutionNet.Util.IoC;
+using EvolutionNet.Util.ProgressReporting;
 
 namespace EvolutionNet.MVP.View
 {
@@ -9,5 +10,8 @@ namespace EvolutionNet.MVP.View
 		IMessageHelper MessageHelper { get; }
 		IRedirectHelper RedirectHelper { get; }
 		IMenuHelper MenuHelper { get; }
+		IProgressReportHelper ProgressHelper { get; }
+//		IBackgroundWorkerHelper GetBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm);
+		IBackgroundWorkerHelper BackgroundWorkerHelper { get; }
 	}
 }

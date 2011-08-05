@@ -1,16 +1,13 @@
-using EvolutionNet.MVP.Presenter;
+using System;
 
-namespace EvolutionNet.MVP.Business
+namespace EvolutionNet.Util.ProgressReporting
 {
-	public interface IContract
+	public interface IProgressReportHelper
 	{
-		IPresenter Presenter { get; }
-
-/*
 		/// <summary>
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		event EventHandler<ProgressEventArgs> ProgressReported;
-*/
+		
 	}
 }

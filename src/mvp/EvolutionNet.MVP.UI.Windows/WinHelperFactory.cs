@@ -1,4 +1,6 @@
+using System;
 using EvolutionNet.MVP.View;
+using EvolutionNet.Util.ProgressReporting;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
@@ -9,7 +11,7 @@ namespace EvolutionNet.MVP.UI.Windows
 			get { return WinPathHelper.Instance; }
 		}
 
-		public IControlHelper GetControlHelper(IControlView view)
+		public virtual IControlHelper GetControlHelper(IControlView view)
 		{
 			return WinControlHelper.CreateInstance(view);
 		}
@@ -24,9 +26,27 @@ namespace EvolutionNet.MVP.UI.Windows
 			get { return WinRedirectHelper.Instance; }
 		}
 
-		public IMenuHelper MenuHelper
+		public virtual IMenuHelper MenuHelper
 		{
 			get { return WinMenuHelper.Instance; }
 		}
+
+		//TODO: Implementar
+		public IProgressReportHelper ProgressHelper
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		//TODO: Implementar
+		public IBackgroundWorkerHelper BackgroundWorkerHelper
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		//TODO: Implementar
+//		public IBackgroundWorkerHelper GetBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
+//		{
+//			return WinBackgroundWorkerHelper.CreateInstance(view, workerEnabledOnLoad, showProgressDlgFrm);
+//		}
 	}
 }

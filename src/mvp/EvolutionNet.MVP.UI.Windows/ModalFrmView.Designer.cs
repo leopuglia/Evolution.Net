@@ -89,9 +89,9 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#endregion
 
-		private System.Windows.Forms.Panel pnlButtons;
 		public System.Windows.Forms.Button btnOK;
 		public System.Windows.Forms.Button btnCancel;
+		protected System.Windows.Forms.Panel pnlButtons;
 
 	}
 }

@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WinBackgroundWorkerHelper.cs" />
     <Compile Include="BaseUCView.cs">
       <SubType>UserControl</SubType>
     </Compile>

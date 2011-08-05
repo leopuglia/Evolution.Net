@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using EvolutionNet.Util.Collection;
 
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class CrudTO<T, IdT> : ITO where T : class, IModel<IdT>
+	public abstract class CrudTO<T, IdT> : ListTO<T, IdT> where T : class, IModel<IdT>
 	{
 		private IdT id;
 		private T mainModel;
@@ -22,13 +20,6 @@ namespace EvolutionNet.MVP.Data.Definition
 			set { mainModel = value;  }
 		}
 
-		private IList<T> list;
-		public IList<T> List
-		{
-			get { return list; }
-			set { list = value; }
-		}
-
 		protected CrudTO()
 		{
 			try
@@ -40,7 +31,7 @@ namespace EvolutionNet.MVP.Data.Definition
 					mainModel = (T)Activator.CreateInstance(typeof(T));
 
 					// Cria a lista vazia
-					list = new SortableBindingList<T>();
+//					list = new SortableBindingList<T>();
 				}
 			}
 			catch (Exception ex)

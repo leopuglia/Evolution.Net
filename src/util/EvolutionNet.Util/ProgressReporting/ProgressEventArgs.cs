@@ -1,6 +1,6 @@
 using System;
 
-namespace EvolutionNet.MVP.Business
+namespace EvolutionNet.Util.ProgressReporting
 {
 	/// <summary>
 	/// Define os argumentos a serem passados por um evento ProgressReported.

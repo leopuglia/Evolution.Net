@@ -11,31 +11,27 @@ using EvolutionNet.MVP.Data.Access;
 namespace EvolutionNet.MVP.Business
 {
 	/// <summary>
-	/// Classe base para os Facade's, responsáveis pela implementação das regras de negócios.
+	/// Base class for CRUD Facades, responsable to create basic business rules. (Deprecated, use BaseCrudBO)
 	/// </summary>
-	/// <typeparam name="TO">Tranfer Object, tipo do objeto de transferência de dados</typeparam>
-	/// <typeparam name="T">MainModel, tipo da principal entidade (model) do módulo</typeparam>
-	/// <typeparam name="IdT">Identity, tipo do ID do MainModel</typeparam>
-	public abstract class BaseCrudFacade<TO, T, IdT> : BaseFacade<TO>, ICrudContract<TO, T, IdT>
-		where TO : CrudTO<T, IdT> 
-		where T : class, IModel<IdT>
+	/// <typeparam name="TO">Tranfer Object: used to transfer values between the layers</typeparam>
+	/// <typeparam name="ModelT">MainModel: used for the main entity of data (model)</typeparam>
+	/// <typeparam name="IdT">Identity: ID type of the main entity</typeparam>
+	[Obsolete]
+	public abstract class BaseCrudFacade<TO, ModelT, IdT> : BaseFacade<TO>, ICrudContract<TO, ModelT, IdT>
+		where TO : CrudTO<ModelT, IdT>
+		where ModelT : class, IModel<IdT>
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudFacade<TO, T, IdT>));
-
-		#region Variáveis Privadas
-
+		private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudFacade<TO, ModelT, IdT>));
 		private IList<ValidationError> errorList = new List<ValidationError>();
 
-		#endregion
-
-		#region Propriedades Protegidas
+		#region Protected Properties
 
 		//TODO: Colocar em um arquivo de configuração, sendo o padrão true
-		protected abstract bool ThrowException { get; }
+		protected abstract bool ThrowExceptionOnValidation { get; }
 
 		#endregion
 
-		#region Propriedades Públicas
+		#region Public Properties
 
 		public IList<ValidationError> ErrorList
 		{
@@ -53,13 +49,14 @@ namespace EvolutionNet.MVP.Business
 
 		#endregion
 
-		#region Métodos Públicos (de Dados)
+		#region Public Methods
 
 		/// <summary>
-		/// Executa o delegate em um ambiente transacional
+		/// Executes the informed methos (ActionDelegate) inside a transaction (or not). 
+		/// All the other methods use this one to execute the data operations inside a transaction.
 		/// </summary>
-		/// <param name="doAction">Delegate para uma função implementada pelo usuário</param>
-		/// <param name="insideTransaction"></param>
+		/// <param name="doAction">Method to be executed</param>
+		/// <param name="insideTransaction">Inform if it should be executed inside a transaction</param>
 		public void Execute(ActionDelegate doAction, bool insideTransaction)
 		{
 			if (insideTransaction)
@@ -70,6 +67,7 @@ namespace EvolutionNet.MVP.Business
 
 				try
 				{
+					// Execute the method passed via ActionDelegate
 					doAction();
 
 					// Save Transaction
@@ -82,9 +80,9 @@ namespace EvolutionNet.MVP.Business
 					transaction.VoteRollBack();
 
 					if (log.IsErrorEnabled)
-						log.Error("A transação foi cancelada por um erro.");
+						log.Error(CommonMessages.BaseCrudFacade_Error002);
 
-					throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
+					throw new MVPDataAccessException(CommonMessages.BaseCrudFacade_Error002, ex);
 				}
 				finally
 				{
@@ -100,15 +98,15 @@ namespace EvolutionNet.MVP.Business
 				catch (Exception ex)
 				{
 					if (log.IsErrorEnabled)
-						log.Error("A execução foi cancelada por um erro.");
+						log.Error(CommonMessages.BaseCrudFacade_Error001);
 
-					throw new MVPDataAccessException("A transação foi cancelada por um erro.", ex);
+					throw new MVPDataAccessException(CommonMessages.BaseCrudFacade_Error001, ex);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
+		/// Fetch the data of the MainModel from it's ID
 		/// </summary>
 		public void Find()
 		{
@@ -116,7 +114,7 @@ namespace EvolutionNet.MVP.Business
 		}
 
 		/// <summary>
-		/// Lista todos os elementos do model
+		/// List all MainModel's to the List
 		/// </summary>
 		public void FindAll()
 		{
@@ -124,26 +122,35 @@ namespace EvolutionNet.MVP.Business
 		}
 
 		/// <summary>
-		/// Salva o MainModel atual
+		/// Validates, then Saves the current MainModel
 		/// </summary>
 		public void Save()
 		{
-			HookSave();
+			if (Validate(ThrowExceptionOnValidation))
+				Execute(DoSave, true);
 		}
 
 		/// <summary>
-		/// Deleta o MainModel atual, mesmo a partir de um ID
+		/// Deletes the current MainModel, using the object or it's ID
 		/// </summary>
 		public void Delete()
 		{
-			HookDelete();
+			Execute(DoDelete, true);
 		}
 
+		/// <summary>
+		/// Deletes the current MainModel, it's ID
+		/// </summary>
 		public void DeleteByID()
 		{
-			HookDeleteByID();
+			Execute(DoDeleteByID, true);
 		}
 
+		/// <summary>
+		/// Validates the current MainModel
+		/// </summary>
+		/// <param name="throwException">Determine if it should fire a MVPValidationException on validation error</param>
+		/// <returns>True if sucessfully validated</returns>
 		public bool Validate(bool throwException)
 		{
 			return DoValidate(throwException);
@@ -151,53 +158,56 @@ namespace EvolutionNet.MVP.Business
 
 		#endregion
 
-		#region Hooks Protegidos
+		#region Protected Virtual Methods
 
+		// This methods do the actual work and are the ones that should be overriden on child classes
+
+		/// <summary>
+		/// Fetch the data of the MainModel from it's ID
+		/// </summary>
 		protected virtual void DoFind()
 		{
-			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
-		}
-
-		protected virtual void DoFindAll()
-		{
-			To.List = Dao<T, IdT>.FindAll();
+			To.MainModel = Dao<ModelT, IdT>.FindByPrimaryKey(To.ID);
 		}
 
 		/// <summary>
-		/// Realmente salva o MainModel. Pode ser sobrescrito.
+		/// List all MainModel's to the List
 		/// </summary>
-		protected virtual void HookSave()
+		protected virtual void DoFindAll()
 		{
-			if (Validate(ThrowException))
-				Execute(DoSave, true);
+			To.List = Dao<ModelT, IdT>.FindAll();
 		}
 
+		/// <summary>
+		/// Validates, then Saves, the current MainModel
+		/// </summary>
 		protected virtual void DoSave()
 		{
-			Dao<T, IdT>.Save(To.MainModel);
+			Dao<ModelT, IdT>.Save(To.MainModel);
 		}
 
-		protected virtual void HookDelete()
-		{
-			Execute(DoDelete, true);
-		}
-
+		/// <summary>
+		/// Deletes the current MainModel, using the object or it's ID
+		/// </summary>
 		protected virtual void DoDelete()
 		{
-			Dao<T, IdT>.Delete(To.MainModel);
+			Dao<ModelT, IdT>.Delete(To.MainModel);
 		}
 
-		protected virtual void HookDeleteByID()
-		{
-			Execute(DoDeleteByID, true);
-		}
-
+		/// <summary>
+		/// Deletes the current MainModel, it's ID
+		/// </summary>
 		protected virtual void DoDeleteByID()
 		{
-			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
-			Dao<T, IdT>.Delete(To.MainModel);
+			To.MainModel = Dao<ModelT, IdT>.FindByPrimaryKey(To.ID);
+			Dao<ModelT, IdT>.Delete(To.MainModel);
 		}
 
+		/// <summary>
+		/// Validates the current MainModel
+		/// </summary>
+		/// <param name="throwException">Determine if it should fire a MVPValidationException on validation error</param>
+		/// <returns>True if sucessfully validated</returns>
 		protected virtual bool DoValidate(bool throwException)
 		{
 #if FRAMEWORK_3
