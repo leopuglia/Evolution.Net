@@ -77,9 +77,9 @@ namespace EvolutionNet.MVP.Business
 			catch (Exception ex)
 			{
 				if (log.IsErrorEnabled)
-					log.Error(CommonMessages.BaseFacade_Error001, ex);
+					log.Error(MVPCommonMessages.BaseFacade_Error001, ex);
 
-				throw new MVPIoCException(CommonMessages.BaseFacade_Error001, ex);
+				throw new MVPIoCException(MVPCommonMessages.BaseFacade_Error001, ex);
 			}
 
 		}

@@ -92,12 +92,12 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			this.lblTime.Name = "lblTime";
 			this.lblTime.Size = new System.Drawing.Size(97, 18);
 			this.lblTime.TabIndex = 905;
-			this.lblTime.Text = "00:00:00";
+			this.lblTime.Text = "00:00:00.000";
 			// 
 			// timer2
 			// 
 			this.timer2.Enabled = true;
-			this.timer2.Interval = 1000;
+			this.timer2.Interval = 1;
 			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
 			// 
 			// ProgressDlgFrm

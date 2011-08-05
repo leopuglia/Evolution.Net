@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace EvolutionNet.MVP.Core.ProgressReporting
 {
@@ -7,8 +8,8 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 	/// </summary>
 	public class ProgressReportHelper : IProgressReport
 	{
-		private double progress;
-		private bool cancelationPending;
+		private int progress;
+		private bool cancellationPending;
 		private bool reportsProgress = true;
 		private bool supportsCancelation;
 
@@ -19,12 +20,12 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		/// </summary>
 		public double RemainingProgress
 		{
-			get { return 100d - progress; }
+			get { return 100 - progress; }
 		}
 
-		public bool CancelationPending
+		public bool CancellationPending
 		{
-			get { return cancelationPending; }
+			get { return cancellationPending; }
 		}
 
 		public bool ReportsProgress
@@ -47,7 +48,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		public virtual event EventHandler<ProgressEventArgs> ProgressReported;
-		public virtual event EventHandler WorkCompleted;
+//		public virtual event EventHandler<RunWorkerCompletedEventArgs> WorkCompleted;
 
 		#endregion
 
@@ -65,7 +66,12 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 
 		public void Cancel()
 		{
-			cancelationPending = true;
+			cancellationPending = true;
+
+			// Acho que aqui tá o pulo do gato, eu espero um pouco antes de resetar o valor
+			// De qualquer jeito, pelo que eu entendi, esse Cancel fica sendo chamado até o worker ser realmente cancelado
+			Thread.Sleep(100);
+			ResetAttributes();
 		}
 
 		/// <summary>
@@ -77,7 +83,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		/// <returns>Size of the step</returns>
 		public double CalculateStepSize(double progressStart, double progressEnd, double numSteps)
 		{
-			return (progressEnd - progressStart) / numSteps;
+			return ((progressEnd - progressStart) / numSteps);
 		}
 
 		/// <summary>
@@ -94,48 +100,61 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 
 		#endregion
 
-		#region Events Calling Methods
+		#region Event Calling Methods
 
 		/// <summary>
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		/// <param name="step">O tamanho do passo atual realizado (porcentagem).</param>
-		protected virtual void OnReportProgressStep(double step)
+		protected virtual void OnReportProgressStep(int step)
 		{
 			progress += step;
 
 			if (progress > 100)
-				throw new ArgumentOutOfRangeException(CommonMessages.ProgressReportHelper_CaptionError, CommonMessages.ProgressReportHelper_Error001);
+				throw new ArgumentOutOfRangeException(MVPCommonMessages.ProgressReportHelper_CaptionError, MVPCommonMessages.ProgressReportHelper_Error001);
 			
-			if (progress == 100 && WorkCompleted != null)
-				WorkCompleted(this, new EventArgs());
-
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
+
+			if (progress == 100)
+			{
+				ResetAttributes();
+			}
+
 		}
 
 		/// <summary>
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		/// <param name="progress">O progresso total realizado (porcentagem).</param>
-		protected virtual void OnReportProgress(double progress)
+		protected virtual void OnReportProgress(int progress)
 		{
 			double step = progress - this.progress;
 			this.progress = progress;
 
 			if (progress > 100)
-				throw new ArgumentOutOfRangeException(CommonMessages.ProgressReportHelper_CaptionError, CommonMessages.ProgressReportHelper_Error001);
-
-			if (progress == 100 && WorkCompleted != null)
-				WorkCompleted(this, new EventArgs());
+				throw new ArgumentOutOfRangeException(MVPCommonMessages.ProgressReportHelper_CaptionError, MVPCommonMessages.ProgressReportHelper_Error001);
 
 			if (ProgressReported != null)
 				ProgressReported(this, new ProgressEventArgs(step, progress));
-		}
 
+			if (progress == 100)
+			{
+				ResetAttributes();
+			}
+
+		}
 
 		#endregion
 
+		private void ResetAttributes()
+		{
+//			if (WorkCompleted != null)
+//				WorkCompleted(this, new RunWorkerCompletedEventArgs(null, error, cancellationPending));
+
+			progress = 0;
+			cancellationPending = false;
+		}
 
 	}
 }

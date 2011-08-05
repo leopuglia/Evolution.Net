@@ -13,7 +13,7 @@ namespace EvolutionNet.MVP.Presenter
 		#region Variáveis Locais
 
 		private readonly ViewT view;
-		private readonly ContractT facade;
+		private readonly ContractT bo;
 
 		#endregion
 
@@ -24,9 +24,15 @@ namespace EvolutionNet.MVP.Presenter
 			get { return view; }
 		}
 
+		[Obsolete]
 		protected ContractT Facade
 		{
-			get { return facade; }
+			get { return bo; }
+		}
+
+		protected ContractT Bo
+		{
+			get { return bo; }
 		}
 
 		#endregion
@@ -47,7 +53,7 @@ namespace EvolutionNet.MVP.Presenter
 			//Todo: Retirei a chamada daqui, porque, de vez em quando, estava chamando mais de uma vez, apesar da instância da factory
 //			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
 
-			facade = GetFacade();
+			bo = GetBO();
 
 			this.view = view;
 		}
@@ -56,7 +62,7 @@ namespace EvolutionNet.MVP.Presenter
 
 		#region Métodos Locais
 
-		private ContractT GetFacade()
+		private ContractT GetBO()
 		{
 			try
 			{

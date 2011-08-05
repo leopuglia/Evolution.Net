@@ -28,7 +28,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#endregion
 
-		#region Event Defitition
+		#region Event Definition
 
 		[Category("Behavior"), Description("Event fired after all the form and controls are loaded.")]
 		public event EventHandler LoadComplete;
@@ -69,10 +69,7 @@ namespace EvolutionNet.MVP.UI.Windows
 			//TODO: ATENÇÃO: variável workerEnabledOnLoad setada em uma classe-filha só executará o Worker caso a view seja um controle
 			if (workerEnabledOnLoad)
 			{
-				WinBackgroundWorkerHelper.Instance.Initialize(this, workerEnabledOnLoad, showProgressDlgFrm);
-//				WinBackgroundWorkerHelper.Instance.RunWorker(this, showProgressDlgFrm);
-//				HelperFactory.BackgroundWorkerHelper.Initialize(workerEnabledOnLoad, showProgressDlgFrm);
-//				HelperFactory.BackgroundWorkerHelper.RunWorker(this);
+				HelperFactory.BackgroundWorkerHelper.Initialize(this, workerEnabledOnLoad, showProgressDlgFrm);
 			}
 
 			if (LoadComplete != null)
@@ -102,9 +99,13 @@ namespace EvolutionNet.MVP.UI.Windows
 		{
 		}
 
+		public virtual void BackgroundWorkCanceled()
+		{
+		}
+
 		#endregion
 
-		#region Métodos Auxiliares
+		#region Private Methods
 
 		private void EvokeLoadCompleteOnChild(ControlCollection controls, EventArgs e)
 		{

@@ -8,7 +8,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 	public class ProgressEventArgs : EventArgs
 	{
 		private double step;
-		private double progressPercentage;
+		private int progressPercentage;
 
 		/// <summary>
 		/// Define a porcentagem do trabalho realizado nesse passo.
@@ -22,7 +22,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		/// <summary>
 		/// Define o trabalho total realizado até o momento.
 		/// </summary>
-		public double ProgressPercentage
+		public int ProgressPercentage
 		{
 			get { return progressPercentage; }
 			set { progressPercentage = value; }
@@ -32,7 +32,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		/// </summary>
 		/// <param name="step">Define a porcentagem do trabalho realizado nesse passo</param>
 		/// <param name="progressPercentage">Define o trabalho total realizado até o momento</param>
-		public ProgressEventArgs(double step, double progressPercentage)
+		public ProgressEventArgs(double step, int progressPercentage)
 		{
 			this.step = step;
 			this.progressPercentage = progressPercentage;

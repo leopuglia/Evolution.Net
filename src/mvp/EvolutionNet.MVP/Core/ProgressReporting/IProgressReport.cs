@@ -5,7 +5,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 	//TODO: Verificar se essas classes devem ser movidas para o EvolutionNet.Util
 	public interface IProgressReport
 	{
-		bool CancelationPending { get; }
+		bool CancellationPending { get; }
 		bool ReportsProgress { get; set; }
 		bool SupportsCancelation { get; set; }
 
@@ -15,10 +15,11 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		double RemainingProgress { get; }
 
 		event EventHandler<ProgressEventArgs> ProgressReported;
-		event EventHandler WorkCompleted;
+//		event EventHandler<RunWorkerCompletedEventArgs> WorkCompleted;
 
 		void ReportProgress(int progress);
 		void ReportProgressStep(int step);
+		void Cancel();
 
 		/// <summary>
 		/// Calculates the correct value of the step
@@ -38,6 +39,5 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		/// <returns>Valor correto do tamanho do passo</returns>
 		double AdjustStep(double progressStart, double progressEnd, double step);
 
-		void Cancel();
 	}
 }

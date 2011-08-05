@@ -84,11 +84,13 @@
   <ItemGroup>
     <Compile Include="Business\BaseBO.cs" />
     <Compile Include="Business\BaseBOFactory.cs" />
+    <Compile Include="Business\BaseCrudBO.cs" />
     <Compile Include="Business\BaseFacade.cs" />
-    <Compile Include="CommonMessages.Designer.cs">
+    <Compile Include="Business\BaseListBO.cs" />
+    <Compile Include="MVPCommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CommonMessages.resx</DependentUpon>
+      <DependentUpon>MVPCommonMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Core\ProgressReporting\IProgressReport.cs" />
     <Compile Include="Core\ProgressReporting\ProgressEventArgs.cs" />
@@ -150,9 +152,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CommonMessages.resx">
+    <EmbeddedResource Include="MVPCommonMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CommonMessages.Designer.cs</LastGenOutput>
+      <LastGenOutput>MVPCommonMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

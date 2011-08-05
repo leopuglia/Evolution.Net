@@ -12,6 +12,8 @@ namespace EvolutionNet.MVP.UI.Windows
 	//TODO: Fazer ainda mais um refactoring nessa classe, pra utilizar a interface IProgress e, possivelmente, o ProgressReportHelper
 	public class WinBackgroundWorkerHelper : BaseSingleton<WinBackgroundWorkerHelper>, IBackgroundWorkerHelper
 	{
+		#region Local Attributes
+
 		private BackgroundWorker backgroundWorker;
 
 		private DoWorkDelegate doWork;
@@ -21,15 +23,21 @@ namespace EvolutionNet.MVP.UI.Windows
 		private bool workerEnabledOnLoad;
 		private bool showProgressDlgFrm;
 		
-		private ProgressDlgFrm frm;
+		private static ProgressDlgFrm frm;
 		private bool doWorkAdded;
 		private bool workerCompletedAdded;
-		private double progress;
+		private int progress;
 		private IBackgroundWorkerControl backgroundWorkerView;
+
+		private string caption;
+		private string text;
+
+		#endregion
 
 		#region Event Definition
 
-		public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+//		public event EventHandler<ProgressChangedEventArgs> ProgressReported;
+		public event EventHandler WorkerCanceled;
 
 		#endregion
 
@@ -45,6 +53,17 @@ namespace EvolutionNet.MVP.UI.Windows
 		{
 			get { return workerCompleted; }
 			set { workerCompleted = value; }
+		}
+
+		// Atenção: essas duas propriedades devem ser setadas antes da chamada do BackgroundWorker;
+		public string Caption
+		{
+			set { caption = value; }
+		}
+
+		public string Text
+		{
+			set { text = value; }
 		}
 
 		#endregion
@@ -68,6 +87,8 @@ namespace EvolutionNet.MVP.UI.Windows
 			}
 			catch (WorkerCanceledException)
 			{
+//				if (WorkerCanceled != null)
+//					WorkerCanceled(this, new EventArgs());
 			}
 			finally
 			{
@@ -76,6 +97,9 @@ namespace EvolutionNet.MVP.UI.Windows
 				if (bw.CancellationPending)
 				{
 					e.Cancel = true;
+
+					if (WorkerCanceled != null)
+						WorkerCanceled(this, new EventArgs());
 				}
 			}
 		}
@@ -109,7 +133,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			OnProgressChanged(sender, e);
+			OnProgressChanged(e);
 		}
 
 		private void frmProgresso_BtnCancelar_OnClick(object sender, EventArgs e)
@@ -137,21 +161,21 @@ namespace EvolutionNet.MVP.UI.Windows
 			DoRunWorker(view, false, showProgressDlgFrm);
 		}
 
-		public void StepProgress(double step)
+		public void ReportProgressStep(int step)
 		{
 			progress += step;
 
-			SetProgress(progress);
+			ReportProgress(progress);
 		}
 
-		public void SetProgress(double value)
+		public void ReportProgress(int value)
 		{
 			progress = value;
 
 			if (backgroundWorker.CancellationPending)
 				throw new WorkerCanceledException();
 
-			backgroundWorker.ReportProgress((int)progress);
+			backgroundWorker.ReportProgress(progress);
 		}
 
 		#endregion
@@ -187,19 +211,19 @@ namespace EvolutionNet.MVP.UI.Windows
 
 				if (showProgressDlgFrm)
 				{
-					frm = ProgressDlgFrm.Show(((Control)view).FindForm());
+					frm = ProgressDlgFrm.Show(((Control)view).FindForm(), caption, text);
 					frm.btnCancelar.Click += frmProgresso_BtnCancelar_OnClick;
 				}
 			}
 		}
 
-		private void OnProgressChanged(object sender, ProgressChangedEventArgs e)
+		private void OnProgressChanged(ProgressChangedEventArgs e)
 		{
 			if (showProgressDlgFrm)
 				frm.Progress = e.ProgressPercentage;
 
-			if (ProgressChanged != null)
-				ProgressChanged(sender, e);
+//			if (ProgressReported != null)
+//				ProgressReported(sender, e);
 		}
 
 		#endregion

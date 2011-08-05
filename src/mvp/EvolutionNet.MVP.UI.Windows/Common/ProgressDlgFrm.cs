@@ -6,9 +6,16 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 {
 	public partial class ProgressDlgFrm : Form
 	{
-		private readonly DateTime timeIni = DateTime.Now;
+		#region Local Attributes
 
-		#region Propriedades Públicas (da instância)
+		private readonly DateTime timeIni = DateTime.Now;
+		private string timeStringFormat = "{1:00}:{2:00}";
+		private bool showMiliseconds;
+		private bool showHours;
+
+		#endregion
+
+		#region Public Properties
 
 		public new string Text
 		{
@@ -28,20 +35,62 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			set { progressBar1.Value = value; }
 		}
 
+		public bool ShowHours
+		{
+			get { return showHours; }
+			set
+			{
+				showHours = value;
+
+				if (showMiliseconds)
+				{
+					timeStringFormat = "{0:00}:{1:00}:{2:00}.{3:000}";
+					timer2.Interval = 1;
+				}
+				else
+				{
+					timeStringFormat = "{0:00}:{1:00}:{2:00}";
+					timer2.Interval = 100;
+				}
+			}
+		}
+
+		public bool ShowMiliseconds
+		{
+			get { return showMiliseconds; }
+			set
+			{
+				showMiliseconds = value;
+
+				if (showHours)
+				{
+					timeStringFormat = "{0:00}:{1:00}:{2:00}.{3:000}";
+				}
+				else
+				{
+					timeStringFormat = "{1:00}:{2:00}.{3:000}";
+				}
+
+				timer2.Interval = 1;
+			}
+		}
+
 		#endregion
 
-		#region Construtor
+		#region Constructor
 
 		protected ProgressDlgFrm()
 		{
 			InitializeComponent();
 
+//			ShowHours = true;
+//			ShowMiliseconds = true;
 			timer2.Enabled = true;
 		}
 
 		#endregion
 
-		#region Métodos de Eventos
+		#region Event Methods
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
@@ -56,12 +105,14 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 		private void timer2_Tick(object sender, EventArgs e)
 		{
 			TimeSpan time = (DateTime.Now - timeIni);
-			lblTime.Text = string.Format("{0:00}:{1:00}:{2:00}", time.Hours, time.Minutes, time.Seconds);
+
+//			timeStringFormat = "{0:00}:{1:00}:{2:00}.{3:000}";
+			lblTime.Text = string.Format(timeStringFormat, time.Hours, time.Minutes, time.Seconds, time.Milliseconds);
 		}
 
 		#endregion
 
-		#region Métodos Públicos (da instância)
+		#region Public Methods
 
 		public new void Hide()
 		{
@@ -93,11 +144,12 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 		public void StopTimeDisplay()
 		{
 			timer2.Enabled = false;
+			timer2_Tick(this, new EventArgs());
 		}
 
 		#endregion
 
-		#region Métodos Estáticos de Exibição
+		#region Public Static Methods (Show)
 
 		public static ProgressDlgFrm Show(Form owner)
 		{
@@ -109,31 +161,31 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			return Show(owner, null, null);
 		}
 
-		public static ProgressDlgFrm Show(Form owner, string text, string caption)
+		public static ProgressDlgFrm Show(Form owner, string caption, string text)
 		{
-			return Show(owner, null, null, ProgressoDlgButtons.Cancel);
+			return Show(owner, caption, text, ProgressDlgButtons.Cancel);
 		}
 		
 		public static ProgressDlgFrm Show(
-			Form owner, string text, string caption, ProgressoDlgButtons buttons)
+			Form owner, string caption, string text, ProgressDlgButtons buttons)
 		{
 			ProgressDlgFrm frm = new ProgressDlgFrm();
 
 			if (text == null)
-				text = CommonMessages.ProgressDlgFrm_Msg001;
+				text = MVPCommonMessages.ProgressDlgFrm_Msg001;
 
 			if (caption == null)
-				caption = CommonMessages.ProgressDlgFrm_Caption001;
+				caption = MVPCommonMessages.ProgressDlgFrm_Caption001;
 			
 			frm.Text = text;
 			frm.Caption = caption;
 			
 			switch(buttons)
 			{
-				case ProgressoDlgButtons.Cancel:
+				case ProgressDlgButtons.Cancel:
 					frm.btnOK.Visible = false;
 					break;
-				case ProgressoDlgButtons.Ok:
+				case ProgressDlgButtons.Ok:
 					frm.btnCancelar.Visible = false;
 					frm.btnOK.Location = new Point(frm.btnCancelar.Location.X, frm.btnCancelar.Location.Y);
 					break;
@@ -151,7 +203,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 
 	}
 	
-	public enum ProgressoDlgButtons
+	public enum ProgressDlgButtons
 	{
 		Cancel,
 		OkCancel,

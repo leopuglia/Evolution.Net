@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BaseCrudFacade_Error002" xml:space="preserve">
+  <data name="BaseCrudBO_Error002" xml:space="preserve">
     <value>The transaction has been canceled by an error (exception)</value>
   </data>
-  <data name="BaseCrudFacade_Error001" xml:space="preserve">
+  <data name="BaseCrudBO_Error001" xml:space="preserve">
     <value>The action was canceled by an error</value>
   </data>
   <data name="BaseFacade_Error001" xml:space="preserve">

@@ -8,5 +8,6 @@ namespace EvolutionNet.MVP.View
 		void AfterRunWorker();
 		void DoBackgroundWork(BackgroundWorker bw, DoWorkEventArgs e);
 		void BackgroundWorkCompleted(BackgroundWorker bw, RunWorkerCompletedEventArgs e);
+		void BackgroundWorkCanceled();
 	}
 }

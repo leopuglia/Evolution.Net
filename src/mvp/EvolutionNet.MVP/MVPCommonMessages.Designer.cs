@@ -22,14 +22,14 @@ namespace EvolutionNet.MVP {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CommonMessages {
+    public class MVPCommonMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CommonMessages() {
+        internal MVPCommonMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EvolutionNet.MVP {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EvolutionNet.MVP.CommonMessages", typeof(CommonMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EvolutionNet.MVP.MVPCommonMessages", typeof(MVPCommonMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,18 +63,18 @@ namespace EvolutionNet.MVP {
         /// <summary>
         ///   Looks up a localized string similar to The action was canceled by an error.
         /// </summary>
-        public static string BaseCrudFacade_Error001 {
+        public static string BaseCrudBO_Error001 {
             get {
-                return ResourceManager.GetString("BaseCrudFacade_Error001", resourceCulture);
+                return ResourceManager.GetString("BaseCrudBO_Error001", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The transaction has been canceled by an error (exception).
         /// </summary>
-        public static string BaseCrudFacade_Error002 {
+        public static string BaseCrudBO_Error002 {
             get {
-                return ResourceManager.GetString("BaseCrudFacade_Error002", resourceCulture);
+                return ResourceManager.GetString("BaseCrudBO_Error002", resourceCulture);
             }
         }
         
