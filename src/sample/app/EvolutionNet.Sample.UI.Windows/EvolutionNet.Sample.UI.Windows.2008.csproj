@@ -110,11 +110,11 @@
     <Compile Include="CategoryEditDlg.Designer.cs">
       <DependentUpon>CategoryEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="CategoryEditView.cs">
+    <Compile Include="CategoryEditUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CategoryEditView.Designer.cs">
-      <DependentUpon>CategoryEditView.cs</DependentUpon>
+    <Compile Include="CategoryEditUC.Designer.cs">
+      <DependentUpon>CategoryEditUC.cs</DependentUpon>
     </Compile>
     <Compile Include="MainFrm.cs">
       <SubType>Form</SubType>
@@ -139,8 +139,8 @@
     <EmbeddedResource Include="CategoryEditDlg.resx">
       <DependentUpon>CategoryEditDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CategoryEditView.resx">
-      <DependentUpon>CategoryEditView.cs</DependentUpon>
+    <EmbeddedResource Include="CategoryEditUC.resx">
+      <DependentUpon>CategoryEditUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainFrm.resx">
       <DependentUpon>MainFrm.cs</DependentUpon>
@@ -156,6 +156,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
     <None Include="App.config.template" />

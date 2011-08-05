@@ -21,7 +21,7 @@
         <modelProperty Id="deba1ab8-fa01-47ff-af3f-dfc18f307c69" name="TerritoryDescription" column="TerritoryDescription" columnType="Char" length="0" notNull="true" />
       </properties>
       <manyToManyTargets>
-        <manyToManyRelation Id="404b9eaf-57e1-43c8-b2c2-fa2f1bcfa09b" sourceColumn="TerritoryID" schema="dbo" table="EmployeeTerritories" targetColumn="EmployeeID" targetLazy="true" collectionIDColumnType="AnsiChar" collectionIDGenerator="None">
+        <manyToManyRelation Id="404b9eaf-57e1-43c8-b2c2-fa2f1bcfa09b" sourceColumn="TerritoryID" sourceLazy="true" schema="dbo" table="EmployeeTerritories" targetColumn="EmployeeID" targetLazy="true" collectionIDColumnType="AnsiChar" collectionIDGenerator="None">
           <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Employee" />
         </manyToManyRelation>
       </manyToManyTargets>
@@ -32,7 +32,7 @@
         <modelProperty Id="9baeff94-83c5-4d3f-83e4-6e88631d1ca2" name="CustomerDesc" column="CustomerDesc" columnType="StringClob" length="0" />
       </properties>
       <manyToManyTargets>
-        <manyToManyRelation Id="ee63fa72-fed5-45c5-8e98-60dc798eada6" sourceColumn="CustomerTypeID" schema="dbo" table="CustomerCustomerDemo" targetColumn="CustomerID" targetLazy="true" collectionIDColumnType="AnsiChar" collectionIDGenerator="None">
+        <manyToManyRelation Id="ee63fa72-fed5-45c5-8e98-60dc798eada6" sourceColumn="CustomerTypeID" sourceLazy="true" schema="dbo" table="CustomerCustomerDemo" targetColumn="CustomerID" targetLazy="true" collectionIDColumnType="AnsiChar" collectionIDGenerator="None">
           <modelClassMoniker name="/bc6b1a0f-78b7-47da-8dfa-8346c70a8986/Customer" />
         </manyToManyRelation>
       </manyToManyTargets>

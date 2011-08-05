@@ -2,7 +2,6 @@
 using System.Web;
 using EvolutionNet.MVP.Business;
 using EvolutionNet.Util.IoC;
-using log4net.Config;
 
 namespace EvolutionNet.Sample.UI.Web
 {
@@ -10,8 +9,7 @@ namespace EvolutionNet.Sample.UI.Web
 	{
 		protected void Application_Start(object sender, EventArgs e)
 		{
-//			XmlConfigurator.Configure();
-//			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
+			AbstractIoCFactory<IBusinessFactory>.Instance.Initialize();
 		}
 
 		protected void Session_Start(object sender, EventArgs e)

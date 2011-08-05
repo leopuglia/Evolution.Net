@@ -5,9 +5,9 @@ using EvolutionNet.Sample.Core.Business;
 
 namespace EvolutionNet.Sample.Business
 {
-	public class MainFacade : BaseFacade<NullTO>, IMainContract
+	public class MainBO : BaseBO<NullTO>, IMainContract
 	{
-		public MainFacade(IPresenter presenter) : base(presenter)
+		public MainBO(IPresenter presenter) : base(presenter)
 		{
 		}
 	}

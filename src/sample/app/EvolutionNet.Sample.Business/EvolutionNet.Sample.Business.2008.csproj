@@ -53,9 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryCrudFacade.cs" />
-    <Compile Include="FacadeFactory.cs" />
-    <Compile Include="MainFacade.cs" />
+    <Compile Include="CategoryCrudBO.cs" />
+    <Compile Include="BOFactory.cs" />
+    <Compile Include="MainBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

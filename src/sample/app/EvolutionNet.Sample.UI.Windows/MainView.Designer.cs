@@ -68,7 +68,6 @@
 			// categoryCrudView1
 			// 
 			this.categoryCrudView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.categoryCrudView1.GridDataSource = typeof(EvolutionNet.Sample.Data.Definition.Category);
 			this.categoryCrudView1.Location = new System.Drawing.Point(3, 3);
 			this.categoryCrudView1.Name = "categoryCrudView1";
 			this.categoryCrudView1.Size = new System.Drawing.Size(770, 466);

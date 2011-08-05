@@ -1,6 +1,7 @@
 using System;
 using EvolutionNet.MVP.Presenter;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Sample.Core.Business;
 using EvolutionNet.Sample.Core.View;
 

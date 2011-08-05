@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using EvolutionNet.Util.Imaging;
 
 namespace EvolutionNet.Sample.Data.Definition
 {
@@ -30,7 +32,8 @@ namespace EvolutionNet.Sample.Data.Definition
 				{
 					using (MemoryStream ms = new MemoryStream())
 					{
-						value.Save(ms, value.RawFormat);
+//						JpegProcessing.Instance.Save(ms, (Bitmap)value);
+						value.Save(ms, ImageFormat.Jpeg);
 						Picture = ms.ToArray();
 					}
 				}

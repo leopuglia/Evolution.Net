@@ -1,91 +1,100 @@
 using System;
+using System.ComponentModel;
+using EvolutionNet.MVP;
+using EvolutionNet.MVP.Core.ProgressReporting;
 using EvolutionNet.MVP.Presenter;
-using EvolutionNet.MVP.View;
 using EvolutionNet.Sample.Core.Business;
 using EvolutionNet.Sample.Core.View;
 using EvolutionNet.Sample.Data.Definition;
+using EvolutionNet.Util.Collection;
 
 namespace EvolutionNet.Sample.Presenter
 {
-	public class CategoryCrudPresenter : BasePresenter<ICategoryCrudView, ICategoryCrudContract>
+	public class CategoryCrudPresenter : 
+		BasePresenter<ICategoryCrudView, ICategoryCrudContract>, ICrudPresenter<CategoryCrudTO>, IListPresenter<Category>
 	{
-//		private SortableBindingList<Category> list;
+		#region Public Properties
+
+		public CategoryCrudTO To
+		{
+			get { return Bo.To; }
+		}
+
+		#endregion
+
+		#region Constructor
 
 		public CategoryCrudPresenter(ICategoryCrudView view)
 			: base(view)
 		{
 			try
 			{
-				DoInit(view);
+				Bo.FindAll();
+				View.BindableList = new SortableBindingList<Category>(Bo.To.List);
 			}
 			catch (Exception ex)
 			{
 				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not initialize", ex);
 			}
-		}
 
-		#region Métodos de Inicialização
-
-		protected virtual void DoInit(ICrudView view)
-		{
-//			view.AddNew += view_AddNew;
-			view.Save += view_Save;
-			view.Delete += view_Delete;
-			view.Edit += view_Edit;
-			view.Cancel += view_Cancel;
-
-			DoFindAll();
-			if (view is IWebControl && ((IWebControl)view).IsPostBack)
-				return;
-			
-			BindGrid();
+			view.LoadComplete += view_LoadComplete;
 		}
 
 		#endregion
 
-		#region Métodos de Eventos
+		#region Public Methods
 
-/*
-		protected void view_AddNew(object sender, CrudEventArgs e)
+		#region ICrudPresenter
+
+		public void Add()
 		{
-			ICategoryEditView categoryEditView =
-				View.HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Facade.To.MainModel);
-
-			if (View.HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
-			{
-				Facade.To.MainModel = categoryEditView.Model;
-				view_Save(sender, e);
-			}
+			Bo.To.MainModel = new Category();
+			Edit();
 		}
-*/
 
-		protected void view_Save(object sender, CrudEventArgs e)
+		public void Edit()
 		{
 			try
 			{
-				DoSave();
-				CleanViewData();
+				ICategoryEditView categoryEditView =
+					View.HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Bo.To.MainModel);
+
+				if (View.HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
+				{
+					Bo.To.MainModel = categoryEditView.Model;
+					Save();
+				}
+			}
+			catch (Exception ex)
+			{
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit values", ex);
+			}
+		}
+
+		public void Save()
+		{
+			try
+			{
+				Bo.Save();
 
 				View.HelperFactory.MessageHelper.ShowMessage("Success", "Values saved");
 			}
 			catch (Exception ex)
 			{
-//				View.ShowModalDialog();
 				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save values", ex);
 			}
 			finally
 			{
-				DoFindAll();
-				BindGrid();
+				Bo.FindAll();
+				View.BindableList = new SortableBindingList<Category>(Bo.To.List);
 			}
 		}
 
-		protected void view_Delete(object sender, CrudEventArgs e)
+		public void Delete()
 		{
 			try
 			{
-				Facade.To.MainModel = Facade.To.List[e.RowIndex];
-				DoDelete();
+				Bo.Delete();
 
 				View.HelperFactory.MessageHelper.ShowMessage("Success", "Values deleted");
 			}
@@ -95,78 +104,80 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			finally
 			{
-				CleanViewData();
-				DoFindAll();
-				BindGrid();
+				Bo.FindAll();
+				View.BindableList = new SortableBindingList<Category>(Bo.To.List);
 			}
 		}
 
-		protected void view_Edit(object sender, CrudEventArgs e)
+		public void Cancel()
 		{
-			try
-			{
-				Facade.To.MainModel = e.RowIndex == -1 ? new Category() : Facade.To.List[e.RowIndex];
-
-				ICategoryEditView categoryEditView =
-					View.HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Facade.To.MainModel);
-
-				if (View.HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
-				{
-					Facade.To.MainModel = categoryEditView.Model;
-					view_Save(sender, e);
-				}
-			}
-			catch (Exception ex)
-			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit values", ex);
-			}
-		}
-
-		protected void view_Cancel(object sender, CrudEventArgs e)
-		{
+/*
 			try
 			{
 				CleanViewData();
-//				View.HideModalDialog();
 			}
 			catch (Exception ex)
 			{
 				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to clean values", ex);
 			}
+*/
 		}
 
 		#endregion
 
-		#region Métodos Locais
+		#region BackgroundWork
 
-		protected virtual void DoSave()
+		// Tudo que acontece dentro desses métodos abaixo tá dentro de outra thread, portanto não pode alterar valores 
+		public void SlowWork()
 		{
-			Facade.Save();
+			HelperFactory.BackgroundWorkerHelper.WorkerCanceled += BackgroundWorkerHelper_WorkerCanceled;
+			Bo.ProgressHelper.ProgressReported += ProgressHelper_ProgressReported;
+
+			Bo.SlowWork();
 		}
 
-		protected virtual void DoDelete()
+		public void SlowWorkCompleted(RunWorkerCompletedEventArgs e)
 		{
-			Facade.Delete();
+			//TODO: Implementar um ShowAtentionMessage ou ShowAlertMessage);
+			if (e.Cancelled)
+				HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was cancelled by the user");
+			else if (e.Error != null)
+				HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was aborted by an error", e.Error);
+			else
+				HelperFactory.MessageHelper.ShowMessage(MVPCommonMessages.CommonMessages_Common_CaptionSuccess, "Job Done");
+
 		}
 
-		protected virtual void DoFindAll()
-		{
-			Facade.FindAll();
+		#endregion
 
-//			list = new SortableBindingList<Category>(Facade.To.List);
+		#region Auxiliary
+
+		public void SlowWorkTimeChanged()
+		{
+			HelperFactory.BackgroundWorkerHelper.Caption = "Slow Work";
+			HelperFactory.BackgroundWorkerHelper.Text = string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime);
 		}
 
-		protected virtual void BindGrid()
+		#endregion
+
+		#endregion
+
+		#region Event Methods
+
+		private void view_LoadComplete(object sender, EventArgs e)
 		{
-			View.GridDataSource = Facade.To.List;
-//			View.GridDataSource = list;
+			SlowWorkTimeChanged();
 		}
 
-		protected virtual void CleanViewData()
+		private void BackgroundWorkerHelper_WorkerCanceled(object sender, EventArgs e)
 		{
-//			View.Nome = string.Empty;
-//			View.Descricao = string.Empty;
-//			View.RowIndex = -1;
+			Bo.ProgressHelper.Cancel();
+		}
+
+		private void ProgressHelper_ProgressReported(object sender, ProgressEventArgs e)
+		{
+			HelperFactory.BackgroundWorkerHelper.ReportProgress(e.ProgressPercentage);
+//			bw.ReportProgress(e.ProgressPercentage);
 		}
 
 		#endregion
