@@ -9,6 +9,7 @@ using EvolutionNet.Util.Singleton;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
+	//TODO: Fazer ainda mais um refactoring nessa classe, pra utilizar a interface IProgress e, possivelmente, o ProgressReportHelper
 	public class WinBackgroundWorkerHelper : BaseSingleton<WinBackgroundWorkerHelper>, IBackgroundWorkerHelper
 	{
 		private BackgroundWorker backgroundWorker;
@@ -45,32 +46,6 @@ namespace EvolutionNet.MVP.UI.Windows
 			get { return workerCompleted; }
 			set { workerCompleted = value; }
 		}
-
-		#endregion
-
-		#region Thread Safe "Singleton"
-
-/*
-		// This is not exactly a singleton, but has to be created from a static method
-		public static WinBackgroundWorkerHelper CreateInstance(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
-		{
-			return Nested.CreateLocalInstance(view, workerEnabledOnLoad, showProgressDlgFrm);
-		}
-
-		private class Nested
-		{
-			// Explicit static constructor to tell C# compiler
-			// not to mark type as beforefieldinit
-			static Nested()
-			{
-			}
-
-			internal static WinBackgroundWorkerHelper CreateLocalInstance(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
-			{
-				return new WinBackgroundWorkerHelper(view, workerEnabledOnLoad, showProgressDlgFrm);
-			}
-		}
-*/
 
 		#endregion
 
@@ -151,53 +126,16 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		public void Initialize(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
 		{
-			this.workerEnabledOnLoad = workerEnabledOnLoad;
-
 			if (workerEnabledOnLoad)
-				RunWorker(view, showProgressDlgFrm);
+				DoRunWorker(view, true, showProgressDlgFrm);
 			else
-				DoInitialize(view, showProgressDlgFrm);
+				DoInitialize(view, false, showProgressDlgFrm);
 		}
 
 		public void RunWorker(IControlView view, bool showProgressDlgFrm)
 		{
-			DoInitialize(view, showProgressDlgFrm);
-
-			if (backgroundWorkerView.BeforeRunWorker())
-			{
-				backgroundWorker.RunWorkerAsync();
-
-				if (showProgressDlgFrm)
-				{
-					frm = ProgressDlgFrm.Show(((Control)view).FindForm());
-					frm.btnCancelar.Click += frmProgresso_BtnCancelar_OnClick;
-				}
-			}
+			DoRunWorker(view, false, showProgressDlgFrm);
 		}
-
-/*
-		// Excluí esses métodos, pois coloquei os delegates como públicos, assim posso adicionar ou remover métodos usando += ou -= ao invés dos métodos abaixo
-		// Achei que fica mais claro
-		public void AddDoWork(DoWorkDelegate worker)
-		{
-			doWork += worker;
-		}
-
-		public void RemoveDoWork(DoWorkDelegate worker)
-		{
-			doWork -= worker;
-		}
-
-		public void AddWorkerCompleted(WorkerCompletedDelegate completed)
-		{
-			workerCompleted += completed;
-		}
-
-		public void RemoveWorkerCompleted(WorkerCompletedDelegate completed)
-		{
-			workerCompleted -= completed;
-		}
-*/
 
 		public void StepProgress(double step)
 		{
@@ -220,11 +158,12 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#region Private Methods
 
-		private void DoInitialize(IControlView view, bool showProgressDlgFrm)
+		private void DoInitialize(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
 		{
 			this.view = (IWinControl)view;
 			backgroundWorkerView = (IBackgroundWorkerControl)view;
 
+			this.workerEnabledOnLoad = workerEnabledOnLoad;
 			this.showProgressDlgFrm = showProgressDlgFrm;
 
 //			if (backgroundWorker == null)
@@ -236,6 +175,22 @@ namespace EvolutionNet.MVP.UI.Windows
 			backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
 			backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
 //			}
+		}
+
+		private void DoRunWorker(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
+		{
+			DoInitialize(view, workerEnabledOnLoad, showProgressDlgFrm);
+
+			if (backgroundWorkerView.BeforeRunWorker())
+			{
+				backgroundWorker.RunWorkerAsync();
+
+				if (showProgressDlgFrm)
+				{
+					frm = ProgressDlgFrm.Show(((Control)view).FindForm());
+					frm.btnCancelar.Click += frmProgresso_BtnCancelar_OnClick;
+				}
+			}
 		}
 
 		private void OnProgressChanged(object sender, ProgressChangedEventArgs e)

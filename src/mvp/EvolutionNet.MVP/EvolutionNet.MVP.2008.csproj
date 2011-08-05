@@ -83,15 +83,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\BaseBO.cs" />
+    <Compile Include="Business\BaseBOFactory.cs" />
     <Compile Include="Business\BaseFacade.cs" />
     <Compile Include="CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommonMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Core\ProgressReporting\IProgress.cs" />
+    <Compile Include="Core\ProgressReporting\IProgressReport.cs" />
     <Compile Include="Core\ProgressReporting\ProgressEventArgs.cs" />
-    <Compile Include="Core\ProgressReporting\ProgressHelper.cs" />
+    <Compile Include="Core\ProgressReporting\ProgressReportHelper.cs" />
     <Compile Include="Data\Definition\IBaseModel.cs" />
     <Compile Include="Data\Definition\NullTO.cs" />
     <Compile Include="MVPDataAccessException.cs" />

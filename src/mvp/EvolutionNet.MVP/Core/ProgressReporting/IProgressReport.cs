@@ -3,7 +3,7 @@ using System;
 namespace EvolutionNet.MVP.Core.ProgressReporting
 {
 	//TODO: Verificar se essas classes devem ser movidas para o EvolutionNet.Util
-	public interface IProgress
+	public interface IProgressReport
 	{
 		bool CancelationPending { get; }
 		bool ReportsProgress { get; set; }

@@ -5,7 +5,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 	/// <summary>
 	/// Helper class for informing progress on any request
 	/// </summary>
-	public class ProgressReportHelper : IProgress
+	public class ProgressReportHelper : IProgressReport
 	{
 		private double progress;
 		private bool cancelationPending;
