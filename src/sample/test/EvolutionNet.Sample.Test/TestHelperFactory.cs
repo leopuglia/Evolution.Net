@@ -1,34 +1,64 @@
 using System;
-using EvolutionNet.MVP.UI.Web;
+using EvolutionNet.MVP.UI.Windows;
 using EvolutionNet.MVP.View;
+using EvolutionNet.MVP.View.Helper;
 
 namespace EvolutionNet.Sample.Test
 {
 	public class TestHelperFactory : IHelperFactory
 	{
-		public virtual IPathHelper PathHelper
+		private readonly IHelperFactory winHelperFactory;
+
+		private IPathHelper pathHelper;
+		private IMessageHelper messageHelper;
+		private IRedirectHelper redirectHelper;
+		private IMenuHelper menuHelper;
+//		private IBackgroundWorkerHelper backgroundWorkerHelper;
+
+		public TestHelperFactory()
 		{
-			get { return TestPathHelper.Instance; }
+			winHelperFactory = new WinHelperFactory();
+
+			messageHelper = new TestMessageHelper();
+//			redirectHelper = winHelperFactory.RedirectHelper;
+			redirectHelper = new TestRedirectHelper();
+			pathHelper = winHelperFactory.PathHelper;
+		}
+
+		public IPathHelper PathHelper
+		{
+			get { return pathHelper; }
+			set { pathHelper = value; }
 		}
 
 		public IControlHelper GetControlHelper(IControlView view)
 		{
-			return TestControlHelper.CreateInstance(view);
+			throw new NotImplementedException();
 		}
 
-		public virtual IMessageHelper MessageHelper
+		public IMessageHelper MessageHelper
 		{
-			get { return TestMessageHelper.Instance; }
+			get { return messageHelper; }
+			set { messageHelper = value; }
 		}
 
-		public virtual IRedirectHelper RedirectHelper
+		public IRedirectHelper RedirectHelper
 		{
-			get { return TestRedirectHelper.Instance; }
+			get { return redirectHelper; }
+			set { redirectHelper = value; }
 		}
 
 		public IMenuHelper MenuHelper
 		{
-			get { return TestMenuHelper.Instance; }
+			get { return menuHelper; }
+			set { menuHelper = value; }
 		}
+
+		public IBackgroundWorkerHelper GetBackgroundWorkerHelper()
+		{
+			throw new NotImplementedException();
+//			return backgroundWorkerHelper;
+		}
+
 	}
 }

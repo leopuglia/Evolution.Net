@@ -1,58 +1,40 @@
-using System;
-using System.Windows.Forms;
-using EvolutionNet.MVP.UI.Windows;
+using System.Collections.Generic;
 using EvolutionNet.MVP.View;
-using EvolutionNet.Util.IoC;
-using EvolutionNet.Util.Singleton;
+using EvolutionNet.MVP.View.Helper;
+using EvolutionNet.Sample.Core.View;
 
 namespace EvolutionNet.Sample.Test
 {
-	public class TestRedirectHelper : BaseSingleton<TestRedirectHelper>, IRedirectHelper
+	public class TestRedirectHelper : IRedirectHelper
 	{
-//		private const string TypeNameSource = "{0}View";
-//		private const string TypeNameSourceExclude = "View";
-//		private const string TypeNameDest = "{0}.aspx";
-
-		private const string TypeNameSource = "I{0}View";
-		private const string TypeNameSourceExclude = "View";
-		private const string TypeNameDestForm = "{0}Frm";
-		private const string TypeNameDestDialog = "{0}Dlg";
-
-		public void RedirectToView<T>(object senderView, params object[] args) where T : IControlView
+		public void RedirectToView<T>(object senderView) where T : IControlView
 		{
-			if (senderView is IWinControl)
-			{
-				Form frm = (Form) IoCHelper.InstantiateObj(TypeNameSource, TypeNameSourceExclude, typeof (T),
-				                                           TypeNameDestForm, "", senderView.GetType(), args);
-				//frm.Show(((UserControl) senderView).ParentForm);
-				frm.Visible = true;
-			}
+/*
+			RedirectToView<T>(senderView, null);
+*/
+		}
+
+		public void RedirectToView<T>(object senderView, IDictionary<string, string> args) where T : IControlView
+		{
+/*
+			Form frm = (Form)IoCHelper.InstantiateObj(TypeNameSource, TypeNameSourceExclude, typeof(T),
+				TypeNameDestForm, "", senderView.GetType(), args == null ? null : args.Values);
+			frm.Show(((UserControl)senderView).ParentForm);
+*/
 		}
 
 		public T CreateModalDialogView<T>(object senderView, params object[] args) where T : IControlView
 		{
-			if (senderView is IWinControl)
-			{
-				Form frm = (Form) IoCHelper.InstantiateObj(TypeNameSource, TypeNameSourceExclude, typeof (T),
-				                                           TypeNameDestDialog, "", senderView.GetType(), args);
+			// Sets the viewMock instance value with the type T
+			var viewMock = BaseTest.GetViewMock<T>(args);
 
-				return WinControlHelper.FindControl<T>(frm);
-			}
-
-			throw new NotImplementedException();
+			return (T)viewMock.MockInstance;
 		}
 
 		public bool ShowModalDialogView(IControlView destView, object senderView)
 		{
-			if (senderView is IWinControl)
-			{
-				if (destView as UserControl == null || (destView as UserControl).ParentForm == null)
-					throw new ArgumentOutOfRangeException("destView", destView, "The destView should be a Control");
-
-				return true;
-			}
-
-			throw new NotImplementedException();
+			return true;
 		}
+
 	}
 }

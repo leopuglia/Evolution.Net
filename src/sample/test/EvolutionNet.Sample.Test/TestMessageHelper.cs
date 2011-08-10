@@ -1,32 +1,33 @@
 using System;
-using EvolutionNet.MVP.UI.Web;
-using EvolutionNet.MVP.View;
-using EvolutionNet.Util.Singleton;
+using EvolutionNet.MVP.View.Helper;
 using log4net;
 
 namespace EvolutionNet.Sample.Test
 {
-	public class TestMessageHelper : BaseSingleton<TestMessageHelper>, IMessageHelper
+	public class TestMessageHelper : IMessageHelper
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(TestMessageHelper));
 
-//		private BaseMessageUC messageUC;
-//		public BaseMessageUC MessageUC
-//		{
-//			get { return messageUC; }
-//			set { messageUC = value; }
-//		}
-
-		public void ShowMessage(string caption, string message)
+		public void ShowMessage(string caption, string msg)
 		{
 			if (log.IsInfoEnabled)
-				log.Info(message);	
+				log.Info(string.Format(@"{0}: {1}", caption, msg));
 		}
 
-		public void ShowErrorMessage(string caption, string message, Exception exception)
+		public void ShowErrorMessage(string caption, string msg)
 		{
 			if (log.IsErrorEnabled)
-				log.Error(message, exception);
+				log.Error(string.Format(@"{0}: {1}", caption, msg));
+
+			throw new Exception(msg);
+		}
+
+		public void ShowErrorMessage(string caption, string msg, Exception exception)
+		{
+			if (log.IsErrorEnabled)
+				log.Error(string.Format(@"{0}: {1}", caption, msg), exception);
+
+			throw exception;
 		}
 	}
 }

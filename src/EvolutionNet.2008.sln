@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.UI.Wind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Web.2008", "mvp\EvolutionNet.MVP.UI.Web\EvolutionNet.MVP.UI.Web.2008.csproj", "{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Test", "sample\test\EvolutionNet.Sample.Test\EvolutionNet.Sample.Test.csproj", "{19DC2396-9BCF-4C98-8A76-0E544AC11338}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +100,6 @@ Global
 		{2FC86B8C-923D-4F52-9D1C-D88A532CA734} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
 		{454DB541-AE42-439C-98F4-634A5E8988A2} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
 		{BB67662F-E7C6-480C-AB48-CA097C6E0B49} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
+		{19DC2396-9BCF-4C98-8A76-0E544AC11338} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
 	EndGlobalSection
 EndGlobal
