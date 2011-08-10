@@ -19,6 +19,7 @@ namespace EvolutionNet.MVP.View.Helper
 
 		// Pensando melhor, eu uso o worker apenas pra realizar as tarefas em segundo plano, de modo a poder exibir o progresso
 		// Assim sendo, eu só vou ter um BackgroundWorker rodando de cada vez...
-		IBackgroundWorkerHelper BackgroundWorkerHelper { get; }
+//		IBackgroundWorkerHelper BackgroundWorkerHelper { get; }
+		IBackgroundWorkerHelper GetBackgroundWorkerHelper();
 	}
 }

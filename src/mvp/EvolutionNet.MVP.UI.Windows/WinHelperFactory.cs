@@ -12,7 +12,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		public virtual IControlHelper GetControlHelper(IControlView view)
 		{
-			return WinControlHelper.CreateInstance(view);
+			return new WinControlHelper(view);
 		}
 
 		public virtual IMessageHelper MessageHelper
@@ -30,14 +30,15 @@ namespace EvolutionNet.MVP.UI.Windows
 			get { return WinMenuHelper.Instance; }
 		}
 
-		public IBackgroundWorkerHelper BackgroundWorkerHelper
-		{
-			get { return WinBackgroundWorkerHelper.Instance; }
-		}
-
-//		public IBackgroundWorkerHelper GetBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
+//		public IBackgroundWorkerHelper BackgroundWorkerHelper
 //		{
-//			return WinBackgroundWorkerHelper.CreateInstance(view, workerEnabledOnLoad, showProgressDlgFrm);
+//			get { return WinBackgroundWorkerHelper.CreateInstance(); }
 //		}
+
+		public IBackgroundWorkerHelper GetBackgroundWorkerHelper()
+		{
+//			return WinBackgroundWorkerHelper.CreateInstance();
+			return new WinBackgroundWorkerHelper();
+		}
 	}
 }

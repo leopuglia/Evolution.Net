@@ -4,16 +4,42 @@ using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
-using EvolutionNet.Util.Singleton;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
-	public class WinRedirectHelper : BaseSingleton<WinRedirectHelper>, IRedirectHelper
+	public class WinRedirectHelper : IRedirectHelper
 	{
 		private const string TypeNameSource = "I{0}View";
 		private const string TypeNameSourceExclude = "View";
 		private const string TypeNameDestForm = "{0}Frm";
 		private const string TypeNameDestDialog = "{0}Dlg";
+
+		#region Thread-safe Singleton
+
+		private WinRedirectHelper()
+		{
+		}
+
+		public static WinRedirectHelper Instance
+		{
+			get
+			{
+				return Nested.instance;
+			}
+		}
+	    
+		class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static readonly WinRedirectHelper instance = new WinRedirectHelper();
+		}
+
+		#endregion
 
 		public void RedirectToView<T>(object senderView) where T : IControlView
 		{

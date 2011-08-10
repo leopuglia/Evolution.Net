@@ -1,11 +1,14 @@
 using EvolutionNet.MVP.Data.Definition;
-using EvolutionNet.Util.Collection;
 
 namespace EvolutionNet.MVP.Presenter
 {
-	public interface IListPresenter<ModelT> : IPresenter where ModelT : IBaseModel
+	public interface IListPresenter<TO, T, IdT> : IPresenter
+		where TO : ListTO<T, IdT>
+		where T : class, IModel<IdT>
 	{
-//		void FindAll();
+		TO To { get; }
+
+		void FindAll();
 //		SortableBindingList<ModelT> BindableList { get; }
 	}
 }

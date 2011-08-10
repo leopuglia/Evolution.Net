@@ -5,15 +5,41 @@ using System.Web;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
-using EvolutionNet.Util.Singleton;
 
 namespace EvolutionNet.MVP.UI.Web
 {
-	public class WebRedirectHelper : BaseSingleton<WebRedirectHelper>, IRedirectHelper
+	public class WebRedirectHelper : IRedirectHelper
 	{
 		private const string TypeNameSource = "I{0}View";
 		private const string TypeNameSourceExclude = "View";
 		private const string TypeNameDest = "{0}.aspx";
+
+		#region Thread-safe Singleton
+
+		private WebRedirectHelper()
+		{
+		}
+
+		public static WebRedirectHelper Instance
+		{
+			get
+			{
+				return Nested.instance;
+			}
+		}
+	    
+		class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static readonly WebRedirectHelper instance = new WebRedirectHelper();
+		}
+
+		#endregion
 
 		public void RedirectToView<T>(object senderView) where T : IControlView
 		{

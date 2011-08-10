@@ -100,7 +100,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Collection\PropertySortDirection.cs" />
     <Compile Include="Collection\SortableBindingList.cs" />
-    <Compile Include="Singleton\BaseSingleton.cs" />
     <Compile Include="Reflection\TypePropertiesHelper.cs" />
     <Compile Include="Web\MultipleFileUpload.cs" />
   </ItemGroup>

@@ -1,17 +1,16 @@
 using System;
-using System.Threading;
 
-namespace EvolutionNet.MVP.Core.ProgressReporting
+namespace EvolutionNet.MVP.Business.ProgressReporting
 {
 	/// <summary>
 	/// Helper class for informing progress on any request
 	/// </summary>
-	public class ProgressReportHelper : IProgressReport
+	public class BaseProgressReport : IProgressReport
 	{
 		private int progress;
-		private bool cancellationPending;
-		private bool reportsProgress = true;
-		private bool supportsCancelation;
+//		private bool cancellationPending;
+		protected bool reportsProgress;
+		protected bool supportsCancellation = true;
 
 		#region Public Properties
 
@@ -23,10 +22,12 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 			get { return 100 - progress; }
 		}
 
+/*
 		public bool CancellationPending
 		{
 			get { return cancellationPending; }
 		}
+*/
 
 		public bool ReportsProgress
 		{
@@ -34,10 +35,10 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 			set { reportsProgress = value; }
 		}
 
-		public bool SupportsCancelation
+		public bool SupportsCancellation
 		{
-			get { return supportsCancelation; }
-			set { supportsCancelation = value; }
+			get { return supportsCancellation; }
+			set { supportsCancellation = value; }
 		}
 
 		#endregion
@@ -48,31 +49,45 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 		/// Reporta o progresso da requisição atual.
 		/// </summary>
 		public virtual event EventHandler<ProgressEventArgs> ProgressReported;
-//		public virtual event EventHandler<RunWorkerCompletedEventArgs> WorkCompleted;
+//		public virtual event EventHandler<WorkCompletedEventArgs> WorkCompleted;
 
 		#endregion
 
 		#region Public Methods
 
+		/// <summary>
+		/// Reporta o progresso da requisição atual.
+		/// </summary>
+		/// <param name="progress">O progresso total realizado (porcentagem).</param>
 		public void ReportProgress(int progress)
 		{
 			OnReportProgress(progress);
 		}
 
+		/// <summary>
+		/// Reporta o progresso da requisição atual.
+		/// </summary>
+		/// <param name="step">O tamanho do passo atual realizado (porcentagem).</param>
 		public void ReportProgressStep(int step)
 		{
-			OnReportProgressStep(step);
+			OnReportProgress(progress + step);
 		}
 
+/*
 		public void Cancel()
 		{
+			if (! supportsCancellation)
+				throw new Exception("The component doesn't support cancellation");
+
 			cancellationPending = true;
 
+//			throw new Exception("Work canceled");
 			// Acho que aqui tá o pulo do gato, eu espero um pouco antes de resetar o valor
 			// De qualquer jeito, pelo que eu entendi, esse Cancel fica sendo chamado até o worker ser realmente cancelado
-			Thread.Sleep(100);
-			ResetAttributes();
+//			Thread.Sleep(100);
+//			ResetAttributes();
 		}
+*/
 
 		/// <summary>
 		/// Calculates the correct value of the step
@@ -102,36 +117,21 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 
 		#region Event Calling Methods
 
-		/// <summary>
-		/// Reporta o progresso da requisição atual.
-		/// </summary>
-		/// <param name="step">O tamanho do passo atual realizado (porcentagem).</param>
-		protected virtual void OnReportProgressStep(int step)
-		{
-			progress += step;
-
-			if (progress > 100)
-				throw new ArgumentOutOfRangeException(MVPCommonMessages.ProgressReportHelper_CaptionError, MVPCommonMessages.ProgressReportHelper_Error001);
-			
-			if (ProgressReported != null)
-				ProgressReported(this, new ProgressEventArgs(step, progress));
-
-			if (progress == 100)
-			{
-				ResetAttributes();
-			}
-
-		}
-
-		/// <summary>
-		/// Reporta o progresso da requisição atual.
-		/// </summary>
-		/// <param name="progress">O progresso total realizado (porcentagem).</param>
 		protected virtual void OnReportProgress(int progress)
 		{
 			double step = progress - this.progress;
 			this.progress = progress;
 
+/*
+			if (cancellationPending)
+			{
+				ResetAttributes();
+
+//				throw new WorkCanceledException();
+				throw new Exception("The background work has been canceled");
+			}
+*/
+
 			if (progress > 100)
 				throw new ArgumentOutOfRangeException(MVPCommonMessages.ProgressReportHelper_CaptionError, MVPCommonMessages.ProgressReportHelper_Error001);
 
@@ -140,21 +140,12 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 
 			if (progress == 100)
 			{
-				ResetAttributes();
+				this.progress = 0;
+//				cancellationPending = false;
 			}
 
 		}
 
 		#endregion
-
-		private void ResetAttributes()
-		{
-//			if (WorkCompleted != null)
-//				WorkCompleted(this, new RunWorkerCompletedEventArgs(null, error, cancellationPending));
-
-			progress = 0;
-			cancellationPending = false;
-		}
-
 	}
 }

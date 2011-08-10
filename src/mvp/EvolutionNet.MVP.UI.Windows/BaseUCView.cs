@@ -7,22 +7,14 @@ using EvolutionNet.Util.IoC;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
-	public partial class BaseUCView : UserControl, IWinControl, IBackgroundWorkerControl
+	public partial class BaseUCView : UserControl, IWinControl, IControlView
 	{
 		#region Local Attributes
 
 		private readonly bool isVSDesigner = true;
 
-		//TODO: Essas variáveis existem pra inicializar, ou não, o backgroundworker no OnLoadComplete. 
-		// Provavelmente essas definições devem ser feitas de uma outra maneira, talvez decorando a classe com atributos. 
-		// Isso é um tipo de configuração, mas deve ser feita em view, pois eu posso querer utilizar, ou não, o BackgroundWorker.
-		// Deixei o padrão como false
-		protected bool workerEnabledOnLoad;
-		protected bool showProgressDlgFrm;
-
 		protected bool IsVSDesigner
 		{
-//			get { return LicenseManager.UsageMode == LicenseUsageMode.Designtime; }
 			get { return isVSDesigner; }
 		}
 
@@ -66,41 +58,10 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		public void OnLoadComplete(EventArgs e)
 		{
-			//TODO: ATENÇÃO: variável workerEnabledOnLoad setada em uma classe-filha só executará o Worker caso a view seja um controle
-			if (workerEnabledOnLoad)
-			{
-				HelperFactory.BackgroundWorkerHelper.Initialize(this, workerEnabledOnLoad, showProgressDlgFrm);
-			}
-
 			if (LoadComplete != null)
 				LoadComplete(this, e);
 
 			EvokeLoadCompleteOnChild(Controls, e);
-		}
-
-		#endregion
-
-		#region Public Virtual Methods (IBackgroundWorkerControl)
-
-		public virtual bool BeforeRunWorker()
-		{
-			return true;
-		}
-
-		public virtual void AfterRunWorker()
-		{
-		}
-
-		public virtual void DoBackgroundWork(BackgroundWorker bw, DoWorkEventArgs e)
-		{
-		}
-
-		public virtual void BackgroundWorkCompleted(BackgroundWorker bw, RunWorkerCompletedEventArgs e)
-		{
-		}
-
-		public virtual void BackgroundWorkCanceled()
-		{
 		}
 
 		#endregion

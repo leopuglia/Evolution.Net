@@ -1,16 +1,42 @@
 using System;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View.Helper;
-using EvolutionNet.Util.Singleton;
 using log4net;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
-	public class WinMessageHelper : BaseSingleton<WinMessageHelper>, IMessageHelper
+	public class WinMessageHelper : IMessageHelper
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(WinMessageHelper));
 
 		private Control owner;
+
+		#region Thread-safe Singleton
+
+		private WinMessageHelper()
+		{
+		}
+
+		public static WinMessageHelper Instance
+		{
+			get
+			{
+				return Nested.instance;
+			}
+		}
+	    
+		class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static readonly WinMessageHelper instance = new WinMessageHelper();
+		}
+
+		#endregion
 
 		public void Initialize(Control owner)
 		{

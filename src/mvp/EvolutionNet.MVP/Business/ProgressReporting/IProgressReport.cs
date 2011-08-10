@@ -1,13 +1,13 @@
 using System;
 
-namespace EvolutionNet.MVP.Core.ProgressReporting
+namespace EvolutionNet.MVP.Business.ProgressReporting
 {
 	//TODO: Verificar se essas classes devem ser movidas para o EvolutionNet.Util
 	public interface IProgressReport
 	{
-		bool CancellationPending { get; }
+//		bool CancellationPending { get; }
 		bool ReportsProgress { get; set; }
-		bool SupportsCancelation { get; set; }
+		bool SupportsCancellation { get; set; }
 
 		/// <summary>
 		/// Calcula o progresso restante ao método sendo utilizado.
@@ -19,7 +19,7 @@ namespace EvolutionNet.MVP.Core.ProgressReporting
 
 		void ReportProgress(int progress);
 		void ReportProgressStep(int step);
-		void Cancel();
+//		void Cancel();
 
 		/// <summary>
 		/// Calculates the correct value of the step

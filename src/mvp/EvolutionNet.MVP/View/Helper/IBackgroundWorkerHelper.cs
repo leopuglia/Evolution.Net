@@ -5,17 +5,20 @@ namespace EvolutionNet.MVP.View.Helper
 {
 	public interface IBackgroundWorkerHelper
 	{
-//		event EventHandler<ProgressChangedEventArgs> ProgressReported;
 		event EventHandler WorkerCanceled;
+		event EventHandler<WorkerErrorEventArgs> WorkerError;
+		event EventHandler WorkerCompleted;
 
-		DoWorkDelegate DoWork { get; set; }
-		WorkerCompletedDelegate WorkerCompleted { get; set; }
-		string Caption { set; }
-		string Text { set; }
+		DoWorkDelegate DoWorkDelegate { get; set; }
+//		WorkerCompletedDelegate WorkerCompletedDelegate { get; set; }
 
-		void Initialize(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm);
-		void RunWorker(IControlView view, bool showProgressDlgFrm);
+		bool SuportsCancellation { get; set; }
+
+//		void Initialize(IControlView view/*, bool workerEnabledOnLoad, bool showProgressDlgFrm*/);
+		void RunWorker(IBackgroundWork backgroundWork);
+		void RunWorkerWithProgressDialog(IBackgroundWork backgroundWork, IControlView view, string caption, string text);
 		void ReportProgressStep(int step);
 		void ReportProgress(int value);
+		void ShowProgressDialog(IControlView view, string caption, string text);
 	}
 }

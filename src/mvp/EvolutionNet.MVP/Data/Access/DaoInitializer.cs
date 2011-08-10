@@ -2,15 +2,41 @@ using System;
 using System.Reflection;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework.Config;
-using EvolutionNet.Util.Singleton;
 using log4net;
 
 namespace EvolutionNet.MVP.Data.Access
 {
-	public class DaoInitializer : BaseSingleton<DaoInitializer>
+	public class DaoInitializer
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(DaoInitializer));
 //		private bool isDisposed;
+
+		#region Thread-safe Singleton
+
+		private DaoInitializer()
+		{
+		}
+
+		public static DaoInitializer Instance
+		{
+			get
+			{
+				return Nested.instance;
+			}
+		}
+	    
+		class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static readonly DaoInitializer instance = new DaoInitializer();
+		}
+
+		#endregion
 
 		public void GenerateCreationScripts(string fileName)
 		{

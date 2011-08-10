@@ -5,7 +5,7 @@ using EvolutionNet.Util.Collection;
 namespace EvolutionNet.MVP.Data.Definition
 {
 	[Serializable]
-	public abstract class ListTO<T, TId> : ITO where T : class, IModel<TId>
+	public abstract class ListTO<T, IdT> : ReadTO<T, IdT> where T : class, IModel<IdT>
 	{
 /*
 		private int position = -1;

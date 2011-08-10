@@ -3,9 +3,9 @@ using EvolutionNet.Util.Collection;
 
 namespace EvolutionNet.MVP.View
 {
-	public interface IListView<ModelT> : IView where ModelT : IBaseModel
+	public interface IListView<T, IdT> : IControlView where T : class, IModel<IdT>
 	{
-		SortableBindingList<ModelT> BindableList { get; set; }
+		SortableBindingList<T> BindableList { get; set; }
 
 //		void BindList();
 	}

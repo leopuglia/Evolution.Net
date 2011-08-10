@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
-using Castle.ActiveRecord;
 using Castle.Components.Validator;
 using EvolutionNet.MVP.Data.Access;
 using EvolutionNet.MVP.Data.Definition;
@@ -14,13 +11,13 @@ namespace EvolutionNet.MVP.Business
 	/// Base class for CRUD BOs, responsable to create basic business rules. (Deprecated, use BaseCrudBO)
 	/// </summary>
 	/// <typeparam name="TO">Tranfer Object: used to transfer values between the layers</typeparam>
-	/// <typeparam name="ModelT">MainModel: used for the main entity of data (model)</typeparam>
+	/// <typeparam name="T">MainModel: used for the main entity of data (model)</typeparam>
 	/// <typeparam name="IdT">Identity: ID type of the main entity</typeparam>
-	public abstract class BaseCrudBO<TO, ModelT, IdT> : BaseBO<TO>, ICrudContract<TO, ModelT, IdT>
-		where TO : CrudTO<ModelT, IdT>
-		where ModelT : class, IModel<IdT>
+	public abstract class BaseCrudBO<TO, T, IdT> : BaseListBO<TO, T, IdT>, ICrudContract<TO, T, IdT>
+		where TO : CrudTO<T, IdT>
+		where T : class, IModel<IdT>
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudBO<TO, ModelT, IdT>));
+		private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudBO<TO, T, IdT>));
 		private IList<ValidationError> errorList = new List<ValidationError>();
 
 		#region Protected Properties
@@ -51,76 +48,6 @@ namespace EvolutionNet.MVP.Business
 		#region Public Methods
 
 		/// <summary>
-		/// Executes the informed methos (ActionDelegate) inside a transaction (or not). 
-		/// All the other methods use this one to execute the data operations inside a transaction.
-		/// </summary>
-		/// <param name="doAction">Method to be executed</param>
-		/// <param name="insideTransaction">Inform if it should be executed inside a transaction</param>
-		public void Execute(ActionDelegate doAction, bool insideTransaction)
-		{
-			if (insideTransaction)
-			{
-				// Start Transaction
-				TransactionScope transaction =
-					new TransactionScope(TransactionMode.Inherits, IsolationLevel.ReadCommitted, OnDispose.Rollback);
-
-				try
-				{
-					// Execute the method passed via ActionDelegate
-					doAction();
-
-					// Save Transaction
-					transaction.VoteCommit();
-					transaction.Flush();
-				}
-				catch (Exception ex)
-				{
-					// RollBack Transaction
-					transaction.VoteRollBack();
-
-					if (log.IsErrorEnabled)
-						log.Error(MVPCommonMessages.BaseCrudBO_Error002);
-
-					throw new MVPDataAccessException(MVPCommonMessages.BaseCrudBO_Error002, ex);
-				}
-				finally
-				{
-					transaction.Dispose();
-				}
-			}
-			else
-			{
-				try
-				{
-					doAction();
-				}
-				catch (Exception ex)
-				{
-					if (log.IsErrorEnabled)
-						log.Error(MVPCommonMessages.BaseCrudBO_Error001);
-
-					throw new MVPDataAccessException(MVPCommonMessages.BaseCrudBO_Error001, ex);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fetch the data of the MainModel from it's ID
-		/// </summary>
-		public void Find()
-		{
-			Execute(DoFind, false);
-		}
-
-		/// <summary>
-		/// List all MainModel's to the List
-		/// </summary>
-		public void FindAll()
-		{
-			Execute(DoFindAll, false);
-		}
-
-		/// <summary>
 		/// Validates, then Saves the current MainModel
 		/// </summary>
 		public void Save()
@@ -130,7 +57,7 @@ namespace EvolutionNet.MVP.Business
 		}
 
 		/// <summary>
-		/// Deletes the current MainModel, using the object or it's ID
+		/// Deletes the current MainModel, using the object
 		/// </summary>
 		public void Delete()
 		{
@@ -138,7 +65,7 @@ namespace EvolutionNet.MVP.Business
 		}
 
 		/// <summary>
-		/// Deletes the current MainModel, it's ID
+		/// Deletes the current MainModel, using the To.ID
 		/// </summary>
 		public void DeleteByID()
 		{
@@ -162,44 +89,28 @@ namespace EvolutionNet.MVP.Business
 		// This methods do the actual work and are the ones that should be overriden on child classes
 
 		/// <summary>
-		/// Fetch the data of the MainModel from it's ID
-		/// </summary>
-		protected virtual void DoFind()
-		{
-			To.MainModel = Dao<ModelT, IdT>.FindByPrimaryKey(To.ID);
-		}
-
-		/// <summary>
-		/// List all MainModel's to the List
-		/// </summary>
-		protected virtual void DoFindAll()
-		{
-			To.List = Dao<ModelT, IdT>.FindAll();
-		}
-
-		/// <summary>
-		/// Validates, then Saves, the current MainModel
+		/// Saves the current MainModel
 		/// </summary>
 		protected virtual void DoSave()
 		{
-			Dao<ModelT, IdT>.Save(To.MainModel);
+			Dao<T, IdT>.Save(To.MainModel);
 		}
 
 		/// <summary>
-		/// Deletes the current MainModel, using the object or it's ID
+		/// Deletes the current MainModel, using the MainModel instance
 		/// </summary>
 		protected virtual void DoDelete()
 		{
-			Dao<ModelT, IdT>.Delete(To.MainModel);
+			Dao<T, IdT>.Delete(To.MainModel);
 		}
 
 		/// <summary>
-		/// Deletes the current MainModel, it's ID
+		/// Deletes the current MainModel by it's ID
 		/// </summary>
 		protected virtual void DoDeleteByID()
 		{
-			To.MainModel = Dao<ModelT, IdT>.FindByPrimaryKey(To.ID);
-			Dao<ModelT, IdT>.Delete(To.MainModel);
+			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
+			Dao<T, IdT>.Delete(To.MainModel);
 		}
 
 		/// <summary>

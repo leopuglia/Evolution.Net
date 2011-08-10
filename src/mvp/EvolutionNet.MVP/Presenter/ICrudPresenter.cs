@@ -2,14 +2,14 @@ using EvolutionNet.MVP.Data.Definition;
 
 namespace EvolutionNet.MVP.Presenter
 {
-	public interface ICrudPresenter<TO> : IPresenter where TO : ITO
+	public interface ICrudPresenter<TO, T, IdT> : IListPresenter<TO, T, IdT> 
+		where TO : CrudTO<T, IdT>
+		where T : class, IModel<IdT>
 	{
-		TO To { get; }
-
 		void Add();
 		void Edit();
 		void Save();
 		void Delete();
-		void Cancel();
+		void Clear();
 	}
 }

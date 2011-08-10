@@ -4,44 +4,39 @@ using EvolutionNet.MVP.View.Helper;
 
 namespace EvolutionNet.MVP.UI.Web
 {
-	public class WebHelperFactory : IHelperFactory
+	public sealed class WebHelperFactory : IHelperFactory
 	{
-		public virtual IPathHelper PathHelper
+		public IPathHelper PathHelper
 		{
 			get { return WebPathHelper.Instance; }
 		}
 
-		public virtual IControlHelper GetControlHelper(IControlView view)
+		public IControlHelper GetControlHelper(IControlView view)
 		{
 			return WebControlHelper.CreateInstance(view);
 		}
 
-		public virtual IMessageHelper MessageHelper
+		public IMessageHelper MessageHelper
 		{
 			get { return WebMessageHelper.Instance; }
 		}
 
-		public virtual IRedirectHelper RedirectHelper
+		public IRedirectHelper RedirectHelper
 		{
 			get { return WebRedirectHelper.Instance; }
 		}
 
 		//TODO: Implementar
-		public virtual IMenuHelper MenuHelper
+		public IMenuHelper MenuHelper
 		{
 			get { throw new NotImplementedException(); }
 		}
 
 		//TODO: Implementar
-		public IBackgroundWorkerHelper BackgroundWorkerHelper
+		public IBackgroundWorkerHelper GetBackgroundWorkerHelper()
 		{
-			get { throw new NotImplementedException(); }
+			throw new NotImplementedException();
 		}
 
-		//TODO: Implementar
-//		public IBackgroundWorkerHelper GetBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm)
-//		{
-//			throw new NotImplementedException();
-//		}
 	}
 }

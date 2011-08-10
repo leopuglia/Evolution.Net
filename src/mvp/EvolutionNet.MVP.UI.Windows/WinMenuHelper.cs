@@ -2,28 +2,22 @@ using System;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
-using EvolutionNet.Util.Singleton;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
-	public class WinMenuHelper : BaseSingleton<WinMenuHelper>, IMenuHelper
+	public class WinMenuHelper : IMenuHelper
 	{
-/*
-		private readonly MenuStrip menuStrip;
+		#region Thread-safe Singleton
 
-		private WinMenuHelper(MenuStrip menuStrip)
+		public static WinMenuHelper Instance
 		{
-			this.menuStrip = menuStrip;
+			get
+			{
+				return Nested.instance;
+			}
 		}
-
-		#region Thread Safe "Singleton"
-
-		public static WinMenuHelper CreateInstance(MenuStrip menuStrip)
-		{
-			return Nested.CreateLocalInstance(menuStrip);
-		}
-
-		private class Nested
+	    
+		class Nested
 		{
 			// Explicit static constructor to tell C# compiler
 			// not to mark type as beforefieldinit
@@ -31,14 +25,10 @@ namespace EvolutionNet.MVP.UI.Windows
 			{
 			}
 
-			internal static WinMenuHelper CreateLocalInstance(MenuStrip menuStrip)
-			{
-				return new WinMenuHelper(menuStrip);
-			}
+			internal static readonly WinMenuHelper instance = new WinMenuHelper();
 		}
 
 		#endregion
-*/
 
 		public object AddMenuItem(string text, string name, IControlView view)
 		{

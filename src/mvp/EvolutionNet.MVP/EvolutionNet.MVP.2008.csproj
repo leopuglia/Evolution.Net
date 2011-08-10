@@ -87,14 +87,15 @@
     <Compile Include="Business\BaseCrudBO.cs" />
     <Compile Include="Business\BaseFacade.cs" />
     <Compile Include="Business\BaseListBO.cs" />
+    <Compile Include="Business\BaseReadBO.cs" />
     <Compile Include="MVPCommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MVPCommonMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Core\ProgressReporting\IProgressReport.cs" />
-    <Compile Include="Core\ProgressReporting\ProgressEventArgs.cs" />
-    <Compile Include="Core\ProgressReporting\ProgressReportHelper.cs" />
+    <Compile Include="Business\ProgressReporting\IProgressReport.cs" />
+    <Compile Include="Business\ProgressReporting\ProgressEventArgs.cs" />
+    <Compile Include="Business\ProgressReporting\BaseProgressReport.cs" />
     <Compile Include="Data\Definition\IBaseModel.cs" />
     <Compile Include="Data\Definition\NullTO.cs" />
     <Compile Include="MVPDataAccessException.cs" />
@@ -118,6 +119,8 @@
     <Compile Include="Data\Definition\ListTO.cs" />
     <Compile Include="Data\Definition\ReadTO.cs" />
     <Compile Include="MVPException.cs" />
+    <Compile Include="Presenter\BaseCrudPresenter.cs" />
+    <Compile Include="Presenter\BaseListPresenter.cs" />
     <Compile Include="Presenter\ICrudPresenter.cs" />
     <Compile Include="Presenter\IListPresenter.cs" />
     <Compile Include="Presenter\IPresenterFactory.cs" />
@@ -126,14 +129,16 @@
     <Compile Include="Presenter\BasePresenter.cs" />
     <Compile Include="Presenter\IPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\BackgroundWork\WorkerErrorEventArgs.cs" />
     <Compile Include="View\Helper\BaseHelperFactory.cs" />
     <Compile Include="View\BackgroundWork\DoWorkDelegate.cs" />
-    <Compile Include="View\IBackgroundWorkerControl.cs" />
+    <Compile Include="View\BackgroundWork\IBackgroundWork.cs" />
     <Compile Include="View\Helper\IBackgroundWorkerHelper.cs" />
     <Compile Include="View\Helper\IHelperFactory.cs" />
     <Compile Include="View\CrudEventArgs.cs" />
     <Compile Include="View\Helper\IControlHelper.cs" />
     <Compile Include="View\ICrudView.cs" />
+    <Compile Include="View\IEditView.cs" />
     <Compile Include="View\IListView.cs" />
     <Compile Include="View\Helper\IMenuHelper.cs" />
     <Compile Include="View\Helper\IMessageHelper.cs" />
@@ -143,7 +148,6 @@
     <Compile Include="View\IControlView.cs" />
     <Compile Include="View\IWebControl.cs" />
     <Compile Include="View\IWinControl.cs" />
-    <Compile Include="View\BackgroundWork\WorkerCompletedDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">

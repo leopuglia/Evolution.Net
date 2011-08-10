@@ -4,7 +4,7 @@ using EvolutionNet.MVP.Presenter;
 
 namespace EvolutionNet.MVP.Business
 {
-	public class BaseListBO<TO, T, IdT> : BaseBO<TO>, IListContract<TO, T, IdT>
+	public class BaseListBO<TO, T, IdT> : BaseReadBO<TO, T, IdT>, IListContract<TO, T, IdT>
 		where TO : ListTO<T, IdT> 
 		where T : class, IModel<IdT>
 	{
@@ -16,19 +16,19 @@ namespace EvolutionNet.MVP.Business
 
 		#endregion
 
-		#region Métodos Públicos (IContract Members)
+		#region Public Methods
 
 		/// <summary>
-		/// Lista todos os elementos do model
+		/// List all MainModel's to the List
 		/// </summary>
 		public void FindAll()
 		{
-			DoFindAll();
+			Execute(DoFindAll, false);
 		}
 
 		#endregion
 
-		#region Hooks Protegidos
+		#region Protected Virtual Methods
 
 		protected virtual void DoFindAll()
 		{

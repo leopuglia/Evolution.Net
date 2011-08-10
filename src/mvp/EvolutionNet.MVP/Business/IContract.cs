@@ -1,12 +1,12 @@
-using EvolutionNet.MVP.Core.ProgressReporting;
+using EvolutionNet.MVP.Business.ProgressReporting;
 using EvolutionNet.MVP.Presenter;
 
 namespace EvolutionNet.MVP.Business
 {
-	public interface IContract
+	public interface IContract : IProgressReport
 	{
 		IPresenter Presenter { get; }
-		ProgressReportHelper ProgressHelper { get; }
+//		ProgressReportHelper ProgressHelper { get; }
 
 /*
 		/// <summary>
