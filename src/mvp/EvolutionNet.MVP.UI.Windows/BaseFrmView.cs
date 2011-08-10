@@ -15,7 +15,7 @@ namespace EvolutionNet.MVP.UI.Windows
 		#region Event Definition
 
 		[Category("Behavior"), Description("Event fired after all the controls are loaded.")]
-		public event EventHandler LoadComplete;
+		public event EventHandler AfterLoadComplete;
 
 		#endregion
 
@@ -40,23 +40,24 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#endregion
 
-		#region Event Calling
-
-		private void BaseFrm_Activated(object sender, EventArgs e)
+		public void OnAfterLoadComplete(EventArgs e)
 		{
 			if (!isInitialized)
 			{
 				isInitialized = true;
 
-				if (LoadComplete != null)
-					LoadComplete(this, e);
+				if (AfterLoadComplete != null)
+					AfterLoadComplete(this, e);
 
 				if (baseUC != null)
-					baseUC.OnLoadComplete(e);
+					baseUC.OnAfterLoadComplete(e);
 			}
 		}
 
-		#endregion
+		private void BaseFrm_Activated(object sender, EventArgs e)
+		{
+			OnAfterLoadComplete(e);
+		}
 
 	}
 }

@@ -12,15 +12,5 @@ namespace EvolutionNet.MVP.UI.Web
 			get { return AbstractIoCFactory<IHelperFactory>.Instance; }
 		}
 
-/*
-		public virtual void DoLoad()
-		{
-		}
-
-		public virtual void DoLoadComplete()
-		{
-		}
-*/
-
 	}
 }

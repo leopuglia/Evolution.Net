@@ -10,7 +10,7 @@ namespace EvolutionNet.MVP.View
 	{
 		// Exclui o evento Load, porque ele não é útil no Presenter, uma vez que o próprio presenter é criado no Load, isto é, só pode se subscrever pra eventos posteriores
 //		event EventHandler Load;
-		event EventHandler LoadComplete;
+//		event EventHandler LoadComplete;
 
 //		T Model { get; set; }
 //		bool IsPostBack { get; }

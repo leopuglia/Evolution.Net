@@ -23,7 +23,7 @@ namespace EvolutionNet.MVP.UI.Windows
 		#region Event Definition
 
 		[Category("Behavior"), Description("Event fired after all the form and controls are loaded.")]
-		public event EventHandler LoadComplete;
+		public event EventHandler AfterLoadComplete;
 
 		#endregion
 
@@ -56,28 +56,28 @@ namespace EvolutionNet.MVP.UI.Windows
 			if (ParentForm != null) ParentForm.Close();
 		}
 
-		public void OnLoadComplete(EventArgs e)
+		public void OnAfterLoadComplete(EventArgs e)
 		{
-			if (LoadComplete != null)
-				LoadComplete(this, e);
+			if (AfterLoadComplete != null)
+				AfterLoadComplete(this, e);
 
-			EvokeLoadCompleteOnChild(Controls, e);
+			EvokeAfterLoadCompleteOnChild(Controls, e);
 		}
 
 		#endregion
 
 		#region Private Methods
 
-		private void EvokeLoadCompleteOnChild(ControlCollection controls, EventArgs e)
+		private void EvokeAfterLoadCompleteOnChild(ControlCollection controls, EventArgs e)
 		{
 			foreach (Control control in controls)
 			{
 				var view = control as BaseUCView;
-				if (view != null && view.LoadComplete != null)
-					view.LoadComplete(view, e);
+				if (view != null && view.AfterLoadComplete != null)
+					view.AfterLoadComplete(view, e);
 
 				if (control.Controls.Count != 0)
-					EvokeLoadCompleteOnChild(control.Controls, e);
+					EvokeAfterLoadCompleteOnChild(control.Controls, e);
 			}
 		}
 

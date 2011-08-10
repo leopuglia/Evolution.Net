@@ -1,4 +1,6 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.ComponentModel;
+using System.Web.UI;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
@@ -7,7 +9,9 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BasePageView : Page, IControlView, IWebControl
 	{
-		#region Propriedades
+		protected BaseUCView baseUC;
+
+		#region Public Properties
 
 		public IHelperFactory HelperFactory
 		{
@@ -16,45 +20,54 @@ namespace EvolutionNet.MVP.UI.Web
 
 		#endregion
 
-/*
-		#region Métodos Públicos (IControlView)
+		#region Public Event Definition
 
-		public virtual void DoLoad()
-		{
-		}
+		[Category("Behavior"), Description("Event fired after all the controls are loaded.")]
+		public event EventHandler AfterLoadComplete;
 
-		public virtual void DoLoadComplete()
+		#endregion
+
+		#region Public Event Calling
+
+		public void OnAfterLoadComplete(EventArgs e)
 		{
+			if (AfterLoadComplete != null)
+				AfterLoadComplete(this, new EventArgs());
+
+			if (baseUC != null)
+				baseUC.OnAfterLoadComplete(e);
 		}
 
 		#endregion
-*/
 
-		#region Métodos Locais (Inicialização)
+		#region Local Event Override
 
-/*
 		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
 
-//			ControlHelper.Initialize(this);
-
-			Page.Load += Page_Load;
-			Page.LoadComplete += Page_LoadComplete;
+			LoadComplete += BasePageView_LoadComplete;
 		}
-
-		private void Page_Load(object sender, EventArgs e)
-		{
-			DoLoad();
-		}
-
-		private void Page_LoadComplete(object sender, EventArgs e)
-		{
-			DoLoadComplete();
-		}
-*/
 
 		#endregion
 
+		#region Local Event Methods
+
+		private void BasePageView_LoadComplete(object sender, EventArgs e)
+		{
+			OnAfterLoadComplete(e);
+		}
+
+		#endregion
+
+		#region Local Methods
+
+		protected void DeclareControlOnClient(string clientVarName, string clientControlID)
+		{
+			ClientScript.RegisterStartupScript(GetType(), clientVarName,
+			                                   string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
+		}
+
+		#endregion
 	}
 }

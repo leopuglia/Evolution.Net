@@ -1,4 +1,6 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.ComponentModel;
+using System.Web.UI;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
@@ -7,7 +9,7 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public class BaseUCView : UserControl, IControlView, IWebControl
 	{
-		#region Propriedades Públicas
+		#region Public Properties
 
 		public IHelperFactory HelperFactory
 		{
@@ -16,45 +18,66 @@ namespace EvolutionNet.MVP.UI.Web
 
 		#endregion
 
-		#region Métodos Públicos (IControlView)
+		#region Public Event Definition
 
-/*
-		public virtual void DoLoad()
-		{
-		}
-
-		public virtual void DoLoadComplete()
-		{
-		}
-*/
+		[Category("Behavior"), Description("Event fired after all the controls are loaded.")]
+		public event EventHandler AfterLoadComplete;
 
 		#endregion
 
-		#region Métodos Locais (Inicialização)
+		#region Public Event Calling
 
-/*
-		protected override void OnInit(EventArgs e)
+		public void OnAfterLoadComplete(EventArgs e)
 		{
-			base.OnInit(e);
+			if (AfterLoadComplete != null)
+				AfterLoadComplete(this, e);
 
-//			ControlHelper.Initialize(this);
-
-			Page.Load += BasePageLoad;
-			Page.LoadComplete += BasePageLoadComplete;
+			EvokeAfterLoadCompleteOnChild(Controls, e);
 		}
-
-		private void BasePageLoad(object sender, EventArgs e)
-		{
-			DoLoad();
-		}
-
-		private void BasePageLoadComplete(object sender, EventArgs e)
-		{
-			DoLoadComplete();
-		}
-*/
 
 		#endregion
 
+		#region Local Methods
+
+		protected void RegisterControlOnClientStartup(string clientVarName, string clientControlID)
+		{
+			ScriptManager.RegisterStartupScript(this, GetType(), clientVarName,
+			                                    string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
+		}
+
+		protected void RegisterControlOnClientStartup(UpdatePanel panel, string clientVarName, string clientControlID)
+		{
+			ScriptManager.RegisterStartupScript(panel, panel.GetType(), clientVarName,
+			                                    string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
+		}
+
+		protected void RegisterStartupScript(UpdatePanel panel, string key, string script)
+		{
+			ScriptManager.RegisterStartupScript(panel, panel.GetType(), key, script, true);
+		}
+
+		protected void RegisterStartupScript(string key, string script)
+		{
+			ScriptManager.RegisterStartupScript(this, GetType(), key, script, true);
+		}
+
+		#endregion
+
+		#region Local Event Calling
+
+		private void EvokeAfterLoadCompleteOnChild(ControlCollection controls, EventArgs e)
+		{
+			foreach (Control control in controls)
+			{
+				var view = control as BaseUCView;
+				if (view != null && view.AfterLoadComplete != null)
+					view.AfterLoadComplete(view, e);
+
+				if (control.Controls.Count != 0)
+					EvokeAfterLoadCompleteOnChild(control.Controls, e);
+			}
+		}
+
+		#endregion
 	}
 }
