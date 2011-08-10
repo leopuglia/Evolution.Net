@@ -85,14 +85,6 @@ namespace EvolutionNet.Util.Collection
 
 		#region Public Methods
 
-//		public void AddRange(IEnumerable enumerable)
-//		{
-//			foreach (T t in enumerable)
-//			{
-//				Add(t);
-//			}
-//		}
-
 		/// <summary>
 		/// Adiciona uma lista de elementos à lista atual.
 		/// </summary>
@@ -103,6 +95,15 @@ namespace EvolutionNet.Util.Collection
 			foreach (T t in enumerable)
 			{
 				Add(t);
+			}
+		}
+
+		public void RemoveRange(IEnumerable<T> enumerable)
+		{
+//			AddRange((IEnumerable) enumerable);
+			foreach (T t in enumerable)
+			{
+				Remove(t);
 			}
 		}
 		
@@ -126,7 +127,8 @@ namespace EvolutionNet.Util.Collection
 		/// <param name="ascending">Direção do ordenamento (ascendente ou decrescente)</param>
 		public void Sort(string propertyName, bool ascending)
 		{
-			Sort(new PropertySortDirection(propertyName, ascending));
+			Sort(new PropertySortDirection(propertyName, 
+				ascending ? PropertySortOrder.Ascending : PropertySortOrder.Descending));
 		}
 
 		/// <summary>
@@ -135,13 +137,18 @@ namespace EvolutionNet.Util.Collection
 		/// <param name="propertyDirection">Objeto contendo o descritor da propriedade e a direção do ordenamento</param>
 		public void Sort(PropertySortDirection propertyDirection)
 		{
-			// Creates a new collection and assign it the properties for button1.
-			PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
+			if (propertyDirection.SortOrder != PropertySortOrder.None)
+			{
+				// Creates a new collection and assign it the properties for button1.
+				PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof (T));
 
-			// Sets an PropertyDescriptor to the specific property.
-			PropertyDescriptor myProperty = properties.Find(propertyDirection.PropertyName, false);
-			
-			ApplySortCore(myProperty, propertyDirection.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
+				// Sets an PropertyDescriptor to the specific property.
+				PropertyDescriptor myProperty = properties.Find(propertyDirection.PropertyName, false);
+
+				ApplySortCore(myProperty, propertyDirection.SortOrder == PropertySortOrder.Ascending
+				                          	? ListSortDirection.Ascending
+				                          	: ListSortDirection.Descending);
+			}
 		}
 
 		#endregion

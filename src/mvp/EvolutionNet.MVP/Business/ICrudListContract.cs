@@ -11,8 +11,8 @@ namespace EvolutionNet.MVP.Business
 	/// <summary>
 	/// Essa interface representa o contrato entre o Presenter e o Facade, os métodos que ambos devem implementar
 	/// </summary>
-	public interface ICrudContract<TO, T, IdT> : IListContract<TO, T, IdT>//, IDisposable
-		where TO : CrudTO<T, IdT>
+	public interface ICrudListContract<TO, T, IdT> : IListContract<TO, T, IdT>//, IDisposable
+		where TO : CrudListTO<T, IdT>
 		where T : class, IModel<IdT>
 	{
 		//TODO: Aki eu posso aplicar a pattern de command, adicionando os métodos pra adicionar cada comando no contrato e, assim, definir se um facade vai ter salvar, ou listartodos, etc.
@@ -21,24 +21,18 @@ namespace EvolutionNet.MVP.Business
 		IList<ValidationError> ErrorList { get; set; }
 
 		/// <summary>
-		/// Busca os dados do MainModel a partir de um ID fornecido no mesmo
-		/// </summary>
-		void Find();
-
-		/// <summary>
-		/// Lista todos os elementos do model
-		/// </summary>
-//		void FindAll();
-
-		/// <summary>
 		/// Salva o MainModel atual
 		/// </summary>
 		void Save();
+
+		void SaveList();
 
 		/// <summary>
 		/// Deleta o MainModel atual
 		/// </summary>
 		void Delete();
+
+		void DeleteList();
 
 		void DeleteByID();
 

@@ -70,7 +70,7 @@ namespace EvolutionNet.MVP.Presenter
 			}
 			catch (Exception ex)
 			{
-				throw new MVPIoCException("Error creating the ICrudContract implementation no Presenter.", ex);
+				throw new MVPIoCException("Error creating the ICrudListContract implementation no Presenter.", ex);
 			}
 		}
 

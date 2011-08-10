@@ -7,7 +7,6 @@ namespace EvolutionNet.MVP.Presenter
 		where T : class, IModel<IdT>
 	{
 		TO To { get; }
-
 		void FindAll();
 //		SortableBindingList<ModelT> BindableList { get; }
 	}

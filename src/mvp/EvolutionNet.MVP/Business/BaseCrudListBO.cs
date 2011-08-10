@@ -13,11 +13,11 @@ namespace EvolutionNet.MVP.Business
 	/// <typeparam name="TO">Tranfer Object: used to transfer values between the layers</typeparam>
 	/// <typeparam name="T">MainModel: used for the main entity of data (model)</typeparam>
 	/// <typeparam name="IdT">Identity: ID type of the main entity</typeparam>
-	public abstract class BaseCrudBO<TO, T, IdT> : BaseListBO<TO, T, IdT>, ICrudContract<TO, T, IdT>
-		where TO : CrudTO<T, IdT>
+	public abstract class BaseCrudListBO<TO, T, IdT> : BaseListBO<TO, T, IdT>, ICrudListContract<TO, T, IdT>
+		where TO : CrudListTO<T, IdT>
 		where T : class, IModel<IdT>
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudBO<TO, T, IdT>));
+		private static readonly ILog log = LogManager.GetLogger(typeof(BaseCrudListBO<TO, T, IdT>));
 		private IList<ValidationError> errorList = new List<ValidationError>();
 
 		#region Protected Properties
@@ -39,7 +39,7 @@ namespace EvolutionNet.MVP.Business
 
 		#region Constructor
 
-		protected BaseCrudBO(IPresenter presenter) : base(presenter)
+		protected BaseCrudListBO(IPresenter presenter) : base(presenter)
 		{
 		}
 
@@ -56,12 +56,26 @@ namespace EvolutionNet.MVP.Business
 				Execute(DoSave, true);
 		}
 
+		public void SaveList()
+		{
+			if (Validate(ThrowExceptionOnValidation))
+				Execute(DoSaveList, true);
+		}
+
 		/// <summary>
 		/// Deletes the current MainModel, using the object
 		/// </summary>
 		public void Delete()
 		{
 			Execute(DoDelete, true);
+		}
+
+		/// <summary>
+		/// Deletes the current MainModel, using the object
+		/// </summary>
+		public void DeleteList()
+		{
+			Execute(DoDeleteList, true);
 		}
 
 		/// <summary>
@@ -93,7 +107,15 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoSave()
 		{
-			Dao<T, IdT>.Save(To.MainModel);
+			Dao<T, IdT>.Save(To.CurrentModel);
+		}
+
+		protected virtual void DoSaveList()
+		{
+			foreach (var current in To.CurrentList)
+			{
+				Dao<T, IdT>.Save(current);
+			}
 		}
 
 		/// <summary>
@@ -101,7 +123,18 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoDelete()
 		{
-			Dao<T, IdT>.Delete(To.MainModel);
+			Dao<T, IdT>.Delete(To.CurrentModel);
+		}
+
+		/// <summary>
+		/// Deletes the current MainModel, using the MainModel instance
+		/// </summary>
+		protected virtual void DoDeleteList()
+		{
+			foreach (var current in To.CurrentList)
+			{
+				Dao<T, IdT>.Delete(current);
+			}
 		}
 
 		/// <summary>
@@ -109,8 +142,8 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoDeleteByID()
 		{
-			To.MainModel = Dao<T, IdT>.FindByPrimaryKey(To.ID);
-			Dao<T, IdT>.Delete(To.MainModel);
+			To.CurrentModel = Dao<T, IdT>.FindByPrimaryKey(To.CurrentID);
+			Dao<T, IdT>.Delete(To.CurrentModel);
 		}
 
 		/// <summary>
@@ -122,10 +155,10 @@ namespace EvolutionNet.MVP.Business
 		{
 #if FRAMEWORK_3
 			IValidatorRunner runner = new ValidatorRunner(new CachedValidationRegistry());
-			if (runner.IsValid(To.MainModel))
+			if (runner.IsValid(To.CurrentModel))
 				return true;
 
-			ErrorSummary errors = runner.GetErrorSummary(To.MainModel);
+			ErrorSummary errors = runner.GetErrorSummary(To.CurrentModel);
 
 			for (int i = 0; i < errors.ErrorsCount; i++)
 			{

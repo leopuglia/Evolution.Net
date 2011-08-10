@@ -4,7 +4,7 @@ using EvolutionNet.MVP.Presenter;
 
 namespace EvolutionNet.MVP.Business
 {
-	public class BaseListBO<TO, T, IdT> : BaseReadBO<TO, T, IdT>, IListContract<TO, T, IdT>
+	public class BaseListBO<TO, T, IdT> : BaseBO<TO>, IListContract<TO, T, IdT>
 		where TO : ListTO<T, IdT> 
 		where T : class, IModel<IdT>
 	{

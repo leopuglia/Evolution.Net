@@ -5,7 +5,7 @@ using EvolutionNet.MVP.View;
 
 namespace EvolutionNet.MVP.UI.Web
 {
-	public class BaseCrudUCView : BaseUCView, ICrudView
+	public class BaseCrudUCView : BaseUCView, ICrudListView
 	{
 		private GridView grid;
 

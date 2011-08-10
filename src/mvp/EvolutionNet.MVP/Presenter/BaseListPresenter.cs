@@ -11,13 +11,14 @@ namespace EvolutionNet.MVP.Presenter
 		where TO : ListTO<T, IdT>
 		where T : class, IModel<IdT>
 	{
-		protected BaseListPresenter(ViewT view) : base(view)
-		{
-		}
-
 		public TO To
 		{
 			get { return Bo.To; }
+		}
+
+		protected BaseListPresenter(ViewT view)
+			: base(view)
+		{
 		}
 
 		public abstract void FindAll();
