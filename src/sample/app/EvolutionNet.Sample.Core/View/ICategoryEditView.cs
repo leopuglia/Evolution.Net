@@ -3,9 +3,8 @@ using EvolutionNet.Sample.Data.Definition;
 
 namespace EvolutionNet.Sample.Core.View
 {
-	public interface ICategoryEditView : IControlView
+	public interface ICategoryEditView : IEditView<Category, int>
 	{
-		Category Model { get; set; }
 //		void SetEditValues(Category category);
 //		Category GetEditValues();
 	}

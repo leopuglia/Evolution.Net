@@ -3,8 +3,8 @@ using EvolutionNet.Sample.Data.Definition;
 
 namespace EvolutionNet.Sample.Core.View
 {
-	public interface ICategoryCrudView : ICrudView<Category>//IControlView, IListView
+	public interface ICategoryCrudView : ICrudView<Category, int>
 	{
-//		bool ShowEditModalDlg(Category category);
+		int SlowWorkTime { get; set; }
 	}
 }

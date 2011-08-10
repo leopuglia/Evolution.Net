@@ -13,10 +13,10 @@ namespace EvolutionNet.Sample.Business
 			get { return false; }
 		}
 
-		public CategoryCrudBO(IPresenter presenter)
-			: base(presenter)
+		public CategoryCrudBO(IPresenter presenter) : base(presenter)
 		{
-			ReportsProgress = true;
+			reportsProgress = true;
+//			supportsCancellation = false;
 		}
 
 		public void SlowWork()
@@ -30,14 +30,11 @@ namespace EvolutionNet.Sample.Business
 			// Simulates a slow operation with 10 steps
 			for (int i = 1; i <= numSteps; i++)
 			{
-				if (ProgressHelper.CancellationPending)
-					return;
-
 				// If I'm using ReportProgress, I have to inform the report percent
-				ProgressHelper.ReportProgress(i * numSteps);
+				ReportProgress(i * numSteps);
 
 				// If I'm using ReportProgressStep
-//				ProgressHelper.ReportProgressStep(stepSize);
+//				ReportProgressStep(stepSize);
 
 				// The time to Sleep, in miliseconds
 				Thread.Sleep(((To.SlowWorkTime * 1000) / numSteps));

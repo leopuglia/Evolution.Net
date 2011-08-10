@@ -6,7 +6,7 @@ using log4net.Config;
 
 namespace EvolutionNet.Sample.Business
 {
-	public class BOFactory : BaseBOFactory, IFacadeFactory
+	public class BOFactory : BaseBOFactory, ISampleBusinessFactory
 	{
 		private bool isInitialized;
 

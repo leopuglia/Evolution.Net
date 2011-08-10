@@ -1,8 +1,9 @@
 using System;
-using System.ComponentModel;
 using EvolutionNet.MVP;
-using EvolutionNet.MVP.Core.ProgressReporting;
+using EvolutionNet.MVP.Business.ProgressReporting;
 using EvolutionNet.MVP.Presenter;
+using EvolutionNet.MVP.View.BackgroundWork;
+using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Sample.Core.Business;
 using EvolutionNet.Sample.Core.View;
 using EvolutionNet.Sample.Data.Definition;
@@ -11,21 +12,40 @@ using EvolutionNet.Util.Collection;
 namespace EvolutionNet.Sample.Presenter
 {
 	public class CategoryCrudPresenter : 
-		BasePresenter<ICategoryCrudView, ICategoryCrudContract>, ICrudPresenter<CategoryCrudTO>, IListPresenter<Category>
+		BaseCrudPresenter<ICategoryCrudView, ICategoryCrudContract, CategoryCrudTO, Category, int>, IBackgroundWork
 	{
-		#region Public Properties
+		private readonly IBackgroundWorkerHelper backgroundWorker;
 
-		public CategoryCrudTO To
+		#region Constructor
+
+		public CategoryCrudPresenter(ICategoryCrudView view) : base(view)
 		{
-			get { return Bo.To; }
+			Bo.ProgressReported += Bo_ProgressReported;
+
+			backgroundWorker = HelperFactory.GetBackgroundWorkerHelper();
+			backgroundWorker.SuportsCancellation = Bo.SupportsCancellation;
+			backgroundWorker.WorkerCanceled += BackgroundWorkerHelper_WorkerCanceled;
+			backgroundWorker.WorkerError += BackgroundWorkerHelper_WorkerError;
+			backgroundWorker.WorkerCompleted += BackgroundWorkerHelper_WorkerCompleted;
+//			HelperFactory.BackgroundWorkerHelper.DoWorkDelegate += SlowWork;
+
+			FindAll();
+
+			To.SlowWorkTime = view.SlowWorkTime;
 		}
 
 		#endregion
 
-		#region Constructor
+		#region Public Methods
 
-		public CategoryCrudPresenter(ICategoryCrudView view)
-			: base(view)
+		public void LoadComplete()
+		{
+			RunSlowWork();
+		}
+
+		#region ICrudPresenter
+
+		public override void FindAll()
 		{
 			try
 			{
@@ -37,22 +57,15 @@ namespace EvolutionNet.Sample.Presenter
 				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not initialize", ex);
 			}
 
-			view.LoadComplete += view_LoadComplete;
 		}
 
-		#endregion
-
-		#region Public Methods
-
-		#region ICrudPresenter
-
-		public void Add()
+		public override void Add()
 		{
 			Bo.To.MainModel = new Category();
 			Edit();
 		}
 
-		public void Edit()
+		public override void Edit()
 		{
 			try
 			{
@@ -67,21 +80,21 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit values", ex);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit value(s)", ex);
 			}
 		}
 
-		public void Save()
+		public override void Save()
 		{
 			try
 			{
 				Bo.Save();
 
-				View.HelperFactory.MessageHelper.ShowMessage("Success", "Values saved");
+				View.HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save values", ex);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save value(s)", ex);
 			}
 			finally
 			{
@@ -90,17 +103,17 @@ namespace EvolutionNet.Sample.Presenter
 			}
 		}
 
-		public void Delete()
+		public override void Delete()
 		{
 			try
 			{
 				Bo.Delete();
 
-				View.HelperFactory.MessageHelper.ShowMessage("Success", "Values deleted");
+				View.HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete values", ex);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete value(s)", ex);
 			}
 			finally
 			{
@@ -109,7 +122,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 		}
 
-		public void Cancel()
+		public override void Clear()
 		{
 /*
 			try
@@ -118,7 +131,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to clean values", ex);
+				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to clean value(s)", ex);
 			}
 */
 		}
@@ -127,35 +140,23 @@ namespace EvolutionNet.Sample.Presenter
 
 		#region BackgroundWork
 
+		public void RunSlowWork()
+		{
+/*
+			HelperFactory.BackgroundWorkerHelper.RunWorker(this);
+			HelperFactory.BackgroundWorkerHelper.ShowProgressDialog(
+				View, 
+				"Slow Work", 
+				string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime));
+*/
+			backgroundWorker.RunWorkerWithProgressDialog(this, View,
+				"Slow Work", string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime));
+		}
+
 		// Tudo que acontece dentro desses métodos abaixo tá dentro de outra thread, portanto não pode alterar valores 
-		public void SlowWork()
+		public void DoBackgroundWork()
 		{
-			HelperFactory.BackgroundWorkerHelper.WorkerCanceled += BackgroundWorkerHelper_WorkerCanceled;
-			Bo.ProgressHelper.ProgressReported += ProgressHelper_ProgressReported;
-
 			Bo.SlowWork();
-		}
-
-		public void SlowWorkCompleted(RunWorkerCompletedEventArgs e)
-		{
-			//TODO: Implementar um ShowAtentionMessage ou ShowAlertMessage);
-			if (e.Cancelled)
-				HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was cancelled by the user");
-			else if (e.Error != null)
-				HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was aborted by an error", e.Error);
-			else
-				HelperFactory.MessageHelper.ShowMessage(MVPCommonMessages.CommonMessages_Common_CaptionSuccess, "Job Done");
-
-		}
-
-		#endregion
-
-		#region Auxiliary
-
-		public void SlowWorkTimeChanged()
-		{
-			HelperFactory.BackgroundWorkerHelper.Caption = "Slow Work";
-			HelperFactory.BackgroundWorkerHelper.Text = string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime);
 		}
 
 		#endregion
@@ -164,20 +165,24 @@ namespace EvolutionNet.Sample.Presenter
 
 		#region Event Methods
 
-		private void view_LoadComplete(object sender, EventArgs e)
+		private void Bo_ProgressReported(object sender, ProgressEventArgs e)
 		{
-			SlowWorkTimeChanged();
+			backgroundWorker.ReportProgress(e.ProgressPercentage);
 		}
 
 		private void BackgroundWorkerHelper_WorkerCanceled(object sender, EventArgs e)
 		{
-			Bo.ProgressHelper.Cancel();
+			HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was cancelled by the user");
 		}
 
-		private void ProgressHelper_ProgressReported(object sender, ProgressEventArgs e)
+		private void BackgroundWorkerHelper_WorkerError(object sender, WorkerErrorEventArgs e)
 		{
-			HelperFactory.BackgroundWorkerHelper.ReportProgress(e.ProgressPercentage);
-//			bw.ReportProgress(e.ProgressPercentage);
+			HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was aborted by an error", e.Error);
+		}
+
+		private void BackgroundWorkerHelper_WorkerCompleted(object sender, EventArgs e)
+		{
+			HelperFactory.MessageHelper.ShowMessage(MVPCommonMessages.CommonMessages_Common_CaptionSuccess, "Job Done");
 		}
 
 		#endregion

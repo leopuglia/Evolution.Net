@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\IBusinessFactory.cs" />
+    <Compile Include="Business\ISampleBusinessFactory.cs" />
     <Compile Include="Business\ICategoryCrudContract.cs" />
     <Compile Include="Business\IMainContract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

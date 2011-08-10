@@ -32,11 +32,6 @@ namespace EvolutionNet.Sample.UI.Windows
 		{
 			this.components = new System.ComponentModel.Container();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.productsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.pictureImageDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
 			this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.btnEdit = new System.Windows.Forms.Button();
@@ -44,6 +39,11 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.btnSlowWork = new System.Windows.Forms.Button();
 			this.nudSlowWorkTime = new System.Windows.Forms.NumericUpDown();
 			this.lblSlowProcess = new System.Windows.Forms.Label();
+			this.pictureImageDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+			this.productsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudSlowWorkTime)).BeginInit();
@@ -74,41 +74,6 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.dataGridView1.TabIndex = 1;
 			this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
 			this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
-			// 
-			// iDDataGridViewTextBoxColumn
-			// 
-			this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-			this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-			this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-			this.iDDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// categoryNameDataGridViewTextBoxColumn
-			// 
-			this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
-			this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
-			this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
-			this.categoryNameDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// descriptionDataGridViewTextBoxColumn
-			// 
-			this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-			this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-			this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-			this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// productsDataGridViewTextBoxColumn
-			// 
-			this.productsDataGridViewTextBoxColumn.DataPropertyName = "Products";
-			this.productsDataGridViewTextBoxColumn.HeaderText = "Products";
-			this.productsDataGridViewTextBoxColumn.Name = "productsDataGridViewTextBoxColumn";
-			this.productsDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// pictureImageDataGridViewImageColumn
-			// 
-			this.pictureImageDataGridViewImageColumn.DataPropertyName = "PictureImage";
-			this.pictureImageDataGridViewImageColumn.HeaderText = "PictureImage";
-			this.pictureImageDataGridViewImageColumn.Name = "pictureImageDataGridViewImageColumn";
-			this.pictureImageDataGridViewImageColumn.ReadOnly = true;
 			// 
 			// bindingSource
 			// 
@@ -172,7 +137,6 @@ namespace EvolutionNet.Sample.UI.Windows
             0,
             0,
             0});
-			this.nudSlowWorkTime.ValueChanged += new System.EventHandler(this.nudSlowWorkTime_ValueChanged);
 			// 
 			// lblSlowProcess
 			// 
@@ -183,6 +147,41 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.lblSlowProcess.Size = new System.Drawing.Size(97, 13);
 			this.lblSlowProcess.TabIndex = 0;
 			this.lblSlowProcess.Text = "Process Time (sec)";
+			// 
+			// pictureImageDataGridViewImageColumn
+			// 
+			this.pictureImageDataGridViewImageColumn.DataPropertyName = "PictureImage";
+			this.pictureImageDataGridViewImageColumn.HeaderText = "PictureImage";
+			this.pictureImageDataGridViewImageColumn.Name = "pictureImageDataGridViewImageColumn";
+			this.pictureImageDataGridViewImageColumn.ReadOnly = true;
+			// 
+			// productsDataGridViewTextBoxColumn
+			// 
+			this.productsDataGridViewTextBoxColumn.DataPropertyName = "Products";
+			this.productsDataGridViewTextBoxColumn.HeaderText = "Products";
+			this.productsDataGridViewTextBoxColumn.Name = "productsDataGridViewTextBoxColumn";
+			this.productsDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// descriptionDataGridViewTextBoxColumn
+			// 
+			this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+			this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+			this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+			this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// categoryNameDataGridViewTextBoxColumn
+			// 
+			this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+			this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
+			this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+			this.categoryNameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// iDDataGridViewTextBoxColumn
+			// 
+			this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+			this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+			this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+			this.iDDataGridViewTextBoxColumn.ReadOnly = true;
 			// 
 			// CategoryCrudView
 			// 
@@ -213,13 +212,13 @@ namespace EvolutionNet.Sample.UI.Windows
 		private Button btnAdd;
 		private Button btnEdit;
 		private Button btnDelete;
+		private Button btnSlowWork;
+		private NumericUpDown nudSlowWorkTime;
+		private Label lblSlowProcess;
 		private DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
 		private DataGridViewTextBoxColumn categoryNameDataGridViewTextBoxColumn;
 		private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
 		private DataGridViewTextBoxColumn productsDataGridViewTextBoxColumn;
 		private DataGridViewImageColumn pictureImageDataGridViewImageColumn;
-		private Button btnSlowWork;
-		private NumericUpDown nudSlowWorkTime;
-		private Label lblSlowProcess;
 	}
 }

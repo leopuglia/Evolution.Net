@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 using EvolutionNet.MVP.UI.Windows;
 using EvolutionNet.Sample.Core.View;
@@ -26,6 +25,12 @@ namespace EvolutionNet.Sample.UI.Windows
 			set { bindingSource.DataSource = value; }
 		}
 
+		public int SlowWorkTime
+		{
+			get { return (int)nudSlowWorkTime.Value; }
+			set { nudSlowWorkTime.Value = value; }
+		}
+
 		#endregion
 
 		#region Constructor
@@ -33,9 +38,6 @@ namespace EvolutionNet.Sample.UI.Windows
 		public CategoryCrudView()
 		{
 			InitializeComponent();
-
-			workerEnabledOnLoad = true;
-			showProgressDlgFrm = true;
 		}
 
 		#endregion
@@ -47,38 +49,41 @@ namespace EvolutionNet.Sample.UI.Windows
 			// Do not create the presenter on visual studio design time, because it causes error
 			if (!IsVSDesigner)
 				presenter = new CategoryCrudPresenter(this);
-
-			presenter.To.SlowWorkTime = (int)nudSlowWorkTime.Value;
 		}
 
 		private void CategoryCrudView_LoadComplete(object sender, EventArgs e)
 		{
-			SetRowHeightColumnWidth();
+			presenter.LoadComplete();
+
+			AjustDataGridRowHeightColumnWidth();
 		}
 
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
 			presenter.Add();
 
-			SetRowHeightColumnWidth();
+			AjustDataGridRowHeightColumnWidth();
 		}
 
 		private void btnEdit_Click(object sender, EventArgs e)
 		{
-//			presenter.To.Position = bindingSource.Position;
 			presenter.To.MainModel = (Category)bindingSource.Current;
 			presenter.Edit();
 
-			SetRowHeightColumnWidth();
+			AjustDataGridRowHeightColumnWidth();
 		}
 
 		private void btnDelete_Click(object sender, EventArgs e)
 		{
-//			presenter.To.Position = bindingSource.Position;
 			presenter.To.MainModel = (Category)bindingSource.Current;
 			presenter.Delete();
 
-			SetRowHeightColumnWidth();
+			AjustDataGridRowHeightColumnWidth();
+		}
+
+		private void btnSlowWork_Click(object sender, EventArgs e)
+		{
+			presenter.RunSlowWork();
 		}
 
 		private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -90,44 +95,19 @@ namespace EvolutionNet.Sample.UI.Windows
 				presenter.Edit();
 			}
 
-			SetRowHeightColumnWidth();
+			AjustDataGridRowHeightColumnWidth();
 		}
 
 		private void dataGridView1_Sorted(object sender, EventArgs e)
 		{
-			SetRowHeightColumnWidth();
-		}
-
-		private void nudSlowWorkTime_ValueChanged(object sender, EventArgs e)
-		{
-			presenter.To.SlowWorkTime = (int)nudSlowWorkTime.Value;
-			presenter.SlowWorkTimeChanged();
-		}
-
-		private void btnSlowWork_Click(object sender, EventArgs e)
-		{
-			HelperFactory.BackgroundWorkerHelper.RunWorker(this, true);
-		}
-
-		#endregion
-
-		#region Public Methods (BackgroundWork)
-
-		public override void DoBackgroundWork(BackgroundWorker bw, DoWorkEventArgs e)
-		{
-			presenter.SlowWork();
-		}
-
-		public override void BackgroundWorkCompleted(BackgroundWorker bw, RunWorkerCompletedEventArgs e)
-		{
-			presenter.SlowWorkCompleted(e);
+			AjustDataGridRowHeightColumnWidth();
 		}
 
 		#endregion
 
 		#region Visual Style (only for WinForms)
 
-		private void SetRowHeightColumnWidth()
+		private void AjustDataGridRowHeightColumnWidth()
 		{
 			// I've left this method here intentionally, since a web app need different treatment
 			// TODO: Refactor this method to the Presenter after creating the web view
