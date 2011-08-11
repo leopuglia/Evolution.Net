@@ -12,27 +12,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Util.2008", "u
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Windows.2008", "mvp\EvolutionNet.MVP.UI.Windows\EvolutionNet.MVP.UI.Windows.2008.csproj", "{3B4A98E4-0CD4-46D6-AEB9-527C77B3A414}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{6776CCFF-CE00-4224-9A6A-4275C80B0347}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.2008", "mvp\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj", "{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Business.2008", "sample\app\EvolutionNet.Sample.Business\EvolutionNet.Sample.Business.2008.csproj", "{52986B75-86E4-4E98-8B46-6F54BB242BD2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Core.2008", "sample\app\EvolutionNet.Sample.Core\EvolutionNet.Sample.Core.2008.csproj", "{EC46E835-B794-40E7-AFDC-46CEC253807A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Data.Access.2008", "sample\app\EvolutionNet.Sample.Data.Access\EvolutionNet.Sample.Data.Access.2008.csproj", "{37BB9000-FE4B-454D-AA98-20E60E45BC05}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Data.Definition.2008", "sample\app\EvolutionNet.Sample.Data.Definition\EvolutionNet.Sample.Data.Definition.2008.csproj", "{DF9543AD-490C-4A75-86D8-93391F8F05A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Presenter.2008", "sample\app\EvolutionNet.Sample.Presenter\EvolutionNet.Sample.Presenter.2008.csproj", "{2FC86B8C-923D-4F52-9D1C-D88A532CA734}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.UI.Web.2008", "sample\app\EvolutionNet.Sample.UI.Web\EvolutionNet.Sample.UI.Web.2008.csproj", "{454DB541-AE42-439C-98F4-634A5E8988A2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.UI.Windows.2008", "sample\app\EvolutionNet.Sample.UI.Windows\EvolutionNet.Sample.UI.Windows.2008.csproj", "{BB67662F-E7C6-480C-AB48-CA097C6E0B49}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.MVP.UI.Web.2008", "mvp\EvolutionNet.MVP.UI.Web\EvolutionNet.MVP.UI.Web.2008.csproj", "{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionNet.Sample.Test", "sample\test\EvolutionNet.Sample.Test\EvolutionNet.Sample.Test.csproj", "{19DC2396-9BCF-4C98-8A76-0E544AC11338}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,54 +34,12 @@ Global
 		{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52986B75-86E4-4E98-8B46-6F54BB242BD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52986B75-86E4-4E98-8B46-6F54BB242BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52986B75-86E4-4E98-8B46-6F54BB242BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52986B75-86E4-4E98-8B46-6F54BB242BD2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC46E835-B794-40E7-AFDC-46CEC253807A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC46E835-B794-40E7-AFDC-46CEC253807A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC46E835-B794-40E7-AFDC-46CEC253807A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC46E835-B794-40E7-AFDC-46CEC253807A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37BB9000-FE4B-454D-AA98-20E60E45BC05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37BB9000-FE4B-454D-AA98-20E60E45BC05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37BB9000-FE4B-454D-AA98-20E60E45BC05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37BB9000-FE4B-454D-AA98-20E60E45BC05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF9543AD-490C-4A75-86D8-93391F8F05A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF9543AD-490C-4A75-86D8-93391F8F05A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF9543AD-490C-4A75-86D8-93391F8F05A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF9543AD-490C-4A75-86D8-93391F8F05A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FC86B8C-923D-4F52-9D1C-D88A532CA734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FC86B8C-923D-4F52-9D1C-D88A532CA734}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FC86B8C-923D-4F52-9D1C-D88A532CA734}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FC86B8C-923D-4F52-9D1C-D88A532CA734}.Release|Any CPU.Build.0 = Release|Any CPU
-		{454DB541-AE42-439C-98F4-634A5E8988A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{454DB541-AE42-439C-98F4-634A5E8988A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{454DB541-AE42-439C-98F4-634A5E8988A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{454DB541-AE42-439C-98F4-634A5E8988A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB67662F-E7C6-480C-AB48-CA097C6E0B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB67662F-E7C6-480C-AB48-CA097C6E0B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB67662F-E7C6-480C-AB48-CA097C6E0B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB67662F-E7C6-480C-AB48-CA097C6E0B49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D3664C3-1AAF-4F72-B28F-C34F5A9B5E6A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19DC2396-9BCF-4C98-8A76-0E544AC11338}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{52986B75-86E4-4E98-8B46-6F54BB242BD2} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
-		{EC46E835-B794-40E7-AFDC-46CEC253807A} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
-		{37BB9000-FE4B-454D-AA98-20E60E45BC05} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
-		{DF9543AD-490C-4A75-86D8-93391F8F05A7} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
-		{2FC86B8C-923D-4F52-9D1C-D88A532CA734} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
-		{454DB541-AE42-439C-98F4-634A5E8988A2} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
-		{BB67662F-E7C6-480C-AB48-CA097C6E0B49} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
-		{19DC2396-9BCF-4C98-8A76-0E544AC11338} = {6776CCFF-CE00-4224-9A6A-4275C80B0347}
 	EndGlobalSection
 EndGlobal
