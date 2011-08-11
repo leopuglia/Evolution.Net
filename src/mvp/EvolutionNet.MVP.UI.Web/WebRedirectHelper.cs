@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
@@ -66,14 +65,17 @@ namespace EvolutionNet.MVP.UI.Web
 			}
 		}
 
-		public bool ShowModalDialogView(IControlView destView, object senderView)
+		public bool ShowModalDialogView<T>(T destView, object senderView) where T : IControlView
 		{
-			throw new NotImplementedException();
+			// I'm returning false here because in the web I have to edit the values after showing the modal dialog
+			((IEditViewContainer<T>) senderView).ShowModalDialog();
+
+			return false;
 		}
 
 		public T CreateModalDialogView<T>(object senderView, params object[] args) where T : IControlView
 		{
-			throw new NotImplementedException();
+			return ((IEditViewContainer<T>) senderView).EditView;
 		}
 
 /*

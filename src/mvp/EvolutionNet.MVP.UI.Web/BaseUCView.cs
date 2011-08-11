@@ -61,6 +61,23 @@ namespace EvolutionNet.MVP.UI.Web
 			ScriptManager.RegisterStartupScript(this, GetType(), key, script, true);
 		}
 
+		protected void SetFocusJavascript(UpdatePanel updatePanelEdit, string modalPopupName, string clientID)
+		{
+			RegisterControlOnClientStartup(updatePanelEdit, "controlToFocus", clientID);
+			RegisterStartupScript(updatePanelEdit, "FocusCategoryName", @"
+				Sys.Application.add_load(modalSetup);
+
+				function SetFocusOnControl()
+				{
+					controlToFocus.select();
+				}
+				function modalSetup()
+				{
+					var modalPopup = $find('" + modalPopupName + @"');
+					modalPopup.add_shown(SetFocusOnControl);		 
+				}");
+		}
+
 		#endregion
 
 		#region Local Event Calling

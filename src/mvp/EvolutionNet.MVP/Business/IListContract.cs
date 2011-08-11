@@ -13,5 +13,6 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		void FindAll();
 
+		void Find();
 	}
 }

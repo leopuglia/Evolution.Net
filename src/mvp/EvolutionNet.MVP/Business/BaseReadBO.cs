@@ -11,7 +11,7 @@ namespace EvolutionNet.MVP.Business
 	/// <typeparam name="TO">Tranfer Object: used to transfer values between the layers</typeparam>
 	/// <typeparam name="T"></typeparam>
 	/// <typeparam name="IdT"></typeparam>
-	public class BaseReadBO<TO, T, IdT> : BaseBO<TO>
+	public abstract class BaseReadBO<TO, T, IdT> : BaseBO<TO>, IReadContract<TO, T, IdT>
 		where TO : ReadTO<T, IdT>
 		where T : class, IModel<IdT>
 	{
@@ -26,6 +26,11 @@ namespace EvolutionNet.MVP.Business
 		#endregion
 
 		#region Public Methods
+
+//		public override TO To
+//		{
+//			get { return base.To; }
+//		}
 
 		/// <summary>
 		/// Fetch the data of the MainModel from the To.ID

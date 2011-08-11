@@ -61,7 +61,7 @@ namespace EvolutionNet.MVP.UI.Windows
 			return WinControlHelper.FindControl<T>(frm);
 		}
 
-		public bool ShowModalDialogView(IControlView destView, object senderView)
+		public bool ShowModalDialogView<T>(T destView, object senderView) where T : IControlView
 		{
 			if (destView as UserControl == null || (destView as UserControl).ParentForm == null)
 				throw new ArgumentOutOfRangeException("destView", destView, "The destView should be a Control");

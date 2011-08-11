@@ -32,10 +32,9 @@ namespace EvolutionNet.MVP.UI.Web
 			get { throw new NotImplementedException(); }
 		}
 
-		//TODO: Implementar
 		public IBackgroundWorkerHelper GetBackgroundWorkerHelper()
 		{
-			throw new NotImplementedException();
+			return new WebBackgroundWorkerHelper();
 		}
 
 	}

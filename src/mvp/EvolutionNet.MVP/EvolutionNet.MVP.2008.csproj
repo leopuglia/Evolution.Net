@@ -142,6 +142,7 @@
     <Compile Include="View\Helper\IControlHelper.cs" />
     <Compile Include="View\ICrudListView.cs" />
     <Compile Include="View\IEditView.cs" />
+    <Compile Include="View\IEditViewContainer.cs" />
     <Compile Include="View\IListView.cs" />
     <Compile Include="View\Helper\IMenuHelper.cs" />
     <Compile Include="View\Helper\IMessageHelper.cs" />

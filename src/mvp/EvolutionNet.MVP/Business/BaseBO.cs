@@ -13,7 +13,7 @@ namespace EvolutionNet.MVP.Business
 	/// Base class for all Business Objects. Implements the IContract interface.
 	/// </summary>
 	/// <typeparam name="TO">Tranfer Object: used to transfer values between the layers</typeparam>
-	public class BaseBO<TO> : BaseProgressReport, IContract where TO : class, ITO
+	public abstract class BaseBO<TO> : BaseProgressReport, IContract where TO : class, ITO
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(BaseBO<TO>));
 
@@ -40,7 +40,7 @@ namespace EvolutionNet.MVP.Business
 		/// <summary>
 		/// Contains the reference to the current Transfer Object, created (automatically) on the facade
 		/// </summary>
-		public TO To
+		public virtual TO To
 		{
 			get { return to; }
 		}

@@ -23,6 +23,7 @@ namespace EvolutionNet.MVP.View.Helper
 		void RedirectToView<T>(object senderView, IDictionary<string, string> args) where T : IControlView;
 
 		T CreateModalDialogView<T>(object senderView, params object[] args) where T : IControlView;
-		bool ShowModalDialogView(IControlView destView, object senderView);
+//		bool ShowModalDialogView(IControlView destView, object senderView);
+		bool ShowModalDialogView<T>(T destView, object senderView) where T : IControlView;
 	}
 }
