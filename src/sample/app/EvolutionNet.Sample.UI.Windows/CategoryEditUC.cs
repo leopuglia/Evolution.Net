@@ -51,6 +51,7 @@ namespace EvolutionNet.Sample.UI.Windows
 		{
 //			model = new Category();
 
+			modelID = 0;
 			txtCategoryName.Text = "";
 			txtDescription.Text = "";
 			imgPicture.Image = null;
@@ -63,7 +64,7 @@ namespace EvolutionNet.Sample.UI.Windows
 				//TODO: Mover para o BO
 				Bitmap img = (Bitmap) Bitmap.FromFile(openFileDialog1.FileName);
 				imgPicture.Image =
-					ImageProcessing.Resize(img, new Size(imgPicture.Width, imgPicture.Height));
+					ImageProcessing.Resize(img, new Size(160, 120));
 			}
 		}
 	}

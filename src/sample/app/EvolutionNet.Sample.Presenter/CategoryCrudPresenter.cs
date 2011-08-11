@@ -68,8 +68,6 @@ namespace EvolutionNet.Sample.Presenter
 			try
 			{
 				Bo.FindAll();
-
-				View.AdjustDataGridRowHeightColumnWidth();
 			}
 			catch (Exception ex)
 			{
@@ -85,6 +83,8 @@ namespace EvolutionNet.Sample.Presenter
 				View.BindableList.Sort(View.Sort);
 
 			View.CurrentPosition = View.BindableList.IndexOf(To.CurrentModel);
+
+			View.AdjustDataGridRowHeightColumnWidth();
 		}
 
 		public override void Add()

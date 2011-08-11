@@ -28,45 +28,38 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			EvolutionNet.Sample.Data.Definition.Category category1 = new EvolutionNet.Sample.Data.Definition.Category();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryEditDlg));
 			this.categoryEditUC1 = new EvolutionNet.Sample.UI.Windows.CategoryEditUC();
 			this.pnlButtons.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnOK
 			// 
-			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnOK.Location = new System.Drawing.Point(48, 16);
+			this.btnOK.Location = new System.Drawing.Point(27, 16);
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnCancel.Location = new System.Drawing.Point(154, 16);
+			this.btnCancel.Location = new System.Drawing.Point(133, 16);
 			// 
 			// pnlButtons
 			// 
-			this.pnlButtons.Location = new System.Drawing.Point(0, 274);
-			this.pnlButtons.Size = new System.Drawing.Size(266, 51);
+			this.pnlButtons.Location = new System.Drawing.Point(0, 313);
+			this.pnlButtons.Size = new System.Drawing.Size(241, 51);
 			// 
 			// categoryEditUC1
 			// 
 			this.categoryEditUC1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.categoryEditUC1.Location = new System.Drawing.Point(0, 0);
-			category1.CategoryName = "";
-			category1.Description = "";
-			category1.ID = 0;
-			category1.Picture = null;
-			category1.PictureImage = null;
-			category1.Products = null;
-			this.categoryEditUC1.Model = category1;
+			this.categoryEditUC1.Model = ((EvolutionNet.Sample.Data.Definition.Category)(resources.GetObject("categoryEditUC1.Model")));
+			this.categoryEditUC1.ModelID = 0;
 			this.categoryEditUC1.Name = "categoryEditUC1";
-			this.categoryEditUC1.Size = new System.Drawing.Size(266, 274);
+			this.categoryEditUC1.Size = new System.Drawing.Size(241, 313);
 			this.categoryEditUC1.TabIndex = 1;
 			// 
 			// CategoryEditDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.ClientSize = new System.Drawing.Size(266, 325);
+			this.ClientSize = new System.Drawing.Size(241, 364);
 			this.Controls.Add(this.categoryEditUC1);
 			this.Name = "CategoryEditDlg";
 			this.Text = "Category Edit";

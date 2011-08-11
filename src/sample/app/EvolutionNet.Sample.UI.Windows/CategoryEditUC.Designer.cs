@@ -53,29 +53,30 @@
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(250, 122);
+			this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(247, 172);
 			this.flowLayoutPanel1.TabIndex = 0;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(3, 0);
+			this.label1.Location = new System.Drawing.Point(8, 5);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(35, 13);
+			this.label1.Size = new System.Drawing.Size(80, 13);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Name";
+			this.label1.Text = "Category Name";
 			// 
 			// txtCategoryName
 			// 
-			this.txtCategoryName.Location = new System.Drawing.Point(3, 16);
+			this.txtCategoryName.Location = new System.Drawing.Point(8, 21);
 			this.txtCategoryName.Name = "txtCategoryName";
-			this.txtCategoryName.Size = new System.Drawing.Size(100, 20);
+			this.txtCategoryName.Size = new System.Drawing.Size(177, 20);
 			this.txtCategoryName.TabIndex = 1;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(3, 39);
+			this.label2.Location = new System.Drawing.Point(8, 44);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(60, 13);
 			this.label2.TabIndex = 2;
@@ -83,15 +84,16 @@
 			// 
 			// txtDescription
 			// 
-			this.txtDescription.Location = new System.Drawing.Point(3, 55);
+			this.txtDescription.Location = new System.Drawing.Point(8, 60);
+			this.txtDescription.Multiline = true;
 			this.txtDescription.Name = "txtDescription";
-			this.txtDescription.Size = new System.Drawing.Size(100, 20);
+			this.txtDescription.Size = new System.Drawing.Size(225, 62);
 			this.txtDescription.TabIndex = 3;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(3, 78);
+			this.label3.Location = new System.Drawing.Point(8, 125);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(40, 13);
 			this.label3.TabIndex = 4;
@@ -99,7 +101,7 @@
 			// 
 			// btnBrowsePicture
 			// 
-			this.btnBrowsePicture.Location = new System.Drawing.Point(3, 94);
+			this.btnBrowsePicture.Location = new System.Drawing.Point(8, 141);
 			this.btnBrowsePicture.Name = "btnBrowsePicture";
 			this.btnBrowsePicture.Size = new System.Drawing.Size(75, 23);
 			this.btnBrowsePicture.TabIndex = 5;
@@ -109,11 +111,14 @@
 			// 
 			// imgPicture
 			// 
+			this.imgPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.imgPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
 			this.imgPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.imgPicture.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.imgPicture.Location = new System.Drawing.Point(0, 122);
+			this.imgPicture.Location = new System.Drawing.Point(11, 178);
 			this.imgPicture.Name = "imgPicture";
-			this.imgPicture.Size = new System.Drawing.Size(250, 158);
+			this.imgPicture.Size = new System.Drawing.Size(222, 146);
 			this.imgPicture.TabIndex = 7;
 			this.imgPicture.TabStop = false;
 			// 
@@ -129,7 +134,7 @@
 			this.Controls.Add(this.imgPicture);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Name = "CategoryEditUC";
-			this.Size = new System.Drawing.Size(250, 280);
+			this.Size = new System.Drawing.Size(247, 337);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.imgPicture)).EndInit();

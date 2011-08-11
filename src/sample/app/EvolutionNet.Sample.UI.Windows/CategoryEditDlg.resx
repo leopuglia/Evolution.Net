@@ -117,4 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="categoryEditUC1.Model" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAF1Fdm9sdXRpb25OZXQuU2FtcGxlLkRhdGEuRGVmaW5pdGlvbiwg
+        VmVyc2lvbj0wLjAuMS43NTgzLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwMAwAA
+        AElTeXN0ZW0sIFZlcnNpb249Mi4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1i
+        NzdhNWM1NjE5MzRlMDg5BQEAAAAsRXZvbHV0aW9uTmV0LlNhbXBsZS5EYXRhLkRlZmluaXRpb24uQ2F0
+        ZWdvcnkGAAAAAmlEDGNhdGVnb3J5TmFtZQtkZXNjcmlwdGlvbgdwaWN0dXJlCHByb2R1Y3RzD1Byb3Bl
+        cnR5Q2hhbmdlZAABAQcDBAgCsAFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5JTGlzdGAxW1tFdm9s
+        dXRpb25OZXQuU2FtcGxlLkRhdGEuRGVmaW5pdGlvbi5Qcm9kdWN0LCBFdm9sdXRpb25OZXQuU2FtcGxl
+        LkRhdGEuRGVmaW5pdGlvbiwgVmVyc2lvbj0wLjAuMS43NTgzLCBDdWx0dXJlPW5ldXRyYWwsIFB1Ymxp
+        Y0tleVRva2VuPW51bGxdXTFTeXN0ZW0uQ29tcG9uZW50TW9kZWwuUHJvcGVydHlDaGFuZ2VkRXZlbnRI
+        YW5kbGVyAwAAAAIAAAAAAAAABgQAAAAACQQAAAAKCgoL
+</value>
+  </data>
 </root>
