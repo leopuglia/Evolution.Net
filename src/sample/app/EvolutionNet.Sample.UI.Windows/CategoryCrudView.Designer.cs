@@ -39,11 +39,10 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.btnSlowWork = new System.Windows.Forms.Button();
 			this.nudSlowWorkTime = new System.Windows.Forms.NumericUpDown();
 			this.lblSlowProcess = new System.Windows.Forms.Label();
-			this.pictureImageDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
-			this.productsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colCategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colPictureImage = new System.Windows.Forms.DataGridViewImageColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudSlowWorkTime)).BeginInit();
@@ -57,21 +56,19 @@ namespace EvolutionNet.Sample.UI.Windows
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridView1.AutoGenerateColumns = false;
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
-            this.categoryNameDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn,
-            this.productsDataGridViewTextBoxColumn,
-            this.pictureImageDataGridViewImageColumn});
+            this.colID,
+            this.colCategoryName,
+            this.colDescription,
+            this.colPictureImage});
 			this.dataGridView1.DataSource = this.bindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 33);
-			this.dataGridView1.MultiSelect = false;
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.Size = new System.Drawing.Size(784, 489);
-			this.dataGridView1.TabIndex = 1;
+			this.dataGridView1.StandardTab = true;
+			this.dataGridView1.TabIndex = 0;
 			this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
 			this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
 			// 
@@ -84,7 +81,7 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.btnAdd.Location = new System.Drawing.Point(4, 4);
 			this.btnAdd.Name = "btnAdd";
 			this.btnAdd.Size = new System.Drawing.Size(75, 23);
-			this.btnAdd.TabIndex = 2;
+			this.btnAdd.TabIndex = 1;
 			this.btnAdd.Text = "Add...";
 			this.btnAdd.UseVisualStyleBackColor = true;
 			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -94,7 +91,7 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.btnEdit.Location = new System.Drawing.Point(86, 4);
 			this.btnEdit.Name = "btnEdit";
 			this.btnEdit.Size = new System.Drawing.Size(75, 23);
-			this.btnEdit.TabIndex = 3;
+			this.btnEdit.TabIndex = 2;
 			this.btnEdit.Text = "Edit...";
 			this.btnEdit.UseVisualStyleBackColor = true;
 			this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -104,7 +101,7 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.btnDelete.Location = new System.Drawing.Point(168, 4);
 			this.btnDelete.Name = "btnDelete";
 			this.btnDelete.Size = new System.Drawing.Size(75, 23);
-			this.btnDelete.TabIndex = 4;
+			this.btnDelete.TabIndex = 3;
 			this.btnDelete.Text = "Delete";
 			this.btnDelete.UseVisualStyleBackColor = true;
 			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -145,43 +142,43 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.lblSlowProcess.Location = new System.Drawing.Point(409, 9);
 			this.lblSlowProcess.Name = "lblSlowProcess";
 			this.lblSlowProcess.Size = new System.Drawing.Size(97, 13);
-			this.lblSlowProcess.TabIndex = 0;
+			this.lblSlowProcess.TabIndex = 4;
 			this.lblSlowProcess.Text = "Process Time (sec)";
 			// 
-			// pictureImageDataGridViewImageColumn
+			// colID
 			// 
-			this.pictureImageDataGridViewImageColumn.DataPropertyName = "PictureImage";
-			this.pictureImageDataGridViewImageColumn.HeaderText = "PictureImage";
-			this.pictureImageDataGridViewImageColumn.Name = "pictureImageDataGridViewImageColumn";
-			this.pictureImageDataGridViewImageColumn.ReadOnly = true;
+			this.colID.DataPropertyName = "ID";
+			this.colID.HeaderText = "ID";
+			this.colID.MinimumWidth = 30;
+			this.colID.Name = "colID";
+			this.colID.ReadOnly = true;
+			this.colID.Width = 50;
 			// 
-			// productsDataGridViewTextBoxColumn
+			// colCategoryName
 			// 
-			this.productsDataGridViewTextBoxColumn.DataPropertyName = "Products";
-			this.productsDataGridViewTextBoxColumn.HeaderText = "Products";
-			this.productsDataGridViewTextBoxColumn.Name = "productsDataGridViewTextBoxColumn";
-			this.productsDataGridViewTextBoxColumn.ReadOnly = true;
+			this.colCategoryName.DataPropertyName = "CategoryName";
+			this.colCategoryName.HeaderText = "Category Name";
+			this.colCategoryName.MinimumWidth = 120;
+			this.colCategoryName.Name = "colCategoryName";
+			this.colCategoryName.ReadOnly = true;
+			this.colCategoryName.Width = 150;
 			// 
-			// descriptionDataGridViewTextBoxColumn
+			// colDescription
 			// 
-			this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-			this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-			this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-			this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+			this.colDescription.DataPropertyName = "Description";
+			this.colDescription.HeaderText = "Description";
+			this.colDescription.MinimumWidth = 200;
+			this.colDescription.Name = "colDescription";
+			this.colDescription.ReadOnly = true;
+			this.colDescription.Width = 300;
 			// 
-			// categoryNameDataGridViewTextBoxColumn
+			// colPictureImage
 			// 
-			this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
-			this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
-			this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
-			this.categoryNameDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// iDDataGridViewTextBoxColumn
-			// 
-			this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-			this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-			this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-			this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+			this.colPictureImage.DataPropertyName = "PictureImage";
+			this.colPictureImage.HeaderText = "Image";
+			this.colPictureImage.MinimumWidth = 100;
+			this.colPictureImage.Name = "colPictureImage";
+			this.colPictureImage.ReadOnly = true;
 			// 
 			// CategoryCrudView
 			// 
@@ -196,7 +193,7 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.Controls.Add(this.dataGridView1);
 			this.Name = "CategoryCrudView";
 			this.Load += new System.EventHandler(this.CategoryCrudView_Load);
-			this.LoadComplete += new System.EventHandler(this.CategoryCrudView_LoadComplete);
+			this.AfterLoadComplete += new System.EventHandler(this.CategoryCrudView_AfterLoadComplete);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudSlowWorkTime)).EndInit();
@@ -215,10 +212,9 @@ namespace EvolutionNet.Sample.UI.Windows
 		private Button btnSlowWork;
 		private NumericUpDown nudSlowWorkTime;
 		private Label lblSlowProcess;
-		private DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
-		private DataGridViewTextBoxColumn categoryNameDataGridViewTextBoxColumn;
-		private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-		private DataGridViewTextBoxColumn productsDataGridViewTextBoxColumn;
-		private DataGridViewImageColumn pictureImageDataGridViewImageColumn;
+		private DataGridViewTextBoxColumn colID;
+		private DataGridViewTextBoxColumn colCategoryName;
+		private DataGridViewTextBoxColumn colDescription;
+		private DataGridViewImageColumn colPictureImage;
 	}
 }

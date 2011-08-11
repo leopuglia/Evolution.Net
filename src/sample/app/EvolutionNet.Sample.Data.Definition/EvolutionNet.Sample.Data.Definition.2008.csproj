@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="CategoryCrudTO.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="CategoryImageReadTO.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="OrderDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,298 @@
+﻿html 
+{
+	height: 100%;
+	margin-bottom: 1px;
+}
+
+form 
+{
+	margin: 0;
+	padding: 0;
+}
+
+body 
+{
+	background-image: url(img/bg_body.png);
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 62.5%; /* Resets 1em to 10px */
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+
+/*
+div
+{
+	display: inline-block;
+}
+*/
+
+h1, h2, h3, h4, h5
+{
+	color: #5B322A;
+/*	display: inline-block;*/
+	font-family: "Times New Roman", Arial, Sans-Serif;
+	margin: 0;
+	padding: 0;
+}
+
+h2
+{
+	font-size: 19px;
+}
+
+h3
+{
+	font-size: 17px;
+	margin-left: 3px;
+}
+
+h4
+{
+	font-size: 15px;
+	margin-left: 3px;
+}
+
+p
+{
+/*	display: inline-block;*/
+	font-size: 13px;
+	margin: 0;
+	text-indent: 10px;
+	text-align: justify;
+}
+
+p + p
+{
+	margin-top: 3px;
+}
+
+small
+{
+	font-size: 11px;
+}
+
+a, a:visited 
+{
+	color: #00B;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+img  
+{
+	border: 0 none; 
+}
+
+input, textarea, select
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	padding: 3px;
+	vertical-align: middle;
+}
+
+input[type=submit]
+{
+/*	padding-left: 10px;
+	padding-right: 10px;*/
+	padding-left: 1px;
+	padding-right: 1px;
+	vertical-align: middle;
+}
+
+ul
+{
+	padding: 0 0 0 30px;
+	margin: 3px 0 5px 0px;
+	font-size: 13px;
+}
+
+/*
+li
+{
+	line-height: 13px;
+	margin: 0;
+	padding: 0;
+}
+
+ul ul
+{
+	margin-top: 0;
+	padding: 0;
+}
+*/
+
+#Tudo
+{
+	font-size: 13px;
+	margin: 0 auto;
+	width: 980px;
+}
+
+#Cabecalho
+{
+/*	background-image: url(img/bg_topo.png);*/
+	background-color: #895637;
+	height: 46px;
+}
+
+#Titulo, .Titulo
+{
+	float: left;
+	margin-top: 6px;
+	margin-left: 15px;
+}
+
+#Titulo
+{
+	/*background-image: url(img/titulo.png);*/
+}
+
+#TituloPirenopolis
+{
+	/*background-image: url(img/titulo_pirenopolis.png);*/
+	float: right;
+	height: 25px;
+	margin-top: 15px;
+	margin-right: 15px;
+	width: 207px;
+}
+
+#Menu
+{
+	/*background-image: url(img/bg_menu.png);*/
+	height: 22px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#Breadcrumb
+{
+	background-color: #F9F3EA;
+	border-bottom: solid 1px #ccc;
+	color: #666;
+/*	font-family: "Times New Roman", Arial, Sans-Serif;*/
+	font-size: 13px;
+	margin: 0;
+	padding: 5px 10px 0px 10px;
+}
+
+#Breadcrumb a, #Breadcrumb a:visited
+{
+	text-decoration: none;
+}
+
+#Breadcrumb a:hover
+{
+	text-decoration: underline;
+}
+
+#Content
+{
+	background-color: #F9F3EA;
+	padding: 10px 0 10px 0;
+}
+
+#Content #ContentInterno
+{
+	margin: 0 10px 0 10px;
+}
+
+#Rodape
+{
+	background-color: #F9F3EA;
+	border-top: solid 1px #ccc;
+	padding: 1px 10px 10px 10px;
+}
+
+.PanelMessages
+{
+	background-color: #eee;
+	border: solid 1px #666;
+	color: Red;
+	font-size: 13px;
+	left: 50%;
+	margin-left: -200px;
+	padding: 0;
+	position: fixed;
+	top: 35%;
+	width: 400px;
+	z-index: 10002;
+}
+
+.PanelMessages #PanelMessagesCaption
+{
+	background-color: DarkBlue;
+	color: #fff;
+	font-weight: bold;
+	height: 15px;
+	padding: 5px 10px 5px 10px;
+}
+
+.PanelMessages #PanelMessagesContent
+{
+	padding: 5px 10px 5px 10px;
+}
+
+.UpdateProgress
+{
+	background-color: Gray;
+	background-image: url(img/loading_big.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	height: 100px;
+	right: 0;
+	position: fixed;
+	top: 0;
+	width: 100px;
+/*
+	background-color: Gray;
+	background-image: url(img/loading_big.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+*/
+}
+
+.MarginBottom
+{
+	margin-bottom: 5px;
+}
+
+.MarginTop
+{
+	margin-top: 5px;
+}
+
+.MarginLeft
+{
+	margin-left: 10px;
+}
+
+.MarginRight
+{
+	margin-right: 10px;
+}
+
+.FloatLeft
+{
+	float: left;
+}
+
+.FloatRight
+{
+	float: right;
+}

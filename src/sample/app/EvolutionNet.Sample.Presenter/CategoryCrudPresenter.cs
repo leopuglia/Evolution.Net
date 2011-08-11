@@ -2,6 +2,7 @@ using System;
 using EvolutionNet.MVP;
 using EvolutionNet.MVP.Business.ProgressReporting;
 using EvolutionNet.MVP.Presenter;
+using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.BackgroundWork;
 using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Sample.Core.Business;
@@ -12,7 +13,7 @@ using EvolutionNet.Util.Collection;
 namespace EvolutionNet.Sample.Presenter
 {
 	public class CategoryCrudPresenter : 
-		BaseCrudPresenter<ICategoryCrudView, ICategoryCrudContract, CategoryCrudTO, Category, int>, IBackgroundWork
+		BaseCrudListPresenter<ICategoryCrudView, ICategoryCrudContract, CategoryCrudTO, Category, int>, IBackgroundWork
 	{
 		private readonly IBackgroundWorkerHelper backgroundWorker;
 
@@ -29,77 +30,208 @@ namespace EvolutionNet.Sample.Presenter
 			backgroundWorker.WorkerCompleted += BackgroundWorkerHelper_WorkerCompleted;
 //			HelperFactory.BackgroundWorkerHelper.DoWorkDelegate += SlowWork;
 
+			To.SlowWorkTime = view.SlowWorkTime;
+
 			FindAll();
 
-			To.SlowWorkTime = view.SlowWorkTime;
+			if (view is IWebControl && ((IWebControl)view).IsPostBack)
+				return;
+			
+			DataBind();
 		}
 
 		#endregion
 
 		#region Public Methods
 
-		public void LoadComplete()
+//		public void Load()
+//		{
+//			View.AdjustDataGridRowHeightColumnWidth();
+//		}
+
+		public void AfterLoadComplete()
 		{
-			RunSlowWork();
+//			RunSlowWork();
+			View.AdjustDataGridRowHeightColumnWidth();
 		}
 
-		#region ICrudPresenter
+		public void Sorted()
+		{
+//			sort = View.Sort;
+			View.AdjustDataGridRowHeightColumnWidth();
+		}
+
+		#region ICrudListPresenter
 
 		public override void FindAll()
 		{
 			try
 			{
 				Bo.FindAll();
-				View.BindableList = new SortableBindingList<Category>(Bo.To.List);
+
+				View.AdjustDataGridRowHeightColumnWidth();
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not initialize", ex);
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not list values", ex);
 			}
 
 		}
 
+		private void DataBind()
+		{
+			View.BindableList = new SortableBindingList<Category>(To.List);
+			if (View.Sort.SortOrder != PropertySortOrder.None)
+				View.BindableList.Sort(View.Sort);
+
+			View.CurrentPosition = View.BindableList.IndexOf(To.CurrentModel);
+		}
+
 		public override void Add()
 		{
-			Bo.To.MainModel = new Category();
-			Edit();
+			try
+			{
+				To.CurrentModel = new Category();
+				if (DoEdit())
+				{
+					FindAll();
+					DataBind();
+
+					HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) added");
+				}
+				else
+				{
+					View.AdjustDataGridRowHeightColumnWidth();
+				}
+			}
+			catch (Exception ex)
+			{
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to add value(s)", ex);
+			}
+			finally
+			{
+				Clear();
+			}
 		}
 
 		public override void Edit()
 		{
 			try
 			{
-				ICategoryEditView categoryEditView =
-					View.HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, Bo.To.MainModel);
-
-				if (View.HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
+				if (View.CurrentList.Count <= 1)
 				{
-					Bo.To.MainModel = categoryEditView.Model;
-					Save();
+//					if (View.CurrentModel != null)
+//						To.CurrentModel = View.CurrentModel;
+					if (View.CurrentPosition > -1)
+					{
+						var bindableList = View.BindableList ?? new SortableBindingList<Category>(To.List);
+						if (View.Sort.SortOrder != PropertySortOrder.None)
+							bindableList.Sort(View.Sort);
+
+						To.CurrentModel = bindableList[View.CurrentPosition];
+					}
+					else
+					{
+						HelperFactory.MessageHelper.ShowErrorMessage("Error", "No row was selected to edit");
+					}
+
+					if (DoEdit())
+					{
+						FindAll();
+						DataBind();
+
+						HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) edited");
+
+						Clear();
+					}
+					else
+					{
+						View.AdjustDataGridRowHeightColumnWidth();
+					}
+				}
+				else
+				{
+					HelperFactory.MessageHelper.ShowErrorMessage("Error", "Please select only one row to edit");
 				}
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit value(s)", ex);
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit value(s)", ex);
 			}
+		}
+
+		private bool DoEdit()
+		{
+			ICategoryEditView categoryEditView =
+				HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, To.CurrentModel);
+
+			if (HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
+			{
+				To.CurrentModel = categoryEditView.Model;
+				Bo.Save();
+
+//				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
+
+				return true;
+			}
+			
+			categoryEditView.Model = To.CurrentModel;
+
+			return false;
 		}
 
 		public override void Save()
 		{
 			try
 			{
+				To.CurrentID = View.CurrentModel.ID;
+				To.CurrentModel = View.CurrentModel;
+
+				if (To.CurrentID != 0)
+				{
+					Bo.Find();
+
+					To.CurrentModel.CategoryName = View.CurrentModel.CategoryName;
+					To.CurrentModel.Description = View.CurrentModel.Description;
+					To.CurrentModel.PictureImage = View.CurrentModel.PictureImage;
+				}
+
 				Bo.Save();
 
-				View.HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
+				FindAll();
+				DataBind();
+
+				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save value(s)", ex);
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save value(s)", ex);
 			}
 			finally
 			{
-				Bo.FindAll();
-				View.BindableList = new SortableBindingList<Category>(Bo.To.List);
+				Clear();
+			}
+		}
+
+		public override void SaveList()
+		{
+			try
+			{
+				To.CurrentList = View.CurrentList;
+				Bo.SaveList();
+
+				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
+
+				FindAll();
+				DataBind();
+			}
+			catch (Exception ex)
+			{
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save value(s)", ex);
+			}
+			finally
+			{
+				Clear();
 			}
 		}
 
@@ -107,33 +239,79 @@ namespace EvolutionNet.Sample.Presenter
 		{
 			try
 			{
-				Bo.Delete();
+//				To.CurrentModel = View.CurrentModel;
+//				var position = View.CurrentPosition;
+				if (View.CurrentList.Count <= 1)
+				{
+//					if (View.CurrentModel != null)
+//						To.CurrentModel = View.CurrentModel;
+					if (View.CurrentPosition > -1)
+					{
+						var bindableList = View.BindableList ?? new SortableBindingList<Category>(To.List);
+						if (View.Sort.SortOrder != PropertySortOrder.None)
+							bindableList.Sort(View.Sort);
 
-				View.HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
+						To.CurrentModel = bindableList[View.CurrentPosition];
+					}
+					else
+					{
+						HelperFactory.MessageHelper.ShowErrorMessage("Error", "No row was selected to delete");
+					}
+
+					Bo.Delete();
+
+					FindAll();
+					DataBind();
+
+					HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
+
+//					View.CurrentPosition = position < View.BindableList.Count ? position : View.BindableList.Count - 1;
+				}
+				else
+				{
+					HelperFactory.MessageHelper.ShowErrorMessage("Error", "Please select only one row to delete");
+				}
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete value(s)", ex);
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete value(s)", ex);
 			}
 			finally
 			{
-				Bo.FindAll();
-				View.BindableList = new SortableBindingList<Category>(Bo.To.List);
+				Clear();
+			}
+		}
+
+		public override void DeleteList()
+		{
+			try
+			{
+				To.CurrentList = View.CurrentList;
+				var position = View.CurrentPosition;
+				Bo.DeleteList();
+
+				FindAll();
+				DataBind();
+
+				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
+
+				View.CurrentPosition = position < View.BindableList.Count ? position : View.BindableList.Count - 1;
+			}
+			catch (Exception ex)
+			{
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete value(s)", ex);
+			}
+			finally
+			{
+				Clear();
 			}
 		}
 
 		public override void Clear()
 		{
-/*
-			try
-			{
-				CleanViewData();
-			}
-			catch (Exception ex)
-			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to clean value(s)", ex);
-			}
-*/
+//			View.CurrentModel = new Category();
+//			To.CurrentModel = View.CurrentModel = new Category();
+			View.Clear();
 		}
 
 		#endregion

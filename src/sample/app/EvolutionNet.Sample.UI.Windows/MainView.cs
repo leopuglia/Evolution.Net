@@ -11,6 +11,17 @@ namespace EvolutionNet.Sample.UI.Windows
 {
 	public partial class MainView : BaseUCView, IMainView
 	{
+		public int TabSelectedIndex
+		{
+			get { return tabControl1.SelectedIndex; }
+			set { tabControl1.SelectedIndex = value; }
+		}
+
+		public int TabCount
+		{
+			get { return tabControl1.TabCount; }
+		}
+
 		public MainView()
 		{
 			InitializeComponent();
@@ -34,22 +45,25 @@ namespace EvolutionNet.Sample.UI.Windows
 				new MainPresenter(this);
 		}
 
-		public void AddTabPageView(string text, IControlView controlView)
+		public void AddTabPage(string text, IControlView controlView)
 		{
 			TabPage tabPage = new TabPage(text);
 			tabPage.Padding = new Padding(3);
 			tabPage.UseVisualStyleBackColor = true;
 
+			((Control) controlView).Dock = DockStyle.Fill;
 			tabPage.Controls.Add((Control)controlView);
 
 			tabControl1.TabPages.Add(tabPage);
-			tabPage.Focus();
+			tabControl1.SelectedTab = tabPage;
+//			tabPage.Focus();
 		}
 
-		public void DeleteTabPage()
+		public void RemoveSelectedTabPage()
 		{
 			if (tabControl1.SelectedTab != null)
 				tabControl1.TabPages.Remove(tabControl1.SelectedTab);
 		}
+
 	}
 }

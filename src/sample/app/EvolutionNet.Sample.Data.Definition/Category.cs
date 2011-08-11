@@ -2,10 +2,10 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using EvolutionNet.Util.Imaging;
 
 namespace EvolutionNet.Sample.Data.Definition
 {
+	[Serializable]
 	public partial class Category
 	{
 		public virtual Image PictureImage

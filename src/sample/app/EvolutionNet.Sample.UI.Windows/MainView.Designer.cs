@@ -62,15 +62,18 @@
 			this.tabCategory.Padding = new System.Windows.Forms.Padding(3);
 			this.tabCategory.Size = new System.Drawing.Size(776, 472);
 			this.tabCategory.TabIndex = 0;
-			this.tabCategory.Text = "Category";
+			this.tabCategory.Text = "Category Tab 1";
 			this.tabCategory.UseVisualStyleBackColor = true;
 			// 
 			// categoryCrudView1
 			// 
+			this.categoryCrudView1.BindableList = null;
+			this.categoryCrudView1.CurrentPosition = -1;
 			this.categoryCrudView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.categoryCrudView1.Location = new System.Drawing.Point(3, 3);
 			this.categoryCrudView1.Name = "categoryCrudView1";
 			this.categoryCrudView1.Size = new System.Drawing.Size(770, 466);
+			this.categoryCrudView1.SlowWorkTime = 5;
 			this.categoryCrudView1.TabIndex = 0;
 			// 
 			// MainView

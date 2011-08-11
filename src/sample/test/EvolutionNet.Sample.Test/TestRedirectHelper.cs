@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
-using EvolutionNet.Sample.Core.View;
 
 namespace EvolutionNet.Sample.Test
 {
@@ -31,7 +30,7 @@ namespace EvolutionNet.Sample.Test
 			return (T)viewMock.MockInstance;
 		}
 
-		public bool ShowModalDialogView(IControlView destView, object senderView)
+		public bool ShowModalDialogView<T>(T destView, object senderView) where T : IControlView
 		{
 			return true;
 		}

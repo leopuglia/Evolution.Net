@@ -5,7 +5,5 @@ namespace EvolutionNet.Sample.Core.View
 {
 	public interface ICategoryEditView : IEditView<Category, int>
 	{
-//		void SetEditValues(Category category);
-//		Category GetEditValues();
 	}
 }

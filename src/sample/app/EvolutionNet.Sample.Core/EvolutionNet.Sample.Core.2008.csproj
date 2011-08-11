@@ -31,10 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EvolutionNet.MVP, Version=0.2.2.36926, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\mvp\EvolutionNet.MVP\bin\Debug\3.5\EvolutionNet.MVP.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -45,12 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\ICategoryImageReadContract.cs" />
     <Compile Include="Business\ISampleBusinessFactory.cs" />
     <Compile Include="Business\ICategoryCrudContract.cs" />
     <Compile Include="Business\IMainContract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SampleMembershipProvider.cs" />
     <Compile Include="View\ICategoryCrudView.cs" />
     <Compile Include="View\ICategoryEditView.cs" />
+    <Compile Include="View\ICategoryImageReadView.cs" />
     <Compile Include="View\IMainView.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,170 @@
+﻿/*
+#Menu ul
+{
+	height: 22px;
+	list-style:none;
+	margin: 0;
+	padding: 3px 0 0 0;
+	text-align: center;
+	width: 100%;
+}
+
+#Menu ul li
+{
+	display: inline;
+	padding: 0 10px 0 10px;
+}
+
+#Menu ul li + li
+{
+	border-left: solid 1px #000;
+}
+
+#Menu ul li a, #Menu ul li a:visited
+{
+	border: 0;
+	color: #000;
+	padding: 0;
+	text-decoration: underline;
+}
+
+#Menu ul li a:hover
+{
+	text-decoration: none;
+}
+*/
+
+#Menu table
+{
+	margin: 0 auto 0 auto;
+	text-align: center;
+}
+
+#Menu ul li
+{
+	display: inline;
+	padding: 0 10px 0 10px;
+}
+
+#Menu a, #Menu a:visited
+{
+	border: 0;
+	color: #000;
+	padding: 0;
+	text-decoration: none;
+}
+
+#Menu a:hover
+{
+}
+
+#LoginStatus
+{
+	float: right;
+	padding: 3px 5px 0 5px;
+	height: 19px;
+	margin: 0;
+	vertical-align: middle;
+}
+
+#LoginStatus:hover
+{
+	background-color: #996633;
+}
+
+#Actions
+{
+	background-color: #D5C3B8;
+	font-size: 14px;
+	padding: 5px;
+	margin: 0 0 10px 0;
+	vertical-align: middle;
+}
+
+#Actions .FloatRight
+{
+	margin-top: 5px;
+}
+
+.ActionsRight, .ActionsCenter, .ActionsLeft
+{
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.ActionsRight
+{
+	text-align: right;
+}
+
+.ActionsCenter
+{
+	text-align: center;
+}
+
+.ActionsLeft
+{
+	text-align: left;
+}
+
+#Actions a, #Actions a:visited, .ActionsRight a, .ActionsRight a:visited, .ActionsCenter a, .ActionsCenter a:visited, .ActionsLeft a, .ActionsLeft a:visited
+{
+	color: #000;
+}
+
+/*
+.ActionsRight input[type=submit]
+{
+	float: left;
+}
+
+.ActionsRight input[type=submit] + input[type=submit]
+{
+	float: none;
+}
+
+*/
+.ModalPopupBackground {
+	background-color:Gray;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+	z-index: 1;
+}
+
+.PanelEditar
+{
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	z-index: 2;
+}
+
+.PanelEditar #PanelDados
+{
+	background-color: #F9F3EA;
+	border: solid 1px #666;
+	padding: 10px;
+}
+
+.PanelEditar #PanelCaption
+{
+	background-color: DarkBlue;
+	color: #fff;
+	font-weight: bold;
+	height: 15px;
+	padding: 5px 10px 5px 10px;
+}
+
+.PanelEditar span
+{
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+/*
+.PanelEditar input[type=text], .PanelEditar input[type=radio] label
+{
+	display: block;
+}
+*/

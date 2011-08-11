@@ -43,7 +43,12 @@ namespace EvolutionNet.Sample.Presenter
 		{
 			try
 			{
-				View.DeleteTabPage();
+				if (View.TabCount > 1)
+				{
+					var index = View.TabSelectedIndex;
+					View.RemoveSelectedTabPage();
+					View.TabSelectedIndex = index >= View.TabCount ? View.TabCount - 1 : index;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -56,7 +61,8 @@ namespace EvolutionNet.Sample.Presenter
 			try
 			{
 				IControlHelper controlHelper = View.HelperFactory.GetControlHelper(View);
-				View.AddTabPageView("Category Tab", controlHelper.CreateControlView<ICategoryCrudView>());
+				View.AddTabPage(string.Format("Category Tab {0}", View.TabCount + 1), controlHelper.CreateControlView<ICategoryCrudView>());
+				View.OnAfterLoadComplete(new EventArgs());
 			}
 			catch (Exception ex)
 			{

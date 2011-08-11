@@ -4,7 +4,9 @@ namespace EvolutionNet.Sample.Core.View
 {
 	public interface IMainView : IControlView
 	{
-		void AddTabPageView(string text, IControlView controlView);
-		void DeleteTabPage();
+		void AddTabPage(string text, IControlView controlView);
+		void RemoveSelectedTabPage();
+		int TabSelectedIndex { get; set; }
+		int TabCount { get; }
 	}
 }

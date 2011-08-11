@@ -1,0 +1,257 @@
+﻿/***********************/
+#ColunaIniInfo
+{
+	float: left;
+	width: 370px;
+}
+
+.Destaque
+{
+	cursor: pointer;
+	display: block;
+	height: 34px;
+	padding: 3px 5px 3px 5px;
+}
+
+.Destaque, .Destaque:visited, .Destaque:hover
+{
+	background-image: url(img/bg_link_destaque.png);
+	color: #444;
+	text-decoration: none;
+	width: 410px;
+}
+
+.Destaque:hover
+{
+	background-image: none;
+	background-color: #E9DFCD;
+}
+
+#ColunaIniInfo .Destaque, #ColunaConteudo .Destaque
+{
+	margin-top: 5px;
+}
+
+.DestaqueTitulo, .DestaqueTitulo:visited, .DestaqueTitulo:hover
+{
+	font-family: "Times New Roman", Verdana, Arial, Sans-Serif;
+	display: block;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#ColunaIniInfo .Destaque
+{
+	width: 360px;
+}
+
+#ColunaIniInfo .DestaqueTitulo
+{
+	color: #5B322A;
+}
+
+
+
+/***********************/
+#ColunaIniFotos
+{
+	width: 580px;
+	height: 435px;
+	float: right;
+}
+
+/*
+#ColunaIniFotos div
+{
+	margin: 0;
+	padding: 8px;
+	border: solid 1px #666;
+}
+*/
+
+
+
+/***********************/
+#ColunaConteudo
+{
+	border-right: solid 1px #ddd;
+	float: left;
+	padding-right: 10px;
+	width: 740px;
+}
+
+#ColunaConteudo .Destaque .DestaqueTitulo
+{
+	color: #007;
+}
+
+.Conteudo
+{
+	clear: both;
+	margin: 0 0 5px 0;
+}
+
+/*
+.Conteudo:after
+{
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+*/
+
+.ConteudoPing
+{
+	float: right;
+	margin-bottom: 10px;
+	width: 640px;
+}
+
+.ConteudoPong
+{
+	float: left;
+	margin-bottom: 10px;
+	width: 640px;
+}
+
+#ColunaConteudo .ConteudoPing
+{
+	width: 420px;
+}
+
+#ColunaConteudo .ConteudoPong
+{
+	width: 420px;
+}
+
+.ConteudoImgPing, .ConteudoImgPong
+{
+	text-align: center;
+}
+
+.ConteudoImgPing
+{
+	float: left; 
+	margin: 0 5px 0 0;
+}
+
+.ConteudoImgPong
+{
+	float: right; 
+	margin: 0 0 0 5px;
+}
+
+.ConteudoImgFloat, .ConteudoImgFloatMarginLeft, .ConteudoImgFloatMarginRight
+{
+	float: left;
+	text-align: center;
+}
+
+.ConteudoImgFloatMarginLeft
+{
+	margin-left: 9px;
+}
+
+.ConteudoImgFloatMarginRight
+{
+	margin-right: 9px;
+}
+
+.ConteudoImgPing a, .ConteudoImgPing a:visited, .ConteudoImgPing a:hover, 
+.ConteudoImgPong a, .ConteudoImgPong a:visited, .ConteudoImgPong a:hover,
+.ConteudoImgFloat a, .ConteudoImgFloat a:visited, .ConteudoImgFloat a:hover,
+.ConteudoImgFloatMarginLeft a, .ConteudoImgFloatMarginLeft a:visited, .ConteudoImgFloatMarginLeft a:hover,
+.ConteudoImgFloatMarginRight a, .ConteudoImgFloatMarginRight a:visited, .ConteudoImgFloatMarginRight a:hover
+{
+	color: #000;
+	text-decoration: none;
+}
+
+.Separador
+{
+	clear: both;
+	height: 1px;
+	margin: 10px 0 10px 0;
+	border-bottom: solid 1px #ccc;
+}
+
+#MapaRodoviario
+{
+	border: solid 1px #666;
+	padding: 10px;
+	margin-top: 5px;
+	width: 718px;
+}
+
+#MapaRodoviarioDesc
+{
+	background-color: #F9F3EA;
+	font-size: 14px;
+	margin: -162px 0 0 271px;
+	position: absolute;
+	width: 450px;
+}
+
+#MapaRodoviarioDesc .DestaqueRed
+{
+	background-image: url(img/bg_link_destaque_red.png);
+	color: #000;
+}
+
+#MapaRodoviarioDesc .DestaqueBlue
+{
+	background-image: url(img/bg_link_destaque_blue.png);
+	color: #000;
+}
+
+#MapaRodoviarioDesc .DestaqueGreen
+{
+	background-image: url(img/bg_link_destaque_green.png);
+	color: #000;
+}
+
+#MapaRodoviarioDesc span
+{
+	display: block;
+/*	font-weight: bold;*/
+	margin-top: 5px;
+	text-decoration: underline;
+}
+
+#MapaRodoviarioDesc small
+{
+	display: block;
+}
+
+
+
+/***********************/
+#ColunaWidgets
+{
+	float: right;
+/*	text-align: center; */
+	width: 200px;
+}
+
+#ColunaWidgets p
+{
+	margin-left: 10px;
+	text-indent: 0px;
+	text-align: left;
+}
+
+
+
+/***********************/
+.ClearBoth
+{
+	margin: 5px 0 5px 0;
+	height: 1px;
+	clear: both;
+}
+
+
+

@@ -1,0 +1,50 @@
+﻿<%@ Master Language="C#" CodeBehind="Base.master.cs" Inherits="EvolutionNet.Sample.UI.Web.Base._BaseMaster" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
+<%@ Register src="~/Base/MessageUC.ascx" tagname="MessageUC" tagprefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    
+    <asp:ContentPlaceHolder id="MetaDescriptionHolder" runat="server" Visible="false"></asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="MetaKeywordsHolder" runat="server" Visible="false"></asp:ContentPlaceHolder>
+    
+    <%--<link rel="shortcut icon" href="~/Img/Vip.ico" type="image/x-icon" />--%>
+    
+    <asp:ContentPlaceHolder ID="HeadHolder" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+	<!-- Inclua esta tag na seção head ou logo antes da tag de fechamento da seção body -->
+	<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+		{ lang: 'pt-BR' }
+	</script>
+	
+    <form id="form1" runat="server">
+    <div>
+        <ajaxtoolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableHistory="True" />
+        <div id="Tudo">
+            <div id="Cabecalho">
+				<h1>EvolutionNet.MVP Sample Web Application</h1>
+            </div>
+            <div id="Menu">
+                <asp:ContentPlaceHolder ID="MenuHolder" runat="server"></asp:ContentPlaceHolder>
+            </div>
+            <div id="Breadcrumb">
+                <div>
+                    <asp:ContentPlaceHolder ID="BreadcrumbHolder" runat="server"></asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <div id="Content">
+                <div id="ContentInterno">
+                    <asp:ContentPlaceHolder ID="ContentHolder" runat="server"></asp:ContentPlaceHolder>
+                    <%--<div class="ClearFloat"></div>--%>
+                </div>
+            </div>
+            <div id="Rodape">All Rights Reserved, 2011 - <b>EvolutionNet MVP Framework</b></div>
+            <uc1:MessageUC ID="MessageUC1" runat="server" />
+        </div>
+    </div>
+    </form>
+</body>
+</html>

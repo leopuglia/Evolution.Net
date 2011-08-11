@@ -1,16 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="EvolutionNet.Sample.UI.Web._Default" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    <h1>EvolutionNet Sample</h1>
-    </div>
-    </form>
-</body>
-</html>
+﻿<%@ Page Title="Start Page" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="EvolutionNet.Sample.UI.Web.Default" %>
+<%@ Register src="CategoryCrudView.ascx" tagname="CategoryCrudView" tagprefix="uc1" %>
+<asp:Content ID="Head" ContentPlaceHolderID="HeadHolder" runat="server">
+</asp:Content>
+<asp:Content ID="Breadcrumb" ContentPlaceHolderID="BreadcrumbHolder" runat="server">
+    Start 
+</asp:Content>
+<asp:Content ID="Content" ContentPlaceHolderID="ContentHolder" runat="server">
+    <h2>Start Page</h2>
+	<uc1:CategoryCrudView ID="CategoryCrudView1" runat="server" />
+</asp:Content>

@@ -6,7 +6,7 @@ using EvolutionNet.Sample.Data.Definition;
 
 namespace EvolutionNet.Sample.Business
 {
-	public class CategoryCrudBO : BaseCrudBO<CategoryCrudTO, Category, int>, ICategoryCrudContract
+	public class CategoryCrudBO : BaseCrudListBO<CategoryCrudTO, Category, int>, ICategoryCrudContract
 	{
 		protected override bool ThrowExceptionOnValidation
 		{

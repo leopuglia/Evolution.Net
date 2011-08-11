@@ -30,7 +30,7 @@
 		{
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.label1 = new System.Windows.Forms.Label();
-			this.txtName = new System.Windows.Forms.TextBox();
+			this.txtCategoryName = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtDescription = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
@@ -44,7 +44,7 @@
 			// flowLayoutPanel1
 			// 
 			this.flowLayoutPanel1.Controls.Add(this.label1);
-			this.flowLayoutPanel1.Controls.Add(this.txtName);
+			this.flowLayoutPanel1.Controls.Add(this.txtCategoryName);
 			this.flowLayoutPanel1.Controls.Add(this.label2);
 			this.flowLayoutPanel1.Controls.Add(this.txtDescription);
 			this.flowLayoutPanel1.Controls.Add(this.label3);
@@ -65,12 +65,12 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Name";
 			// 
-			// txtName
+			// txtCategoryName
 			// 
-			this.txtName.Location = new System.Drawing.Point(3, 16);
-			this.txtName.Name = "txtName";
-			this.txtName.Size = new System.Drawing.Size(100, 20);
-			this.txtName.TabIndex = 1;
+			this.txtCategoryName.Location = new System.Drawing.Point(3, 16);
+			this.txtCategoryName.Name = "txtCategoryName";
+			this.txtCategoryName.Size = new System.Drawing.Size(100, 20);
+			this.txtCategoryName.TabIndex = 1;
 			// 
 			// label2
 			// 
@@ -141,7 +141,7 @@
 
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox txtName;
+		private System.Windows.Forms.TextBox txtCategoryName;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtDescription;
 		private System.Windows.Forms.Label label3;

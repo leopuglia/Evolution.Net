@@ -11,8 +11,8 @@ namespace EvolutionNet.Sample.Test.Presenter
 {
 	public abstract class BaseCrudPresenterTest<ViewT, PresenterT, TO, T, IdT> : BaseTest , IBaseCrudTest
 		where ViewT : IControlView
-		where PresenterT : ICrudPresenter<TO, T, IdT> 
-		where TO : CrudTO<T, IdT>
+		where PresenterT : ICrudListPresenter<TO, T, IdT> 
+		where TO : CrudListTO<T, IdT>
 		where T : class, IModel<IdT>
 	{
 		protected DynamicMock viewMock;
@@ -40,7 +40,7 @@ namespace EvolutionNet.Sample.Test.Presenter
 		protected virtual void DoAdd()
 		{
 			presenter.Add();
-			AssertAfterAdd(presenter.To.MainModel);
+			AssertAfterAdd(presenter.To.CurrentModel);
 		}
 
 		protected virtual void DoEdit()
@@ -49,14 +49,14 @@ namespace EvolutionNet.Sample.Test.Presenter
 			DataFactory.SaveModelToDB<T, IdT>(model);
 
 //			AssertBeforeEdit(model, edited);
-			presenter.To.MainModel = model;
+			presenter.To.CurrentModel = model;
 			presenter.Edit();
 			AssertAfterEdit(model.ID, model);
 		}
 
 		protected virtual void DoSave()
 		{
-			var model = presenter.To.MainModel = (T)DataFactory.GetModel<T, IdT>();
+			var model = presenter.To.CurrentModel = (T)DataFactory.GetModel<T, IdT>();
 			presenter.Save();
 			AssertAfterSave(model.ID, model);
 		}
@@ -66,7 +66,7 @@ namespace EvolutionNet.Sample.Test.Presenter
 			T model = (T)DataFactory.GetModel<T, IdT>();
 			DataFactory.SaveModelToDB<T, IdT>(model);
 
-			presenter.To.MainModel = model;
+			presenter.To.CurrentModel = model;
 			presenter.Delete();
 
 			AssertAfterDelete(model);

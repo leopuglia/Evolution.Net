@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Base/Base.Master" CodeBehind="Admin.master.cs" Inherits="EvolutionNet.Sample.UI.Web._AdminMaster" %>
+<asp:Content ID="Head" ContentPlaceHolderID="HeadHolder" runat="server">
+    <meta name="robots" content="noindex" />
+    <asp:ContentPlaceHolder ID="HeadHolder" runat="server"></asp:ContentPlaceHolder></asp:Content>
+<asp:Content ID="Menu" ContentPlaceHolderID="MenuHolder" runat="server">
+    <div id="LoginStatus">
+        <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="RedirectToLoginPage" LogoutPageUrl="~/Login.aspx" 
+        LoginText="Entrar" LogoutText="Sair" CssClass="MenuEntrar" />
+    </div>
+    
+    <asp:Menu ID="MenuPrincipal" runat="server" Orientation="Horizontal" 
+        DynamicHorizontalOffset="2" StaticSubMenuIndent="10px">
+        <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+        <StaticHoverStyle BackColor="#996633" />
+        <DynamicMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" />
+        <DynamicMenuStyle BackColor="#C58A50" />
+        <DynamicHoverStyle BackColor="#996633" />
+        <Items>
+            <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Início" Value="Início"></asp:MenuItem>
+            <asp:MenuItem Text="Atualização" Value="Atualização">
+                <asp:MenuItem Text="UH" Value="UH">
+                    <asp:MenuItem NavigateUrl="~/Suite/UHManter.aspx" Text="Manter UH" 
+                        Value="Manter UH"></asp:MenuItem>
+                    <asp:MenuItem NavigateUrl="~/Suite/BlocoUHManter.aspx" Text="Manter Bloco de UH" 
+                        Value="Manter Bloco de UH"></asp:MenuItem>
+                    <asp:MenuItem NavigateUrl="~/Suite/TipoUHManter.aspx" Text="Manter Tipo de UH" 
+                        Value="Manter Tipo de UH"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="Tarifa" Value="Tarifa">
+                    <asp:MenuItem NavigateUrl="~/Tarifa/ConvenioManter.aspx" Text="Manter Convênio" 
+                        Value="Manter Convênio"></asp:MenuItem>
+                </asp:MenuItem>
+            </asp:MenuItem>
+        </Items>
+    </asp:Menu>
+<%--    <ul>
+        <li><asp:HyperLink ID="LinkInicial" runat="server" NavigateUrl="~/Default.aspx" 
+                ToolTip="Página Inicial">Início</asp:HyperLink></li>
+        <li><asp:HyperLink ID="LinkConvenioManter" runat="server" NavigateUrl="~/Tarifa/ConvenioManter.aspx" 
+                ToolTip="Atualização de Convênios">Manter Convênio</asp:HyperLink></li>
+        <li><asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="RedirectToLoginPage" LogoutPageUrl="~/Login.aspx" LoginText="Entrar" LogoutText="Sair" /></li>
+    </ul>
+--%></asp:Content>
+<asp:Content ID="Breadcrumb" ContentPlaceHolderID="BreadcrumbHolder" runat="server"><asp:ContentPlaceHolder ID="BreadcrumbHolder" runat="server"></asp:ContentPlaceHolder></asp:Content>
+<asp:Content ID="Content" ContentPlaceHolderID="ContentHolder" runat="server"><asp:ContentPlaceHolder ID="ContentHolder" runat="server"></asp:ContentPlaceHolder></asp:Content>
