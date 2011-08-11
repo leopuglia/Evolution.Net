@@ -11,7 +11,7 @@ namespace EvolutionNet.MVP.View.Helper
 		IMenuHelper MenuHelper { get; }
 //		IBackgroundWorkerHelper GetBackgroundWorkerHelper(IControlView view, bool workerEnabledOnLoad, bool showProgressDlgFrm);
 
-		//TODO: Não sei se o BackgroundWorker deve ficar relacionado aqui, pois não sei se o comportamente dele é de um singleton. 
+		// TODO: Não sei se o BackgroundWorker deve ficar relacionado aqui, pois não sei se o comportamente dele é de um singleton. 
 		// Teoricamente cada view deve ter o seu backgroundworker separadamente, para execução de tarefas em paralelo.
 		// No meu caso eu não tenho utilizado, pois os meus forms executam tarefas um de cada vez
 		// Uma outra coisa é que o trabalho a ser executado deve ser definido por um métodos na View

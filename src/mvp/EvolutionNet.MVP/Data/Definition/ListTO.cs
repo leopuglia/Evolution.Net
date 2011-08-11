@@ -35,7 +35,7 @@ namespace EvolutionNet.MVP.Data.Definition
 				// Instancia o tipo se não for um tipo nulo
 				if (typeof(T) != typeof(INullModel))
 				{
-					//TODO: Adicionei aqui. Verificar como buscar os dados.
+					// TODO: Adicionei aqui. Verificar como buscar os dados.
 //					list = new SortableBindingList<T>();
 					list = new List<T>();
 				}

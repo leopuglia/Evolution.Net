@@ -4,7 +4,7 @@ namespace EvolutionNet.MVP.View.Helper
 {
 	public interface IRedirectHelper
 	{
-		//TODO: Esse método não vai dar certo, especialmente se as páginas forem implementadas usando uma nomenclatura não convencional
+		// TODO: Esse método não vai dar certo, especialmente se as páginas forem implementadas usando uma nomenclatura não convencional
 		// Eu tenho que definir interfaces (ou coisa do genero) que as páginas / controles implementem, independentes 
 		// de serem a view ou não, que defina a hierarquia das páginas, de forma que eu possa navegar nelas pelo menos 
 		// sabendo quem são seus pais.

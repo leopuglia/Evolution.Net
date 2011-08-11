@@ -22,7 +22,7 @@ namespace EvolutionNet.MVP.Business
 
 		#region Protected Properties
 
-		//TODO: Colocar em um arquivo de configuração, sendo o padrão true
+		// TODO: Colocar em um arquivo de configuração, sendo o padrão true
 		protected abstract bool ThrowExceptionOnValidation { get; }
 
 		#endregion
@@ -52,13 +52,13 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		public void Save()
 		{
-			if (Validate(ThrowExceptionOnValidation))
+			if (ValidateCurrentModel(ThrowExceptionOnValidation))
 				Execute(DoSave, true);
 		}
 
 		public void SaveList()
 		{
-			if (Validate(ThrowExceptionOnValidation))
+			if (ValidateCurrentModel(ThrowExceptionOnValidation))
 				Execute(DoSaveList, true);
 		}
 
@@ -86,14 +86,36 @@ namespace EvolutionNet.MVP.Business
 			Execute(DoDeleteByID, true);
 		}
 
+		public void DeleteListByIDs()
+		{
+			Execute(DoDeleteListByIDs, true);
+		}
+
 		/// <summary>
 		/// Validates the current MainModel
 		/// </summary>
 		/// <param name="throwException">Determine if it should fire a MVPValidationException on validation error</param>
 		/// <returns>True if sucessfully validated</returns>
-		public bool Validate(bool throwException)
+		public bool ValidateCurrentModel(bool throwException)
 		{
-			return DoValidate(throwException);
+			return Validate(To.CurrentModel, throwException);
+		}
+
+		public bool ValidateList(IList<T> list, bool throwException)
+		{
+			var isValid = true;
+			foreach (var model in list)
+			{
+				if (!Validate(model, throwException))
+					isValid = false;
+			}
+
+			return isValid;
+		}
+
+		public bool Validate(T model, bool throwException)
+		{
+			return DoValidate(model, throwException);
 		}
 
 		#endregion
@@ -112,10 +134,14 @@ namespace EvolutionNet.MVP.Business
 
 		protected virtual void DoSaveList()
 		{
+			var originalModel = To.CurrentModel;
 			foreach (var current in To.CurrentList)
 			{
-				Dao<T, IdT>.Save(current);
+				To.CurrentModel = current;
+				DoSave();
+//				Dao<T, IdT>.Save(current);
 			}
+			To.CurrentModel = originalModel;
 		}
 
 		/// <summary>
@@ -131,10 +157,18 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoDeleteList()
 		{
+			var originalModel = To.CurrentModel;
 			foreach (var current in To.CurrentList)
 			{
-				Dao<T, IdT>.Delete(current);
+				To.CurrentModel = current;
+				DoDelete();
 			}
+			To.CurrentModel = originalModel;
+
+//			foreach (var current in To.CurrentList)
+//			{
+//				Dao<T, IdT>.Delete(current);
+//			}
 		}
 
 		/// <summary>
@@ -146,19 +180,33 @@ namespace EvolutionNet.MVP.Business
 			Dao<T, IdT>.Delete(To.CurrentModel);
 		}
 
+		protected virtual void DoDeleteListByIDs()
+		{
+			var originalID = To.CurrentID;
+			var originalModel = To.CurrentModel;
+			foreach (var current in To.CurrentList)
+			{
+				To.CurrentID = current.ID;
+				DoDeleteByID();
+			}
+			To.CurrentID = originalID;
+			To.CurrentModel = originalModel;
+		}
+
 		/// <summary>
 		/// Validates the current MainModel
 		/// </summary>
+		/// <param name="model"></param>
 		/// <param name="throwException">Determine if it should fire a MVPValidationException on validation error</param>
 		/// <returns>True if sucessfully validated</returns>
-		protected virtual bool DoValidate(bool throwException)
+		protected virtual bool DoValidate(T model, bool throwException)
 		{
 #if FRAMEWORK_3
 			IValidatorRunner runner = new ValidatorRunner(new CachedValidationRegistry());
-			if (runner.IsValid(To.CurrentModel))
+			if (runner.IsValid(model))
 				return true;
 
-			ErrorSummary errors = runner.GetErrorSummary(To.CurrentModel);
+			ErrorSummary errors = runner.GetErrorSummary(model);
 
 			for (int i = 0; i < errors.ErrorsCount; i++)
 			{
@@ -167,7 +215,7 @@ namespace EvolutionNet.MVP.Business
 
 			if (throwException)
 			{
-				//TODO: Colocar a string em um resource
+				// TODO: Colocar a string em um resource
 				throw new MVPValidationException(
 					string.Format("Validation has failed with {0} errors. See inner exceptions for details.",
 								  errors.ErrorsCount),

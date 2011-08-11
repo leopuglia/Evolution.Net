@@ -2,7 +2,7 @@ using System;
 
 namespace EvolutionNet.MVP.Business.ProgressReporting
 {
-	//TODO: Verificar se essas classes devem ser movidas para o EvolutionNet.Util
+	// TODO: Verificar se essas classes devem ser movidas para o EvolutionNet.Util
 	public interface IProgressReport
 	{
 //		bool CancellationPending { get; }

@@ -34,7 +34,7 @@ namespace EvolutionNet.MVP.UI.Windows
 		{
 			InitializeComponent();
 
-			//TODO: Aqui eu tenho que colocar um Setting pra decidir se vai usar UserControl's (UserControl as View) ou não. Se não for utilizar (Form as View), preciso inicializar o ControlHelper aqui. Deve ser inicializado apenas uma vez, pois é um "singleton".
+			// TODO: Aqui eu tenho que colocar um Setting pra decidir se vai usar UserControl's (UserControl as View) ou não. Se não for utilizar (Form as View), preciso inicializar o ControlHelper aqui. Deve ser inicializado apenas uma vez, pois é um "singleton".
 //			WinMessageHelper.Instance.Initialize(this);
 		}
 

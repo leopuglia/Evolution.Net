@@ -4,7 +4,7 @@ using System.IO;
 
 namespace EvolutionNet.Util.Imaging
 {
-	//TODO: Fazer o singleton da maneira certa!
+	// TODO: Fazer o singleton da maneira certa!
 	public class JpegProcessing
 	{
 		#region Instance

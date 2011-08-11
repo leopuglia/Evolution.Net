@@ -32,7 +32,7 @@ namespace EvolutionNet.Util.Calendar.Holiday
 		}
 */
 
-		//TODO: Move this method from here o a util class
+		// TODO: Move this method from here o a util class
 		public static IList<T> ConvertListTo<T>(IEnumerable list)
 		{
 			IList<T> listNew = new List<T>();

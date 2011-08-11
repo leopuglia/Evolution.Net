@@ -57,7 +57,7 @@ namespace EvolutionNet.MVP.Data.Access
 					if (log.IsInfoEnabled)
 						log.Info("Inicializando o ActiveRecord\r\n******************************");
 
-					//TODO: Eu tenho que criar algum valor no arquivo de config onde eu possa setar as assemblies que devem ser inicializadas pelo ActiveRecord, se isso não puder ser setado nas próprias sections do ActiveRecord.
+					// TODO: Eu tenho que criar algum valor no arquivo de config onde eu possa setar as assemblies que devem ser inicializadas pelo ActiveRecord, se isso não puder ser setado nas próprias sections do ActiveRecord.
 					//Aqui eu estou inicializando o ActiveRecord, dizendo pra achar as classes que implementam [ActiveRecord] apenas neste assembly (por padrão é o assembly que chama).
 					if (type == null)
 						ActiveRecordStarter.Initialize(ActiveRecordSectionHandler.Instance);

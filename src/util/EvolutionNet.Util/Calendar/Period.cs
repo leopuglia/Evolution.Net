@@ -30,6 +30,6 @@ namespace EvolutionNet.Util.Calendar
 			get { return end - start; }
 		}
 
-		//TODO: Adicionar mais algumas funções pra facilitar, tipo Add no final, Add no inicio, etc
+		// TODO: Adicionar mais algumas funções pra facilitar, tipo Add no final, Add no inicio, etc
 	}
 }

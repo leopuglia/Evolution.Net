@@ -155,16 +155,16 @@
     <Compile Include="View\IWinControl.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">
-      <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
-      <Name>EvolutionNet.Util.2008</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="MVPCommonMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MVPCommonMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\util\EvolutionNet.Util\EvolutionNet.Util.2008.csproj">
+      <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
+      <Name>EvolutionNet.Util.2008</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

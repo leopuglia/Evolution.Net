@@ -235,8 +235,8 @@ namespace EvolutionNet.Util.Calendar.Holiday.Country.Us
 		{
 			get
 			{
-				//TODO: Aqui eu posso fazer na mão ou via reflection. Seria pegar todas as propriedades que são NationalHoliday.
-				//TODO: Posso fazer um Helper para isso, tipo akele helper pra instanciar objetos.
+				// TODO: Aqui eu posso fazer na mão ou via reflection. Seria pegar todas as propriedades que são NationalHoliday.
+				// TODO: Posso fazer um Helper para isso, tipo akele helper pra instanciar objetos.
 				IList<NationalHoliday> list = new List<NationalHoliday>();
 
 				list.Add(NewYearDay);
