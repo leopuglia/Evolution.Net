@@ -31,172 +31,172 @@ namespace EvolutionNet.Sample.UI.Windows
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.btnAdd = new System.Windows.Forms.Button();
-			this.btnEdit = new System.Windows.Forms.Button();
-			this.btnDelete = new System.Windows.Forms.Button();
-			this.btnSlowWork = new System.Windows.Forms.Button();
-			this.nudSlowWorkTime = new System.Windows.Forms.NumericUpDown();
-			this.lblSlowProcess = new System.Windows.Forms.Label();
-			this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colCategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colPictureImage = new System.Windows.Forms.DataGridViewImageColumn();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.nudSlowWorkTime)).BeginInit();
+			this.DataGridCategory = new System.Windows.Forms.DataGridView();
+			this.ColID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ColCategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ColDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ColPictureImage = new System.Windows.Forms.DataGridViewImageColumn();
+			this.BindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+			this.BtnAdd = new System.Windows.Forms.Button();
+			this.BtnEdit = new System.Windows.Forms.Button();
+			this.BtnDelete = new System.Windows.Forms.Button();
+			this.BtnSlowWork = new System.Windows.Forms.Button();
+			this.NumericSlowWorkTime = new System.Windows.Forms.NumericUpDown();
+			this.LblSlowWorkTime = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.DataGridCategory)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.BindingSource1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.NumericSlowWorkTime)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// dataGridView1
+			// DataGridCategory
 			// 
-			this.dataGridView1.AllowUserToAddRows = false;
-			this.dataGridView1.AllowUserToDeleteRows = false;
-			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			this.DataGridCategory.AllowUserToAddRows = false;
+			this.DataGridCategory.AllowUserToDeleteRows = false;
+			this.DataGridCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridView1.AutoGenerateColumns = false;
-			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colID,
-            this.colCategoryName,
-            this.colDescription,
-            this.colPictureImage});
-			this.dataGridView1.DataSource = this.bindingSource;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 33);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.ReadOnly = true;
-			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dataGridView1.Size = new System.Drawing.Size(784, 489);
-			this.dataGridView1.StandardTab = true;
-			this.dataGridView1.TabIndex = 0;
-			this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
-			this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+			this.DataGridCategory.AutoGenerateColumns = false;
+			this.DataGridCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColID,
+            this.ColCategoryName,
+            this.ColDescription,
+            this.ColPictureImage});
+			this.DataGridCategory.DataSource = this.BindingSource1;
+			this.DataGridCategory.Location = new System.Drawing.Point(0, 33);
+			this.DataGridCategory.Name = "DataGridCategory";
+			this.DataGridCategory.ReadOnly = true;
+			this.DataGridCategory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.DataGridCategory.Size = new System.Drawing.Size(784, 489);
+			this.DataGridCategory.StandardTab = true;
+			this.DataGridCategory.TabIndex = 0;
+			this.DataGridCategory.Sorted += new System.EventHandler(this.DataGridView1_Sorted);
+			this.DataGridCategory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellDoubleClick);
 			// 
-			// bindingSource
+			// ColID
 			// 
-			this.bindingSource.DataSource = typeof(EvolutionNet.Sample.Data.Definition.Category);
+			this.ColID.DataPropertyName = "ID";
+			this.ColID.HeaderText = "ID";
+			this.ColID.MinimumWidth = 30;
+			this.ColID.Name = "colID";
+			this.ColID.ReadOnly = true;
+			this.ColID.Width = 50;
 			// 
-			// btnAdd
+			// ColCategoryName
 			// 
-			this.btnAdd.Location = new System.Drawing.Point(4, 4);
-			this.btnAdd.Name = "btnAdd";
-			this.btnAdd.Size = new System.Drawing.Size(75, 23);
-			this.btnAdd.TabIndex = 1;
-			this.btnAdd.Text = "Add...";
-			this.btnAdd.UseVisualStyleBackColor = true;
-			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+			this.ColCategoryName.DataPropertyName = "CategoryName";
+			this.ColCategoryName.HeaderText = "Category Name";
+			this.ColCategoryName.MinimumWidth = 120;
+			this.ColCategoryName.Name = "colCategoryName";
+			this.ColCategoryName.ReadOnly = true;
+			this.ColCategoryName.Width = 150;
 			// 
-			// btnEdit
+			// ColDescription
 			// 
-			this.btnEdit.Location = new System.Drawing.Point(86, 4);
-			this.btnEdit.Name = "btnEdit";
-			this.btnEdit.Size = new System.Drawing.Size(75, 23);
-			this.btnEdit.TabIndex = 2;
-			this.btnEdit.Text = "Edit...";
-			this.btnEdit.UseVisualStyleBackColor = true;
-			this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+			this.ColDescription.DataPropertyName = "Description";
+			this.ColDescription.HeaderText = "Description";
+			this.ColDescription.MinimumWidth = 200;
+			this.ColDescription.Name = "colDescription";
+			this.ColDescription.ReadOnly = true;
+			this.ColDescription.Width = 300;
 			// 
-			// btnDelete
+			// ColPictureImage
 			// 
-			this.btnDelete.Location = new System.Drawing.Point(168, 4);
-			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.Size = new System.Drawing.Size(75, 23);
-			this.btnDelete.TabIndex = 3;
-			this.btnDelete.Text = "Delete";
-			this.btnDelete.UseVisualStyleBackColor = true;
-			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+			this.ColPictureImage.DataPropertyName = "PictureImage";
+			this.ColPictureImage.HeaderText = "Image";
+			this.ColPictureImage.MinimumWidth = 100;
+			this.ColPictureImage.Name = "colPictureImage";
+			this.ColPictureImage.ReadOnly = true;
 			// 
-			// btnSlowWork
+			// BindingSource1
 			// 
-			this.btnSlowWork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSlowWork.Location = new System.Drawing.Point(560, 4);
-			this.btnSlowWork.Name = "btnSlowWork";
-			this.btnSlowWork.Size = new System.Drawing.Size(221, 23);
-			this.btnSlowWork.TabIndex = 6;
-			this.btnSlowWork.Text = "Run some slow process in background...";
-			this.btnSlowWork.UseVisualStyleBackColor = true;
-			this.btnSlowWork.Click += new System.EventHandler(this.btnSlowWork_Click);
+			this.BindingSource1.DataSource = typeof(EvolutionNet.Sample.Data.Definition.Category);
 			// 
-			// nudSlowWorkTime
+			// BtnAdd
 			// 
-			this.nudSlowWorkTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.nudSlowWorkTime.Location = new System.Drawing.Point(512, 7);
-			this.nudSlowWorkTime.Maximum = new decimal(new int[] {
+			this.BtnAdd.Location = new System.Drawing.Point(4, 4);
+			this.BtnAdd.Name = "BtnAdd";
+			this.BtnAdd.Size = new System.Drawing.Size(75, 23);
+			this.BtnAdd.TabIndex = 1;
+			this.BtnAdd.Text = "Add...";
+			this.BtnAdd.UseVisualStyleBackColor = true;
+			this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+			// 
+			// BtnEdit
+			// 
+			this.BtnEdit.Location = new System.Drawing.Point(86, 4);
+			this.BtnEdit.Name = "BtnEdit";
+			this.BtnEdit.Size = new System.Drawing.Size(75, 23);
+			this.BtnEdit.TabIndex = 2;
+			this.BtnEdit.Text = "Edit...";
+			this.BtnEdit.UseVisualStyleBackColor = true;
+			this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
+			// 
+			// BtnDelete
+			// 
+			this.BtnDelete.Location = new System.Drawing.Point(168, 4);
+			this.BtnDelete.Name = "BtnDelete";
+			this.BtnDelete.Size = new System.Drawing.Size(75, 23);
+			this.BtnDelete.TabIndex = 3;
+			this.BtnDelete.Text = "Delete";
+			this.BtnDelete.UseVisualStyleBackColor = true;
+			this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+			// 
+			// BtnSlowWork
+			// 
+			this.BtnSlowWork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtnSlowWork.Location = new System.Drawing.Point(560, 4);
+			this.BtnSlowWork.Name = "BtnSlowWork";
+			this.BtnSlowWork.Size = new System.Drawing.Size(221, 23);
+			this.BtnSlowWork.TabIndex = 6;
+			this.BtnSlowWork.Text = "Run some slow process in background...";
+			this.BtnSlowWork.UseVisualStyleBackColor = true;
+			this.BtnSlowWork.Click += new System.EventHandler(this.BtnSlowWork_Click);
+			// 
+			// NumericSlowWorkTime
+			// 
+			this.NumericSlowWorkTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.NumericSlowWorkTime.Location = new System.Drawing.Point(512, 7);
+			this.NumericSlowWorkTime.Maximum = new decimal(new int[] {
             60,
             0,
             0,
             0});
-			this.nudSlowWorkTime.Name = "nudSlowWorkTime";
-			this.nudSlowWorkTime.Size = new System.Drawing.Size(42, 20);
-			this.nudSlowWorkTime.TabIndex = 5;
-			this.nudSlowWorkTime.Value = new decimal(new int[] {
+			this.NumericSlowWorkTime.Name = "NumericSlowWorkTime";
+			this.NumericSlowWorkTime.Size = new System.Drawing.Size(42, 20);
+			this.NumericSlowWorkTime.TabIndex = 5;
+			this.NumericSlowWorkTime.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
 			// 
-			// lblSlowProcess
+			// LblSlowWorkTime
 			// 
-			this.lblSlowProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblSlowProcess.AutoSize = true;
-			this.lblSlowProcess.Location = new System.Drawing.Point(409, 9);
-			this.lblSlowProcess.Name = "lblSlowProcess";
-			this.lblSlowProcess.Size = new System.Drawing.Size(97, 13);
-			this.lblSlowProcess.TabIndex = 4;
-			this.lblSlowProcess.Text = "Process Time (sec)";
-			// 
-			// colID
-			// 
-			this.colID.DataPropertyName = "ID";
-			this.colID.HeaderText = "ID";
-			this.colID.MinimumWidth = 30;
-			this.colID.Name = "colID";
-			this.colID.ReadOnly = true;
-			this.colID.Width = 50;
-			// 
-			// colCategoryName
-			// 
-			this.colCategoryName.DataPropertyName = "CategoryName";
-			this.colCategoryName.HeaderText = "Category Name";
-			this.colCategoryName.MinimumWidth = 120;
-			this.colCategoryName.Name = "colCategoryName";
-			this.colCategoryName.ReadOnly = true;
-			this.colCategoryName.Width = 150;
-			// 
-			// colDescription
-			// 
-			this.colDescription.DataPropertyName = "Description";
-			this.colDescription.HeaderText = "Description";
-			this.colDescription.MinimumWidth = 200;
-			this.colDescription.Name = "colDescription";
-			this.colDescription.ReadOnly = true;
-			this.colDescription.Width = 300;
-			// 
-			// colPictureImage
-			// 
-			this.colPictureImage.DataPropertyName = "PictureImage";
-			this.colPictureImage.HeaderText = "Image";
-			this.colPictureImage.MinimumWidth = 100;
-			this.colPictureImage.Name = "colPictureImage";
-			this.colPictureImage.ReadOnly = true;
+			this.LblSlowWorkTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.LblSlowWorkTime.AutoSize = true;
+			this.LblSlowWorkTime.Location = new System.Drawing.Point(409, 9);
+			this.LblSlowWorkTime.Name = "LblSlowWorkTime";
+			this.LblSlowWorkTime.Size = new System.Drawing.Size(97, 13);
+			this.LblSlowWorkTime.TabIndex = 4;
+			this.LblSlowWorkTime.Text = "Process Time (sec)";
 			// 
 			// CategoryCrudView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.lblSlowProcess);
-			this.Controls.Add(this.nudSlowWorkTime);
-			this.Controls.Add(this.btnSlowWork);
-			this.Controls.Add(this.btnDelete);
-			this.Controls.Add(this.btnEdit);
-			this.Controls.Add(this.btnAdd);
-			this.Controls.Add(this.dataGridView1);
+			this.Controls.Add(this.LblSlowWorkTime);
+			this.Controls.Add(this.NumericSlowWorkTime);
+			this.Controls.Add(this.BtnSlowWork);
+			this.Controls.Add(this.BtnDelete);
+			this.Controls.Add(this.BtnEdit);
+			this.Controls.Add(this.BtnAdd);
+			this.Controls.Add(this.DataGridCategory);
 			this.Name = "CategoryCrudView";
 			this.Load += new System.EventHandler(this.CategoryCrudView_Load);
 			this.AfterLoadComplete += new System.EventHandler(this.CategoryCrudView_AfterLoadComplete);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.nudSlowWorkTime)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataGridCategory)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.BindingSource1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.NumericSlowWorkTime)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -204,17 +204,17 @@ namespace EvolutionNet.Sample.UI.Windows
 
 		#endregion
 
-		private System.Windows.Forms.DataGridView dataGridView1;
-		private BindingSource bindingSource;
-		private Button btnAdd;
-		private Button btnEdit;
-		private Button btnDelete;
-		private Button btnSlowWork;
-		private NumericUpDown nudSlowWorkTime;
-		private Label lblSlowProcess;
-		private DataGridViewTextBoxColumn colID;
-		private DataGridViewTextBoxColumn colCategoryName;
-		private DataGridViewTextBoxColumn colDescription;
-		private DataGridViewImageColumn colPictureImage;
+		private System.Windows.Forms.DataGridView DataGridCategory;
+		private BindingSource BindingSource1;
+		private Button BtnAdd;
+		private Button BtnEdit;
+		private Button BtnDelete;
+		private Button BtnSlowWork;
+		private NumericUpDown NumericSlowWorkTime;
+		private Label LblSlowWorkTime;
+		private DataGridViewTextBoxColumn ColID;
+		private DataGridViewTextBoxColumn ColCategoryName;
+		private DataGridViewTextBoxColumn ColDescription;
+		private DataGridViewImageColumn ColPictureImage;
 	}
 }

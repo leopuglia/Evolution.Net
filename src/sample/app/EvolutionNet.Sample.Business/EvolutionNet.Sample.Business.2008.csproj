@@ -80,10 +80,6 @@
       <Project>{DF9543AD-490C-4A75-86D8-93391F8F05A7}</Project>
       <Name>EvolutionNet.Sample.Data.Definition.2008</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EvolutionNet.Sample.Presenter\EvolutionNet.Sample.Presenter.2008.csproj">
-      <Project>{2FC86B8C-923D-4F52-9D1C-D88A532CA734}</Project>
-      <Name>EvolutionNet.Sample.Presenter.2008</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,8 +6,8 @@ using NUnit.Framework;
 
 namespace EvolutionNet.Sample.Test.Presenter
 {
-	//TODO: Refatorar essa classe numa classe base que eu possa utilizar pra realizar todos os meus testes com o mínimo de alterações possível
-	//DICA: Usar generics
+	// TODO: Refatorar essa classe numa classe base que eu possa utilizar pra realizar todos os meus testes com o mínimo de alterações possível
+	// DICA: Usar generics
 	[TestFixture]
 	public class CategoryCrudPresenterTest : BaseCrudPresenterTest<ICategoryCrudView, CategoryCrudPresenter, CategoryCrudTO, Category, int>
 	{

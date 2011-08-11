@@ -12,30 +12,24 @@ namespace EvolutionNet.Sample.UI.Windows
 	public partial class CategoryCrudView : BaseUCView, ICategoryCrudView
 	{
 		private CategoryCrudPresenter presenter;
-//		private IList<Category> currentList;
 		private PropertySortDirection sort;
 
 		#region Public Properties
 
-//		public bool IsPostBack
-//		{
-//			get { return false; }
-//		}
-
 		public int CurrentPosition
 		{
-			get { return bindingSource.Position; }
+			get { return BindingSource1.Position; }
 			set
 			{
-				bindingSource.Position = value;
+				BindingSource1.Position = value;
 				SetPosition();
 			}
 		}
 
+		// This item, when set, updates the CurrentPosition, for the presenter to be compatible with the equivalent web view
 		public Category CurrentModel
 		{
-			get { return (Category) bindingSource.Current; }
-			//TODO: Adicionei isso aqui só pra ficar de acordo com as necessidades da web. Verificar!
+			get { return (Category) BindingSource1.Current; }
 			set { CurrentPosition = CurrentList.IndexOf(value); }
 		}
 
@@ -44,7 +38,7 @@ namespace EvolutionNet.Sample.UI.Windows
 			get
 			{
 				var list = new List<Category>();
-				foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+				foreach (DataGridViewRow row in DataGridCategory.SelectedRows)
 				{
 					list.Add(BindableList[row.Index]);
 				}
@@ -55,34 +49,19 @@ namespace EvolutionNet.Sample.UI.Windows
 
 		public SortableBindingList<Category> BindableList
 		{
-			get { return bindingSource.DataSource as SortableBindingList<Category>; }
-			set { bindingSource.DataSource = value; }
+			get { return BindingSource1.DataSource as SortableBindingList<Category>; }
+			set { BindingSource1.DataSource = value; }
 		}
 
 		public PropertySortDirection Sort
 		{
-			get
-			{
-				return sort;
-/*
-				if (dataGridView1.SortOrder == SortOrder.None || dataGridView1.SortedColumn == null)
-				{
-					return new PropertySortDirection();
-				}
-
-				return new PropertySortDirection(
-					dataGridView1.SortedColumn.DataPropertyName, 
-					dataGridView1.SortOrder == SortOrder.Ascending 
-						? PropertySortOrder.Ascending 
-						: PropertySortOrder.Descending);
-*/
-			}
+			get { return sort; }
 		}
 
 		public int SlowWorkTime
 		{
-			get { return (int)nudSlowWorkTime.Value; }
-			set { nudSlowWorkTime.Value = value; }
+			get { return (int)NumericSlowWorkTime.Value; }
+			set { NumericSlowWorkTime.Value = value; }
 		}
 
 		#endregion
@@ -92,9 +71,6 @@ namespace EvolutionNet.Sample.UI.Windows
 		public CategoryCrudView()
 		{
 			InitializeComponent();
-
-//			if (!IsVSDesigner)
-//				presenter = new CategoryCrudPresenter(this);
 		}
 
 		#endregion
@@ -106,8 +82,6 @@ namespace EvolutionNet.Sample.UI.Windows
 			// Do not create the presenter on visual studio design time, because it causes error
 			if (!IsVSDesigner)
 				presenter = new CategoryCrudPresenter(this);
-
-//			presenter.Load();
 		}
 
 		private void CategoryCrudView_AfterLoadComplete(object sender, EventArgs e)
@@ -115,64 +89,51 @@ namespace EvolutionNet.Sample.UI.Windows
 			presenter.AfterLoadComplete();
 		}
 
-		private void btnAdd_Click(object sender, EventArgs e)
+		private void BtnAdd_Click(object sender, EventArgs e)
 		{
-//			presenter.To.CurrentModel = (Category)bindingSource.Current;
-//			presenter.To.CurrentList = currentList;
 			presenter.Add();
-
-//			AdjustDataGridRowHeightColumnWidth();
 		}
 
-		private void btnEdit_Click(object sender, EventArgs e)
+		private void BtnEdit_Click(object sender, EventArgs e)
 		{
-//			presenter.To.CurrentModel = (Category)bindingSource.Current;
-//			presenter.To.CurrentList = currentList;
 			presenter.Edit();
-
-//			AdjustDataGridRowHeightColumnWidth();
 		}
 
-		private void btnDelete_Click(object sender, EventArgs e)
+		private void BtnDelete_Click(object sender, EventArgs e)
 		{
-/*
-			presenter.To.CurrentModel = (Category)bindingSource.Current;
-			presenter.Delete();
-*/
-//			presenter.To.CurrentList = currentList;
 			presenter.DeleteList();
-
-//			AdjustDataGridRowHeightColumnWidth();
 		}
 
-		private void btnSlowWork_Click(object sender, EventArgs e)
+		private void BtnSlowWork_Click(object sender, EventArgs e)
 		{
 			presenter.RunSlowWork();
 		}
 
-		private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex > -1 && e.ColumnIndex > -1)
 			{
-//				presenter.To.Position = bindingSource.Position;
-//				presenter.To.CurrentModel = (Category)bindingSource.Current;
-//				presenter.To.CurrentList = currentList;
 				presenter.Edit();
 			}
-
-//			AdjustDataGridRowHeightColumnWidth();
 		}
 
-		private void dataGridView1_Sorted(object sender, EventArgs e)
+		private void DataGridView1_Sorted(object sender, EventArgs e)
 		{
 			sort = new PropertySortDirection(
-				dataGridView1.SortedColumn.DataPropertyName,
-				dataGridView1.SortOrder == SortOrder.Ascending
+				DataGridCategory.SortedColumn.DataPropertyName,
+				DataGridCategory.SortOrder == SortOrder.Ascending
 					? PropertySortOrder.Ascending
 					: PropertySortOrder.Descending);
 			presenter.Sorted();
-//			sort = new PropertySortDirection(dataGridView1.SortedColumn.DataPropertyName, dataGridView1.SortOrder == SortOrder.Ascending);
-//			AdjustDataGridRowHeightColumnWidth();
+		}
+
+		#endregion
+
+		#region Public Methods
+
+		// Implemented void, since the CategoryEditView is a dialog, the clear method should be on it
+		public void Clear()
+		{
 		}
 
 		#endregion
@@ -181,10 +142,9 @@ namespace EvolutionNet.Sample.UI.Windows
 
 		public void AdjustDataGridRowHeightColumnWidth()
 		{
-			// I've left this method here intentionally, since a web app need different treatment
-			// TODO: Refactor this method to the Presenter after creating the web view
+			// I've left this method here intentionally, since a web app doesn't need this treatment
 			int biggestWidth = 0;
-			foreach (DataGridViewRow row in dataGridView1.Rows)
+			foreach (DataGridViewRow row in DataGridCategory.Rows)
 			{
 				if (row.Index < BindableList.Count && BindableList[row.Index].PictureImage != null)
 				{
@@ -196,7 +156,7 @@ namespace EvolutionNet.Sample.UI.Windows
 				}
 			}
 
-			var column = dataGridView1.Columns["colPictureImage"];
+			var column = DataGridCategory.Columns["ColPictureImage"];
 			if (column != null)
 			{
 				column.Width = biggestWidth;
@@ -205,16 +165,16 @@ namespace EvolutionNet.Sample.UI.Windows
 			SetPosition();
 		}
 
-		public void Clear()
-		{
-		}
+		#endregion
+
+		#region Local Auxiliary Methods
 
 		private void SetPosition()
 		{
-			if (bindingSource.Position >= 0)
+			if (BindingSource1.Position >= 0)
 			{
-				dataGridView1.FirstDisplayedScrollingRowIndex = bindingSource.Position;
-				dataGridView1.Focus();
+				DataGridCategory.FirstDisplayedScrollingRowIndex = BindingSource1.Position;
+				DataGridCategory.Focus();
 			}
 		}
 

@@ -8,7 +8,7 @@ namespace EvolutionNet.Sample.UI.Windows
 		{
 			InitializeComponent();
 
-			baseUC = categoryCrudView1;
+			baseUC = CategoryCrudView1;
 		}
 	}
 }

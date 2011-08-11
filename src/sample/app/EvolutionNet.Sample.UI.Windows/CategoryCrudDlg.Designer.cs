@@ -28,16 +28,16 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.categoryCrudView1 = new EvolutionNet.Sample.UI.Windows.CategoryCrudView();
+			this.CategoryCrudView1 = new EvolutionNet.Sample.UI.Windows.CategoryCrudView();
 			this.SuspendLayout();
 			// 
-			// categoryCrudView1
+			// CategoryCrudView1
 			// 
-			this.categoryCrudView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.categoryCrudView1.Location = new System.Drawing.Point(0, 0);
-			this.categoryCrudView1.Name = "categoryCrudView1";
-			this.categoryCrudView1.Size = new System.Drawing.Size(784, 471);
-			this.categoryCrudView1.TabIndex = 0;
+			this.CategoryCrudView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CategoryCrudView1.Location = new System.Drawing.Point(0, 0);
+			this.CategoryCrudView1.Name = "CategoryCrudView1";
+			this.CategoryCrudView1.Size = new System.Drawing.Size(784, 471);
+			this.CategoryCrudView1.TabIndex = 0;
 			// 
 			// CategoryCrudFrm
 			// 
@@ -45,14 +45,14 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Name = "CategoryCrudFrm";
 			this.Text = "Category CRUD";
-			this.Controls.Add(this.categoryCrudView1);
+			this.Controls.Add(this.CategoryCrudView1);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private CategoryCrudView categoryCrudView1;
+		private CategoryCrudView CategoryCrudView1;
 
 	}
 }

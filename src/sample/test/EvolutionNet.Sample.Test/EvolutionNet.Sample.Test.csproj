@@ -133,6 +133,10 @@
       <Project>{2FC86B8C-923D-4F52-9D1C-D88A532CA734}</Project>
       <Name>EvolutionNet.Sample.Presenter.2008</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\app\EvolutionNet.Sample.UI.Web\EvolutionNet.Sample.UI.Web.2008.csproj">
+      <Project>{454DB541-AE42-439C-98F4-634A5E8988A2}</Project>
+      <Name>EvolutionNet.Sample.UI.Web.2008</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\app\EvolutionNet.Sample.UI.Windows\EvolutionNet.Sample.UI.Windows.2008.csproj">
       <Project>{BB67662F-E7C6-480C-AB48-CA097C6E0B49}</Project>
       <Name>EvolutionNet.Sample.UI.Windows.2008</Name>

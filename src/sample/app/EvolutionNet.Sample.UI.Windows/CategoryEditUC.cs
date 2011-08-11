@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using EvolutionNet.MVP.UI.Windows;
 using EvolutionNet.Sample.Core.View;
@@ -11,6 +12,8 @@ namespace EvolutionNet.Sample.UI.Windows
 	{
 		private Category model = new Category();
 		private int modelID;
+
+		#region Public Properties
 
 		public CategoryEditUC()
 		{
@@ -27,9 +30,9 @@ namespace EvolutionNet.Sample.UI.Windows
 		{
 			get
 			{
-				model.CategoryName = txtCategoryName.Text;
-				model.Description = txtDescription.Text;
-				model.PictureImage = imgPicture.Image;
+				model.CategoryName = TxtCategoryName.Text;
+				model.Description = TxtDescription.Text;
+				model.PictureImage = ImgPicture.Image;
 
 				return model;
 			}
@@ -40,32 +43,40 @@ namespace EvolutionNet.Sample.UI.Windows
 				if (model.ID != 0)
 				{
 					modelID = model.ID;
-					txtCategoryName.Text = model.CategoryName;
-					txtDescription.Text = model.Description;
-					imgPicture.Image = model.PictureImage;
+					TxtCategoryName.Text = model.CategoryName;
+					TxtDescription.Text = model.Description;
+					ImgPicture.Image = model.PictureImage;
 				}
 			}
 		}
 
+		#endregion
+
+		#region Public Methods
+
 		public void Clear()
 		{
-//			model = new Category();
-
 			modelID = 0;
-			txtCategoryName.Text = "";
-			txtDescription.Text = "";
-			imgPicture.Image = null;
+			TxtCategoryName.Text = "";
+			TxtDescription.Text = "";
+			ImgPicture.Image = null;
 		}
 
-		private void btnBrowsePicture_Click(object sender, System.EventArgs e)
+		#endregion
+
+		#region Event Methods
+
+		private void BtnBrowsePicture_Click(object sender, EventArgs e)
 		{
-			if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
+			if (OpenFileDialog1.ShowDialog(this) == DialogResult.OK)
 			{
-				//TODO: Mover para o BO
-				Bitmap img = (Bitmap) Bitmap.FromFile(openFileDialog1.FileName);
-				imgPicture.Image =
+				// TODO: Mover para o BO
+				Bitmap img = (Bitmap) Bitmap.FromFile(OpenFileDialog1.FileName);
+				ImgPicture.Image =
 					ImageProcessing.Resize(img, new Size(160, 120));
 			}
 		}
+
+		#endregion
 	}
 }

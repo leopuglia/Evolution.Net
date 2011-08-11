@@ -64,6 +64,15 @@
     <Compile Include="SqlServerModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Sample.actiw">
+      <Generator>ActiveWriterCodeGenerator</Generator>
+      <LastGenOutput>Sample.cs</LastGenOutput>
+    </None>
+    <None Include="Sample.actiw.diagram">
+      <DependentUpon>Sample.actiw</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\mvp\EvolutionNet.MVP\EvolutionNet.MVP.2008.csproj">
       <Project>{0D4CB1BC-082B-4B22-83C1-E17EF0A7887A}</Project>
       <Name>EvolutionNet.MVP.2008</Name>
@@ -72,15 +81,6 @@
       <Project>{5EE60BA9-B870-4773-8F57-835AA00AAFD9}</Project>
       <Name>EvolutionNet.Util.2008</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Sample.actiw">
-      <Generator>ActiveWriterCodeGenerator</Generator>
-      <LastGenOutput>Sample.cs</LastGenOutput>
-    </None>
-    <None Include="Sample.actiw.diagram">
-      <DependentUpon>Sample.actiw</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

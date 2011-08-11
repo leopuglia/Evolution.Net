@@ -13,12 +13,15 @@ namespace EvolutionNet.Sample.UI.Web
 {
 	public partial class CategoryEditUC : BaseSampleView, ICategoryEditView
 	{
-		private CategoryCrudPresenter presenter;
 		private const string UploadTempPath = "Uploads";
+
+		private CategoryCrudPresenter presenter;
 		private Category model = new Category();
 
 		#region Local Properties
 
+		// I use this property to save the Image uploaded to the Session (the ViewState doesn't work on this page)
+		// TODO: descobrir porque o ViewState não funciona no edit view
 		private Image img
 		{
 			get { return (Image)Session["Img"]; }
@@ -29,6 +32,7 @@ namespace EvolutionNet.Sample.UI.Web
 
 		#region Public Properties
 
+		// This method exists to get a reference to the presenter, set on the CategoryCrudView
 		public CategoryCrudPresenter Presenter
 		{
 			set { presenter = value; }
@@ -45,8 +49,8 @@ namespace EvolutionNet.Sample.UI.Web
 			get
 			{
 				model.ID = ModelID;
-				model.CategoryName = txtCategoryName.Text;
-				model.Description = txtDescription.Text;
+				model.CategoryName = TxtCategoryName.Text;
+				model.Description = TxtDescription.Text;
 				model.PictureImage = img;
 
 				return model;
@@ -57,13 +61,12 @@ namespace EvolutionNet.Sample.UI.Web
 
 				if (model.ID != 0)
 				{
-//					id = model.ID;
 					ModelID = model.ID;
-					txtCategoryName.Text = model.CategoryName;
-					txtDescription.Text = model.Description;
+					TxtCategoryName.Text = model.CategoryName;
+					TxtDescription.Text = model.Description;
 					img = model.PictureImage;
 
-					imgFilePicture.ImageUrl = "CategoryImageReadHandlerView.ashx?ID=" + model.ID;
+					ImgFilePicture.ImageUrl = "CategoryImageReadHandlerView.ashx?ID=" + model.ID;
 				}
 			}
 		}
@@ -72,15 +75,15 @@ namespace EvolutionNet.Sample.UI.Web
 
 		#region Event Methods
 
-		//TODO: Aqui ou eu crio um edit presenter, que pode servir só pra chamar o crud presenter
+		// TODO: Aqui ou eu crio um edit presenter, que pode servir só pra chamar o crud presenter
 		// Ou defino eventos que serão implementados pelo presenter, ou coisa do gênero
 		// No método CreateModalDialog, eu posso usar o CrudView pra retornar o EditView
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			SetFocusJavascript(updatePanelEdit, "modalPopupNew", txtCategoryName.ClientID);
+			SetFocusJavascript(UpdatePanelEdit, "modalPopupNew", TxtCategoryName.ClientID);
 
-			RegisterControlOnClientStartup("imgFilePicture", imgFilePicture.ClientID);
-			RegisterStartupScript(updatePanelEdit, "UploadComplete", @"
+			RegisterControlOnClientStartup("imgFilePicture", ImgFilePicture.ClientID);
+			RegisterStartupScript(UpdatePanelEdit, "UploadComplete", @"
         		function UploadComplete(sender, args) {
         			//var imgFilePicture = $get('imgFilePicture');
         			//var imgFilePicture = document.getElementById('imgFilePicture');
@@ -88,17 +91,17 @@ namespace EvolutionNet.Sample.UI.Web
         		}");
 		}
 
-		protected void btnSave_Click(object sender, EventArgs e)
+		protected void BtnSave_Click(object sender, EventArgs e)
 		{
 			presenter.Save();
 		}
 
-		protected void btnCancel_Click(object sender, EventArgs e)
+		protected void BtnCancel_Click(object sender, EventArgs e)
 		{
 			presenter.Clear();
 		}
 
-		protected void filePicture_UploadedComplete(object sender, AsyncFileUploadEventArgs e)
+		protected void FilePicture_UploadedComplete(object sender, AsyncFileUploadEventArgs e)
 		{
 			var i = 0;
 			while (!filePicture.HasFile && i < 50)
@@ -107,7 +110,7 @@ namespace EvolutionNet.Sample.UI.Web
 				i++;
 			}
 
-			//TODO: Mover isso para o Presenter/BO?
+			// TODO: Mover isso para o Presenter/BO?
 			string relativeFileName = "~/" + UploadTempPath + "/" + e.FileName;
 			if (filePicture.HasFile)
 			{
@@ -121,17 +124,17 @@ namespace EvolutionNet.Sample.UI.Web
 
 		#region Public Methods
 
-		//TODO: Ver direitinho em qual interface esse método deve ficar
+		// TODO: Ver direitinho em qual interface esse método deve ficar
 		public void Clear()
 		{
 //			model = new Category();
 
 			ModelID = 0;
-			txtCategoryName.Text = "";
-			txtDescription.Text = "";
+			TxtCategoryName.Text = "";
+			TxtDescription.Text = "";
 //			imgPath = "";
 			img = null;
-			imgFilePicture.ImageUrl = "";
+			ImgFilePicture.ImageUrl = "";
 		}
 
 		#endregion

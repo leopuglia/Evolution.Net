@@ -14,22 +14,49 @@ namespace EvolutionNet.Sample.UI.Web {
     public partial class CategoryCrudView {
         
         /// <summary>
-        /// updatePanelActions control.
+        /// UpdatePanelActions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePanelActions;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelActions;
         
         /// <summary>
-        /// btnAdd control.
+        /// BtnAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnAdd;
+        protected global::System.Web.UI.WebControls.ImageButton BtnAdd;
+        
+        /// <summary>
+        /// LblSlowWorkTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblSlowWorkTime;
+        
+        /// <summary>
+        /// TxtSlowWorkTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtSlowWorkTime;
+        
+        /// <summary>
+        /// BtnSlowWork control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSlowWork;
         
         /// <summary>
         /// panelEdit control.
@@ -50,13 +77,13 @@ namespace EvolutionNet.Sample.UI.Web {
         protected global::EvolutionNet.Sample.UI.Web.CategoryEditUC CategoryEditUC1;
         
         /// <summary>
-        /// modalPopupNew control.
+        /// ModalPopupNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender modalPopupNew;
+        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupNew;
         
         /// <summary>
         /// updatePanelGrid control.
@@ -77,12 +104,12 @@ namespace EvolutionNet.Sample.UI.Web {
         protected global::System.Web.UI.WebControls.Panel panelDataGrid;
         
         /// <summary>
-        /// dataGridView1 control.
+        /// DataGridCategories control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dataGridView1;
+        protected global::System.Web.UI.WebControls.GridView DataGridCategories;
     }
 }

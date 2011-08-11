@@ -9,8 +9,8 @@ namespace EvolutionNet.Sample.UI.Windows
 		{
 			InitializeComponent();
 
-			baseUC = categoryEditUC1;
-			categoryEditUC1.Model = category;
+			baseUC = CategoryEditUC1;
+			CategoryEditUC1.Model = category;
 		}
 	}
 }

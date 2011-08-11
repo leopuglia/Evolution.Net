@@ -5,7 +5,7 @@ namespace EvolutionNet.Sample.UI.Web.Base
 	public class BaseSamplePage : BasePageView
 	{
 		/*
-		//TODO: Não funciona
+		// TODO: Não funciona
 		protected static string LoadControlHtml(UserControl control, string controlPath)
 		{
 			control = (UserControl)control.LoadControl(controlPath);
@@ -20,7 +20,7 @@ namespace EvolutionNet.Sample.UI.Web.Base
 			return strTmp;
 		}
 
-		//TODO: Não funciona tbm
+		// TODO: Não funciona tbm
 		public static string GenerateWebControlCode2(string fileName)
 		{
 			Type controlType = System.Web.Compilation.BuildManager.GetCompiledType(fileName);
@@ -38,7 +38,7 @@ namespace EvolutionNet.Sample.UI.Web.Base
 			return strTmp;
 		}
 
-		//TODO: Funciona só pra user controls que não têm controles runat=server
+		// TODO: Funciona só pra user controls que não têm controles runat=server
 		public static string GenerateWebControlCode(string fileName)
 		{
 			var fullFileName = HostingEnvironment.MapPath(fileName);
@@ -110,7 +110,7 @@ namespace EvolutionNet.Sample.UI.Web.Base
 						}
 					}
 
-					//TODO: Analisar essa variável createCC, não parei pra entendê-la...
+					// TODO: Analisar essa variável createCC, não parei pra entendê-la...
 					//add the control to the control collection
 					createCC += "this.Controls.Add(" + id + ");" + "\r\n" + "\r\n";
 

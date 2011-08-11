@@ -12,6 +12,7 @@ namespace EvolutionNet.Sample.UI.Web
 {
 	public partial class CategoryCrudView : BaseSampleView, ICategoryCrudView, IEditViewContainer<ICategoryEditView>
 	{
+		private const int StandardSlowWorkTime = 5;
 		private CategoryCrudPresenter presenter;
 		private PropertySortDirection sort
 		{
@@ -27,19 +28,10 @@ namespace EvolutionNet.Sample.UI.Web
 
 		public int CurrentPosition
 		{
-/*
-			get { return bindingSource.Position; }
-			set
-			{
-				bindingSource.Position = value;
-				SetPosition();
-			}
-*/
 			get { return ViewState["CurrentPosition"] == null ? -1 : (int)ViewState["CurrentPosition"]; }
 			set { ViewState["CurrentPosition"] = value; }
 		}
 
-//		private Category currentModel;
 		public Category CurrentModel
 		{
 			get { return CategoryEditUC1.Model; }
@@ -51,7 +43,7 @@ namespace EvolutionNet.Sample.UI.Web
 //			get
 //			{
 //				var list = new List<Category>();
-//				foreach (DataGridViewRow row in dataGridView1.s)
+//				foreach (DataGridViewRow row in DataGridCategories.s)
 //				{
 //					list.Add(BindableList[row.Index]);
 //				}
@@ -63,11 +55,11 @@ namespace EvolutionNet.Sample.UI.Web
 
 		public SortableBindingList<Category> BindableList
 		{
-			get { return dataGridView1.DataSource as SortableBindingList<Category>; }
+			get { return DataGridCategories.DataSource as SortableBindingList<Category>; }
 			set
 			{
-				dataGridView1.DataSource = value;
-				dataGridView1.DataBind();
+				DataGridCategories.DataSource = value;
+				DataGridCategories.DataBind();
 			}
 		}
 
@@ -76,14 +68,10 @@ namespace EvolutionNet.Sample.UI.Web
 			get { return sort; }
 		}
 
-		//TODO: Implementar
-		private int slowWorkTime;
 		public int SlowWorkTime
 		{
-//			get { return (int)nudSlowWorkTime.Value; }
-//			set { nudSlowWorkTime.Value = value; }
-			get { return slowWorkTime; }
-			set { slowWorkTime = value; }
+			get { return string.IsNullOrEmpty(TxtSlowWorkTime.Text) ? StandardSlowWorkTime : int.Parse(TxtSlowWorkTime.Text); }
+			set { TxtSlowWorkTime.Text = value.ToString(); }
 		}
 
 		#endregion
@@ -93,16 +81,13 @@ namespace EvolutionNet.Sample.UI.Web
 			presenter = CategoryEditUC1.Presenter = new CategoryCrudPresenter(this);
 		}
 
-		protected void dataGridView1_RowEditing(object sender, GridViewEditEventArgs e)
+		protected void DataGridCategories_RowEditing(object sender, GridViewEditEventArgs e)
 		{
 			CurrentPosition = e.NewEditIndex;
 			presenter.Edit();
-//			RowIndex = e.NewEditIndex;
-//			if (Edit != null)
-//				Edit(sender, new CrudEventArgs(RowIndex));
 		}
 
-		protected void dataGridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+		protected void DataGridCategories_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			CurrentPosition = e.RowIndex;
 			presenter.Delete();
@@ -117,12 +102,12 @@ namespace EvolutionNet.Sample.UI.Web
 
 		public void ShowModalDialog()
 		{
-			modalPopupNew.Show();
+			ModalPopupNew.Show();
 		}
 
 		public void HideModalDialog()
 		{
-			modalPopupNew.Hide();
+			ModalPopupNew.Hide();
 		}
 
 		public void AdjustDataGridRowHeightColumnWidth()

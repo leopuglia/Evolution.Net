@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryEditDlg));
-			this.categoryEditUC1 = new EvolutionNet.Sample.UI.Windows.CategoryEditUC();
+			this.CategoryEditUC1 = new EvolutionNet.Sample.UI.Windows.CategoryEditUC();
 			this.pnlButtons.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -46,25 +46,25 @@
 			this.pnlButtons.Location = new System.Drawing.Point(0, 313);
 			this.pnlButtons.Size = new System.Drawing.Size(241, 51);
 			// 
-			// categoryEditUC1
+			// CategoryEditUC1
 			// 
-			this.categoryEditUC1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.categoryEditUC1.Location = new System.Drawing.Point(0, 0);
-			this.categoryEditUC1.Model = ((EvolutionNet.Sample.Data.Definition.Category)(resources.GetObject("categoryEditUC1.Model")));
-			this.categoryEditUC1.ModelID = 0;
-			this.categoryEditUC1.Name = "categoryEditUC1";
-			this.categoryEditUC1.Size = new System.Drawing.Size(241, 313);
-			this.categoryEditUC1.TabIndex = 1;
+			this.CategoryEditUC1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CategoryEditUC1.Location = new System.Drawing.Point(0, 0);
+			this.CategoryEditUC1.Model = ((EvolutionNet.Sample.Data.Definition.Category)(resources.GetObject("CategoryEditUC1.Model")));
+			this.CategoryEditUC1.ModelID = 0;
+			this.CategoryEditUC1.Name = "CategoryEditUC1";
+			this.CategoryEditUC1.Size = new System.Drawing.Size(241, 313);
+			this.CategoryEditUC1.TabIndex = 1;
 			// 
 			// CategoryEditDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.ClientSize = new System.Drawing.Size(241, 364);
-			this.Controls.Add(this.categoryEditUC1);
+			this.Controls.Add(this.CategoryEditUC1);
 			this.Name = "CategoryEditDlg";
 			this.Text = "Category Edit";
 			this.Controls.SetChildIndex(this.pnlButtons, 0);
-			this.Controls.SetChildIndex(this.categoryEditUC1, 0);
+			this.Controls.SetChildIndex(this.CategoryEditUC1, 0);
 			this.pnlButtons.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -72,6 +72,6 @@
 
 		#endregion
 
-		private CategoryEditUC categoryEditUC1;
+		private CategoryEditUC CategoryEditUC1;
 	}
 }

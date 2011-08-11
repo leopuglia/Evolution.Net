@@ -26,7 +26,7 @@ namespace EvolutionNet.Sample.UI.Windows
 		{
 			InitializeComponent();
 
-			//TODO: Essa chamada é essencial, pois inicializa o ActiveRecord. Possivelmente deveria ser chamada no evento OnLoad, com tratamento de excessões, permitindo corrigir parâmetros do app.config pra inicializar corretamente o aplicativo
+			// TODO: Essa chamada é essencial, pois inicializa o ActiveRecord. Possivelmente deveria ser chamada no evento OnLoad, com tratamento de excessões, permitindo corrigir parâmetros do app.config pra inicializar corretamente o aplicativo
 			// O certo seria colocar todas as inicializações dentro de um try-catch e exibir uma mensagem de erro amigável, possibilitando, até, corrigir o app.config com configurações válidas para a inicialização do aplicativo, dependendo do tipo de excessão ativado, especialmente na chamada da inicialização do ActiveRecord
 			// Uma abordagem interessante seria que o aplicativo tivesse um conhecimento básico dos parâmetros necessários, permitindo-o criar um app.config, caso o mesmo não exista
 			// Outra idéia interessante seria que permitisse selecionar a conexão desejada, com conhecimento das connection strings, armazenando-as e permitindo que o mesmo aplicativo conecte-se a outros datasources, caso o principal não seja encontrado

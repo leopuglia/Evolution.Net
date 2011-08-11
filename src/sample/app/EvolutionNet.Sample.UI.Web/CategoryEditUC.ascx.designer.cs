@@ -14,67 +14,67 @@ namespace EvolutionNet.Sample.UI.Web {
     public partial class CategoryEditUC {
         
         /// <summary>
-        /// updatePanelEdit control.
+        /// UpdatePanelEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePanelEdit;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelEdit;
         
         /// <summary>
-        /// LabelCaption control.
+        /// LblCaption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelCaption;
+        protected global::System.Web.UI.WebControls.Label LblCaption;
         
         /// <summary>
-        /// lblCategoryName control.
+        /// LblCategoryName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategoryName;
+        protected global::System.Web.UI.WebControls.Label LblCategoryName;
         
         /// <summary>
-        /// txtCategoryName control.
+        /// TxtCategoryName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCategoryName;
+        protected global::System.Web.UI.WebControls.TextBox TxtCategoryName;
         
         /// <summary>
-        /// lblDescription control.
+        /// LblDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescription;
+        protected global::System.Web.UI.WebControls.Label LblDescription;
         
         /// <summary>
-        /// txtDescription control.
+        /// TxtDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescription;
+        protected global::System.Web.UI.WebControls.TextBox TxtDescription;
         
         /// <summary>
-        /// lblPicture control.
+        /// LblPicture control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPicture;
+        protected global::System.Web.UI.WebControls.Label LblPicture;
         
         /// <summary>
         /// filePicture control.
@@ -86,39 +86,39 @@ namespace EvolutionNet.Sample.UI.Web {
         protected global::AjaxControlToolkit.AsyncFileUpload filePicture;
         
         /// <summary>
-        /// imgFileLoading control.
+        /// ImgFileLoading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgFileLoading;
+        protected global::System.Web.UI.WebControls.Image ImgFileLoading;
         
         /// <summary>
-        /// imgFilePicture control.
+        /// ImgFilePicture control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgFilePicture;
+        protected global::System.Web.UI.WebControls.Image ImgFilePicture;
         
         /// <summary>
-        /// btnSave control.
+        /// BtnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.Button BtnSave;
         
         /// <summary>
-        /// btnCancel control.
+        /// BtnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.Button BtnCancel;
     }
 }

@@ -29,26 +29,26 @@
 		private void InitializeComponent()
 		{
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.label1 = new System.Windows.Forms.Label();
-			this.txtCategoryName = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.txtDescription = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.btnBrowsePicture = new System.Windows.Forms.Button();
-			this.imgPicture = new System.Windows.Forms.PictureBox();
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.LblCategoryName = new System.Windows.Forms.Label();
+			this.TxtCategoryName = new System.Windows.Forms.TextBox();
+			this.LblDescription = new System.Windows.Forms.Label();
+			this.TxtDescription = new System.Windows.Forms.TextBox();
+			this.LblPicture = new System.Windows.Forms.Label();
+			this.BtnBrowsePicture = new System.Windows.Forms.Button();
+			this.ImgPicture = new System.Windows.Forms.PictureBox();
+			this.OpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.flowLayoutPanel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.imgPicture)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ImgPicture)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// flowLayoutPanel1
 			// 
-			this.flowLayoutPanel1.Controls.Add(this.label1);
-			this.flowLayoutPanel1.Controls.Add(this.txtCategoryName);
-			this.flowLayoutPanel1.Controls.Add(this.label2);
-			this.flowLayoutPanel1.Controls.Add(this.txtDescription);
-			this.flowLayoutPanel1.Controls.Add(this.label3);
-			this.flowLayoutPanel1.Controls.Add(this.btnBrowsePicture);
+			this.flowLayoutPanel1.Controls.Add(this.LblCategoryName);
+			this.flowLayoutPanel1.Controls.Add(this.TxtCategoryName);
+			this.flowLayoutPanel1.Controls.Add(this.LblDescription);
+			this.flowLayoutPanel1.Controls.Add(this.TxtDescription);
+			this.flowLayoutPanel1.Controls.Add(this.LblPicture);
+			this.flowLayoutPanel1.Controls.Add(this.BtnBrowsePicture);
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -57,87 +57,87 @@
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(247, 172);
 			this.flowLayoutPanel1.TabIndex = 0;
 			// 
-			// label1
+			// LblCategoryName
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(8, 5);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(80, 13);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Category Name";
+			this.LblCategoryName.AutoSize = true;
+			this.LblCategoryName.Location = new System.Drawing.Point(8, 5);
+			this.LblCategoryName.Name = "LblCategoryName";
+			this.LblCategoryName.Size = new System.Drawing.Size(80, 13);
+			this.LblCategoryName.TabIndex = 0;
+			this.LblCategoryName.Text = "Category Name";
 			// 
-			// txtCategoryName
+			// TxtCategoryName
 			// 
-			this.txtCategoryName.Location = new System.Drawing.Point(8, 21);
-			this.txtCategoryName.Name = "txtCategoryName";
-			this.txtCategoryName.Size = new System.Drawing.Size(177, 20);
-			this.txtCategoryName.TabIndex = 1;
+			this.TxtCategoryName.Location = new System.Drawing.Point(8, 21);
+			this.TxtCategoryName.Name = "TxtCategoryName";
+			this.TxtCategoryName.Size = new System.Drawing.Size(177, 20);
+			this.TxtCategoryName.TabIndex = 1;
 			// 
-			// label2
+			// LblDescription
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(8, 44);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(60, 13);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Description";
+			this.LblDescription.AutoSize = true;
+			this.LblDescription.Location = new System.Drawing.Point(8, 44);
+			this.LblDescription.Name = "LblDescription";
+			this.LblDescription.Size = new System.Drawing.Size(60, 13);
+			this.LblDescription.TabIndex = 2;
+			this.LblDescription.Text = "Description";
 			// 
-			// txtDescription
+			// TxtDescription
 			// 
-			this.txtDescription.Location = new System.Drawing.Point(8, 60);
-			this.txtDescription.Multiline = true;
-			this.txtDescription.Name = "txtDescription";
-			this.txtDescription.Size = new System.Drawing.Size(225, 62);
-			this.txtDescription.TabIndex = 3;
+			this.TxtDescription.Location = new System.Drawing.Point(8, 60);
+			this.TxtDescription.Multiline = true;
+			this.TxtDescription.Name = "TxtDescription";
+			this.TxtDescription.Size = new System.Drawing.Size(225, 62);
+			this.TxtDescription.TabIndex = 3;
 			// 
-			// label3
+			// LblPicture
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(8, 125);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(40, 13);
-			this.label3.TabIndex = 4;
-			this.label3.Text = "Picture";
+			this.LblPicture.AutoSize = true;
+			this.LblPicture.Location = new System.Drawing.Point(8, 125);
+			this.LblPicture.Name = "LblPicture";
+			this.LblPicture.Size = new System.Drawing.Size(40, 13);
+			this.LblPicture.TabIndex = 4;
+			this.LblPicture.Text = "Picture";
 			// 
-			// btnBrowsePicture
+			// BtnBrowsePicture
 			// 
-			this.btnBrowsePicture.Location = new System.Drawing.Point(8, 141);
-			this.btnBrowsePicture.Name = "btnBrowsePicture";
-			this.btnBrowsePicture.Size = new System.Drawing.Size(75, 23);
-			this.btnBrowsePicture.TabIndex = 5;
-			this.btnBrowsePicture.Text = "Browse...";
-			this.btnBrowsePicture.UseVisualStyleBackColor = true;
-			this.btnBrowsePicture.Click += new System.EventHandler(this.btnBrowsePicture_Click);
+			this.BtnBrowsePicture.Location = new System.Drawing.Point(8, 141);
+			this.BtnBrowsePicture.Name = "BtnBrowsePicture";
+			this.BtnBrowsePicture.Size = new System.Drawing.Size(75, 23);
+			this.BtnBrowsePicture.TabIndex = 5;
+			this.BtnBrowsePicture.Text = "Browse...";
+			this.BtnBrowsePicture.UseVisualStyleBackColor = true;
+			this.BtnBrowsePicture.Click += new System.EventHandler(this.BtnBrowsePicture_Click);
 			// 
-			// imgPicture
+			// ImgPicture
 			// 
-			this.imgPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			this.ImgPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.imgPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-			this.imgPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.imgPicture.Location = new System.Drawing.Point(11, 178);
-			this.imgPicture.Name = "imgPicture";
-			this.imgPicture.Size = new System.Drawing.Size(222, 146);
-			this.imgPicture.TabIndex = 7;
-			this.imgPicture.TabStop = false;
+			this.ImgPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.ImgPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.ImgPicture.Location = new System.Drawing.Point(11, 178);
+			this.ImgPicture.Name = "ImgPicture";
+			this.ImgPicture.Size = new System.Drawing.Size(222, 146);
+			this.ImgPicture.TabIndex = 7;
+			this.ImgPicture.TabStop = false;
 			// 
-			// openFileDialog1
+			// OpenFileDialog1
 			// 
-			this.openFileDialog1.Filter = "Image Files (*.bmp;*.jpg;*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*";
-			this.openFileDialog1.FilterIndex = 0;
+			this.OpenFileDialog1.Filter = "Image Files (*.bmp;*.jpg;*.gif)|*.bmp;*.jpg;*.gif|All files (*.*)|*.*";
+			this.OpenFileDialog1.FilterIndex = 0;
 			// 
 			// CategoryEditUC
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.imgPicture);
+			this.Controls.Add(this.ImgPicture);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Name = "CategoryEditUC";
 			this.Size = new System.Drawing.Size(247, 337);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.imgPicture)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ImgPicture)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -145,13 +145,13 @@
 		#endregion
 
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox txtCategoryName;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox txtDescription;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Button btnBrowsePicture;
-		private System.Windows.Forms.PictureBox imgPicture;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.Label LblCategoryName;
+		private System.Windows.Forms.TextBox TxtCategoryName;
+		private System.Windows.Forms.Label LblDescription;
+		private System.Windows.Forms.TextBox TxtDescription;
+		private System.Windows.Forms.Label LblPicture;
+		private System.Windows.Forms.Button BtnBrowsePicture;
+		private System.Windows.Forms.PictureBox ImgPicture;
+		private System.Windows.Forms.OpenFileDialog OpenFileDialog1;
 	}
 }
