@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseCrudUCView.cs">
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BaseHandlerView.cs" />
     <Compile Include="BasePageView.cs">
