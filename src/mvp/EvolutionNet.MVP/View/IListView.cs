@@ -10,9 +10,6 @@ namespace EvolutionNet.MVP.View
 		T CurrentModel { get; set; }
 		IList<T> CurrentList { get; }
 		SortableBindingList<T> BindableList { get; set; }
-		PropertySortDirection Sort { get; }
-
-//		void Clear();
-//		void BindList();
+		PropertySortInfo SortInfo { get; }
 	}
 }

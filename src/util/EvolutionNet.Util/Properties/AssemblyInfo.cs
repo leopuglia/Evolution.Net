@@ -2,8 +2,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Web.UI;
 
-[assembly: WebResource("EvolutionNet.Util.Web.FlashFileUpload.swf", "application/x-shockwave-flash")]
-
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
@@ -33,3 +31,12 @@ using System.Web.UI;
 //
 [assembly: AssemblyVersion("0.0.3.*")]
 [assembly: AssemblyFileVersion("0.0.3.0")]
+
+// Add assembly reference to allow for WebResource.axd access to embedded files
+[assembly: WebResource("EvolutionNet.Util.Web.FlashFileUpload.swf", "application/x-shockwave-flash")]
+[assembly: WebResource("EvolutionNet.Util.Web.common.js", "text/javascript")]
+[assembly: WebResource("EvolutionNet.Util.Web.progressbar.js", "text/javascript")]
+[assembly: WebResource("EvolutionNet.Util.Web.timecounter.js", "text/javascript")]
+[assembly: WebResource("EvolutionNet.Util.Web.skm.js", "text/javascript")]
+[assembly: WebResource("EvolutionNet.Util.Web.ArrowUp.gif", "image/gif")]
+[assembly: WebResource("EvolutionNet.Util.Web.ArrowDown.gif", "image/gif")]

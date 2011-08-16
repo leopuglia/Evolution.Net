@@ -1,4 +1,4 @@
-namespace EvolutionNet.MVP.UI.Windows.Common
+namespace EvolutionNet.MVP.UI.Windows
 {
 	partial class ProgressDlgFrm
 	{
@@ -97,7 +97,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			// timer2
 			// 
 			this.timer2.Enabled = true;
-			this.timer2.Interval = 1;
+			this.timer2.Interval = 1000;
 			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
 			// 
 			// ProgressDlgFrm

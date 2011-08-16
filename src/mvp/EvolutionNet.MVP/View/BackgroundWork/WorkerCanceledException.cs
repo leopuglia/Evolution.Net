@@ -1,6 +1,6 @@
 using System;
 
-namespace EvolutionNet.MVP.UI.Windows.Common
+namespace EvolutionNet.MVP.View.BackgroundWork
 {
 	public class WorkerCanceledException : MVPException
 	{

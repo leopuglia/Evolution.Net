@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\3.5\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -53,6 +53,9 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -98,13 +101,39 @@
     <Compile Include="ProcessExecution\ProcessExecutionException.cs" />
     <Compile Include="ProcessExecution\ProcessExecutionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Collection\PropertySortDirection.cs" />
+    <Compile Include="Collection\PropertySortInfo.cs" />
     <Compile Include="Collection\SortableBindingList.cs" />
     <Compile Include="Reflection\TypePropertiesHelper.cs" />
+    <Compile Include="Web\TimeCounter.cs" />
+    <Compile Include="Web\DataboundLabel.cs" />
+    <Compile Include="Web\GoogleChart\ChartImage.cs" />
+    <Compile Include="Web\GoogleChart\ChartTypes.cs" />
+    <Compile Include="Web\GoogleChart\DataPoint.cs" />
+    <Compile Include="Web\GoogleChart\DataPointCollection.cs" />
+    <Compile Include="Web\GoogleChart\DataPointEventArgs.cs" />
+    <Compile Include="Web\GridView.cs" />
     <Compile Include="Web\MultipleFileUpload.cs" />
+    <Compile Include="Web\ProgressBar.cs" />
+    <Compile Include="Web\RedirectButton.cs" />
+    <Compile Include="Web\TextBoxCounter.cs" />
+    <Compile Include="Web\WarnWhenCapsLockIsOn.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Web\FlashFileUpload.swf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Web\ArrowDown.gif" />
+    <EmbeddedResource Include="Web\ArrowUp.gif" />
+    <EmbeddedResource Include="Web\skm.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Web\progressbar.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Web\timecounter.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Web\common.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

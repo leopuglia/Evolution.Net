@@ -42,13 +42,13 @@ namespace EvolutionNet.MVP.UI.Web
 		protected void RegisterControlOnClientStartup(string clientVarName, string clientControlID)
 		{
 			ScriptManager.RegisterStartupScript(this, GetType(), clientVarName,
-			                                    string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
+												string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
 		}
 
 		protected void RegisterControlOnClientStartup(UpdatePanel panel, string clientVarName, string clientControlID)
 		{
 			ScriptManager.RegisterStartupScript(panel, panel.GetType(), clientVarName,
-			                                    string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
+												string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
 		}
 
 		protected void RegisterStartupScript(UpdatePanel panel, string key, string script)
@@ -61,7 +61,7 @@ namespace EvolutionNet.MVP.UI.Web
 			ScriptManager.RegisterStartupScript(this, GetType(), key, script, true);
 		}
 
-		protected void SetFocusJavascript(UpdatePanel updatePanelEdit, string modalPopupName, string clientID)
+		protected void SetFocusJavascript(UpdatePanel updatePanelEdit, string modalPopupExtenderName, string clientID)
 		{
 			RegisterControlOnClientStartup(updatePanelEdit, "controlToFocus", clientID);
 			RegisterStartupScript(updatePanelEdit, "FocusCategoryName", @"
@@ -73,7 +73,7 @@ namespace EvolutionNet.MVP.UI.Web
 				}
 				function modalSetup()
 				{
-					var modalPopup = $find('" + modalPopupName + @"');
+					var modalPopup = $find('" + modalPopupExtenderName + @"');
 					modalPopup.add_shown(SetFocusOnControl);		 
 				}");
 		}

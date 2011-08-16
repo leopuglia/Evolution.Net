@@ -132,6 +132,7 @@
     <Compile Include="Presenter\BasePresenter.cs" />
     <Compile Include="Presenter\IPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\BackgroundWork\WorkerCanceledException.cs" />
     <Compile Include="View\BackgroundWork\WorkerErrorEventArgs.cs" />
     <Compile Include="View\Helper\BaseHelperFactory.cs" />
     <Compile Include="View\BackgroundWork\DoWorkDelegate.cs" />

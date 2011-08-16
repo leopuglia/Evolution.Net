@@ -65,7 +65,7 @@ namespace EvolutionNet.MVP.UI.Web
 		protected void DeclareControlOnClient(string clientVarName, string clientControlID)
 		{
 			ClientScript.RegisterStartupScript(GetType(), clientVarName,
-			                                   string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
+											   string.Format("var {0} = $get('{1}');\r\n", clientVarName, clientControlID), true);
 		}
 
 		#endregion

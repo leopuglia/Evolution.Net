@@ -3,8 +3,11 @@
  * Created: terça-feira, 26 de fevereiro de 2008
  */
 
+using System;
+
 namespace EvolutionNet.Util.Collection
 {
+	[Serializable]
 	public enum PropertySortOrder
 	{
 		None,
@@ -15,7 +18,8 @@ namespace EvolutionNet.Util.Collection
 	/// <summary>
 	/// Estrutura utilitária para definir uma propriedade para ordenamento de uma lista e a direção (ascendente ou decrescente).
 	/// </summary>
-	public struct PropertySortDirection
+	[Serializable]
+	public struct PropertySortInfo
 	{
 		private string propertyName;
 //		private bool ascending;
@@ -44,7 +48,7 @@ namespace EvolutionNet.Util.Collection
 			set { sortOrder = value; }
 		}
 
-//		public PropertySortDirection() : this("", PropertySortOrder.None)
+//		public PropertySortInfo() : this("", PropertySortOrder.None)
 //		{
 //		}
 
@@ -52,7 +56,7 @@ namespace EvolutionNet.Util.Collection
 		/// Construtor da estrutura, por padrão ascendente.
 		/// </summary>
 		/// <param name="propertyName">Nome da propriedade</param>
-		public PropertySortDirection(string propertyName) : this(propertyName, PropertySortOrder.None)
+		public PropertySortInfo(string propertyName) : this(propertyName, PropertySortOrder.None)
 		{
 		}
 
@@ -61,7 +65,7 @@ namespace EvolutionNet.Util.Collection
 		/// </summary>
 		/// <param name="propertyName">Nome da propriedade</param>
 		/// <param name="sortOrder">Direção do ordenamento.</param>
-		public PropertySortDirection(string propertyName, PropertySortOrder sortOrder)
+		public PropertySortInfo(string propertyName, PropertySortOrder sortOrder)
 		{
 			this.propertyName = propertyName ?? "";
 			this.sortOrder = sortOrder;
@@ -72,7 +76,7 @@ namespace EvolutionNet.Util.Collection
 	/// <summary>
 	/// Estrutura utilitária para definir uma propriedade para ordenamento de uma lista e a direção (ascendente ou decrescente).
 	/// </summary>
-	public struct PropertySortDirection<T>
+	public struct PropertySortInfo<T>
 	{
 		private T propertyEnum;
 		private bool ascending;
@@ -101,7 +105,7 @@ namespace EvolutionNet.Util.Collection
 		/// Construtor da estrutura, por padrão ascendente.
 		/// </summary>
 		/// <param name="propertyEnum">Nome da propriedade</param>
-		public PropertySortDirection(T propertyEnum) : this(propertyEnum, true)
+		public PropertySortInfo(T propertyEnum) : this(propertyEnum, true)
 		{
 		}
 		
@@ -110,7 +114,7 @@ namespace EvolutionNet.Util.Collection
 		/// </summary>
 		/// <param name="propertyEnum">Nome da propriedade</param>
 		/// <param name="ascending">Direção do ordenamento.</param>
-		public PropertySortDirection(T propertyEnum, bool ascending)
+		public PropertySortInfo(T propertyEnum, bool ascending)
 		{
 			this.propertyEnum = propertyEnum;
 			this.ascending = ascending;

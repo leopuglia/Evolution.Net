@@ -16,11 +16,10 @@ namespace EvolutionNet.MVP.Presenter
 			get { return Bo.To; }
 		}
 
-		protected BaseListPresenter(ViewT view)
-			: base(view)
+		protected BaseListPresenter(ViewT view) : base(view)
 		{
 		}
 
-		public abstract void FindAll();
+		public abstract void FindAllDataBind();
 	}
 }

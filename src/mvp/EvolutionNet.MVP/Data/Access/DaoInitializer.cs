@@ -24,7 +24,7 @@ namespace EvolutionNet.MVP.Data.Access
 				return Nested.instance;
 			}
 		}
-	    
+		
 		class Nested
 		{
 			// Explicit static constructor to tell C# compiler

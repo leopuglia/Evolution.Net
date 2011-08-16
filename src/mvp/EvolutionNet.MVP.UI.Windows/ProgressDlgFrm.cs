@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace EvolutionNet.MVP.UI.Windows.Common
+namespace EvolutionNet.MVP.UI.Windows
 {
 	public partial class ProgressDlgFrm : Form
 	{
@@ -10,7 +10,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 
 		private readonly DateTime timeIni = DateTime.Now;
 		private string timeStringFormat = "{1:00}:{2:00}";
-		private bool showMiliseconds;
+		private bool showMilliseconds;
 		private bool showHours;
 
 		#endregion
@@ -42,7 +42,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			{
 				showHours = value;
 
-				if (showMiliseconds)
+				if (showMilliseconds)
 				{
 					timeStringFormat = "{0:00}:{1:00}:{2:00}.{3:000}";
 					timer2.Interval = 1;
@@ -55,12 +55,12 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			}
 		}
 
-		public bool ShowMiliseconds
+		public bool ShowMilliseconds
 		{
-			get { return showMiliseconds; }
+			get { return showMilliseconds; }
 			set
 			{
-				showMiliseconds = value;
+				showMilliseconds = value;
 
 				if (showHours)
 				{
@@ -84,7 +84,7 @@ namespace EvolutionNet.MVP.UI.Windows.Common
 			InitializeComponent();
 
 //			ShowHours = true;
-//			ShowMiliseconds = true;
+//			ShowMilliseconds = true;
 			timer2.Enabled = true;
 		}
 

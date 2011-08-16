@@ -19,7 +19,7 @@ namespace EvolutionNet.MVP.UI.Windows
 				return Nested.instance;
 			}
 		}
-	    
+		
 		class Nested
 		{
 			// Explicit static constructor to tell C# compiler

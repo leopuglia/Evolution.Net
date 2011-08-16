@@ -42,7 +42,7 @@ namespace EvolutionNet.MVP.UI.Windows
 		public T CreateControlView<T>(params object[] args) where T : IControlView
 		{
 			return (T)IoCHelper.InstantiateObj(TypeNameSource, TypeNameSourceExclude, typeof(T),
-			                                   TypeNameDest, "", parentView.GetType(), args);
+											   TypeNameDest, "", parentView.GetType(), args);
 
 //			return (T)Activator.CreateInstance(typeof(T), args);
 		}

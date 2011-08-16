@@ -127,27 +127,27 @@ namespace EvolutionNet.Util.Collection
 		/// <param name="ascending">Direção do ordenamento (ascendente ou decrescente)</param>
 		public void Sort(string propertyName, bool ascending)
 		{
-			Sort(new PropertySortDirection(propertyName, 
+			Sort(new PropertySortInfo(propertyName, 
 				ascending ? PropertySortOrder.Ascending : PropertySortOrder.Descending));
 		}
 
 		/// <summary>
 		/// Realiza a ordenação por uma propriedade em uma direção (ascendente ou decrescente).
 		/// </summary>
-		/// <param name="propertyDirection">Objeto contendo o descritor da propriedade e a direção do ordenamento</param>
-		public void Sort(PropertySortDirection propertyDirection)
+		/// <param name="propertyInfo">Objeto contendo o descritor da propriedade e a direção do ordenamento</param>
+		public void Sort(PropertySortInfo propertyInfo)
 		{
-			if (propertyDirection.SortOrder != PropertySortOrder.None)
+			if (propertyInfo.SortOrder != PropertySortOrder.None)
 			{
 				// Creates a new collection and assign it the properties for button1.
 				PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof (T));
 
 				// Sets an PropertyDescriptor to the specific property.
-				PropertyDescriptor myProperty = properties.Find(propertyDirection.PropertyName, false);
+				PropertyDescriptor myProperty = properties.Find(propertyInfo.PropertyName, false);
 
-				ApplySortCore(myProperty, propertyDirection.SortOrder == PropertySortOrder.Ascending
-				                          	? ListSortDirection.Ascending
-				                          	: ListSortDirection.Descending);
+				ApplySortCore(myProperty, propertyInfo.SortOrder == PropertySortOrder.Ascending
+										  	? ListSortDirection.Ascending
+										  	: ListSortDirection.Descending);
 			}
 		}
 
