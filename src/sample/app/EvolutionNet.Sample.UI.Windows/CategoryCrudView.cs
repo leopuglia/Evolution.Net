@@ -12,7 +12,7 @@ namespace EvolutionNet.Sample.UI.Windows
 	public partial class CategoryCrudView : BaseUCView, ICategoryCrudView
 	{
 		private CategoryCrudPresenter presenter;
-		private PropertySortDirection sort;
+		private PropertySortInfo sortInfo;
 
 		#region Public Properties
 
@@ -53,9 +53,9 @@ namespace EvolutionNet.Sample.UI.Windows
 			set { BindingSource1.DataSource = value; }
 		}
 
-		public PropertySortDirection Sort
+		public PropertySortInfo SortInfo
 		{
-			get { return sort; }
+			get { return sortInfo; }
 		}
 
 		public int SlowWorkTime
@@ -119,7 +119,7 @@ namespace EvolutionNet.Sample.UI.Windows
 
 		private void DataGridView1_Sorted(object sender, EventArgs e)
 		{
-			sort = new PropertySortDirection(
+			sortInfo = new PropertySortInfo(
 				DataGridCategory.SortedColumn.DataPropertyName,
 				DataGridCategory.SortOrder == SortOrder.Ascending
 					? PropertySortOrder.Ascending

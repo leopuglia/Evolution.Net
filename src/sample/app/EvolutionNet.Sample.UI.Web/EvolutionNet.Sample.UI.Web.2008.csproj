@@ -99,7 +99,7 @@
     <Compile Include="Base\BaseSamplePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Base\BaseSampleVipView.cs">
+    <Compile Include="Base\BaseSampleView.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Base\MessageUC.ascx.cs">
@@ -108,6 +108,13 @@
     </Compile>
     <Compile Include="Base\MessageUC.ascx.designer.cs">
       <DependentUpon>MessageUC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Base\ProgressUC.ascx.cs">
+      <DependentUpon>ProgressUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Base\ProgressUC.ascx.designer.cs">
+      <DependentUpon>ProgressUC.ascx</DependentUpon>
     </Compile>
     <Compile Include="CategoryCrudView.ascx.cs">
       <DependentUpon>CategoryCrudView.ascx</DependentUpon>
@@ -136,7 +143,42 @@
     <Compile Include="CategoryImageReadHandlerView.ashx.cs">
       <DependentUpon>CategoryImageReadHandlerView.ashx</DependentUpon>
     </Compile>
+    <Compile Include="ProgressBarTest3.aspx.cs">
+      <DependentUpon>ProgressBarTest3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProgressBarTest3.aspx.designer.cs">
+      <DependentUpon>ProgressBarTest3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Util.Web\ProgressBarTest2.aspx.cs">
+      <DependentUpon>ProgressBarTest2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Util.Web\ProgressBarTest2.aspx.designer.cs">
+      <DependentUpon>ProgressBarTest2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Util.Web\ProgressBarTest.aspx.cs">
+      <DependentUpon>ProgressBarTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Util.Web\ProgressBarTest.aspx.designer.cs">
+      <DependentUpon>ProgressBarTest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Util.Web\ProgressBarUCTest.ascx.cs">
+      <DependentUpon>ProgressBarUCTest.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Util.Web\ProgressBarUCTest.ascx.designer.cs">
+      <DependentUpon>ProgressBarUCTest.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util.Web\TimeCounterTest.aspx.cs">
+      <DependentUpon>TimeCounterTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Util.Web\TimeCounterTest.aspx.designer.cs">
+      <DependentUpon>TimeCounterTest.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\mvp\EvolutionNet.MVP.UI.Web\EvolutionNet.MVP.UI.Web.2008.csproj">
@@ -181,6 +223,7 @@
     <Content Include="App_Themes\Brown\img\loading_small.gif" />
     <Content Include="Base\Base.Master" />
     <Content Include="Admin.master" />
+    <Content Include="Base\ProgressUC.ascx" />
     <Content Include="CategoryCrudView.ascx" />
     <Content Include="CategoryEditUC.ascx" />
     <Content Include="Default.aspx" />
@@ -190,6 +233,11 @@
     <Content Include="Img\excel.png" />
     <Content Include="Img\new.png" />
     <Content Include="CategoryImageReadHandlerView.ashx" />
+    <Content Include="ProgressBarTest3.aspx" />
+    <Content Include="Util.Web\ProgressBarTest2.aspx" />
+    <Content Include="Util.Web\ProgressBarTest.aspx" />
+    <Content Include="Util.Web\ProgressBarUCTest.ascx" />
+    <Content Include="Util.Web\TimeCounterTest.aspx" />
     <None Include="Web.config.template" />
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +259,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3644</DevelopmentServerPort>
+          <DevelopmentServerPort>52291</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

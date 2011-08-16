@@ -14,15 +14,6 @@ namespace EvolutionNet.Sample.UI.Web
 	{
 		private const int StandardSlowWorkTime = 5;
 		private CategoryCrudPresenter presenter;
-		private PropertySortDirection sort
-		{
-			get
-			{
-				return ViewState["Sort"] == null
-					? new PropertySortDirection() : (PropertySortDirection)ViewState["Sort"];
-			}
-			set { ViewState["Sort"] = value; }
-		}
 
 		#region Public Properties
 
@@ -63,9 +54,14 @@ namespace EvolutionNet.Sample.UI.Web
 			}
 		}
 
-		public PropertySortDirection Sort
+		public PropertySortInfo SortInfo
 		{
-			get { return sort; }
+			get
+			{
+				return ViewState["SortInfo"] == null
+					? new PropertySortInfo() : (PropertySortInfo)ViewState["SortInfo"];
+			}
+			set { ViewState["SortInfo"] = value; }
 		}
 
 		public int SlowWorkTime
@@ -74,7 +70,14 @@ namespace EvolutionNet.Sample.UI.Web
 			set { TxtSlowWorkTime.Text = value.ToString(); }
 		}
 
+		public ICategoryEditView EditView
+		{
+			get { return CategoryEditUC1; }
+		}
+
 		#endregion
+
+		#region Event Methods
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -83,17 +86,25 @@ namespace EvolutionNet.Sample.UI.Web
 
 		protected void DataGridCategories_RowEditing(object sender, GridViewEditEventArgs e)
 		{
-			CurrentPosition = e.NewEditIndex;
+			CurrentPosition = e.NewEditIndex + (DataGridCategories.PageIndex * DataGridCategories.PageSize);
 			presenter.Edit();
 		}
 
 		protected void DataGridCategories_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
-			CurrentPosition = e.RowIndex;
+			CurrentPosition = e.RowIndex + (DataGridCategories.PageIndex * DataGridCategories.PageSize);
 			presenter.Delete();
 		}
 
-		#region Métodos Públicos
+		protected void DataGridCategories_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			DataGridCategories.PageIndex = e.NewPageIndex;
+			presenter.FindAllDataBind();
+		}
+
+		#endregion
+
+		#region Public Methods
 
 		public void Clear()
 		{
@@ -116,9 +127,33 @@ namespace EvolutionNet.Sample.UI.Web
 
 		#endregion
 
-		public ICategoryEditView EditView
+		protected void DataGridCategories_Sorting(object sender, GridViewSortEventArgs e)
 		{
-			get { return CategoryEditUC1; }
+			PropertySortOrder propertySortOrder = PropertySortOrder.Ascending;
+
+			if (SortInfo.PropertyName == e.SortExpression)
+			{
+				switch (SortInfo.SortOrder)
+				{
+					case PropertySortOrder.Ascending:
+						propertySortOrder = PropertySortOrder.Descending;
+						e.SortDirection = SortDirection.Descending;
+						break;
+					case PropertySortOrder.Descending:
+						propertySortOrder = PropertySortOrder.Ascending;
+						e.SortDirection = SortDirection.Ascending;
+						break;
+				}
+			}
+			SortInfo = new PropertySortInfo(e.SortExpression, propertySortOrder);
+
+			presenter.FindAllDataBind();
 		}
+
+		protected void BtnSlowWork_Click(object sender, EventArgs e)
+		{
+			presenter.RunSlowWork();
+		}
+
 	}
 }

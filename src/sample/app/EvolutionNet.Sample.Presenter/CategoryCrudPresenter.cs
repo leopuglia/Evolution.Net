@@ -32,22 +32,17 @@ namespace EvolutionNet.Sample.Presenter
 
 			To.SlowWorkTime = view.SlowWorkTime;
 
-			FindAll();
-
 			if (view is IWebControl && ((IWebControl)view).IsPostBack)
-				return;
-			
-			DataBind();
+				FindAll();
+			else
+				FindAllDataBind();
 		}
 
 		#endregion
 
 		#region Public Methods
 
-//		public void Load()
-//		{
-//			View.AdjustDataGridRowHeightColumnWidth();
-//		}
+		#region View Events
 
 		public void AfterLoadComplete()
 		{
@@ -57,34 +52,33 @@ namespace EvolutionNet.Sample.Presenter
 
 		public void Sorted()
 		{
-//			sort = View.Sort;
+//			sort = View.SortInfo;
 			View.AdjustDataGridRowHeightColumnWidth();
 		}
+
+		#endregion
 
 		#region ICrudListPresenter
 
-		public override void FindAll()
+		public override void FindAllDataBind()
 		{
 			try
 			{
-				Bo.FindAll();
+				FindAll();
+
+				var list = new SortableBindingList<Category>(To.List);
+				if (View.SortInfo.SortOrder != PropertySortOrder.None)
+					list.Sort(View.SortInfo);
+
+				View.BindableList = list;
+				View.CurrentPosition = View.BindableList.IndexOf(To.CurrentModel);
+
+				View.AdjustDataGridRowHeightColumnWidth();
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not list values", ex);
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not DataBind the list", ex);
 			}
-
-		}
-
-		private void DataBind()
-		{
-			View.BindableList = new SortableBindingList<Category>(To.List);
-			if (View.Sort.SortOrder != PropertySortOrder.None)
-				View.BindableList.Sort(View.Sort);
-
-			View.CurrentPosition = View.BindableList.IndexOf(To.CurrentModel);
-
-			View.AdjustDataGridRowHeightColumnWidth();
 		}
 
 		public override void Add()
@@ -94,8 +88,7 @@ namespace EvolutionNet.Sample.Presenter
 				To.CurrentModel = new Category();
 				if (DoEdit())
 				{
-					FindAll();
-					DataBind();
+					FindAllDataBind();
 
 					HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) added");
 				}
@@ -125,8 +118,8 @@ namespace EvolutionNet.Sample.Presenter
 					if (View.CurrentPosition > -1)
 					{
 						var bindableList = View.BindableList ?? new SortableBindingList<Category>(To.List);
-						if (View.Sort.SortOrder != PropertySortOrder.None)
-							bindableList.Sort(View.Sort);
+						if (View.SortInfo.SortOrder != PropertySortOrder.None)
+							bindableList.Sort(View.SortInfo);
 
 						To.CurrentModel = bindableList[View.CurrentPosition];
 					}
@@ -137,8 +130,7 @@ namespace EvolutionNet.Sample.Presenter
 
 					if (DoEdit())
 					{
-						FindAll();
-						DataBind();
+						FindAllDataBind();
 
 						HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) edited");
 
@@ -198,8 +190,7 @@ namespace EvolutionNet.Sample.Presenter
 
 				Bo.Save();
 
-				FindAll();
-				DataBind();
+				FindAllDataBind();
 
 				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
 			}
@@ -222,8 +213,7 @@ namespace EvolutionNet.Sample.Presenter
 
 				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
 
-				FindAll();
-				DataBind();
+				FindAllDataBind();
 			}
 			catch (Exception ex)
 			{
@@ -248,8 +238,8 @@ namespace EvolutionNet.Sample.Presenter
 					if (View.CurrentPosition > -1)
 					{
 						var bindableList = View.BindableList ?? new SortableBindingList<Category>(To.List);
-						if (View.Sort.SortOrder != PropertySortOrder.None)
-							bindableList.Sort(View.Sort);
+						if (View.SortInfo.SortOrder != PropertySortOrder.None)
+							bindableList.Sort(View.SortInfo);
 
 						To.CurrentModel = bindableList[View.CurrentPosition];
 					}
@@ -260,8 +250,7 @@ namespace EvolutionNet.Sample.Presenter
 
 					Bo.Delete();
 
-					FindAll();
-					DataBind();
+					FindAllDataBind();
 
 					HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
 
@@ -290,8 +279,7 @@ namespace EvolutionNet.Sample.Presenter
 				var position = View.CurrentPosition;
 				Bo.DeleteList();
 
-				FindAll();
-				DataBind();
+				FindAllDataBind();
 
 				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
 
@@ -316,7 +304,7 @@ namespace EvolutionNet.Sample.Presenter
 
 		#endregion
 
-		#region BackgroundWork
+		#region BackgroundWork Methods
 
 		public void RunSlowWork()
 		{
@@ -361,6 +349,23 @@ namespace EvolutionNet.Sample.Presenter
 		private void BackgroundWorkerHelper_WorkerCompleted(object sender, EventArgs e)
 		{
 			HelperFactory.MessageHelper.ShowMessage(MVPCommonMessages.CommonMessages_Common_CaptionSuccess, "Job Done");
+		}
+
+		#endregion
+
+		#region Local Auxiliary Methods
+
+		// I've created this method
+		private void FindAll()
+		{
+			try
+			{
+				Bo.FindAll();
+			}
+			catch (Exception ex)
+			{
+				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not list values", ex);
+			}
 		}
 
 		#endregion

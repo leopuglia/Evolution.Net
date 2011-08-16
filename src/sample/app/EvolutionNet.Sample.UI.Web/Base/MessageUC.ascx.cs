@@ -9,26 +9,26 @@ namespace EvolutionNet.Sample.UI.Web.Base
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(MessageUC));
 
-        public override void ShowMessage(string caption, string message)
-        {
-            LabelCaption.Text = caption;
-            LabelMessage.Text = message;
+		public override void ShowMessage(string caption, string message)
+		{
+			LabelCaption.Text = caption;
+			LabelMessage.Text = message;
 
-            ScriptManager current = ScriptManager.GetCurrent(Page);
-            if (current != null && current.IsInAsyncPostBack)
-                UpdatePanelMessages.Update();
-            else
-                AnimationExtender2.Enabled = true;
-        }
+			ScriptManager current = ScriptManager.GetCurrent(Page);
+			if (current != null && current.IsInAsyncPostBack)
+				UpdatePanelMessages.Update();
+			else
+				AnimationExtender2.Enabled = true;
+		}
 
-        public override void ShowErrorMessage(string caption, string message, Exception exception)
-        {
-            LabelCaption.Text = caption;
+		public override void ShowErrorMessage(string caption, string message, Exception exception)
+		{
+			LabelCaption.Text = caption;
 
 			var pageUrl = string.Format("Página: {0}\r\n", Request.RawUrl);
 			var refererUrl = Request.UrlReferrer == null
-			                 	? ""
-			                 	: string.Format("Referer: {0}\r\n", 
+							 	? ""
+							 	: string.Format("Referer: {0}\r\n", 
 									Request.UrlReferrer.AbsoluteUri.StartsWith("http://www.villadaspedras.com/") 
 									? Request.UrlReferrer.PathAndQuery
 									: Request.UrlReferrer.AbsoluteUri);
@@ -45,11 +45,11 @@ namespace EvolutionNet.Sample.UI.Web.Base
 			if (log.IsErrorEnabled)
 				log.Error(pageUrl + refererUrl + message, exception);
 
-            ScriptManager current = ScriptManager.GetCurrent(Page);
-            if (current != null && current.IsInAsyncPostBack)
-                UpdatePanelMessages.Update();
-            else
-                AnimationExtender2.Enabled = true;
-        }
+			ScriptManager current = ScriptManager.GetCurrent(Page);
+			if (current != null && current.IsInAsyncPostBack)
+				UpdatePanelMessages.Update();
+			else
+				AnimationExtender2.Enabled = true;
+		}
 	}
 }

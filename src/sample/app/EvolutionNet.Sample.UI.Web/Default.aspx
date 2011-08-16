@@ -3,9 +3,9 @@
 <asp:Content ID="Head" ContentPlaceHolderID="HeadHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Breadcrumb" ContentPlaceHolderID="BreadcrumbHolder" runat="server">
-    Start 
+	Start 
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentHolder" runat="server">
-    <h2>Start Page</h2>
+	<h2>Start Page</h2>
 	<uc1:CategoryCrudView ID="CategoryCrudView1" runat="server" />
 </asp:Content>

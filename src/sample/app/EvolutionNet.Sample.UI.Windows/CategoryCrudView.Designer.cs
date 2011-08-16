@@ -57,10 +57,10 @@ namespace EvolutionNet.Sample.UI.Windows
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.DataGridCategory.AutoGenerateColumns = false;
 			this.DataGridCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColID,
-            this.ColCategoryName,
-            this.ColDescription,
-            this.ColPictureImage});
+			this.ColID,
+			this.ColCategoryName,
+			this.ColDescription,
+			this.ColPictureImage});
 			this.DataGridCategory.DataSource = this.BindingSource1;
 			this.DataGridCategory.Location = new System.Drawing.Point(0, 33);
 			this.DataGridCategory.Name = "DataGridCategory";
@@ -157,18 +157,18 @@ namespace EvolutionNet.Sample.UI.Windows
 			this.NumericSlowWorkTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.NumericSlowWorkTime.Location = new System.Drawing.Point(512, 7);
 			this.NumericSlowWorkTime.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
+			60,
+			0,
+			0,
+			0});
 			this.NumericSlowWorkTime.Name = "NumericSlowWorkTime";
 			this.NumericSlowWorkTime.Size = new System.Drawing.Size(42, 20);
 			this.NumericSlowWorkTime.TabIndex = 5;
 			this.NumericSlowWorkTime.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+			5,
+			0,
+			0,
+			0});
 			// 
 			// LblSlowWorkTime
 			// 

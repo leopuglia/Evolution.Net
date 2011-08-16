@@ -11,51 +11,60 @@
 namespace EvolutionNet.Sample.UI.Web {
 	
 	
-	public partial class _AdminMaster {
+	public partial class ProgressBarTest3 {
 		
 		/// <summary>
-		/// HeadHolder control.
+		/// form1 control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadHolder;
+		protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 		
 		/// <summary>
-		/// LoginStatus1 control.
+		/// ScriptManager1 control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.LoginStatus LoginStatus1;
+		protected global::System.Web.UI.ScriptManager ScriptManager1;
 		
 		/// <summary>
-		/// MenuPrincipal control.
+		/// UpdatePanel1 control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Menu MenuPrincipal;
+		protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 		
 		/// <summary>
-		/// BreadcrumbHolder control.
+		/// LblProgress control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder BreadcrumbHolder;
+		protected global::System.Web.UI.WebControls.Label LblProgress;
 		
 		/// <summary>
-		/// ContentHolder control.
+		/// Button1 control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentHolder;
+		protected global::System.Web.UI.WebControls.Button Button1;
+		
+		/// <summary>
+		/// Button2 control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button Button2;
 	}
 }

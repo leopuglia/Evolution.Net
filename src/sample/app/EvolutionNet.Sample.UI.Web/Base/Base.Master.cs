@@ -18,13 +18,13 @@ namespace EvolutionNet.Sample.UI.Web.Base
 
 		protected override void OnInit(EventArgs e) 
 		{
-            base.OnInit(e);
+			base.OnInit(e);
 
-            MetaDescriptionHolder.Load += MetaDescriptionHolder_Load;
-            MetaKeywordsHolder.Load += MetaKeywordsHolder_Load;
+			MetaDescriptionHolder.Load += MetaDescriptionHolder_Load;
+			MetaKeywordsHolder.Load += MetaKeywordsHolder_Load;
 
-            Page.LoadComplete += Page_LoadComplete;
-        }
+			Page.LoadComplete += Page_LoadComplete;
+		}
 
 		protected void Page_LoadComplete(object sender, EventArgs e)
 		{
@@ -37,25 +37,25 @@ namespace EvolutionNet.Sample.UI.Web.Base
 
 		protected void MetaDescriptionHolder_Load(object sender, EventArgs e) 
 		{
-            string content = ParseHolderContent(MetaDescriptionHolder);
+			string content = ParseHolderContent(MetaDescriptionHolder);
 
-            if (string.IsNullOrEmpty(content)) return;
+			if (string.IsNullOrEmpty(content)) return;
 
-            descriptionMeta = new HtmlMeta {Name = "description", Content = content};
-        }
+			descriptionMeta = new HtmlMeta {Name = "description", Content = content};
+		}
 
 		protected void MetaKeywordsHolder_Load(object sender, EventArgs e) 
 		{
-            string content = ParseHolderContent(MetaKeywordsHolder);
+			string content = ParseHolderContent(MetaKeywordsHolder);
 
-            if (string.IsNullOrEmpty(content)) return;
+			if (string.IsNullOrEmpty(content)) return;
 
-            keywordsMeta = new HtmlMeta {Name = "keywords", Content = content};
-        }
+			keywordsMeta = new HtmlMeta {Name = "keywords", Content = content};
+		}
 
-        private string ParseHolderContent(Control holder) 
+		private string ParseHolderContent(Control holder) 
 		{
-            if (holder == null || holder.Controls.Count == 0) 
+			if (holder == null || holder.Controls.Count == 0) 
 				return string.Empty;
 
 			while (holder.Controls.Count > 0 && holder.Controls[0] is ContentPlaceHolder)
@@ -65,11 +65,11 @@ namespace EvolutionNet.Sample.UI.Web.Base
 				return string.Empty;
 
 			LiteralControl control = holder.Controls[0] as LiteralControl;
-            if (control == null || string.IsNullOrEmpty(control.Text)) 
+			if (control == null || string.IsNullOrEmpty(control.Text)) 
 				return string.Empty;
 
-            return control.Text.Trim();
-        }
+			return control.Text.Trim();
+		}
 
 	}
 }

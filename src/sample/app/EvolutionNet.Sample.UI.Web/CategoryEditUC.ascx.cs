@@ -80,15 +80,17 @@ namespace EvolutionNet.Sample.UI.Web
 		// No método CreateModalDialog, eu posso usar o CrudView pra retornar o EditView
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			SetFocusJavascript(UpdatePanelEdit, "modalPopupNew", TxtCategoryName.ClientID);
+			// This method sets the focus to the TxtCategoryName when the popup is shown, using the client ID of the PopupExtender and of the TextBox
+			SetFocusJavascript(UpdatePanelEdit, "ModalPopupNew", TxtCategoryName.ClientID);
 
+			// This methods show the Image when its uploaded
 			RegisterControlOnClientStartup("imgFilePicture", ImgFilePicture.ClientID);
 			RegisterStartupScript(UpdatePanelEdit, "UploadComplete", @"
-        		function UploadComplete(sender, args) {
-        			//var imgFilePicture = $get('imgFilePicture');
-        			//var imgFilePicture = document.getElementById('imgFilePicture');
-        			imgFilePicture.src = '/" + UploadTempPath + @"/' + args.get_fileName();
-        		}");
+				function UploadComplete(sender, args) {
+					//var imgFilePicture = $get('imgFilePicture');
+					//var imgFilePicture = document.getElementById('imgFilePicture');
+					imgFilePicture.src = '/" + UploadTempPath + @"/' + args.get_fileName();
+				}");
 		}
 
 		protected void BtnSave_Click(object sender, EventArgs e)
