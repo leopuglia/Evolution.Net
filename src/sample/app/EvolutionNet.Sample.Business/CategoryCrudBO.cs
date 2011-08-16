@@ -36,7 +36,7 @@ namespace EvolutionNet.Sample.Business
 				// If I'm using ReportProgressStep
 //				ReportProgressStep(stepSize);
 
-				// The time to Sleep, in miliseconds
+				// The time to Sleep, in milliseconds
 				Thread.Sleep(((To.SlowWorkTime * 1000) / numSteps));
 
 				// The lines below throw an exception randomically, showing the error message set on BackgroundWorkCompleted
