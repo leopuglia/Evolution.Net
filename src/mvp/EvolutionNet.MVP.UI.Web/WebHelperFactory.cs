@@ -6,6 +6,9 @@ namespace EvolutionNet.MVP.UI.Web
 {
 	public sealed class WebHelperFactory : IHelperFactory
 	{
+//		private WebBackgroundWorkerHelper backgroundWorkerHelper;
+		private WebBackgroundWorkerHelper2 backgroundWorkerHelper;
+
 		public IPathHelper PathHelper
 		{
 			get { return WebPathHelper.Instance; }
@@ -34,7 +37,8 @@ namespace EvolutionNet.MVP.UI.Web
 
 		public IBackgroundWorkerHelper GetBackgroundWorkerHelper()
 		{
-			return new WebBackgroundWorkerHelper();
+//			return backgroundWorkerHelper ?? (backgroundWorkerHelper = new WebBackgroundWorkerHelper());
+			return backgroundWorkerHelper ?? (backgroundWorkerHelper = new WebBackgroundWorkerHelper2());
 		}
 
 	}

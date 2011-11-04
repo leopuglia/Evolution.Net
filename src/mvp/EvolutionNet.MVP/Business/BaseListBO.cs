@@ -47,7 +47,8 @@ namespace EvolutionNet.MVP.Business
 
 		protected virtual void DoFind()
 		{
-			To.CurrentModel = Dao<T, IdT>.FindByPrimaryKey(To.CurrentID);
+//			To.CurrentModel = Dao<T, IdT>.FindByPrimaryKey(To.CurrentID);
+			To.CurrentModel = Dao<T, IdT>.FindByPrimaryKey(To.CurrentModel.ID);
 		}
 
 		#endregion

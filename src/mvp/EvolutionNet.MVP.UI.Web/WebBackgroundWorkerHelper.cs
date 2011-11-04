@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Web;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.BackgroundWork;
 using EvolutionNet.MVP.View.Helper;
@@ -19,7 +20,23 @@ namespace EvolutionNet.MVP.UI.Web
 
 		private bool suportsCancellation;
 		private bool doWorkAdded;
-		private int progress;
+		private Guid taskID = Guid.NewGuid();
+		private int progress
+		{
+			get
+			{
+//				HttpContext context = HttpContext.Current;
+//				return context.Cache[taskID.ToString()] != null ? (int)context.Cache[taskID.ToString()] : 0;
+				return progressUC.Cache[taskID.ToString()] != null ? (int)progressUC.Cache[taskID.ToString()] : 0;
+				
+			}
+			set
+			{
+//				HttpContext context = HttpContext.Current;
+//				context.Cache[taskID.ToString()] = value;
+				progressUC.Cache[taskID.ToString()] = value;
+			}
+		}
 
 		#endregion
 
@@ -114,7 +131,12 @@ namespace EvolutionNet.MVP.UI.Web
 					WorkerCompleted(this, new EventArgs());
 			}
 
-			progress = 0;
+//			progress = 0;
+
+//			HttpContext context = HttpContext.Current;
+			progressUC.Cache.Remove(taskID.ToString());
+
+			taskID = Guid.NewGuid();
 
 			if (progressUC != null && progressUC.Visible)
 				progressUC.Close();
@@ -122,11 +144,13 @@ namespace EvolutionNet.MVP.UI.Web
 			backgroundWorker.Dispose();
 		}
 
+/*
 		private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			if (progressUC != null && progressUC.Visible)
 				progressUC.Progress = e.ProgressPercentage;
 		}
+*/
 
 		private void progressUC_CancelButton_Clicked(object sender, EventArgs e)
 		{
@@ -148,7 +172,7 @@ namespace EvolutionNet.MVP.UI.Web
 			backgroundWorker.WorkerSupportsCancellation = true;
 			backgroundWorker.DoWork += backgroundWorker_DoWork;
 			backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-			backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
+//			backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
 
 			if (BeforeRunWorker != null)
 			{
@@ -170,6 +194,7 @@ namespace EvolutionNet.MVP.UI.Web
 
 		public void ShowProgressDialog(IControlView view, string caption, string text)
 		{
+			progressUC.TaskID = taskID;
 			progressUC.Show();
 
 			progressUC.CancelEnabled = suportsCancellation;
@@ -178,9 +203,7 @@ namespace EvolutionNet.MVP.UI.Web
 
 		public void ReportProgressStep(int step)
 		{
-			progress += step;
-
-			ReportProgress(progress);
+			ReportProgress(progress + step);
 		}
 
 		public void ReportProgress(int value)
@@ -196,4 +219,27 @@ namespace EvolutionNet.MVP.UI.Web
 		#endregion
 
 	}
+
+/*
+	public class ProgressHelper
+	{
+		public static void UpdateProgress(string taskID, int progress)
+		{
+			HttpContext context = HttpContext.Current;
+			context.Cache[taskID] = progress;
+		}
+
+		public static int GetProgress(string taskID)
+		{
+			HttpContext context = HttpContext.Current;
+			return context.Cache[taskID] != null ? (int)context.Cache[taskID] : 0;
+		}
+
+		public static void ClearProgress(string taskID)
+		{
+			HttpContext context = HttpContext.Current;
+			context.Cache.Remove(taskID);
+		}
+	}
+*/
 }

@@ -20,7 +20,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not initialize correctly", ex);
+				View.HelperFactory.MessageHelper.ShowMessageError("Error", "Could not initialize correctly", ex);
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not delete the tab", ex);
+				View.HelperFactory.MessageHelper.ShowMessageError("Error", "Could not delete the tab", ex);
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not add tab", ex);
+				View.HelperFactory.MessageHelper.ShowMessageError("Error", "Could not add tab", ex);
 			}
 		}
 
@@ -79,7 +79,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not show the Category CRUD dialog", ex);
+				View.HelperFactory.MessageHelper.ShowMessageError("Error", "Could not show the Category CRUD dialog", ex);
 			}
 		}
 
@@ -91,7 +91,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				View.HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not close the app", ex);
+				View.HelperFactory.MessageHelper.ShowMessageError("Error", "Could not close the app", ex);
 			}
 		}
 

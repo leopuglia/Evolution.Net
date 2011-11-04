@@ -4,36 +4,47 @@
 <asp:UpdatePanel ID="UpdatePanelEdit" runat="server">
 	<ContentTemplate>
 	
-		<div id="PanelCaption"><asp:Label ID="LblCaption" runat="server" Text="Category Data" /></div>
-		<div id="PanelDados">
-			<asp:Label ID="LblCategoryName" runat="server" Text="Category Name"></asp:Label>
-			<asp:TextBox ID="TxtCategoryName" runat="server" Width="200px" TabIndex="1"></asp:TextBox>
-<%--
-			<asp:RequiredFieldValidator ID="RfvNome" runat="server" ControlToValidate="TxtName"
-				ErrorMessage="* campo requerido" SetFocusOnError="True" Display="Dynamic"></asp:RequiredFieldValidator>
---%>
-			
-			<asp:Label ID="LblDescription" runat="server" Text="Description"></asp:Label>
-			<asp:TextBox ID="TxtDescription" runat="server" Width="390px" Rows="3" 
-				TextMode="MultiLine" TabIndex="2"></asp:TextBox>
+		<asp:Panel ID="PanelEdit" runat="server" CssClass="PanelEditar">
+			<div id="PanelCaption">
+				<div id="CloseDiv" class="FloatRight">
+					<asp:ImageButton ID="BtnClose" runat="server" ToolTip="Closes the popup" 
+						ImageUrl="~/Img/delete.png" onclick="BtnClose_Click" />
+				</div>
+				<asp:Label ID="LblCaption" runat="server" Text="Category Data" />
+			</div>
+			<div id="PanelDados">
+				<asp:Label ID="LblCategoryName" runat="server" Text="Category Name"></asp:Label>
+				<asp:TextBox ID="TxtCategoryName" runat="server" Width="200px" TabIndex="1"></asp:TextBox>
+	<%--
+				<asp:RequiredFieldValidator ID="RfvNome" runat="server" ControlToValidate="TxtName"
+					ErrorMessage="* campo requerido" SetFocusOnError="True" Display="Dynamic"></asp:RequiredFieldValidator>
+	--%>
 				
-			<asp:Label ID="LblPicture" runat="server" Text="Picture"></asp:Label>
-			<ajaxtoolkit:AsyncFileUpload ID="filePicture" runat="server" ThrobberID="ImgFileLoading"
-				onuploadedcomplete="FilePicture_UploadedComplete" OnClientUploadComplete="UploadComplete" />
-			<asp:Image ID="ImgFileLoading" runat="server" ImageUrl="~/App_Themes/Brown/img/loading_small.gif"
-				Style="float: right; margin-top: -25px; margin-right: 10px;" />
-			<div style="text-align: center; padding: 20px" >
-				<asp:Image ID="ImgFilePicture" Width="160" Height="120" runat="server" />
+				<asp:Label ID="LblDescription" runat="server" Text="Description"></asp:Label>
+				<asp:TextBox ID="TxtDescription" runat="server" Width="390px" Rows="3" 
+					TextMode="MultiLine" TabIndex="2"></asp:TextBox>
+					
+				<asp:Label ID="LblPicture" runat="server" Text="Picture"></asp:Label>
+				<ajaxtoolkit:AsyncFileUpload ID="filePicture" runat="server" ThrobberID="ImgFileLoading"
+					onuploadedcomplete="FilePicture_UploadedComplete" OnClientUploadComplete="UploadComplete" />
+				<asp:Image ID="ImgFileLoading" runat="server" ImageUrl="~/App_Themes/Brown/img/loading_small.gif"
+					Style="float: right; margin-top: -25px; margin-right: 10px;" />
+				<div style="text-align: center; padding: 20px" >
+					<asp:Image ID="ImgFilePicture" Width="160" Height="120" runat="server" />
+				</div>
+				
+				<div class="ClearBoth"></div>
+				<div class="ActionsRight">
+					<asp:Button ID="Button1" runat="server" 
+						Text="Test PostBack" TabIndex="5" />
+					
+					<asp:Button ID="BtnSave" runat="server" 
+						Text="Save" onclick="BtnSave_Click" TabIndex="5" />
+					<asp:Button ID="BtnCancel" runat="server" Text="Cancel" 
+						onclick="BtnCancel_Click" CausesValidation="False" TabIndex="6" />
+				</div>
 			</div>
-			
-			<div class="ClearBoth"></div>
-			<div class="ActionsRight">
-				<asp:Button ID="BtnSave" runat="server" 
-					Text="Save" onclick="BtnSave_Click" TabIndex="5" />
-				<asp:Button ID="BtnCancel" runat="server" Text="Cancel" 
-					onclick="BtnCancel_Click" CausesValidation="False" TabIndex="6" />
-			</div>
-		</div>
+		</asp:Panel>
 
 	</ContentTemplate>
 </asp:UpdatePanel>

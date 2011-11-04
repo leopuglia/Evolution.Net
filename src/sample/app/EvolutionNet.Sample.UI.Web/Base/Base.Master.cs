@@ -2,7 +2,6 @@
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using EvolutionNet.Sample.UI.Web.Base;
 
 namespace EvolutionNet.Sample.UI.Web.Base
 {
@@ -16,7 +15,12 @@ namespace EvolutionNet.Sample.UI.Web.Base
 			get { return MessageUC1; }
 		}
 
-		protected override void OnInit(EventArgs e) 
+		public ProgressUC ProgressUC
+		{
+			get { return ProgressUC1; }
+		}
+
+		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
 

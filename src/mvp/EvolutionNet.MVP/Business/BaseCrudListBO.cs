@@ -129,6 +129,7 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoSave()
 		{
+			// TODO: Aqui eu poderia já buscar o objeto no BD e popular com os
 			Dao<T, IdT>.Save(To.CurrentModel);
 		}
 
@@ -176,20 +177,21 @@ namespace EvolutionNet.MVP.Business
 		/// </summary>
 		protected virtual void DoDeleteByID()
 		{
-			To.CurrentModel = Dao<T, IdT>.FindByPrimaryKey(To.CurrentID);
+			To.CurrentModel = Dao<T, IdT>.FindByPrimaryKey(To.CurrentModel.ID);
 			Dao<T, IdT>.Delete(To.CurrentModel);
 		}
 
 		protected virtual void DoDeleteListByIDs()
 		{
-			var originalID = To.CurrentID;
+//			var originalID = To.CurrentID;
 			var originalModel = To.CurrentModel;
 			foreach (var current in To.CurrentList)
 			{
-				To.CurrentID = current.ID;
+//				To.CurrentID = current.ID;
+				To.CurrentModel.ID = current.ID;
 				DoDeleteByID();
 			}
-			To.CurrentID = originalID;
+//			To.CurrentID = originalID;
 			To.CurrentModel = originalModel;
 		}
 

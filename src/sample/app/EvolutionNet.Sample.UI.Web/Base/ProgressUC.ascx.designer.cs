@@ -14,13 +14,13 @@ namespace EvolutionNet.Sample.UI.Web.Base {
     public partial class ProgressUC {
         
         /// <summary>
-        /// UpdatePanelEdit control.
+        /// PanelProgress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelEdit;
+        protected global::System.Web.UI.WebControls.Panel PanelProgress;
         
         /// <summary>
         /// LblCaption control.
@@ -30,6 +30,15 @@ namespace EvolutionNet.Sample.UI.Web.Base {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblCaption;
+        
+        /// <summary>
+        /// UpdatePanelProgress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanelProgress;
         
         /// <summary>
         /// LblText control.
@@ -50,6 +59,15 @@ namespace EvolutionNet.Sample.UI.Web.Base {
         protected global::EvolutionNet.Util.Web.ProgressBar ProgressBar1;
         
         /// <summary>
+        /// TimeCounter1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::EvolutionNet.Util.Web.TimeCounter TimeCounter1;
+        
+        /// <summary>
         /// BtnCancel control.
         /// </summary>
         /// <remarks>
@@ -57,5 +75,23 @@ namespace EvolutionNet.Sample.UI.Web.Base {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnCancel;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
+        /// ModalPopupProgress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupProgress;
     }
 }

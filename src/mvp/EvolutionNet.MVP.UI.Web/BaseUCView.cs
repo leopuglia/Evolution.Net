@@ -82,6 +82,7 @@ namespace EvolutionNet.MVP.UI.Web
 
 		#region Local Event Calling
 
+		// TODO: Mover esse método para o BasePageView / BaseFrmView (no windows), de forma a ser executado em todos os filhos que sejam descendentes de BaseUCView
 		private void EvokeAfterLoadCompleteOnChild(ControlCollection controls, EventArgs e)
 		{
 			foreach (Control control in controls)

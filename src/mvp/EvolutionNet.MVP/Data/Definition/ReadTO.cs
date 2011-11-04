@@ -5,19 +5,21 @@ namespace EvolutionNet.MVP.Data.Definition
 	[Serializable]
 	public abstract class ReadTO<T, IdT> : ITO where T : class, IModel<IdT>
 	{
-		private IdT id;
-		private T mainModel;
+//		private IdT id;
+		private T currentModel;
 
+/*
 		public IdT ID
 		{
 			get { return id; }
 			set { id = value; }
 		}
+*/
 
-		public T MainModel
+		public T CurrentModel
 		{
-			get { return mainModel; }
-			set { mainModel = value;  }
+			get { return currentModel; }
+			set { currentModel = value; }
 		}
 
 		protected ReadTO()
@@ -28,7 +30,7 @@ namespace EvolutionNet.MVP.Data.Definition
 				if (typeof(T) != typeof(INullModel))
 				{
 					// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
-					mainModel = (T)Activator.CreateInstance(typeof(T));
+					currentModel = (T)Activator.CreateInstance(typeof(T));
 				}
 			}
 			catch (Exception ex)

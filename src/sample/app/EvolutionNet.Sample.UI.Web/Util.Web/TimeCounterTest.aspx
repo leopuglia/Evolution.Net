@@ -23,12 +23,12 @@
 				<asp:Button ID="BtnRestart" runat="server" Text="Restart" />
 				<asp:Button ID="BtnTest1" runat="server" Text="Test Postback" />
 				<h3>
-					<cc1:TimeCounter ID="TimeCounter2" runat="server" StartButtonID="Continue" StopButtonID="BtnPause" 
+					<cc1:TimeCounter ID="TimeCounter2" runat="server" StartButtonID="BtnContinue" StopButtonID="BtnPause" 
 						ShowHours="False" ShowMilliseconds="False" />
 				</h3>
 				<br />
 				<asp:Button ID="BtnPause" runat="server" Text="Pause" />
-				<asp:Button ID="Continue" runat="server" Text="Continue" />
+				<asp:Button ID="BtnContinue" runat="server" Text="Continue" />
 				<asp:Button ID="BtnTest2" runat="server" Text="Test Postback" />
 			</ContentTemplate>
 		</asp:UpdatePanel>

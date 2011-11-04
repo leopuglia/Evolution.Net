@@ -150,13 +150,6 @@
     <Compile Include="ProgressBarTest3.aspx.designer.cs">
       <DependentUpon>ProgressBarTest3.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Util.Web\ProgressBarTest2.aspx.cs">
-      <DependentUpon>ProgressBarTest2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Util.Web\ProgressBarTest2.aspx.designer.cs">
-      <DependentUpon>ProgressBarTest2.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Util.Web\ProgressBarTest.aspx.cs">
       <DependentUpon>ProgressBarTest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -234,7 +227,6 @@
     <Content Include="Img\new.png" />
     <Content Include="CategoryImageReadHandlerView.ashx" />
     <Content Include="ProgressBarTest3.aspx" />
-    <Content Include="Util.Web\ProgressBarTest2.aspx" />
     <Content Include="Util.Web\ProgressBarTest.aspx" />
     <Content Include="Util.Web\ProgressBarUCTest.ascx" />
     <Content Include="Util.Web\TimeCounterTest.aspx" />
@@ -259,7 +251,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52291</DevelopmentServerPort>
+          <DevelopmentServerPort>65466</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

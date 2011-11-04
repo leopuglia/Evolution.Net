@@ -18,8 +18,9 @@ namespace EvolutionNet.Sample.UI.Web
 	public class CategoryImageReadHandlerView : BaseHandlerView, ICategoryImageReadView
 	{
 		private HttpContext context;
-		private int modelID;
+//		private int modelID;
 
+/*
 		public int ModelID
 		{
 			get
@@ -29,8 +30,18 @@ namespace EvolutionNet.Sample.UI.Web
 			}
 			set { modelID = value; }
 		}
+*/
 
-		public Category Model { get; set; }
+		private Category model = new Category();
+		public Category Model
+		{
+			get
+			{
+				model.ID = int.Parse(context.Request.QueryString["ID"]);
+				return model;
+			}
+			set { model = value; }
+		}
 
 		public event EventHandler AfterLoadComplete;
 

@@ -1,7 +1,7 @@
 ﻿// Register the namespace for the control.
 Type.registerNamespace('EvolutionNet.ProgressBar');
 
-var t = new Array();
+var tProg = new Array();
 var count = 0;
 
 //Define the custom control class which receives a reference to the
@@ -12,14 +12,11 @@ EvolutionNet.ProgressBar = function(element) {
     EvolutionNet.ProgressBar.initializeBase(this, [element]);
 
     // Private class properties
-    this.timer = null;
-    //this.cancelationPending = false;
-
     this.id = null;
-    this.autoProg = null;
+    this.startOnInit = null;
     this.percentualFormat = null;
     this.showPercentualText = null;
-    this.progress = null;
+    this.progressValue = null;
     this.progressBarDivID = null;
     this.percentDivID = null;
 }
@@ -38,26 +35,19 @@ EvolutionNet.ProgressBar.prototype = {
 
         //Attach the event handlers to the DOM element associated with the control.
         /*
-        $addHandlers
-        (
+        $addHandlers (
         this.get_element(),
         { 'load': this.onLoad },
         this
         );
         */
 
-        if (this.autoProg) {
-            //this.cancelationPending = false;
-            this.setAutoProgress();
+        if (this.get_startOnInit()) {
+            this.startAutoProgress();
         }
-        /*
-        else {
-        //this.cancelationPending = true;
-        this.stopAutoProgress();
-        }
-        */
+
         //Default image to play.
-        //    this.get_element().src = this._playImageUrl;
+        //this.get_element().src = this._playImageUrl;
 
     },
 
@@ -74,26 +64,18 @@ EvolutionNet.ProgressBar.prototype = {
 
     /*
     onLoad: function(e) {
-    alert('OnLoad');
-    if (this.autoProg) {
-    this.cancelationPending = false;
-    this.setAutoProgress();
-    }
-    else {
-    this.cancelationPending = true;
-    this.stopAutoProgress();
-    }
     //Change the image based upon whether the play or pause
     //is currently being displayed.
-    //if (this.get_element() && (this.get_element().src.indexOf(this._playImageUrl) == -1)) {
-    //this.get_element().src = this._playImageUrl;
-    //}
-    //else {
-    //this.get_element().src = this._pauseImageUrl;
-    //}
+    if (this.get_element() && (this.get_element().src.indexOf(this._playImageUrl) == -1)) {
+    this.get_element().src = this._playImageUrl;
+    }
+    else {
+    this.get_element().src = this._pauseImageUrl;
+    }
     },
     */
-    /*Properties*/
+
+    /* Properties */
 
     get_id: function() {
         return this.id;
@@ -105,13 +87,13 @@ EvolutionNet.ProgressBar.prototype = {
         }
     },
 
-    get_autoProg: function() {
-        return this.autoProg;
+    get_startOnInit: function() {
+        return this.startOnInit;
     },
-    set_autoProg: function(value) {
-        if (this.autoProg !== value) {
-            this.autoProg = value;
-            this.raisePropertyChanged('autoProg');
+    set_startOnInit: function(value) {
+        if (this.startOnInit !== value) {
+            this.startOnInit = value;
+            this.raisePropertyChanged('startOnInit');
         }
     },
 
@@ -125,7 +107,6 @@ EvolutionNet.ProgressBar.prototype = {
         }
     },
 
-    //Property get/set for the pause image.
     get_showPercentualText: function() {
         return this.showPercentualText;
     },
@@ -136,7 +117,16 @@ EvolutionNet.ProgressBar.prototype = {
         }
     },
 
-    //Property get/set for the pause image.
+    get_progressValue: function() {
+        return this.progressValue;
+    },
+    set_progressValue: function(value) {
+        if (this.progressValue !== value) {
+            this.progressValue = value;
+            this.raisePropertyChanged('progressValue');
+        }
+    },
+
     get_progressBarDivID: function() {
         return this.progressBarDivID;
     },
@@ -147,7 +137,6 @@ EvolutionNet.ProgressBar.prototype = {
         }
     },
 
-    //Property get/set for the pause image.
     get_percentDivID: function() {
         return this.percentDivID;
     },
@@ -158,21 +147,13 @@ EvolutionNet.ProgressBar.prototype = {
         }
     },
 
-    get_progress: function() {
-        return this.progress;
-    },
-    set_progress: function(value) {
-        if (this.progress !== value) {
-            this.progress = value;
-            this.raisePropertyChanged('progress');
-        }
-    },
+    /* Methods */
 
-    changeProgress: function(value) {
+    setProgress: function(value) {
         if (value < 0 || value > 100)
             throw ('Value should be between 0 and 100');
 
-        this.set_progress(value);
+        this.set_progressValue(value);
 
         var progDiv = document.getElementById(this.get_progressBarDivID());
         if (progDiv != null)
@@ -180,146 +161,63 @@ EvolutionNet.ProgressBar.prototype = {
 
         var percDiv = document.getElementById(this.get_percentDivID());
         //alert('Progress: ' + value + ' | ProgID: ' + this.get_progressBarDivID() + ' | Div: ' + progDiv + '\r\nPercID: ' + this.get_percentDivID() + ' | Div: ' + percDiv + ' | Format: ' + this.get_percentualFormat());
-        if (percDiv != null && this.get_percentualFormat() != null)
-            percDiv.innerHTML = this.get_percentualFormat().replace('{0}', value);
+        if (this.get_showPercentualText()) {
+            if (percDiv != null && this.get_percentualFormat() != null)
+                percDiv.innerHTML = this.get_percentualFormat().replace('{0}', value);
+        }
+        else if (percDiv != null)
+            percDiv.innerHTML = "";
     },
 
     stepProgress: function(step) {
-        this.changeProgress(this.get_progress() + step);
+        this.setProgress(this.get_progressValue() + step);
     },
 
-    setAutoProgress: function(step, time) {
-        /*
-        var i;
-        for (i = 0; i < t.length; i++) {
-        if (t[i] != null && t[i].id == this.get_id())
-        break;
-        }
-        if (t[i] != null) {
-        t[i].cancelationPending = false;
-        }
-        */
-        var i;
-        for (i = 0; i < t.length; i++) {
-            if (t[i] != null && t[i].id == this.get_id())
-                break;
-        }
-        if ((t[i] == null || (t[i] != null && !t[i].cancelationPending)) && this.timer == null) {
-            alert('Starting');
-            startAutoProgress(this, step, time);
-        }
+    startAutoProgress: function(step, time) {
+        stopAutoProgressBar(this.get_id());
+        startAutoProgressBar(this, step, time);
     },
 
-    stopAutoProgress: function(c) {
-        /*
-        var i;
-        for (i = 0; i < t.length; i++) {
-        if (t[i] != null && t[i].id == this.get_id())
-        break;
-        }
-        if (t[i] != null) {
-        t[i].cancelationPending = true;
-        //alert('Canceling ' + t[i].timer);
-        }
-        */
-        //clearTimeout(this.timer);
-        alert('c: ' + c + ' | count: ' + count);
-        if (c == null || c == count) {
-            var i;
-            for (i = 0; i < t.length; i++) {
-                if (t[i] != null && t[i].id == this.get_id())
-                    break;
-            }
-            t[i] = { 'id': this.get_id(), 'cancelationPending': true };
-            alert('Canceling ' + this.timer);
-            //this.cancelationPending = true;
-
-            if (c == count)
-                count++;
-        }
+    stopAutoProgress: function() {
+        //this.set_showPercentualText(true);
+        stopAutoProgressBar(this.get_id());
     }
 
 }
 
-function startAutoProgress(progressBar, step, time) {
+function startAutoProgressBar(progressBar, step, time) {
     //if (time == null)
         //alert('ProgressBar: ' + progressBar + ' | Step: ' + step + ' | Time: ' + time + ' | timer: ' + progressBar.timer);
-    //progressBar.set_percentualFormat("");
+    
     if (step == null)
         step = 1;
-    if (time == null)
+    if (time == null) {
         time = 10;
         //time = 3000;
-    if (progressBar.get_progress() == 100)
-        progressBar.changeProgress(0);
-    progressBar.stepProgress(step);
-
-    var i;
-    for (i = 0; i < t.length; i++) {
-        if (t[i] != null && t[i].id == progressBar.get_id())
-            break;
-    }
-    if (t[i] == null) {
-        //if (progressBar.timer == null)
-        //alert('Runned');
-        progressBar.timer = setTimeout(function() { startAutoProgress(progressBar, step, time); }, time);
-    }
-    else if (!t[i].cancelationPending) {
-    //else if (!progressBar.cancelationPending)
-        //if (progressBar.timer != null)
-        alert('Cancelation pending');
-        t[i] = null;
-        //progressBar.timer = setTimeout(function() { startAutoProgress(progressBar, step, time); }, time);
-    }
-    else {
-        //t[i].cancelationPending = false;
-        //progressBar.cancelationPending = false;
-        //progressBar.changeProgress(0);
-        t[i] = null;
-        clearTimeout(progressBar.timer);
-        progressBar.timer = null;
-        alert('Canceled');
     }
         
-/*
-    var i;
-    for (i = 0; i < t.length; i++) {
-        if (t[i] != null && t[i].id == progressBar.get_id())
-            break;
+    if (progressBar.get_progressValue() == 100)
+        progressBar.setProgress(0);
+    
+    progressBar.stepProgress(step);
+
+    var i = ArrayIDHelper.indexOfByID(progressBar.get_id(), tProg);
+    if (i == -1) {
+        //alert('Creating timer of progressBar');
+        tProg.push({ 'id': progressBar.get_id(), 'timer': setTimeout(function() { startAutoProgressBar(progressBar, step, time); }, time) });
     }
-    if (t[i] == null) {
-        alert('Creating t');
-        t[i] = { 'id': progressBar.get_id(), 'cancelationPending': false, 'timer': setTimeout(function() { startAutoProgress(progressBar, step, time); }, time) };
-    }
-    else {
-        if (!t[i].cancelationPending) {
-            //alert('Not Canceling ' + t[i].timer);
-            if (t[i].timer != null)
-                t[i].timer = setTimeout(function() { startAutoProgress(progressBar, step, time); }, time);
-        }
-        else {
-            progressBar.changeProgress(0);
-            clearTimeout(t[i].timer);
-            t[i].id = null;
-            t[i].timer = null;
-            t[i].cancelationPending = false;
-            //t[i] = null;
-            t[i + 1] = { 'id': progressBar.get_id(), 'cancelationPending': false, 'timer': null };
-            alert('Canceled '); // + t[i].timer);
-        }
-    }
-*/
+    else
+        tProg[i].timer = setTimeout(function() { startAutoProgressBar(progressBar, step, time); }, time);
 }
 
-/*
-function clearAutoProgress(progressBar) {
-    progressBar.set_autoProg(false);
-    if (progressBar.timer != null) {
-        clearTimeout(progressBar.timer);
-        progressBar.timer = null;
+function stopAutoProgressBar(id) {
+    var i = ArrayIDHelper.indexOfByID(id, tProg);
+    if (tProg[i] != null && tProg[i].timer != null) {
+        clearTimeout(tProg[i].timer);
+        tProg[i].timer = null;
     }
 }
-*/
+
 
 // Optional descriptor for JSON serialization.
 /*

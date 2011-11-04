@@ -6,15 +6,17 @@ namespace EvolutionNet.MVP.Data.Definition
 	[Serializable]
 	public abstract class ListTO<T, IdT> : ITO where T : class, IModel<IdT>
 	{
-		private IdT currentID;
+//		private IdT currentID;
 		private T currentModel;
 		private IList<T> list;
 
+/*
 		public IdT CurrentID
 		{
 			get { return currentID; }
 			set { currentID = value; }
 		}
+*/
 
 		public T CurrentModel
 		{

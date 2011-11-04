@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
+using EvolutionNet.Util.Windows;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
@@ -58,7 +59,7 @@ namespace EvolutionNet.MVP.UI.Windows
 			Form frm = (Form)IoCHelper.InstantiateObj(TypeNameSource, TypeNameSourceExclude, typeof(T),
 				TypeNameDestDialog, "", senderView.GetType(), args);
 
-			return WinControlHelper.FindControl<T>(frm);
+			return WinControlFindHelper.FindControlOnChild<T>(frm);
 		}
 
 		public bool ShowModalDialogView<T>(T destView, object senderView) where T : IControlView

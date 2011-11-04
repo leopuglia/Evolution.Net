@@ -57,3 +57,69 @@ function numberFormat(format, args) {
         return "";
     }
 }
+
+/* Criando uma classe de helper pra arrays cujos objetos possuem id */
+ArrayIDHelper = function() {
+}
+// Métodos "estáticos"
+ArrayIDHelper.indexOfByID = function(id, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].id == id)
+            return i;
+    }
+
+    return -1;
+}
+ArrayIDHelper.indexOf = function(item, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == item)
+            return i;
+    }
+
+    return -1;
+}
+ArrayIDHelper.containsByID = function(id, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].id == id)
+            return true;
+    }
+
+    return false;
+}
+ArrayIDHelper.contains = function(item, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == item)
+            return true;
+    }
+
+    return false;
+}
+ArrayIDHelper.findByID = function(id, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].id == id)
+            return arr[i];
+    }
+
+    return null;
+}
+ArrayIDHelper.find = function(item, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == item)
+            return arr[i];
+    }
+
+    return null;
+}
+/*
+// Métodos de instância
+ArrayHelper.prototype = {
+    indexOf: function(id, arr) {
+        for (var i = 0; i < arr.lenght; i++) {
+            if (arr[i].id == id)
+                return i;
+        }
+
+        return -1;
+    }
+}
+*/

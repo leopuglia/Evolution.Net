@@ -103,6 +103,11 @@ namespace EvolutionNet.Sample.UI.Web
 			presenter.Clear();
 		}
 
+		protected void BtnClose_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+		{
+			presenter.Clear();
+		}
+
 		protected void FilePicture_UploadedComplete(object sender, AsyncFileUploadEventArgs e)
 		{
 			var i = 0;

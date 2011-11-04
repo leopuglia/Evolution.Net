@@ -27,25 +27,14 @@ namespace EvolutionNet.MVP.UI.Web
 
 		#endregion
 
-		#region Public Event Calling
-
-		public void OnAfterLoadComplete(EventArgs e)
-		{
-			if (AfterLoadComplete != null)
-				AfterLoadComplete(this, new EventArgs());
-
-			if (baseUC != null)
-				baseUC.OnAfterLoadComplete(e);
-		}
-
-		#endregion
-
 		#region Local Event Override
 
 		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
 
+			// TODO: Verificar se esse método deve ser chamado no LoadComplete ou no Unload. NUNCA TESTEI! O Unload ocorre depois do loadcomplete e depois do OnPreRenderComplete.
+//			Unload += BasePageView_Unload;
 			LoadComplete += BasePageView_LoadComplete;
 		}
 
@@ -56,6 +45,20 @@ namespace EvolutionNet.MVP.UI.Web
 		private void BasePageView_LoadComplete(object sender, EventArgs e)
 		{
 			OnAfterLoadComplete(e);
+		}
+
+		#endregion
+
+		#region Public Event Calling
+
+		// TODO: Verificar se esse método deve ser chamado no LoadComplete ou no UnLoad
+		public void OnAfterLoadComplete(EventArgs e)
+		{
+			if (AfterLoadComplete != null)
+				AfterLoadComplete(this, new EventArgs());
+
+			if (baseUC != null)
+				baseUC.OnAfterLoadComplete(e);
 		}
 
 		#endregion

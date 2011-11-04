@@ -17,8 +17,8 @@ namespace EvolutionNet.MVP.View.Helper
 //		void Initialize(IControlView view/*, bool workerEnabledOnLoad, bool showProgressDlgFrm*/);
 		void RunWorker(IBackgroundWork backgroundWork);
 		void RunWorkerWithProgressDialog(IBackgroundWork backgroundWork, IControlView view, string caption, string text);
+		void ShowProgressDialog(IControlView view, string caption, string text);
 		void ReportProgressStep(int step);
 		void ReportProgress(int value);
-		void ShowProgressDialog(IControlView view, string caption, string text);
 	}
 }

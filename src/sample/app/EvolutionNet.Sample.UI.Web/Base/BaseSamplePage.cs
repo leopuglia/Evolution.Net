@@ -4,6 +4,11 @@ namespace EvolutionNet.Sample.UI.Web.Base
 {
 	public class BaseSamplePage : BasePageView
 	{
+		public BaseSamplePage()
+		{
+//			HelperFactory.GetBackgroundWorkerHelper().
+		}
+
 		/*
 		// TODO: Não funciona
 		protected static string LoadControlHtml(UserControl control, string controlPath)

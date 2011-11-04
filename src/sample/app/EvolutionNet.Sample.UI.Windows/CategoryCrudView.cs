@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using EvolutionNet.MVP.UI.Windows;
@@ -22,15 +23,15 @@ namespace EvolutionNet.Sample.UI.Windows
 			set
 			{
 				BindingSource1.Position = value;
-				SetPosition();
+				AjustDataGridScrollPosition();
 			}
 		}
 
 		// This item, when set, updates the CurrentPosition, for the presenter to be compatible with the equivalent web view
-		public Category CurrentModel
+		public Category CurrentEditModel
 		{
 			get { return (Category) BindingSource1.Current; }
-			set { CurrentPosition = CurrentList.IndexOf(value); }
+//			set { CurrentPosition = CurrentList.IndexOf(value); }
 		}
 
 		public IList<Category> CurrentList
@@ -56,6 +57,11 @@ namespace EvolutionNet.Sample.UI.Windows
 		public PropertySortInfo SortInfo
 		{
 			get { return sortInfo; }
+		}
+
+		public IEnumerable WebCache
+		{
+			get { return null; }
 		}
 
 		public int SlowWorkTime
@@ -162,14 +168,14 @@ namespace EvolutionNet.Sample.UI.Windows
 				column.Width = biggestWidth;
 			}
 
-			SetPosition();
+			AjustDataGridScrollPosition();
 		}
 
 		#endregion
 
 		#region Local Auxiliary Methods
 
-		private void SetPosition()
+		private void AjustDataGridScrollPosition()
 		{
 			if (BindingSource1.Position >= 0)
 			{

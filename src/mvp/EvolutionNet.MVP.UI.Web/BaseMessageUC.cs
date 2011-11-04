@@ -7,6 +7,6 @@ namespace EvolutionNet.MVP.UI.Web
 	public abstract class BaseMessageUC : UserControl, IWebControl
 	{
 		public abstract void ShowMessage(string caption, string message);
-		public abstract void ShowErrorMessage(string caption, string message, Exception exception);
+		public abstract void ShowMessageError(string caption, string message, Exception exception);
 	}
 }

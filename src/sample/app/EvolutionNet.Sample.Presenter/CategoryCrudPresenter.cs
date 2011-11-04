@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using EvolutionNet.MVP;
 using EvolutionNet.MVP.Business.ProgressReporting;
 using EvolutionNet.MVP.Presenter;
@@ -42,7 +43,7 @@ namespace EvolutionNet.Sample.Presenter
 
 		#region Public Methods
 
-		#region View Events
+		#region View Event Implementation
 
 		public void AfterLoadComplete()
 		{
@@ -77,7 +78,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not DataBind the list", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Could not DataBind the list", ex);
 			}
 		}
 
@@ -86,11 +87,11 @@ namespace EvolutionNet.Sample.Presenter
 			try
 			{
 				To.CurrentModel = new Category();
-				if (DoEdit())
+				if (ShowEditDialog())
 				{
 					FindAllDataBind();
 
-					HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) added");
+					HelperFactory.MessageHelper.ShowMessage("Success", "Item added");
 				}
 				else
 				{
@@ -99,7 +100,7 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to add value(s)", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Error trying to add item", ex);
 			}
 			finally
 			{
@@ -125,14 +126,14 @@ namespace EvolutionNet.Sample.Presenter
 					}
 					else
 					{
-						HelperFactory.MessageHelper.ShowErrorMessage("Error", "No row was selected to edit");
+						HelperFactory.MessageHelper.ShowMessageError("Error", "No item was selected to edit");
 					}
 
-					if (DoEdit())
+					if (ShowEditDialog())
 					{
 						FindAllDataBind();
 
-						HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) edited");
+						HelperFactory.MessageHelper.ShowMessage("Success", "Item edited");
 
 						Clear();
 					}
@@ -143,60 +144,43 @@ namespace EvolutionNet.Sample.Presenter
 				}
 				else
 				{
-					HelperFactory.MessageHelper.ShowErrorMessage("Error", "Please select only one row to edit");
+					HelperFactory.MessageHelper.ShowMessageError("Error", "Please select only one item to edit");
 				}
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to edit value(s)", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Error trying to edit item", ex);
 			}
-		}
-
-		private bool DoEdit()
-		{
-			ICategoryEditView categoryEditView =
-				HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, To.CurrentModel);
-
-			if (HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
-			{
-				To.CurrentModel = categoryEditView.Model;
-				Bo.Save();
-
-//				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
-
-				return true;
-			}
-			
-			categoryEditView.Model = To.CurrentModel;
-
-			return false;
 		}
 
 		public override void Save()
 		{
 			try
 			{
-				To.CurrentID = View.CurrentModel.ID;
-				To.CurrentModel = View.CurrentModel;
+				// Aqui estou salvando um novo registro
+				To.CurrentModel = View.CurrentEditModel;
 
-				if (To.CurrentID != 0)
+				if (View.CurrentEditModel.ID != 0)
 				{
+					// Quando estou editando um registro, devo buscá-lo no BD antes de salvar, senão dá erro?
+//					To.CurrentID = View.CurrentEditModel.ID;
+					To.CurrentModel.ID = View.CurrentEditModel.ID;
 					Bo.Find();
 
-					To.CurrentModel.CategoryName = View.CurrentModel.CategoryName;
-					To.CurrentModel.Description = View.CurrentModel.Description;
-					To.CurrentModel.PictureImage = View.CurrentModel.PictureImage;
+					To.CurrentModel.CategoryName = View.CurrentEditModel.CategoryName;
+					To.CurrentModel.Description = View.CurrentEditModel.Description;
+					To.CurrentModel.PictureImage = View.CurrentEditModel.PictureImage;
 				}
 
 				Bo.Save();
 
 				FindAllDataBind();
 
-				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
+				HelperFactory.MessageHelper.ShowMessage("Success", "Item saved");
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save value(s)", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Error trying to save item", ex);
 			}
 			finally
 			{
@@ -211,13 +195,13 @@ namespace EvolutionNet.Sample.Presenter
 				To.CurrentList = View.CurrentList;
 				Bo.SaveList();
 
-				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) saved");
-
 				FindAllDataBind();
+
+				HelperFactory.MessageHelper.ShowMessage("Success", "Item(s) saved");
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to save value(s)", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Error trying to save item(s)", ex);
 			}
 			finally
 			{
@@ -231,10 +215,12 @@ namespace EvolutionNet.Sample.Presenter
 			{
 //				To.CurrentModel = View.CurrentModel;
 //				var position = View.CurrentPosition;
+				// TODO: Verificar se eu preciso mesmo desse if
 				if (View.CurrentList.Count <= 1)
 				{
 //					if (View.CurrentModel != null)
 //						To.CurrentModel = View.CurrentModel;
+					// TODO: Verificar se eu preciso mesmo desse if
 					if (View.CurrentPosition > -1)
 					{
 						var bindableList = View.BindableList ?? new SortableBindingList<Category>(To.List);
@@ -245,25 +231,27 @@ namespace EvolutionNet.Sample.Presenter
 					}
 					else
 					{
-						HelperFactory.MessageHelper.ShowErrorMessage("Error", "No row was selected to delete");
+						HelperFactory.MessageHelper.ShowMessageError("Error", "No item was selected to delete");
 					}
 
-					Bo.Delete();
+					if (HelperFactory.MessageHelper.ShowMessageConfirm("Alert", "Do you really want to delete the item?"))
+					{
+						Bo.Delete();
 
-					FindAllDataBind();
+						FindAllDataBind();
 
-					HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
-
+						HelperFactory.MessageHelper.ShowMessage("Success", "Item deleted");
+					}
 //					View.CurrentPosition = position < View.BindableList.Count ? position : View.BindableList.Count - 1;
 				}
 				else
 				{
-					HelperFactory.MessageHelper.ShowErrorMessage("Error", "Please select only one row to delete");
+					HelperFactory.MessageHelper.ShowMessageError("Error", "Please select only one item to delete");
 				}
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete value(s)", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Error trying to delete item", ex);
 			}
 			finally
 			{
@@ -275,19 +263,30 @@ namespace EvolutionNet.Sample.Presenter
 		{
 			try
 			{
-				To.CurrentList = View.CurrentList;
-				var position = View.CurrentPosition;
-				Bo.DeleteList();
+				// TODO: Verificar se eu preciso mesmo desse if
+				if (View.CurrentList.Count > 0)
+				{
+					if (HelperFactory.MessageHelper.ShowMessageConfirm("Alert", "Do you really want to delete the item(s)?"))
+					{
+						To.CurrentList = View.CurrentList;
+						var position = View.CurrentPosition;
+						Bo.DeleteList();
 
-				FindAllDataBind();
+						FindAllDataBind();
 
-				HelperFactory.MessageHelper.ShowMessage("Success", "Value(s) deleted");
+						View.CurrentPosition = position < View.BindableList.Count ? position : View.BindableList.Count - 1;
 
-				View.CurrentPosition = position < View.BindableList.Count ? position : View.BindableList.Count - 1;
+						HelperFactory.MessageHelper.ShowMessage("Success", "Item(s) deleted");
+					}
+				}
+				else
+				{
+					HelperFactory.MessageHelper.ShowMessageError("Error", "Please select at least one item to delete");
+				}
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Error trying to delete value(s)", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Error trying to delete item(s)", ex);
 			}
 			finally
 			{
@@ -315,11 +314,26 @@ namespace EvolutionNet.Sample.Presenter
 				"Slow Work", 
 				string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime));
 */
-			backgroundWorker.RunWorkerWithProgressDialog(this, View,
-				"Slow Work", string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime));
+//			backgroundWorker.RunWorkerWithProgressDialog(this, View,
+//				"Slow Work", string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime));
+//			backgroundWorker.ShowProgressDialog(View, "Slow Work", string.Format("Working slowly... Run time expected: {0} seconds", To.SlowWorkTime));
+			backgroundWorker.RunWorker(this);
 		}
 
 		// Tudo que acontece dentro desses métodos abaixo tá dentro de outra thread, portanto não pode alterar valores 
+/*
+		private Guid taskID = Guid.NewGuid();
+		public Guid TaskID
+		{
+			get { return taskID; }
+		}
+*/
+
+		public IEnumerable Cache
+		{
+			get { return View.WebCache; }
+		}
+
 		public void DoBackgroundWork()
 		{
 			Bo.SlowWork();
@@ -338,12 +352,12 @@ namespace EvolutionNet.Sample.Presenter
 
 		private void BackgroundWorkerHelper_WorkerCanceled(object sender, EventArgs e)
 		{
-			HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was cancelled by the user");
+			HelperFactory.MessageHelper.ShowMessageError(MVPCommonMessages.Common_CaptionError, "The operation was cancelled by the user");
 		}
 
 		private void BackgroundWorkerHelper_WorkerError(object sender, WorkerErrorEventArgs e)
 		{
-			HelperFactory.MessageHelper.ShowErrorMessage(MVPCommonMessages.Common_CaptionError, "The operation was aborted by an error", e.Error);
+			HelperFactory.MessageHelper.ShowMessageError(MVPCommonMessages.Common_CaptionError, "The operation was aborted by an error", e.Error);
 		}
 
 		private void BackgroundWorkerHelper_WorkerCompleted(object sender, EventArgs e)
@@ -364,8 +378,26 @@ namespace EvolutionNet.Sample.Presenter
 			}
 			catch (Exception ex)
 			{
-				HelperFactory.MessageHelper.ShowErrorMessage("Error", "Could not list values", ex);
+				HelperFactory.MessageHelper.ShowMessageError("Error", "Could not list items", ex);
 			}
+		}
+
+		private bool ShowEditDialog()
+		{
+			ICategoryEditView categoryEditView =
+				HelperFactory.RedirectHelper.CreateModalDialogView<ICategoryEditView>(View, To.CurrentModel);
+
+			if (HelperFactory.RedirectHelper.ShowModalDialogView(categoryEditView, View))
+			{
+				To.CurrentModel = categoryEditView.Model;
+				Bo.Save();
+
+				return true;
+			}
+			
+			categoryEditView.Model = To.CurrentModel;
+
+			return false;
 		}
 
 		#endregion

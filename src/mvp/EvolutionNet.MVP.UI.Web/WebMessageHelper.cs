@@ -12,6 +12,13 @@ namespace EvolutionNet.MVP.UI.Web
 			set { messageUC = value; }
 		}
 
+		private BaseMessageConfirmUC messageConfirmUC;
+		public BaseMessageConfirmUC MessageConfirmUC
+		{
+			get { return messageConfirmUC; }
+			set { messageConfirmUC = value; }
+		}
+
 		#region Thread-safe Singleton
 
 		private WebMessageHelper()
@@ -41,17 +48,35 @@ namespace EvolutionNet.MVP.UI.Web
 
 		public void ShowMessage(string caption, string message)
 		{
-			messageUC.ShowMessage(caption, message);
+			if (messageUC != null)
+				messageUC.ShowMessage(caption, message);
 		}
 
-		public void ShowErrorMessage(string caption, string message)
+		public void ShowMessageError(string caption, string message)
 		{
-			ShowErrorMessage(caption, message, null);
+			ShowMessageError(caption, message, null);
 		}
 
-		public void ShowErrorMessage(string caption, string message, Exception exception)
+		public void ShowMessageError(string caption, string message, Exception exception)
 		{
-			messageUC.ShowErrorMessage(caption, message, exception);
+			if (messageUC != null)
+				messageUC.ShowMessageError(caption, message, exception);
+		}
+
+		public bool ShowMessageConfirm(string caption, string msg)
+		{
+			if (messageConfirmUC != null)
+				return messageConfirmUC.ShowMessageConfirm(caption, msg);
+
+			return true;
+		}
+
+		public MessageConfirmCancel ShowMessageConfirmCancel(string caption, string msg)
+		{
+			if (messageConfirmUC != null)
+				return messageConfirmUC.ShowMessageConfirmCancel(caption, msg);
+
+			return MessageConfirmCancel.Yes;
 		}
 	}
 }

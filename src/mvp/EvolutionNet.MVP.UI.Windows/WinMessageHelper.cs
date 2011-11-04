@@ -38,22 +38,19 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		#endregion
 
-		public void Initialize(Control owner)
-		{
-			this.owner = owner;
-		}
+		#region Public Methods (IMessageHelper)
 
 		public void ShowMessage(string caption, string message)
 		{
 			ShowMessageBox(caption, message);
 		}
 
-		public void ShowErrorMessage(string caption, string message)
+		public void ShowMessageError(string caption, string message)
 		{
-			ShowErrorMessage(caption, message, null);
+			ShowMessageError(caption, message, null);
 		}
 
-		public void ShowErrorMessage(string caption, string message, Exception exception)
+		public void ShowMessageError(string caption, string message, Exception exception)
 		{
 #if DEBUG
 			if (exception != null)
@@ -67,7 +64,40 @@ namespace EvolutionNet.MVP.UI.Windows
 				log.Error(message, exception);
 		}
 
-		public void ShowMessageBox(string caption, string msg, params string[] args)
+		public bool ShowMessageConfirm(string caption, string msg)
+		{
+			return ShowMessageBoxOKCancel(caption, msg);
+		}
+
+		public MessageConfirmCancel ShowMessageConfirmCancel(string caption, string msg)
+		{
+			switch (ShowMessageBoxYesNoCancel(caption, msg))
+			{
+				case DialogResult.Yes:
+					return MessageConfirmCancel.Yes;
+				case DialogResult.No:
+					return MessageConfirmCancel.No;
+				case DialogResult.Cancel:
+					return MessageConfirmCancel.Cancel;
+				default:
+					return MessageConfirmCancel.Cancel;
+			}
+		}
+
+		#endregion
+
+		#region Public Initialization (called at BaseUCView)
+
+		public void Initialize(Control owner)
+		{
+			this.owner = owner;
+		}
+
+		#endregion
+
+		#region Local Auxiliary Methods
+
+		private void ShowMessageBox(string caption, string msg, params string[] args)
 		{
 			if (args != null && args.Length > 0)
 				msg = string.Format(msg, args);
@@ -81,7 +111,21 @@ namespace EvolutionNet.MVP.UI.Windows
 				MessageBoxDefaultButton.Button1);
 		}
 
-		public bool ShowMessageBoxOKCancel(string caption, string msg, params string[] args)
+		private void ShowMessageBoxError(string caption, string msg, params string[] args)
+		{
+			if (args != null && args.Length > 0)
+				msg = string.Format(msg, args);
+
+			MessageBox.Show(
+				owner,
+				msg,
+				caption,
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Error,
+				MessageBoxDefaultButton.Button1);
+		}
+
+		private bool ShowMessageBoxOKCancel(string caption, string msg, params string[] args)
 		{
 			if (args != null && args.Length > 0)
 				msg = string.Format(msg, args);
@@ -95,21 +139,7 @@ namespace EvolutionNet.MVP.UI.Windows
 				MessageBoxDefaultButton.Button1) == DialogResult.OK;
 		}
 
-		public bool ShowMessageBoxYesNo(string caption, string msg, params string[] args)
-		{
-			if (args != null && args.Length > 0)
-				msg = string.Format(msg, args);
-
-			return MessageBox.Show(
-				owner,
-				msg,
-				caption,
-				MessageBoxButtons.YesNo,
-				MessageBoxIcon.Warning,
-				MessageBoxDefaultButton.Button1) == DialogResult.OK;
-		}
-
-		public DialogResult ShowMessageBoxYesNoCancel(string caption, string msg, params string[] args)
+		private DialogResult ShowMessageBoxYesNoCancel(string caption, string msg, params string[] args)
 		{
 			if (args != null && args.Length > 0)
 				msg = string.Format(msg, args);
@@ -123,19 +153,23 @@ namespace EvolutionNet.MVP.UI.Windows
 				MessageBoxDefaultButton.Button1);
 		}
 
-		public void ShowMessageBoxError(string caption, string msg, params string[] args)
+		#endregion
+
+/*
+		public bool ShowMessageBoxYesNo(string caption, string msg, params string[] args)
 		{
 			if (args != null && args.Length > 0)
 				msg = string.Format(msg, args);
 
-			MessageBox.Show(
+			return MessageBox.Show(
 				owner,
 				msg,
 				caption,
-				MessageBoxButtons.OK,
-				MessageBoxIcon.Error,
-				MessageBoxDefaultButton.Button1);
+				MessageBoxButtons.YesNo,
+				MessageBoxIcon.Warning,
+				MessageBoxDefaultButton.Button1) == DialogResult.OK;
 		}
+*/
 
 	}
 }

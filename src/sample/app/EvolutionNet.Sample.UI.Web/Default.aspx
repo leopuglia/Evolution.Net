@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Start Page" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="EvolutionNet.Sample.UI.Web.Default" %>
+﻿<%@ Page Title="Start Page" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="EvolutionNet.Sample.UI.Web.Default" Async="true" %>
 <%@ Register src="CategoryCrudView.ascx" tagname="CategoryCrudView" tagprefix="uc1" %>
 <asp:Content ID="Head" ContentPlaceHolderID="HeadHolder" runat="server">
 </asp:Content>

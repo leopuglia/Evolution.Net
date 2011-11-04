@@ -21,7 +21,7 @@ namespace EvolutionNet.Sample.UI.Web.Base
 				AnimationExtender2.Enabled = true;
 		}
 
-		public override void ShowErrorMessage(string caption, string message, Exception exception)
+		public override void ShowMessageError(string caption, string message, Exception exception)
 		{
 			LabelCaption.Text = caption;
 

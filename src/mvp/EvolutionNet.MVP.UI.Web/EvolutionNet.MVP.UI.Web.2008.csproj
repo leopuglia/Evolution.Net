@@ -68,7 +68,11 @@
     <Compile Include="BaseProgressUC.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BaseMessageConfirmUC.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="WebBackgroundWorkerHelper.cs" />
+    <Compile Include="WebBackgroundWorkerHelper2.cs" />
     <Compile Include="WebControlHelper.cs" />
     <Compile Include="WebHelperFactory.cs" />
     <Compile Include="WebMessageHelper.cs" />

@@ -95,13 +95,13 @@ namespace EvolutionNet.Sample.UI.Web.Util.Web {
         protected global::System.Web.UI.WebControls.Button BtnPause;
         
         /// <summary>
-        /// Continue control.
+        /// BtnContinue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Continue;
+        protected global::System.Web.UI.WebControls.Button BtnContinue;
         
         /// <summary>
         /// BtnTest2 control.

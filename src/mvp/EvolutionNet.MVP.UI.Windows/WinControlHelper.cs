@@ -1,8 +1,8 @@
-using System;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
 using EvolutionNet.Util.IoC;
+using EvolutionNet.Util.Windows;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
@@ -99,33 +99,12 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		public T FindControlView<T>(IControlView view) where T : IControlView
 		{
-			return FindControl<T>((Control)view);
+			return WinControlFindHelper.FindControlOnChild<T>((Control)view);
 		}
 
 		public object FindControlByNameOrID(IControlView view, string name, bool searchAllChildren)
 		{
 			return ((Control)view).Controls.Find(name, searchAllChildren);
-		}
-
-		#endregion
-
-		#region Static Methods
-
-		public static T FindControl<T>(Control control)
-		{
-			T findControl = default(T);
-			foreach (object child in control.Controls)
-			{
-				if (child is T)
-					return (T)child;
-
-				if (child is Control)
-					findControl = FindControl<T>((Control)child);
-
-				if (findControl != null && !findControl.Equals(default(T)))
-					return findControl;
-			}
-			return findControl;
 		}
 
 		#endregion

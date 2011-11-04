@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using EvolutionNet.MVP.View;
 using EvolutionNet.MVP.View.Helper;
+using EvolutionNet.Util.Windows;
 
 namespace EvolutionNet.MVP.UI.Windows
 {
@@ -75,7 +76,7 @@ namespace EvolutionNet.MVP.UI.Windows
 
 		public object FindMenuStrip(IControlView view)
 		{
-			return WinControlHelper.FindControl<MenuStrip>((Control)view);
+			return WinControlFindHelper.FindControlOnChild<MenuStrip>((Control)view);
 		}
 
 	}

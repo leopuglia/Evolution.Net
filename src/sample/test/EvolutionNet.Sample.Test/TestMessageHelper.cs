@@ -14,7 +14,7 @@ namespace EvolutionNet.Sample.Test
 				log.Info(string.Format(@"{0}: {1}", caption, msg));
 		}
 
-		public void ShowErrorMessage(string caption, string msg)
+		public void ShowMessageError(string caption, string msg)
 		{
 			if (log.IsErrorEnabled)
 				log.Error(string.Format(@"{0}: {1}", caption, msg));
@@ -22,12 +22,28 @@ namespace EvolutionNet.Sample.Test
 			throw new Exception(msg);
 		}
 
-		public void ShowErrorMessage(string caption, string msg, Exception exception)
+		public void ShowMessageError(string caption, string msg, Exception exception)
 		{
 			if (log.IsErrorEnabled)
 				log.Error(string.Format(@"{0}: {1}", caption, msg), exception);
 
 			throw exception;
+		}
+
+		public bool ShowMessageConfirm(string caption, string msg)
+		{
+			if (log.IsInfoEnabled)
+				log.Info(string.Format(@"{0}: {1}", caption, msg));
+
+			return true;
+		}
+
+		public MessageConfirmCancel ShowMessageConfirmCancel(string caption, string msg)
+		{
+			if (log.IsInfoEnabled)
+				log.Info(string.Format(@"{0}: {1}", caption, msg));
+
+			return MessageConfirmCancel.Yes;
 		}
 	}
 }

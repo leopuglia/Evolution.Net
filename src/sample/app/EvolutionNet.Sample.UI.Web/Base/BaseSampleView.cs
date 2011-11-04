@@ -1,3 +1,4 @@
+using System;
 using EvolutionNet.MVP.UI.Web;
 
 namespace EvolutionNet.Sample.UI.Web.Base
@@ -7,7 +8,16 @@ namespace EvolutionNet.Sample.UI.Web.Base
 		protected override void OnLoad(System.EventArgs e)
 		{
 			if (Page != null && Page.Master != null && Page.Master.Master != null)
-				((WebMessageHelper)HelperFactory.MessageHelper).MessageUC = ((_BaseMaster)Page.Master.Master).MessageUC;
+			{
+				var baseMaster = ((_BaseMaster) Page.Master.Master);
+
+				((WebMessageHelper) HelperFactory.MessageHelper).MessageUC = baseMaster.MessageUC;
+
+				baseMaster.ProgressUC.TaskID =
+					((WebBackgroundWorkerHelper2) HelperFactory.GetBackgroundWorkerHelper()).TaskID = Guid.NewGuid();
+//				((WebBackgroundWorkerHelper) HelperFactory.GetBackgroundWorkerHelper()).ProgressUC =
+//					baseMaster.ProgressUC;
+			}
 
 			base.OnLoad(e);
 		}
