@@ -84,6 +84,12 @@
     <Compile Include="Calendar\Holiday\StateHoliday.cs" />
     <Compile Include="Calendar\MonthHelper.cs" />
     <Compile Include="Calendar\Period.cs" />
+    <Compile Include="CommandLine\ArgumentCommand.cs" />
+    <Compile Include="CommandLine\ArgumentInternal.cs" />
+    <Compile Include="CommandLine\ArgumentOption.cs" />
+    <Compile Include="CommandLine\ArgumentType.cs" />
+    <Compile Include="CommandLine\CommandLineHelper.cs" />
+    <Compile Include="CommandLine\IArgument.cs" />
     <Compile Include="UtilSingletonException.cs" />
     <Compile Include="Imaging\BitmapEx.cs" />
     <Compile Include="ConvertHelper.cs" />
