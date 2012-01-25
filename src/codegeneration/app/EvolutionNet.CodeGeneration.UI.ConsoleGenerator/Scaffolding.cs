@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using EvolutionNet.Util.CommandLine;
 
 namespace EvolutionNet.CodeGeneration.UI.ConsoleGenerator
 {
-	public class Generator
+	public class Scaffolding
 	{
 		private CommandLineHelper commandLineHelper;
 		private string basePath = Environment.CurrentDirectory;

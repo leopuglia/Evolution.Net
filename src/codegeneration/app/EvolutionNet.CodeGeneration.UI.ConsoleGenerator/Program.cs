@@ -4,7 +4,7 @@
 	{
 		static void Main(string[] args)
 		{
-			var generator = new Generator();
+			var generator = new Scaffolding();
 			generator.Run(args);
 		}
 	}
