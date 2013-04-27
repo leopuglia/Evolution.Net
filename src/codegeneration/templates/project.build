@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="@PROJECT@" default="all" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
+  <!-- **************************************** EMPTY PROPERTIES **************************************** -->
+  <property name="src.path" value=""/>
+
+  <!-- **************************************** PROPERTY DEFINITIONS INCLUDE **************************************** -->
+  <include buildfile="definitions.include"/>
+
+  <!-- **************************************** BASIC PROJECT PROPERTIES **************************************** -->
+  <property name="company.name" value="@COMPANY@"/>
+
+  <property name="src.path.libs" value="${src.path}@LIBS_PATH@"/>
+  <property name="src.path.web" value="${src.path}@WEB_PATH@"/>
+  <property name="src.path.win" value="${src.path}@WIN_PATH@"/>
+
+</project>

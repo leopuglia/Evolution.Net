@@ -60,7 +60,10 @@
   <property name="project.sample.web" value="EvolutionNet.Sample.UI.Web"/>
   <property name="project.sample.win" value="EvolutionNet.Sample.UI.Windows"/>
 
+  <!--
   <property name="deploy.path" value="${deploy}\${envdir}\${target}\EvolutionNet"/>
+  -->
+  <property name="deploy.path" value="${deploy}\${envdir}\EvolutionNet"/>
 
 
 

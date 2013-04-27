@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="definitions" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
+  <property name="initialized" value="false"/>
+  <property name="debug" value="false" overwrite="false" />
+  <property name="release" value="true" />
+  <property name="release" value="false" if="${debug}" />
+  <property name="envdir" value="release" />
+  <property name="envdir" value="debug" if ="${debug}"/>
+  <property name="aspnet.version" value="v2.0.50727" />
+
+  <property name="src.path" value="src"/>
+  <property name="imports.path" value="lib\${envdir}"/>
+  <property name="build.path" value="build\${envdir}"/>
+  <property name="bin.path" value="bin\${envdir}"/>
+  <property name="bin.path.zip" value="bin\zip"/>
+
+  <property name="teste" value="${xx}"/>
+  
+</project>

@@ -15,9 +15,9 @@ namespace EvolutionNet.Sample.Presenter
 		public override void Find()
 		{
 //			To.ID = View.ModelID;
-			To.MainModel.ID = View.Model.ID;
+			To.CurrentModel.ID = View.Model.ID;
 			Bo.Find();
-			View.Model = To.MainModel;
+			View.Model = To.CurrentModel;
 		}
 	}
 }
