@@ -60,10 +60,8 @@
   <property name="project.sample.web" value="EvolutionNet.Sample.UI.Web"/>
   <property name="project.sample.win" value="EvolutionNet.Sample.UI.Windows"/>
 
-  <!--
   <property name="deploy.path" value="${deploy}\${envdir}\${target}\EvolutionNet"/>
-  -->
-  <property name="deploy.path" value="${deploy}\${envdir}\EvolutionNet"/>
+<!--  <property name="deploy.path" value="${deploy}\${envdir}\EvolutionNet"/>-->
 
 
 
@@ -344,6 +342,9 @@
       <sources>
         <include name="${src.path.mvp}\${assemblyinfo.title}\**\*.cs" />
       </sources>
+      <resources dynamicprefix="true" basedir="${src.path.mvp}">
+        <include name="${assemblyinfo.title}\**\*.resx" />
+      </resources>
       <references>
         <include name="${imports.path}\castle\Castle.ActiveRecord.dll" />
         <include name="${imports.path}\castle\Castle.Components.Validator.dll" />
@@ -559,7 +560,7 @@
     <!-- ****** COPY Libs DLL'S TO BUILD ****** -->
     <copy todir="${build.path.sample.web}\bin" flatten="true" >
       <fileset basedir="${imports.path}">
-        <include name="AForge\Aforge.Imaging.dll" />
+        <!--<include name="AForge\Aforge.Imaging.dll" />-->
         <include name="AjaxControlToolkit\AjaxControlToolkit.dll" />
         <include name="Castle\Castle.ActiveRecord.dll" />
         <include name="Castle\Castle.Components.Validator.dll" />
@@ -622,7 +623,7 @@
     <!-- ****** COPY Libs DLL'S TO BUILD ****** -->
     <copy todir="${build.path.sample.win}" flatten="true" >
       <fileset basedir="${imports.path}">
-        <include name="AForge\Aforge.Imaging.dll" />
+        <!--<include name="AForge\Aforge.Imaging.dll" />-->
         <include name="AjaxControlToolkit\AjaxControlToolkit.dll" />
         <include name="Castle\Castle.ActiveRecord.dll" />
         <include name="Castle\Castle.Components.Validator.dll" />
@@ -718,7 +719,7 @@
         <include name="*.licenses" />
       </resources>
       <references>
-        <include name="${imports.path}\AForge\Aforge.Imaging.dll" />
+        <!--<include name="${imports.path}\AForge\Aforge.Imaging.dll" />-->
         <include name="${imports.path}\AjaxControlToolkit\AjaxControlToolkit.dll" />
         <include name="${imports.path}\log4net\log4net.dll" />
         <!--<include name="${imports.path}\Telerik\Telerik.Win.UI.dll" />-->
