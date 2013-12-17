@@ -40,6 +40,9 @@ namespace EvolutionNet.MVP.Data.Definition
 					// TODO: Adicionei aqui. Verificar como buscar os dados.
 //					list = new SortableBindingList<T>();
 					list = new List<T>();
+
+					// Instancia o TO. Aqui é chamado o método construtor do TO, no caso o BaseTO, que é quem inicializa também o Dao
+					currentModel = (T)Activator.CreateInstance(typeof(T));
 				}
 			}
 			catch (Exception ex)
