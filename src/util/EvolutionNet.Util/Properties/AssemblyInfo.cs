@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Web.UI;
+using System.Security;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -13,6 +14,9 @@ using System.Web.UI;
 [assembly: AssemblyCopyright("Copyright © Evolution 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+// Setei pra ver se funciona no UOL Host
+[assembly: AllowPartiallyTrustedCallers]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -34,9 +38,8 @@ using System.Web.UI;
 
 // Add assembly reference to allow for WebResource.axd access to embedded files
 [assembly: WebResource("EvolutionNet.Util.Web.FlashFileUpload.swf", "application/x-shockwave-flash")]
-[assembly: WebResource("EvolutionNet.Util.Web.common.js", "text/javascript")]
+[assembly: WebResource("EvolutionNet.Util.Web.skm.js", "text/javascript")]
 [assembly: WebResource("EvolutionNet.Util.Web.progressbar.js", "text/javascript")]
 [assembly: WebResource("EvolutionNet.Util.Web.timecounter.js", "text/javascript")]
-[assembly: WebResource("EvolutionNet.Util.Web.skm.js", "text/javascript")]
 [assembly: WebResource("EvolutionNet.Util.Web.ArrowUp.gif", "image/gif")]
 [assembly: WebResource("EvolutionNet.Util.Web.ArrowDown.gif", "image/gif")]
